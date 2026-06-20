@@ -2,17 +2,17 @@ class_name Roulette
 extends Node2D
 
 var cells = []
-var mid_circle_rad = 100
-var mid_circle_colour = Color.SADDLE_BROWN
-var inner_circle_rad = 500
-var outer_circle_rad = 700
-var outer_circle_colour = Color.DARK_RED
+var mid_circle_rad : int = 100
+var mid_circle_colour : Color = Color.SADDLE_BROWN
+var inner_circle_rad : int = 500
+var outer_circle_rad : int = 700
+var outer_circle_colour : Color = Color.DARK_RED
 var default_font : Font = ThemeDB.fallback_font;
 
-const base_roulette_numbers = 24
-const base_cell_weight = 1.0
+const base_roulette_numbers : int = 24
+const base_cell_weight : float = 1.0
 # (base_roulette_numbers + 1) includes the green 0
-var total_weight = (base_roulette_numbers + 1) * base_cell_weight
+var total_weight : float = (base_roulette_numbers + 1) * base_cell_weight
 
 enum CellMod {STICKY, SHINY}
 
