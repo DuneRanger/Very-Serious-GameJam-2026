@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bt8dbkjq4nc07"]
 
 [ext_resource type="Script" uid="uid://bunvqjvj7wk3c" path="res://scenes/game/game_scene/boost_bar/boost_bar.gd" id="1_jkqmw"]
+[ext_resource type="FontFile" uid="uid://d0mkojug0pvql" path="res://assets/fonts/PixeloidSans-Bold.otf" id="2_dkw5f"]
 
 [sub_resource type="Animation" id="Animation_kbc8h"]
 length = 0.001
@@ -28,7 +29,7 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1.4, 1.4, 1.4),
+"transitions": PackedFloat32Array(1.2, 1.4, 1.2),
 "update": 0,
 "values": [Vector2(1, 1e-05), Vector2(1, 1), Vector2(1, 1e-05)]
 }
@@ -42,24 +43,37 @@ _data = {
 [node name="boost_bar" type="Node2D" unique_id=917300306]
 script = ExtResource("1_jkqmw")
 
-[node name="bar" type="Node" parent="." unique_id=1621476095]
+[node name="bar" type="Control" parent="." unique_id=2100949832]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -62.0
+offset_top = -12.0
+offset_right = 30.0
+offset_bottom = 144.0
+scale = Vector2(2, 2)
 
 [node name="outer" type="ColorRect" parent="bar" unique_id=1851246824]
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.4984375
 anchor_top = 0.49722221
 anchor_right = 0.5015625
 anchor_bottom = 0.50277776
-offset_left = -640.0
-offset_top = -360.0
-offset_right = -605.0
-offset_bottom = -256.0
+offset_left = -14.856251
+offset_top = -71.566666
+offset_right = 20.143726
+offset_bottom = 32.433342
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="inner" type="ColorRect" parent="bar/outer" unique_id=7062749]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.056677334
+anchor_top = -0.019071836
+anchor_right = -0.056677334
+anchor_bottom = -0.019071836
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 35.0
@@ -82,12 +96,14 @@ metadata/_edit_use_anchors_ = true
 libraries/ = SubResource("AnimationLibrary_i8rw3")
 autoplay = &"boost_bar_anim"
 
-[node name="boost_bar_button" type="Button" parent="." unique_id=165245328]
-offset_left = -18.0
-offset_top = 108.0
-offset_right = 54.0
-offset_bottom = 141.0
+[node name="Button" type="Button" parent="." unique_id=67256365]
+offset_left = -56.0
+offset_top = 216.0
+offset_right = 127.0
+offset_bottom = 278.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_dkw5f")
+theme_override_font_sizes/font_size = 32
 text = "BOOST!"
-metadata/_edit_use_anchors_ = true
 
-[connection signal="pressed" from="boost_bar_button" to="." method="_on_boost_bar_button_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
