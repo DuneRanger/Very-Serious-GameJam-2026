@@ -66,7 +66,7 @@ func draw_cells():
 				HORIZONTAL_ALIGNMENT_CENTER, font_max_width, font_size)
 
 		cur_angle += cur_cell_angle
-		print(position, cur_angle)
+		#print(position, cur_angle)
 		draw_set_transform(Vector2(0, 0), cur_angle)
 	draw_set_transform(Vector2(0, 0))
 
