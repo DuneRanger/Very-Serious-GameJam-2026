@@ -58,21 +58,23 @@ func draw_cells():
 		var cur_cell_angle = base_cell_angle * cell.weight
 		# Modifies the draw angle so that the middle of the cell is perfectly vertical
 		var draw_angle = -(PI + cur_cell_angle) / 2
-		draw_circle_arc_poly(position, inner_circle_rad, draw_angle, draw_angle + cur_cell_angle, cell.colour)
+		draw_circle_arc_poly(Vector2(0, 0), inner_circle_rad, draw_angle, draw_angle + cur_cell_angle, cell.colour)
 		
 		var font_max_width = sin(cur_cell_angle) * inner_circle_rad
 		var font_size = 48
-		draw_string(default_font, position + Vector2(-font_max_width / 2, -inner_circle_rad * 0.8), str(cell.number),
+		draw_string(default_font, Vector2(-font_max_width / 2, -inner_circle_rad * 0.8), str(cell.number),
 				HORIZONTAL_ALIGNMENT_CENTER, font_max_width, font_size)
 
 		cur_angle += cur_cell_angle
+		print(position, cur_angle)
 		draw_set_transform(Vector2(0, 0), cur_angle)
+	draw_set_transform(Vector2(0, 0))
 
 func draw_centre():
-	draw_circle(position, mid_circle_rad, mid_circle_colour)
+	draw_circle(Vector2(0, 0), mid_circle_rad, mid_circle_colour)
 
 func draw_edge():
-	draw_circle(position, outer_circle_rad, outer_circle_colour)
+	draw_circle(Vector2(0, 0), outer_circle_rad, outer_circle_colour)
 
 func _draw():
 	draw_edge()
