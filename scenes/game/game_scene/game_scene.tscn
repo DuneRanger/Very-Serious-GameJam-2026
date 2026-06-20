@@ -2,6 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://b30ld2u6p8onl" path="res://scenes/game/game_manager/game_manager.tscn" id="1_sists"]
 [ext_resource type="PackedScene" uid="uid://ch1muups6uskk" path="res://scenes/game/game_scene/betting_system/betting_system.tscn" id="2_wftn3"]
+[ext_resource type="PackedScene" uid="uid://cq5g2knkg3o4o" path="res://scenes/game/game_scene/roulette/roulette.tscn" id="2_wftn3"]
+[ext_resource type="FontFile" uid="uid://7paxof88brjl" path="res://assets/fonts/PixeloidMono.otf" id="3_qny2l"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qny2l"]
+font = ExtResource("3_qny2l")
+font_size = 32
 
 [node name="game_scene" type="Node2D" unique_id=1710828263]
 
@@ -12,6 +18,7 @@
 [node name="Table" type="Node" parent="." unique_id=178289830]
 
 [node name="ColorRect" type="ColorRect" parent="Table" unique_id=466862379]
+z_index = -10
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -24,3 +31,14 @@ grow_vertical = 2
 color = Color(0.19744167, 0.43, 0.17630002, 1)
 
 [node name="BettingSystem" parent="Table" unique_id=1381945534 instance=ExtResource("2_wftn3")]
+[node name="Roulette" parent="Table" unique_id=574874280 instance=ExtResource("2_wftn3")]
+
+[node name="TestLabel" type="Label" parent="." unique_id=1877186703]
+offset_left = -609.0
+offset_top = -333.0
+offset_right = -310.0
+offset_bottom = -222.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "This is a test"
+label_settings = SubResource("LabelSettings_qny2l")
