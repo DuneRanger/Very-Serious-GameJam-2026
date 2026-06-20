@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://7jo8gxcpa6u"]
+
+[ext_resource type="Script" uid="uid://3w7s26bt65ui" path="res://scenes/game/game_scene/roulette/roulette.gd" id="1_33j12"]
+
+[node name="Roulette" type="Node2D" unique_id=574874280]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_33j12")
