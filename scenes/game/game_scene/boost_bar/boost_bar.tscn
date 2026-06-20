@@ -1,7 +1,10 @@
 [gd_scene format=3 uid="uid://bt8dbkjq4nc07"]
 
 [ext_resource type="Script" uid="uid://bunvqjvj7wk3c" path="res://scenes/game/game_scene/boost_bar/boost_bar.gd" id="1_jkqmw"]
+[ext_resource type="Texture2D" uid="uid://cvc70jnauhlmx" path="res://assets/textures/UI/Button.png" id="2_bdtx4"]
 [ext_resource type="FontFile" uid="uid://d0mkojug0pvql" path="res://assets/fonts/PixeloidSans-Bold.otf" id="2_dkw5f"]
+[ext_resource type="Texture2D" uid="uid://bfew31gwarq5w" path="res://assets/textures/UI/ButtonPressed.png" id="4_o21ja"]
+[ext_resource type="Texture2D" uid="uid://wt3wpr6fyrj5" path="res://assets/textures/UI/ButtonHover.png" id="5_owshq"]
 
 [sub_resource type="Animation" id="Animation_kbc8h"]
 length = 0.001
@@ -39,6 +42,15 @@ _data = {
 &"RESET": SubResource("Animation_kbc8h"),
 &"boost_bar_anim": SubResource("Animation_m8ps1")
 }
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bdtx4"]
+texture = ExtResource("2_bdtx4")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y1wug"]
+texture = ExtResource("4_o21ja")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jmoeh"]
+texture = ExtResource("5_owshq")
 
 [node name="boost_bar" type="Node2D" unique_id=917300306]
 script = ExtResource("1_jkqmw")
@@ -97,13 +109,16 @@ libraries/ = SubResource("AnimationLibrary_i8rw3")
 autoplay = &"boost_bar_anim"
 
 [node name="Button" type="Button" parent="." unique_id=67256365]
-offset_left = -56.0
+offset_left = -40.0
 offset_top = 216.0
-offset_right = 127.0
-offset_bottom = 278.0
+offset_right = 104.0
+offset_bottom = 288.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_dkw5f")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 29
+theme_override_styles/normal = SubResource("StyleBoxTexture_bdtx4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_y1wug")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jmoeh")
 text = "BOOST!"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
