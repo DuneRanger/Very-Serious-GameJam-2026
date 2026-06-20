@@ -2,6 +2,7 @@ class_name Roulette
 extends Node2D
 
 var cells = []
+
 var mid_circle_rad : int = 100
 var mid_circle_colour : Color = Color.SADDLE_BROWN
 var inner_circle_rad : int = 500
@@ -13,6 +14,8 @@ const base_roulette_numbers : int = 24
 const base_cell_weight : float = 1.0
 # (base_roulette_numbers + 1) includes the green 0
 var total_weight : float = (base_roulette_numbers + 1) * base_cell_weight
+
+var rotation_speed : float = 0;
 
 enum CellMod {STICKY, SHINY}
 
@@ -33,6 +36,7 @@ func _init():
 		var curCol = Color.RED
 		if i % 2 == 0: curCol = Color.BLACK
 		cells.append(RouletteCell.new(i + 1, curCol))
+	spin_roulette()
 
 func draw_circle_arc_poly(center, radius, angle_from, angle_to, color):
 	var nb_points = 32  + floor(100 * abs(angle_from - angle_to)) 
@@ -74,7 +78,14 @@ func _draw():
 	draw_edge()
 	draw_cells()
 	draw_centre()
-		
+
+func decay_rotation():
+	rotation_speed = max(0, min(rotation_speed - 0.0005, rotation_speed * 0.9999))
+
+func spin_roulette():
+	rotation_speed = 0.2
+
 func _process(_delta):
-	rotation += 0.05
+	decay_rotation()
+	rotation += rotation_speed
 	pass
