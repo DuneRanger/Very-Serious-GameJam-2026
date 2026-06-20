@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://03e3sabpwkkf"]
+
+[ext_resource type="PackedScene" uid="uid://b30ld2u6p8onl" path="res://scenes/game/game_manager/game_manager.tscn" id="1_sists"]
+
+[node name="GameScene" type="Node2D" unique_id=1710828263]
+
+[node name="game_manager" parent="." unique_id=1486485077 instance=ExtResource("1_sists")]
+
+[node name="Table" type="Node" parent="." unique_id=178289830]
+
+[node name="ColorRect" type="ColorRect" parent="Table" unique_id=466862379]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1280.0
+offset_top = -720.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.19744167, 0.43, 0.17630002, 1)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=650751615]
