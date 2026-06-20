@@ -1,15 +1,17 @@
 extends Node2D
 
+@export var bet_button_scene: PackedScene
+@export var button_size: float
+@export var padding: float
+
 var bets = {}
 var max_num : int = 24
 var row_count : int = 3
 var col_count : int = 8
 var increment = 1
-var buttons = []
+var buttons : Array[Button] = []
 
-@export var bet_button_scene: PackedScene
-@export var button_size: float
-@export var padding: float
+var game_manager;
 
 var button_id = 0
 
@@ -111,8 +113,13 @@ func resize_background() -> void:
 	$Background.size.x = button_size * 9 + padding * 8
 	$Background.size.y = button_size * 5 + padding * 4
 
+func connect_buttons() -> void:
+	for b in buttons:
+		b.button_down.connect(new_bet)
+
 func _ready() -> void:
 	make_buttons()
+	connect_buttons()
 	resize_background()
 	
 
@@ -120,4 +127,20 @@ func _process(delta: float) -> void:
 	pass
 
 func new_bet() -> void:
-	print("pressed button")
+	var pressed_buttons = []
+	for b in buttons:
+		if b.to_process:
+			pressed_buttons.push_back(b)
+			b.to_process = false
+			
+	for b in pressed_buttons:
+		if increment > game_manager.money:
+			print("Not enough money!")
+			continue
+			
+		var old_bet = bets.get(b.button_id, 0)
+		print("Old bet on: ", b.button_id, " is: ", old_bet)
+		var new_bet = old_bet + increment
+		bets[b.button_id] = new_bet
+		game_manager.money -= increment
+		print("Current bet on: ", b.button_id, " is: ", bets[b.button_id])
