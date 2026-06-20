@@ -1,6 +1,11 @@
 [gd_scene format=3 uid="uid://bt8dbkjq4nc07"]
 
 [ext_resource type="Script" uid="uid://bunvqjvj7wk3c" path="res://scenes/game/game_scene/boost_bar/boost_bar.gd" id="1_jkqmw"]
+[ext_resource type="Texture2D" uid="uid://cvc70jnauhlmx" path="res://assets/textures/UI/Button.png" id="2_bdtx4"]
+[ext_resource type="FontFile" uid="uid://d0mkojug0pvql" path="res://assets/fonts/PixeloidSans-Bold.otf" id="2_dkw5f"]
+[ext_resource type="Texture2D" uid="uid://ci8vi1vy2yfpj" path="res://assets/textures/UI/booster_bar_outline.png" id="2_owshq"]
+[ext_resource type="Texture2D" uid="uid://bfew31gwarq5w" path="res://assets/textures/UI/ButtonPressed.png" id="4_o21ja"]
+[ext_resource type="Texture2D" uid="uid://wt3wpr6fyrj5" path="res://assets/textures/UI/ButtonHover.png" id="5_owshq"]
 
 [sub_resource type="Animation" id="Animation_kbc8h"]
 length = 0.001
@@ -19,7 +24,8 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_m8ps1"]
 resource_name = "boost_bar_anim"
-loop_mode = 1
+length = 0.5
+loop_mode = 2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -27,10 +33,10 @@ tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1.4, 1.4, 1.4),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1.25, 0.85),
 "update": 0,
-"values": [Vector2(1, 1e-05), Vector2(1, 1), Vector2(1, 1e-05)]
+"values": [Vector2(1, 0), Vector2(1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i8rw3"]
@@ -39,55 +45,92 @@ _data = {
 &"boost_bar_anim": SubResource("Animation_m8ps1")
 }
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bdtx4"]
+texture = ExtResource("2_bdtx4")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y1wug"]
+texture = ExtResource("4_o21ja")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jmoeh"]
+texture = ExtResource("5_owshq")
+
 [node name="boost_bar" type="Node2D" unique_id=917300306]
 script = ExtResource("1_jkqmw")
 
-[node name="bar" type="Node" parent="." unique_id=1621476095]
+[node name="BoosterBarOutline" type="Sprite2D" parent="." unique_id=218356572]
+position = Vector2(37, 111)
+scale = Vector2(4.6250005, 4.6250005)
+texture = ExtResource("2_owshq")
+
+[node name="bar" type="Control" parent="." unique_id=2100949832]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -35.000004
+offset_top = 41.0
+offset_right = 56.999996
+offset_bottom = 197.0
+scale = Vector2(1.485, 1.485)
+
+[node name="inner" type="ColorRect" parent="bar" unique_id=7062749]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.40300003
+anchor_top = -0.095000006
+anchor_right = 0.651
+anchor_bottom = 0.65500003
+offset_left = -0.008666992
+offset_top = 0.0051870346
+offset_right = 0.040657043
+offset_bottom = 5.8199997
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="boost_indicator" type="ColorRect" parent="bar/inner" unique_id=1618897588]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 22.865322
+offset_top = 122.815
+offset_right = 23.007
+offset_bottom = 122.815186
+grow_horizontal = 2
+grow_vertical = 0
+rotation = -3.1415927
+color = Color(0.98, 0.76766664, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="bar/inner/boost_indicator" unique_id=567747170]
+libraries/ = SubResource("AnimationLibrary_i8rw3")
+autoplay = &"boost_bar_anim"
 
 [node name="outer" type="ColorRect" parent="bar" unique_id=1851246824]
+visible = false
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.4984375
 anchor_top = 0.49722221
 anchor_right = 0.5015625
 anchor_bottom = 0.50277776
-offset_left = -640.0
-offset_top = -360.0
-offset_right = -605.0
-offset_bottom = -256.0
+offset_left = -14.856251
+offset_top = -71.566666
+offset_right = 20.143726
+offset_bottom = 32.433342
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="inner" type="ColorRect" parent="bar/outer" unique_id=7062749]
-layout_mode = 0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 35.0
-offset_bottom = 104.0
-color = Color(0, 0, 0, 1)
-metadata/_edit_use_anchors_ = true
-
-[node name="boost_indicator" type="ColorRect" parent="bar/outer/inner" unique_id=1618897588]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.01
-anchor_right = 1.0
-anchor_bottom = 1.0100001
-grow_vertical = 0
-pivot_offset = Vector2(0, 100)
-color = Color(0.98, 0.6206667, 0, 1)
-metadata/_edit_use_anchors_ = true
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="bar/outer/inner/boost_indicator" unique_id=567747170]
-libraries/ = SubResource("AnimationLibrary_i8rw3")
-autoplay = &"boost_bar_anim"
-
-[node name="boost_bar_button" type="Button" parent="." unique_id=165245328]
-offset_left = -18.0
-offset_top = 108.0
-offset_right = 54.0
-offset_bottom = 141.0
+[node name="Button" type="Button" parent="." unique_id=67256365]
+offset_left = -35.0
+offset_top = 222.0
+offset_right = 109.0
+offset_bottom = 294.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_dkw5f")
+theme_override_font_sizes/font_size = 29
+theme_override_styles/normal = SubResource("StyleBoxTexture_bdtx4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_y1wug")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jmoeh")
 text = "BOOST!"
-metadata/_edit_use_anchors_ = true
 
-[connection signal="pressed" from="boost_bar_button" to="." method="_on_boost_bar_button_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
