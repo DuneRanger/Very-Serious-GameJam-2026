@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://bt8dbkjq4nc07"]
+
+[ext_resource type="Script" uid="uid://bunvqjvj7wk3c" path="res://scenes/game/game_scene/boost_bar/boost_bar.gd" id="1_jkqmw"]
+
+[sub_resource type="Animation" id="Animation_kbc8h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_m8ps1"]
+resource_name = "boost_bar_anim"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1.4, 1.4, 1.4),
+"update": 0,
+"values": [Vector2(1, 1e-05), Vector2(1, 1), Vector2(1, 1e-05)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i8rw3"]
+_data = {
+&"RESET": SubResource("Animation_kbc8h"),
+&"boost_bar_anim": SubResource("Animation_m8ps1")
+}
+
+[node name="boost_bar" type="Node2D" unique_id=917300306]
+script = ExtResource("1_jkqmw")
+
+[node name="bar" type="Node" parent="." unique_id=1621476095]
+
+[node name="outer" type="ColorRect" parent="bar" unique_id=1851246824]
+anchors_preset = -1
+anchor_left = 0.4984375
+anchor_top = 0.49722221
+anchor_right = 0.5015625
+anchor_bottom = 0.50277776
+offset_left = -640.0
+offset_top = -360.0
+offset_right = -605.0
+offset_bottom = -256.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="inner" type="ColorRect" parent="bar/outer" unique_id=7062749]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 35.0
+offset_bottom = 104.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="boost_indicator" type="ColorRect" parent="bar/outer/inner" unique_id=1618897588]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.01
+anchor_right = 1.0
+anchor_bottom = 1.0100001
+grow_vertical = 0
+pivot_offset = Vector2(0, 100)
+color = Color(0.98, 0.6206667, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="bar/outer/inner/boost_indicator" unique_id=567747170]
+libraries/ = SubResource("AnimationLibrary_i8rw3")
+autoplay = &"boost_bar_anim"
+
+[node name="boost_bar_button" type="Button" parent="." unique_id=165245328]
+offset_left = -18.0
+offset_top = 108.0
+offset_right = 54.0
+offset_bottom = 141.0
+text = "BOOST!"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="boost_bar_button" to="." method="_on_boost_bar_button_pressed"]
