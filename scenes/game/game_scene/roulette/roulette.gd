@@ -79,13 +79,12 @@ func _draw():
 	draw_cells()
 	draw_centre()
 
-func decay_rotation():
-	rotation_speed = max(0, min(rotation_speed - 0.0005, rotation_speed * 0.9999))
+func decay_rotation(_delta):
+	rotation_speed = max(0, min(rotation_speed - 0.01 * _delta, rotation_speed * 0.995))
 
 func spin_roulette():
 	rotation_speed = 0.2
 
 func _process(_delta):
-	decay_rotation()
+	decay_rotation(_delta)
 	rotation += rotation_speed
-	pass
