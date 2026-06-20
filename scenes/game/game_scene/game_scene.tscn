@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://03e3sabpwkkf"]
 
 [ext_resource type="PackedScene" uid="uid://b30ld2u6p8onl" path="res://scenes/game/game_manager/game_manager.tscn" id="1_sists"]
+[ext_resource type="PackedScene" uid="uid://ch1muups6uskk" path="res://scenes/game/game_scene/betting_system/betting_system.tscn" id="2_wftn3"]
 [ext_resource type="PackedScene" uid="uid://cq5g2knkg3o4o" path="res://scenes/game/game_scene/roulette/roulette.tscn" id="2_wftn3"]
 [ext_resource type="FontFile" uid="uid://7paxof88brjl" path="res://assets/fonts/PixeloidMono.otf" id="3_qny2l"]
 
@@ -29,6 +30,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.19744167, 0.43, 0.17630002, 1)
 
+[node name="BettingSystem" parent="Table" unique_id=1381945534 instance=ExtResource("2_wftn3")]
 [node name="Roulette" parent="Table" unique_id=574874280 instance=ExtResource("2_wftn3")]
 
 [node name="TestLabel" type="Label" parent="." unique_id=1877186703]
