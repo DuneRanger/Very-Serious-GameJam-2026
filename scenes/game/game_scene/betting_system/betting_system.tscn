@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://ch1muups6uskk"]
+
+[ext_resource type="Script" uid="uid://dnvqostopki38" path="res://scenes/game/game_scene/betting_system/betting_system.gd" id="1_dp4ot"]
+[ext_resource type="PackedScene" uid="uid://c7y4bfu1vt5we" path="res://scenes/game/game_scene/betting_system/bet_button.tscn" id="2_gf42j"]
+
+[node name="BettingSystem" type="Node2D" unique_id=1381945534]
+script = ExtResource("1_dp4ot")
+bet_button_scene = ExtResource("2_gf42j")
+button_size = 36.0
+padding = 8.0
+
+[node name="Background" type="ColorRect" parent="." unique_id=286948862]
+offset_right = 400.0
+offset_bottom = 300.0
+color = Color(0.75110257, 0.87685895, 1.0102729, 1)

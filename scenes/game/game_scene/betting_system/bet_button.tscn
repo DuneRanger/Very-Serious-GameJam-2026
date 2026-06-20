@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://c7y4bfu1vt5we"]
+
+[ext_resource type="Script" uid="uid://b2d37epksykgv" path="res://scenes/game/game_scene/betting_system/bet_button.gd" id="1_fcqf7"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1luq2"]
+
+[node name="Button" type="Button" unique_id=1147380025]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 60.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 10
+icon = SubResource("PlaceholderTexture2D_1luq2")
+clip_text = true
+script = ExtResource("1_fcqf7")
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]
