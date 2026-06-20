@@ -11,6 +11,8 @@ var col_count : int = 8
 var increment = 1
 var buttons : Array[Button] = []
 
+var game_manager;
+
 var button_id = 0
 
 enum button_type {NUMBER, COLOR, HALF, THIRD}
@@ -132,8 +134,13 @@ func new_bet() -> void:
 			b.to_process = false
 			
 	for b in pressed_buttons:
+		if increment > game_manager.money:
+			print("Not enough money!")
+			continue
+			
 		var old_bet = bets.get(b.button_id, 0)
 		print("Old bet on: ", b.button_id, " is: ", old_bet)
 		var new_bet = old_bet + increment
 		bets[b.button_id] = new_bet
+		game_manager.money -= increment
 		print("Current bet on: ", b.button_id, " is: ", bets[b.button_id])
