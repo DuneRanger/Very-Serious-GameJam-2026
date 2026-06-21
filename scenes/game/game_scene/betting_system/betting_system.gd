@@ -110,19 +110,33 @@ func make_buttons() -> void:
 	button_black.init(last_row_size_x, button_size, (last_row_size_x + padding) * 3, last_row_pos_y, get_button_id())
 	buttons.push_back(button_black)
 	add_child(button_black)	
+	
+	$IncrementToggle.size = Vector2(button_size, button_size)
+	$IncrementToggle.position = Vector2(0.0, (button_size + padding) * (row_count + 2))
+	
 
 func resize_background() -> void:
 	$Background.size.x = button_size * 9 + padding * 10
 	$Background.size.y = button_size * 6 + padding * 7
-	$Background.position.x = -padding
-	$Background.position.y = -padding
+
+func pad_all_buttons() -> void:
+	var pad_vect = Vector2(padding, padding)
+	for b in buttons:
+		b.position += pad_vect
+	$IncrementToggle.position += pad_vect
 
 func connect_buttons() -> void:
 	for b in buttons:
 		b.button_down.connect(new_bet)
 
+func init_bets() -> void:
+	for b in buttons:
+		bets[b.button_id] = 0
+
 func _ready() -> void:
 	make_buttons()
+	init_bets()
+	pad_all_buttons()
 	connect_buttons()
 	resize_background()
 	
@@ -130,31 +144,50 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func new_bet() -> void:
+func _on_increment_toggle_button_down() -> void:
+	increment *= -1
+
+func get_pressed_buttons ():
 	var pressed_buttons = []
 	for b in buttons:
 		if b.to_process:
 			pressed_buttons.push_back(b)
 			b.to_process = false
-			
+	return pressed_buttons
+
+func get_label(b_id: int):
+	if labels.has(b_id):
+		return labels[b_id]
+	var lab = bet_button_label.instantiate()
+	var b = buttons[b_id]
+	lab.size = Vector2(button_size, button_size) * 2/3
+	lab.position = b.position + b.size * 1/2 - lab.size * 1/2
+	return lab
+	
+
+func new_bet() -> void:
+	var pressed_buttons = get_pressed_buttons()
 	for b in pressed_buttons:
 		if increment > game_manager.money:
 			print("Not enough money!")
 			continue
+		elif increment < 0 and bets[b.button_id] == 0:
+			print("Removing money on an empty bet!")
+			continue
 			
-		var old_bet = bets.get(b.button_id, 0)
-		print("Old bet on: ", b.button_id, " is: ", old_bet)
-		var new_bet = old_bet + increment
-		bets[b.button_id] = new_bet
+		var old_bet_amount = bets[b.button_id]
+		var new_bet_amount = max ((old_bet_amount + increment), 0)
+		bets[b.button_id] = new_bet_amount
 		
-		if new_bet > 0:
-			var lab = labels.get(b.button_id, bet_button_label.instantiate())
-			lab.text = str(new_bet)
-			lab.size = b.size * 2/3
-			lab.position = b.position + b.size * 1/6
-			add_child(lab)
-			labels[b.button_id] = lab
-			
-			
-		game_manager.money -= increment
-		print("Current bet on: ", b.button_id, " is: ", bets[b.button_id])
+		var bet_difference = new_bet_amount - old_bet_amount 
+		game_manager.money -= bet_difference
+		
+		var l = get_label(b.button_id)
+		l.text = str(new_bet_amount)
+		
+		if new_bet_amount > 0:
+			labels[b.button_id] = l
+			if l.get_parent() == null:
+				add_child(l)
+		elif new_bet_amount == 0:
+			remove_child(l)
