@@ -155,13 +155,14 @@ func get_pressed_buttons ():
 			b.to_process = false
 	return pressed_buttons
 
-func get_label(b_id: int):
+func get_label(b):
+	var b_id = b.button_id
 	if labels.has(b_id):
 		return labels[b_id]
 	var lab = bet_button_label.instantiate()
-	var b = buttons[b_id]
 	lab.size = Vector2(button_size, button_size) * 2/3
 	lab.position = b.position + b.size * 1/2 - lab.size * 1/2
+	labels[b.button_id] = lab
 	return lab
 	
 
@@ -182,11 +183,10 @@ func new_bet() -> void:
 		var bet_difference = new_bet_amount - old_bet_amount 
 		game_manager.money -= bet_difference
 		
-		var l = get_label(b.button_id)
+		var l = get_label(b)
 		l.text = str(new_bet_amount)
 		
 		if new_bet_amount > 0:
-			labels[b.button_id] = l
 			if l.get_parent() == null:
 				add_child(l)
 		elif new_bet_amount == 0:
