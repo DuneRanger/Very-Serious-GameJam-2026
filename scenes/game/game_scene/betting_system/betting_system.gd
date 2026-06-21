@@ -110,8 +110,10 @@ func make_buttons() -> void:
 	add_child(button_black)	
 
 func resize_background() -> void:
-	$Background.size.x = button_size * 9 + padding * 8
-	$Background.size.y = button_size * 5 + padding * 4
+	$Background.size.x = button_size * 9 + padding * 10
+	$Background.size.y = button_size * 6 + padding * 7
+	$Background.position.x = -padding
+	$Background.position.y = -padding
 
 func connect_buttons() -> void:
 	for b in buttons:
