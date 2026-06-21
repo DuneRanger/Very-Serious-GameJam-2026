@@ -2,10 +2,13 @@
 
 [ext_resource type="Script" uid="uid://dnvqostopki38" path="res://scenes/game/game_scene/betting_system/betting_system.gd" id="1_dp4ot"]
 [ext_resource type="PackedScene" uid="uid://c7y4bfu1vt5we" path="res://scenes/game/game_scene/betting_system/bet_button.tscn" id="2_gf42j"]
+[ext_resource type="PackedScene" uid="uid://r818ix60yp68" path="res://scenes/game/game_scene/betting_system/bet_label.tscn" id="3_njhud"]
+[ext_resource type="Script" uid="uid://c7ho25had8seq" path="res://scenes/game/game_scene/betting_system/increment_toggle.gd" id="4_qcixp"]
 
 [node name="BettingSystem" type="Node2D" unique_id=1381945534]
 script = ExtResource("1_dp4ot")
 bet_button_scene = ExtResource("2_gf42j")
+bet_button_label = ExtResource("3_njhud")
 button_size = 36.0
 padding = 8.0
 
@@ -13,3 +16,19 @@ padding = 8.0
 offset_right = 400.0
 offset_bottom = 300.0
 color = Color(0.75110257, 0.87685895, 1.0102729, 1)
+
+[node name="IncrementToggle" type="Button" parent="." unique_id=610838021]
+offset_right = 8.0
+offset_bottom = 8.0
+script = ExtResource("4_qcixp")
+increment_state_color_adding = Color(0, 0.6914364, 0, 1)
+increment_state_color_removing = Color(0.7824077, 0.1326296, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="IncrementToggle" unique_id=280955975]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[connection signal="button_down" from="IncrementToggle" to="." method="_on_increment_toggle_button_down"]
+[connection signal="button_down" from="IncrementToggle" to="IncrementToggle" method="_on_button_down"]
