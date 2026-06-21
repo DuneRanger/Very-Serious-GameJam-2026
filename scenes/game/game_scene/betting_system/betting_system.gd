@@ -2,7 +2,7 @@ extends Node2D
 
 @export var bet_button_scene: PackedScene
 @export var bet_button_label: PackedScene
-@export var button_size: float
+@export var background_width: float
 @export var padding: float
 
 var bets = {}
@@ -12,6 +12,9 @@ var row_count : int = 3
 var col_count : int = 8
 var increment = 1
 var buttons : Array[Button] = []
+
+var button_size : float
+var background_height : float
 
 var game_manager;
 
@@ -115,10 +118,6 @@ func make_buttons() -> void:
 	$IncrementToggle.position = Vector2(0.0, (button_size + padding) * (row_count + 2))
 	
 
-func resize_background() -> void:
-	$Background.size.x = button_size * 9 + padding * 10
-	$Background.size.y = button_size * 6 + padding * 7
-
 func pad_all_buttons() -> void:
 	var pad_vect = Vector2(padding, padding)
 	for b in buttons:
@@ -134,11 +133,13 @@ func init_bets() -> void:
 		bets[b.button_id] = 0
 
 func _ready() -> void:
+	button_size = (background_width - padding * (col_count + 2)) / (col_count + 1)
+	background_height = (row_count + 3) * button_size + (row_count + 4) * padding
+	$Background.size = Vector2(background_width, background_height)
 	make_buttons()
 	init_bets()
 	pad_all_buttons()
 	connect_buttons()
-	resize_background()
 	
 
 func _process(delta: float) -> void:

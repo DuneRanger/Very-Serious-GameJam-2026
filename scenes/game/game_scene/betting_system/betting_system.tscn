@@ -9,12 +9,10 @@
 script = ExtResource("1_dp4ot")
 bet_button_scene = ExtResource("2_gf42j")
 bet_button_label = ExtResource("3_njhud")
-button_size = 36.0
+background_width = 400.0
 padding = 8.0
 
 [node name="Background" type="ColorRect" parent="." unique_id=286948862]
-offset_right = 400.0
-offset_bottom = 300.0
 color = Color(0.75110257, 0.87685895, 1.0102729, 1)
 
 [node name="IncrementToggle" type="Button" parent="." unique_id=610838021]
