@@ -2,7 +2,7 @@ extends Node2D
 
 @export var bet_button_scene: PackedScene
 @export var bet_button_label: PackedScene
-@export var button_size: float
+@export var background_width: float
 @export var padding: float
 
 var bets = {}
@@ -12,6 +12,9 @@ var row_count : int = 3
 var col_count : int = 8
 var increment = 1
 var buttons : Array[Button] = []
+
+var button_size : float
+var background_height : float
 
 var game_manager;
 
@@ -115,10 +118,6 @@ func make_buttons() -> void:
 	$IncrementToggle.position = Vector2(0.0, (button_size + padding) * (row_count + 2))
 	
 
-func resize_background() -> void:
-	$Background.size.x = button_size * 9 + padding * 10
-	$Background.size.y = button_size * 6 + padding * 7
-
 func pad_all_buttons() -> void:
 	var pad_vect = Vector2(padding, padding)
 	for b in buttons:
@@ -127,22 +126,21 @@ func pad_all_buttons() -> void:
 
 func connect_buttons() -> void:
 	for b in buttons:
-		b.button_down.connect(new_bet)
+		b.placed_bet.connect(new_bet)
 
 func init_bets() -> void:
 	for b in buttons:
 		bets[b.button_id] = 0
 
 func _ready() -> void:
+	button_size = (background_width - padding * (col_count + 2)) / (col_count + 1)
+	background_height = (row_count + 3) * button_size + (row_count + 4) * padding
+	$Background.size = Vector2(background_width, background_height)
 	make_buttons()
 	init_bets()
 	pad_all_buttons()
 	connect_buttons()
-	resize_background()
 	
-
-func _process(delta: float) -> void:
-	pass
 
 func _on_increment_toggle_button_down() -> void:
 	increment *= -1
@@ -155,39 +153,38 @@ func get_pressed_buttons ():
 			b.to_process = false
 	return pressed_buttons
 
-func get_label(b_id: int):
+func get_label(b):
+	var b_id = b.button_id
 	if labels.has(b_id):
 		return labels[b_id]
 	var lab = bet_button_label.instantiate()
-	var b = buttons[b_id]
 	lab.size = Vector2(button_size, button_size) * 2/3
 	lab.position = b.position + b.size * 1/2 - lab.size * 1/2
+	labels[b.button_id] = lab
 	return lab
 	
 
-func new_bet() -> void:
-	var pressed_buttons = get_pressed_buttons()
-	for b in pressed_buttons:
-		if increment > game_manager.money:
-			print("Not enough money!")
-			continue
-		elif increment < 0 and bets[b.button_id] == 0:
-			print("Removing money on an empty bet!")
-			continue
-			
-		var old_bet_amount = bets[b.button_id]
-		var new_bet_amount = max ((old_bet_amount + increment), 0)
-		bets[b.button_id] = new_bet_amount
+func new_bet(b_id : int) -> void:
+	var b = buttons[b_id]
+	if increment > game_manager.money:
+		print("Not enough money!")
+		return
+	elif increment < 0 and bets[b_id] == 0:
+		print("Removing money on an empty bet!")
+		return
 		
-		var bet_difference = new_bet_amount - old_bet_amount 
-		game_manager.money -= bet_difference
-		
-		var l = get_label(b.button_id)
-		l.text = str(new_bet_amount)
-		
-		if new_bet_amount > 0:
-			labels[b.button_id] = l
-			if l.get_parent() == null:
-				add_child(l)
-		elif new_bet_amount == 0:
-			remove_child(l)
+	var old_bet_amount = bets[b_id]
+	var new_bet_amount = max ((old_bet_amount + increment), 0)
+	bets[b_id] = new_bet_amount
+	
+	var bet_difference = new_bet_amount - old_bet_amount 
+	game_manager.money -= bet_difference
+	
+	var l = get_label(b)
+	l.text = str(new_bet_amount)
+	
+	if new_bet_amount > 0:
+		if l.get_parent() == null:
+			add_child(l)
+	elif new_bet_amount == 0:
+		remove_child(l)
