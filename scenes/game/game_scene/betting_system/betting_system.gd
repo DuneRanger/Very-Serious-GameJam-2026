@@ -115,7 +115,6 @@ func make_buttons() -> void:
 	add_child(button_black)	
 	
 	$IncrementToggle.size = Vector2(button_size, button_size)
-	$IncrementToggle/ColorRect.size = Vector2(button_size, button_size) * 0.8
 	$IncrementToggle.position = Vector2(0.0, (button_size + padding) * (row_count + 2))
 	
 
