@@ -1,10 +1,12 @@
 extends Node2D
 
 @export var bet_button_scene: PackedScene
+@export var bet_button_label: PackedScene
 @export var button_size: float
 @export var padding: float
 
 var bets = {}
+var labels = {}
 var max_num : int = 24
 var row_count : int = 3
 var col_count : int = 8
@@ -144,5 +146,15 @@ func new_bet() -> void:
 		print("Old bet on: ", b.button_id, " is: ", old_bet)
 		var new_bet = old_bet + increment
 		bets[b.button_id] = new_bet
+		
+		if new_bet > 0:
+			var lab = labels.get(b.button_id, bet_button_label.instantiate())
+			lab.text = str(new_bet)
+			lab.size = b.size * 2/3
+			lab.position = b.position + b.size * 1/6
+			add_child(lab)
+			labels[b.button_id] = lab
+			
+			
 		game_manager.money -= increment
 		print("Current bet on: ", b.button_id, " is: ", bets[b.button_id])

@@ -2,10 +2,12 @@
 
 [ext_resource type="Script" uid="uid://dnvqostopki38" path="res://scenes/game/game_scene/betting_system/betting_system.gd" id="1_dp4ot"]
 [ext_resource type="PackedScene" uid="uid://c7y4bfu1vt5we" path="res://scenes/game/game_scene/betting_system/bet_button.tscn" id="2_gf42j"]
+[ext_resource type="PackedScene" uid="uid://r818ix60yp68" path="res://scenes/game/game_scene/betting_system/bet_label.tscn" id="3_njhud"]
 
 [node name="BettingSystem" type="Node2D" unique_id=1381945534]
 script = ExtResource("1_dp4ot")
 bet_button_scene = ExtResource("2_gf42j")
+bet_button_label = ExtResource("3_njhud")
 button_size = 36.0
 padding = 8.0
 
