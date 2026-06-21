@@ -5,17 +5,15 @@
 [ext_resource type="PackedScene" uid="uid://r818ix60yp68" path="res://scenes/game/game_scene/betting_system/bet_label.tscn" id="3_njhud"]
 [ext_resource type="Texture2D" uid="uid://cvc70jnauhlmx" path="res://assets/textures/UI/Button.png" id="4_4sryy"]
 [ext_resource type="Script" uid="uid://c7ho25had8seq" path="res://scenes/game/game_scene/betting_system/increment_toggle.gd" id="4_qcixp"]
-[ext_resource type="Texture2D" uid="uid://bfew31gwarq5w" path="res://assets/textures/UI/ButtonPressed.png" id="5_iwegw"]
-[ext_resource type="Texture2D" uid="uid://wt3wpr6fyrj5" path="res://assets/textures/UI/ButtonHover.png" id="6_4fs5k"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_60oc5"]
 texture = ExtResource("4_4sryy")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wj0nr"]
-texture = ExtResource("5_iwegw")
+texture = ExtResource("4_4sryy")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p2qa8"]
-texture = ExtResource("6_4fs5k")
+texture = ExtResource("4_4sryy")
 
 [node name="BettingSystem" type="Node2D" unique_id=1381945534]
 script = ExtResource("1_dp4ot")
