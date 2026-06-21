@@ -115,6 +115,7 @@ func make_buttons() -> void:
 	add_child(button_black)	
 	
 	$IncrementToggle.size = Vector2(button_size, button_size)
+	$IncrementToggle/ColorRect.size = Vector2(button_size, button_size) * 0.8
 	$IncrementToggle.position = Vector2(0.0, (button_size + padding) * (row_count + 2))
 	
 
@@ -126,7 +127,7 @@ func pad_all_buttons() -> void:
 
 func connect_buttons() -> void:
 	for b in buttons:
-		b.button_down.connect(new_bet)
+		b.placed_bet.connect(new_bet)
 
 func init_bets() -> void:
 	for b in buttons:
@@ -141,9 +142,6 @@ func _ready() -> void:
 	pad_all_buttons()
 	connect_buttons()
 	
-
-func _process(delta: float) -> void:
-	pass
 
 func _on_increment_toggle_button_down() -> void:
 	increment *= -1
@@ -167,28 +165,27 @@ func get_label(b):
 	return lab
 	
 
-func new_bet() -> void:
-	var pressed_buttons = get_pressed_buttons()
-	for b in pressed_buttons:
-		if increment > game_manager.money:
-			print("Not enough money!")
-			continue
-		elif increment < 0 and bets[b.button_id] == 0:
-			print("Removing money on an empty bet!")
-			continue
-			
-		var old_bet_amount = bets[b.button_id]
-		var new_bet_amount = max ((old_bet_amount + increment), 0)
-		bets[b.button_id] = new_bet_amount
+func new_bet(b_id : int) -> void:
+	var b = buttons[b_id]
+	if increment > game_manager.money:
+		print("Not enough money!")
+		return
+	elif increment < 0 and bets[b_id] == 0:
+		print("Removing money on an empty bet!")
+		return
 		
-		var bet_difference = new_bet_amount - old_bet_amount 
-		game_manager.money -= bet_difference
-		
-		var l = get_label(b)
-		l.text = str(new_bet_amount)
-		
-		if new_bet_amount > 0:
-			if l.get_parent() == null:
-				add_child(l)
-		elif new_bet_amount == 0:
-			remove_child(l)
+	var old_bet_amount = bets[b_id]
+	var new_bet_amount = max ((old_bet_amount + increment), 0)
+	bets[b_id] = new_bet_amount
+	
+	var bet_difference = new_bet_amount - old_bet_amount 
+	game_manager.money -= bet_difference
+	
+	var l = get_label(b)
+	l.text = str(new_bet_amount)
+	
+	if new_bet_amount > 0:
+		if l.get_parent() == null:
+			add_child(l)
+	elif new_bet_amount == 0:
+		remove_child(l)
