@@ -1,30 +1,31 @@
 [gd_scene format=3 uid="uid://c7y4bfu1vt5we"]
 
-[ext_resource type="Texture2D" uid="uid://cvc70jnauhlmx" path="res://assets/textures/UI/Button.png" id="1_8aveq"]
+[ext_resource type="FontFile" uid="uid://d0mkojug0pvql" path="res://assets/fonts/PixeloidSans-Bold.otf" id="1_8aveq"]
 [ext_resource type="Script" uid="uid://b2d37epksykgv" path="res://scenes/game/game_scene/betting_system/bet_button.gd" id="1_fcqf7"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qfsh5"]
-texture = ExtResource("1_8aveq")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1luq2"]
+bg_color = Color(0, 0.39215687, 0.05882353, 1)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8aveq"]
-texture = ExtResource("1_8aveq")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8aveq"]
+bg_color = Color(0, 0.39215687, 0.05882353, 1)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_by6ed"]
-texture = ExtResource("1_8aveq")
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1luq2"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_by6ed"]
+bg_color = Color(0, 0.39215687, 0.05882353, 1)
 
 [node name="Button" type="Button" unique_id=1147380025]
 offset_left = 20.0
 offset_top = 20.0
 offset_right = 60.0
 offset_bottom = 60.0
-theme_override_font_sizes/font_size = 10
-theme_override_styles/normal = SubResource("StyleBoxTexture_qfsh5")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_8aveq")
-theme_override_styles/hover = SubResource("StyleBoxTexture_by6ed")
-icon = SubResource("PlaceholderTexture2D_1luq2")
+theme_override_fonts/font = ExtResource("1_8aveq")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_1luq2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_8aveq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_by6ed")
+button_mask = 3
+autowrap_trim_flags = 192
 clip_text = true
+icon_alignment = 1
 script = ExtResource("1_fcqf7")
 
 [connection signal="button_down" from="." to="." method="_on_button_down"]
