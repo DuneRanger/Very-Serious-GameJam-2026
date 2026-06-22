@@ -149,7 +149,7 @@ func _physics_process(_delta: float):
 	decay_rotation()
 	queue_redraw()
 	give_balls_angular_velocity(_delta)
-	match (game_manager.game_state):
+	match (GameManager.game_state):
 		GameEnums.game_states.SPIN_PHASE:
 			if rotation_speed == 0:
 				GameManager.game_state = GameEnums.game_states.BET_PHASE
