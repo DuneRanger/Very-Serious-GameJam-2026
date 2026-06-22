@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://ch1muups6uskk" path="res://scenes/game/game_scene/betting_system/betting_system.tscn" id="4_uj17p"]
 [ext_resource type="PackedScene" uid="uid://bt8dbkjq4nc07" path="res://scenes/game/game_scene/boost_bar/boost_bar.tscn" id="4_yjymu"]
 [ext_resource type="Texture2D" uid="uid://dut742t7mmgrt" path="res://assets/textures/chips/chip_black.png" id="7_ho26m"]
+[ext_resource type="PackedScene" uid="uid://dcu31p6twmdit" path="res://scenes/game/utils/ErrorMessage.tscn" id="8_dkmwb"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qny2l"]
 font = ExtResource("3_qny2l")
@@ -40,12 +41,17 @@ grow_vertical = 2
 color = Color(0.19744167, 0.43, 0.17630002, 1)
 
 [node name="Roulette" parent="Table" unique_id=574874280 instance=ExtResource("2_wftn3")]
+position = Vector2(256, 0)
 
 [node name="BettingSystem" parent="Table" unique_id=1381945534 instance=ExtResource("4_uj17p")]
-position = Vector2(209, -206)
+position = Vector2(-608, -128)
 
 [node name="boost_bar" parent="Table" unique_id=917300306 instance=ExtResource("4_yjymu")]
+visible = false
 position = Vector2(-554, 17)
+
+[node name="ErrorMessage" parent="Table" unique_id=371495968 instance=ExtResource("8_dkmwb")]
+position = Vector2(-197, -298)
 
 [node name="TestLabel" type="Label" parent="." unique_id=1877186703]
 offset_left = -609.0

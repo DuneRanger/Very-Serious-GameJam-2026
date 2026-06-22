@@ -1,9 +1,11 @@
 extends Node2D
 
-var round_budget: int
-var round_count: int
-var money: int
-var tokens: int
-var spins: int
-var boosts: int
-var game_state : GameEnums.game_states
+class_name GameManager
+
+static var round_budget: int
+static var round_count: int
+static var money: int
+static var tokens: int
+static var spins: int
+static var boosts: int
+static var game_state : GameEnums.game_states

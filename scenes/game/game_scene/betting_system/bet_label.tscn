@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://r818ix60yp68"]
 
-[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://assets/textures/UI/icon.svg" id="1_iyrcd"]
+[ext_resource type="Texture2D" uid="uid://dut742t7mmgrt" path="res://assets/textures/chips/chip_black.png" id="1_iyrcd"]
+[ext_resource type="FontFile" uid="uid://d0mkojug0pvql" path="res://assets/fonts/PixeloidSans-Bold.otf" id="1_pboxb"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pboxb"]
 texture = ExtResource("1_iyrcd")
@@ -9,6 +10,12 @@ texture = ExtResource("1_iyrcd")
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
+theme_override_colors/default_color = Color(1, 1, 0, 1)
+theme_override_colors/font_selected_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/normal_font = ExtResource("1_pboxb")
 theme_override_styles/normal = SubResource("StyleBoxTexture_pboxb")
 fit_content = true
 horizontal_alignment = 1
+vertical_alignment = 1

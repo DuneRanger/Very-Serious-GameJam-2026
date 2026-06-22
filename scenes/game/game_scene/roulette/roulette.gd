@@ -16,8 +16,6 @@ const base_cell_weight : float = 1.0
 # (base_roulette_numbers + 1) includes the green 0
 var total_weight : float = (base_roulette_numbers + 1) * base_cell_weight
 
-var game_manager
-
 enum CellMod {STICKY, SHINY}
 
 class RouletteCell:
@@ -154,7 +152,7 @@ func _physics_process(_delta: float):
 	match (game_manager.game_state):
 		GameEnums.game_states.SPIN_PHASE:
 			if rotation_speed == 0:
-				game_manager.game_state = GameEnums.game_states.BET_PHASE
+				GameManager.game_state = GameEnums.game_states.BET_PHASE
 		GameEnums.game_states.BET_PHASE:
 			pass
 		_:
