@@ -9,10 +9,15 @@
 [ext_resource type="PackedScene" uid="uid://bt8dbkjq4nc07" path="res://scenes/game/game_scene/boost_bar/boost_bar.tscn" id="4_yjymu"]
 [ext_resource type="Texture2D" uid="uid://dut742t7mmgrt" path="res://assets/textures/chips/chip_black.png" id="7_ho26m"]
 [ext_resource type="PackedScene" uid="uid://dcu31p6twmdit" path="res://scenes/game/utils/ErrorMessage.tscn" id="8_dkmwb"]
+[ext_resource type="Shader" uid="uid://d1sj22wa4oiic" path="res://assets/shaders/pixelate.gdshader" id="10_1xuq5"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qny2l"]
 font = ExtResource("3_qny2l")
 font_size = 32
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hdcdy"]
+shader = ExtResource("10_1xuq5")
+shader_parameter/pixel_size = 3.0
 
 [node name="game_scene" type="Node2D" unique_id=1710828263]
 script = ExtResource("1_ljoy4")
@@ -67,3 +72,14 @@ label_settings = SubResource("LabelSettings_qny2l")
 position = Vector2(516, -268)
 scale = Vector2(1.6875, 1.6875)
 texture = ExtResource("7_ho26m")
+
+[node name="PixerShaderLayer" type="CanvasLayer" parent="." unique_id=731125925]
+
+[node name="pixelate" type="ColorRect" parent="PixerShaderLayer" unique_id=566398761]
+light_mask = 0
+texture_filter = 1
+material = SubResource("ShaderMaterial_hdcdy")
+offset_left = 522.0
+offset_top = -383.0
+offset_right = 1279.0
+offset_bottom = 747.0
