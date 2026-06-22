@@ -165,6 +165,8 @@ func get_label(b):
 	
 
 func new_bet(b_id : int) -> void:
+	if game_manager.game_state != GameEnums.game_states.BET_PHASE:
+		return
 	var b = buttons[b_id]
 	if increment > game_manager.money:
 		print("Not enough money!")
