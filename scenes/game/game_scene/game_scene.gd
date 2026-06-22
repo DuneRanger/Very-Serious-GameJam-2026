@@ -11,6 +11,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if $Table/BettingSystem.error_message != "":
 		send_error_message($Table/BettingSystem.error_message)
+		$Table/BettingSystem.error_message = ""
 		
 	match (GameManager.game_state):
 		GameEnums.game_states.BET_PHASE:
