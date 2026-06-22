@@ -22,7 +22,7 @@ var ball_radius : float = 10
 # 0 = on a pocket floor,
 # 1.0 = up at the rim.
 # 0.5 = highest point in the centre
-var height : float = 1.0:
+var height : float = 0.0:
 	set(v):
 		height = clampf(v, 0.0, 1.0)
 
@@ -63,7 +63,7 @@ func get_speed() -> float:
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	if settled:
 		var bank_to_ball = bound_bank.global_position - global_position
-		state.linear_velocity = bank_to_ball.normalized() * 100
+		state.linear_velocity = bank_to_ball.normalized() * 50 * bank_to_ball.length()
 		return
 
 	var new_vel = state.linear_velocity
