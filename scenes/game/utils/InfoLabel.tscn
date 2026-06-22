@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bxpdautuuacla"]
+
+[node name="InfoLabel" type="Node2D" unique_id=1631396074]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1985102777]
+offset_right = 40.0
+offset_bottom = 40.0

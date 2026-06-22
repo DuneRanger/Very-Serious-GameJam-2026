@@ -2,7 +2,6 @@ extends Node2D
 
 @export var bet_button_scene: PackedScene
 @export var bet_button_label: PackedScene
-@export var error_message_label: PackedScene
 @export var background_width: float
 @export var padding: float
 
@@ -17,12 +16,13 @@ var row_count : int = 3
 var col_count : int = 8
 var increment = 1
 var buttons : Array[Button] = []
-var errors = []
 
 var button_size : float
 var background_height : float
 
 var button_id = 0
+
+var error_message = ""
 
 
 func get_bet_type(id : int) -> GameEnums.bet_types:
@@ -160,7 +160,6 @@ func set_button_size() -> void:
 	for b in buttons:
 		var button_type = get_bet_type(b.button_id)
 		var b_font_size = get_button_font_size(button_type)
-		print(b_font_size)
 		b.add_theme_font_size_override("font_size", b_font_size)
 
 func _ready() -> void:
@@ -183,18 +182,6 @@ func get_label(b):
 	labels[b.button_id] = lab
 	return lab
 
-func send_error_message(message : String) -> void:
-	var new_error_message = error_message_label.instantiate()
-	new_error_message.put_content(message)
-	var bp = $Background.position
-	var bs = $Background.size
-	var ms = new_error_message.get_text_size()
-	var mp = new_error_message.position
-	#print(bp, bs, ms, mp)
-	new_error_message.position = bp + bs/2 - ms/2
-	add_child(new_error_message)
-	errors.push_back(new_error_message)
-
 func new_bet(b_id : int) -> void:
 	if GameManager.game_state != GameEnums.game_states.BET_PHASE:
 		return
@@ -204,10 +191,10 @@ func new_bet(b_id : int) -> void:
 		current_increment *= -1
 	
 	if current_increment > GameManager.money:
-		send_error_message("Not enough money!")
+		error_message = "Not enough money!"
 		return
 	elif current_increment < 0 and bets[b_id] == 0:
-		send_error_message("Removing money on an empty bet!")
+		error_message = "Removing money on an empty bet!"
 		return
 		
 	var old_bet_amount = bets[b_id]

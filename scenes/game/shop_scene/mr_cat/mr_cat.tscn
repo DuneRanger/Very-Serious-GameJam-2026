@@ -94,14 +94,12 @@ animation = &"sunglasses"
 wait_time = 1.5
 
 [node name="TestButton2" type="Button" parent="." unique_id=600080867]
-visible = false
 offset_left = -119.75
 offset_top = -48.0
 offset_right = -75.75
 offset_bottom = -24.0
 
 [node name="TestButton" type="Button" parent="." unique_id=2035756023]
-visible = false
 offset_left = -120.0
 offset_top = -77.0
 offset_right = -76.0
