@@ -84,6 +84,7 @@ script = ExtResource("1_5h37c")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1332933587]
 stream = ExtResource("1_jy1pq")
 autoplay = true
+bus = &"Music"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AudioStreamPlayer" unique_id=924739326]
 libraries/ = SubResource("AnimationLibrary_5jk4l")
