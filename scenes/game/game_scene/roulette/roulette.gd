@@ -78,7 +78,7 @@ func draw_cells():
 
 		cur_angle += cur_cell_angle
 		draw_set_transform(Vector2(0, 0), cur_angle + visual_rotation)
-	draw_set_transform(Vector2(0, 0), visual_rotation)
+	draw_set_transform(Vector2(0, 0), 0)
 
 func draw_centre():
 	draw_circle(Vector2(0, 0), inner_circle_radius, inner_circle_colour)
@@ -87,6 +87,7 @@ func draw_edge():
 	draw_circle(Vector2(0, 0), outer_circle_radius, outer_circle_colour)
 
 func _draw():
+	move_banks()
 	draw_edge()
 	draw_cells()
 	draw_centre()
@@ -125,9 +126,13 @@ func build_outer_wall():
 		visual.add_point(Vector2(cos(angle), sin(angle)) * outer_circle_radius)
 	wall_body.add_child(visual)
 
+func decay_rotation():
+	rotation_speed = max(0, min(rotation_speed - 0.000005, rotation_speed * 0.999))
+
 func spin_roulette():
 	launch_balls()
-	rotation_speed = 0.02
+	rotation_speed = 0.03
+	queue_redraw()
 
 func stop_roulette():
 	rotation_speed = 0.0
@@ -137,16 +142,17 @@ func _ready():
 	build_banks()
 	prepare_balls()
 	refresh_bank_debug()
-	launch_balls()
+	spin_roulette()
 
 func _physics_process(_delta: float):
 	give_balls_angular_velocity(_delta)
 	simulate_inclines(_delta)
+	visual_rotation += rotation_speed
+	decay_rotation()
+	queue_redraw()
+	give_balls_angular_velocity(_delta)
 	match (game_manager.game_state):
 		GameEnums.game_states.SPIN_PHASE:
-			visual_rotation += rotation_speed
-			queue_redraw()
-			give_balls_angular_velocity(_delta)
 			if rotation_speed == 0:
 				game_manager.game_state = GameEnums.game_states.BET_PHASE
 		GameEnums.game_states.BET_PHASE:
@@ -171,15 +177,17 @@ func launch_balls() -> void:
 	for ball in balls:
 		if ball and is_instance_valid(ball):
 			ball.position = Vector2(outer_circle_radius - 50, 0)
-			ball.apply_impulse(Vector2(0, 1000))
+			ball.apply_impulse(Vector2(0, -1000))
 
 var inner_incline_strength : float = 600
 var inner_incline_radius : int = inner_circle_radius
 var cell_radius_end : int = cell_circle_radius
-var outer_incline_radius : int = outer_circle_radius
+var outer_incline_radius : int = bank_radius_pos + bank_trigger_radius
 var outer_incline_strength : float = 800
 
 func give_balls_angular_velocity(_delta: float):
+	if rotation_speed < 0.01:
+		return
 	for ball : RouletteBall in balls:
 		var ball_to_mid = ball.position - position
 		if ball_to_mid.length() <= cell_circle_radius - ball.ball_radius:
@@ -228,6 +236,10 @@ func build_banks() -> void:
 		bank_area.body_entered.connect(_on_bank_body_entered.bind(cell, bank_area))
 		cur_angle += cur_cell_angle
 
+func move_banks():
+	for bank : Area2D in bank_areas:
+		bank.position = bank.position.rotated(rotation_speed)
+
 func _bank_catch_probability(speed: float) -> float:
 	if speed <= 0.0:
 		return 1.0
@@ -250,8 +262,6 @@ func _on_bank_body_entered(body: RouletteBall, cell, bank_area: Area2D) -> void:
 
 
 @export_group("Debug")
-## Toggle in the Inspector (or via code) to show/hide the bank trigger
-## circles. Pure debug aid -- has no effect on actual gameplay/physics.
 @export var show_bank_debug : bool = true:
 	set(v):
 		show_bank_debug = v
