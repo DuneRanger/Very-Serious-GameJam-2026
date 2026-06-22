@@ -6,7 +6,9 @@ static func get_random_vector2(size: float) -> Vector2:
 	return Vector2(cos(angle), sin(angle)) * size
  
 static func get_random_roulette_rot() -> float:
-	return randf_range(-0.04, 0.04)
+	var rot = 0.0
+	while abs(rot) < 0.01 : rot = randf_range(-0.04, 0.04)
+	return rot
 
 var cells = []
 var default_font : Font = ThemeDB.fallback_font;
@@ -16,18 +18,19 @@ const base_cell_weight : float = 1.0
 # (base_roulette_numbers + 1) includes the green 0
 var total_weight : float = (base_roulette_numbers + 1) * base_cell_weight
 
-enum CellMod {STICKY, SHINY}
+enum CellMod {NONE, STICKY, SHINY}
 
 class RouletteCell:
-	var number
-	var colour
-	var weight
-	var modifier
+	var number : int
+	var colour : Color
+	var weight : float
+	var modifier : CellMod
 	
 	func _init(num, col, w = base_cell_weight):
-		number = num;
-		colour = col;
+		number = num
+		colour = col
 		weight = w
+		modifier = CellMod.NONE
 
 func _init():
 	cells.append(RouletteCell.new(0, Color.GREEN))
@@ -85,10 +88,10 @@ func draw_edge():
 	draw_circle(Vector2(0, 0), outer_circle_radius, outer_circle_colour)
 
 func _draw():
-	move_banks()
 	draw_edge()
 	draw_cells()
 	draw_centre()
+	move_banks()
 	_draw_bank_debug()
 
 # -------------------------------- Physics --------------------------------
@@ -125,12 +128,14 @@ func build_outer_wall():
 	wall_body.add_child(visual)
 
 func decay_rotation():
-	rotation_speed = max(0, min(rotation_speed - 0.000005, rotation_speed * 0.999))
+	if rotation_speed > 0:
+		rotation_speed = max(0, min(rotation_speed - 0.000005, rotation_speed * 0.999))
+	else:
+		rotation_speed = min(0, max(rotation_speed + 0.000005, rotation_speed * 0.999))
 
 func spin_roulette():
 	launch_balls()
-	rotation_speed = 0.03
-	queue_redraw()
+	rotation_speed = get_random_roulette_rot()
 
 func stop_roulette():
 	rotation_speed = 0.0
@@ -140,17 +145,16 @@ func _ready():
 	build_banks()
 	prepare_balls()
 	refresh_bank_debug()
-	spin_roulette()
 
 func _physics_process(_delta: float):
-	give_balls_angular_velocity(_delta)
-	simulate_inclines(_delta)
-	visual_rotation += rotation_speed
-	decay_rotation()
-	queue_redraw()
-	give_balls_angular_velocity(_delta)
 	match (GameManager.game_state):
 		GameEnums.game_states.SPIN_PHASE:
+			give_balls_angular_velocity(_delta)
+			simulate_inclines(_delta)
+			visual_rotation += rotation_speed
+			decay_rotation()
+			queue_redraw()
+			give_balls_angular_velocity(_delta)
 			if rotation_speed == 0:
 				GameManager.game_state = GameEnums.game_states.BET_PHASE
 		GameEnums.game_states.BET_PHASE:
@@ -169,13 +173,13 @@ func prepare_balls():
 	for i in range(3):
 		balls.append(RouletteBall.new())
 	for ball in balls:
+		ball.position = Vector2(outer_circle_radius - 50, 0)
 		add_child(ball)
  
 func launch_balls() -> void:
 	for ball in balls:
 		if ball and is_instance_valid(ball):
-			ball.position = Vector2(outer_circle_radius - 50, 0)
-			ball.apply_impulse(Vector2(0, -1000))
+			ball.apply_impulse(Vector2(0, 1000 * (-1 * sign(rotation_speed))))
 
 var inner_incline_strength : float = 600
 var inner_incline_radius : int = inner_circle_radius
@@ -189,7 +193,7 @@ func give_balls_angular_velocity(_delta: float):
 	for ball : RouletteBall in balls:
 		var ball_to_mid = ball.position - position
 		if ball_to_mid.length() <= cell_circle_radius - ball.ball_radius:
-			ball.apply_force(-ball_to_mid.normalized().orthogonal() * 500 * rotation_speed)
+			ball.apply_force(-1 * sign(rotation_speed) * ball_to_mid.normalized().orthogonal() * 500 * rotation_speed)
 
 func simulate_inclines(_delta : float):
 	for ball : RouletteBall in balls:
@@ -236,7 +240,7 @@ func build_banks() -> void:
 
 func move_banks():
 	for bank : Area2D in bank_areas:
-		bank.position = bank.position.rotated(rotation_speed)
+		bank.position = bank.position.rotated(rotation_speed * 1.001)
 
 func _bank_catch_probability(speed: float) -> float:
 	if speed <= 0.0:

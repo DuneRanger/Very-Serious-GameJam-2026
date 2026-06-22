@@ -36,7 +36,7 @@ func _init():
 
 	var phys_mat = PhysicsMaterial.new()
 	phys_mat.bounce = 0.5
-	phys_mat.friction = 0.001
+	phys_mat.friction = 0.0001
 	physics_material_override = phys_mat
 
 	# collision detecteion mode
