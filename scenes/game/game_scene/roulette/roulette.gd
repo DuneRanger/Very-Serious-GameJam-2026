@@ -36,7 +36,7 @@ func _init():
 		var curCol = Color.RED
 		if i % 2 == 0: curCol = Color.BLACK
 		cells.append(RouletteCell.new(i + 1, curCol))
-	spin_roulette()
+	#spin_roulette()
 
 func draw_circle_arc_poly(center, radius, angle_from, angle_to, color):
 	var nb_points = 32  + floor(100 * abs(angle_from - angle_to)) 
@@ -85,7 +85,10 @@ func decay_rotation(_delta):
 	rotation_speed = max(0, min(rotation_speed - 0.01 * _delta, rotation_speed * 0.995))
 
 func spin_roulette():
-	rotation_speed = 0.2
+	rotation_speed = max(0.2, rotation_speed)
+
+func stop_roulette():
+	rotation_speed = 0
 
 func _process(_delta):
 	decay_rotation(_delta)
