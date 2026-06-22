@@ -14,12 +14,10 @@ static func get_random_vector2(_max_x: float, _max_y: float, size: float) -> Vec
 
 var rand_impulse_size : float = 1000
 
-var decay_rate : float = 0.001
-var angular_decay_rate : float = 0.001
-
 var min_speed_threshold : float = 5
 var fast_slowdown_speed : float = 100
 var max_speed : float = 10000
+var ball_radius : float = 10
 
 # 0 = on a pocket floor,
 # 1.0 = up at the rim.
@@ -30,13 +28,14 @@ var height : float = 1.0:
 
 ## Marks the ball as settled and no longer updates physics
 var settled : bool = false
+var bound_bank : Area2D
 
 func _init():
 	mass = 1.0
 	gravity_scale = 0
 
 	var phys_mat = PhysicsMaterial.new()
-	phys_mat.bounce = 1
+	phys_mat.bounce = 0.5
 	phys_mat.friction = 0.001
 	physics_material_override = phys_mat
 
@@ -44,7 +43,7 @@ func _init():
 	continuous_cd = RigidBody2D.CCD_MODE_CAST_RAY
 
 	var shape = CircleShape2D.new()
-	shape.radius = 10
+	shape.radius = ball_radius
 
 	var collider = CollisionShape2D.new()
 	collider.shape = shape
@@ -63,34 +62,19 @@ func get_speed() -> float:
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	if settled:
-		state.linear_velocity = Vector2.ZERO
-		state.angular_velocity = 0.0
+		var bank_to_ball = bound_bank.global_position - global_position
+		state.linear_velocity = bank_to_ball.normalized() * 100
 		return
-	
+
 	var new_vel = state.linear_velocity
-	if new_vel.length() < min_speed_threshold:
-		new_vel = Vector2.ZERO
-	elif new_vel.length() < fast_slowdown_speed:
-		new_vel *= 0.99
+	if new_vel.length() < fast_slowdown_speed:
+		new_vel *= 0.999
 	elif new_vel.length() > max_speed:
 		new_vel = new_vel.normalized() * max_speed
 	
 	state.linear_velocity = new_vel
 
-
-## Call when a bank divider "catches" the ball (see Roulette's bank logic).
-## Kills the radial component of velocity and pulls height toward 0 so the
-## ball visually/physically settles toward the pocket floor instead of
-## continuing to slide around the ring.
-func catch_in_pocket(center: Vector2) -> void:
-	var to_center = (center - global_position).normalized()
-	var radial_speed = linear_velocity.dot(-to_center)
-	if radial_speed > 0:
-		# Remove the outward-radial component of velocity, keep tangential
-		# (so it doesn't stop dead, just stops climbing/orbiting outward).
-		linear_velocity -= (-to_center) * radial_speed
-	height = max(0.0, height - 0.4)
-
-func settle() -> void:
+func catch_in_pocket(center: Vector2, bank : Area2D) -> void:
+	height = 0
 	settled = true
-	freeze = true
+	bound_bank = bank

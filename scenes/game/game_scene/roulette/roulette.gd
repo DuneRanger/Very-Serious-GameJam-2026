@@ -37,7 +37,6 @@ func _init():
 		var curCol = Color.RED
 		if i % 2 == 0: curCol = Color.BLACK
 		cells.append(RouletteCell.new(i + 1, curCol))
-	#spin_roulette()
 
 # -------------------------------- Drawing --------------------------------
 
@@ -46,6 +45,8 @@ var inner_circle_colour : Color = Color.SADDLE_BROWN
 var cell_circle_radius : int = 500
 var outer_circle_radius : int = 700
 var outer_circle_colour : Color = Color.DARK_RED
+
+var visual_rotation : float = 0;
 
 func draw_circle_arc_poly(center, radius, angle_from, angle_to, color):
 	var nb_points = 32  + floor(100 * abs(angle_from - angle_to)) 
@@ -62,6 +63,7 @@ func draw_cells():
 	var base_cell_angle = 2 * PI / total_weight
 	var cur_angle = 0
 	
+	draw_set_transform(Vector2(0, 0), visual_rotation)
 	for cell in cells:
 		# Actual angle length of the cell
 		var cur_cell_angle = base_cell_angle * cell.weight
@@ -75,8 +77,8 @@ func draw_cells():
 				HORIZONTAL_ALIGNMENT_CENTER, font_max_width, font_size)
 
 		cur_angle += cur_cell_angle
-		draw_set_transform(Vector2(0, 0), cur_angle)
-	draw_set_transform(Vector2(0, 0))
+		draw_set_transform(Vector2(0, 0), cur_angle + visual_rotation)
+	draw_set_transform(Vector2(0, 0), visual_rotation)
 
 func draw_centre():
 	draw_circle(Vector2(0, 0), inner_circle_radius, inner_circle_colour)
@@ -88,6 +90,7 @@ func _draw():
 	draw_edge()
 	draw_cells()
 	draw_centre()
+	_draw_bank_debug()
 
 # -------------------------------- Physics --------------------------------
 
@@ -97,14 +100,14 @@ var outer_wall_segments: int = 128
 func build_outer_wall():
 	var wall_body = StaticBody2D.new()
 	add_child(wall_body)
- 
+
 	for i in range(outer_wall_segments):
 		var angle_a = (float(i) / float(outer_wall_segments)) * 2 * PI
 		var angle_b = (float(i + 1) / float(outer_wall_segments)) * 2 * PI
  
 		var point_a = Vector2(cos(angle_a), sin(angle_a)) * outer_circle_radius
 		var point_b = Vector2(cos(angle_b), sin(angle_b)) * outer_circle_radius
- 
+
 		var seg_shape = SegmentShape2D.new()
 		seg_shape.a = point_a
 		seg_shape.b = point_b
@@ -123,20 +126,27 @@ func build_outer_wall():
 	wall_body.add_child(visual)
 
 func spin_roulette():
+	launch_balls()
 	rotation_speed = 0.02
+
+func stop_roulette():
+	rotation_speed = 0.0
 
 func _ready():
 	build_outer_wall()
-	build_incline_areas()
 	build_banks()
 	prepare_balls()
+	refresh_bank_debug()
 	launch_balls()
 
 func _physics_process(_delta: float):
+	give_balls_angular_velocity(_delta)
+	simulate_inclines(_delta)
 	match (game_manager.game_state):
 		GameEnums.game_states.SPIN_PHASE:
-			rotation += rotation_speed
-			_process_incline(_delta)
+			visual_rotation += rotation_speed
+			queue_redraw()
+			give_balls_angular_velocity(_delta)
 			if rotation_speed == 0:
 				game_manager.game_state = GameEnums.game_states.BET_PHASE
 		GameEnums.game_states.BET_PHASE:
@@ -152,7 +162,7 @@ func _process(delta: float) -> void:
 var balls = []
 
 func prepare_balls():
-	for i in range(5):
+	for i in range(3):
 		balls.append(RouletteBall.new())
 	for ball in balls:
 		add_child(ball)
@@ -160,39 +170,39 @@ func prepare_balls():
 func launch_balls() -> void:
 	for ball in balls:
 		if ball and is_instance_valid(ball):
-			ball.position = get_random_vector2(cell_circle_radius)
-			ball.give_random_impulse()
-			#ball.position = Vector2(outer_circle_radius - 50, 0)
-			#ball.apply_impulse(Vector2(0, 10000))
+			ball.position = Vector2(outer_circle_radius - 50, 0)
+			ball.apply_impulse(Vector2(0, 1000))
 
-var incline_force_strength : float = 600
+var inner_incline_strength : float = 600
 var inner_incline_radius : int = inner_circle_radius
 var cell_radius_end : int = cell_circle_radius
 var outer_incline_radius : int = outer_circle_radius
+var outer_incline_strength : float = 800
 
-var balls_in_incline = []
+func give_balls_angular_velocity(_delta: float):
+	for ball : RouletteBall in balls:
+		var ball_to_mid = ball.position - position
+		if ball_to_mid.length() <= cell_circle_radius - ball.ball_radius:
+			ball.apply_force(-ball_to_mid.normalized().orthogonal() * 500 * rotation_speed)
 
-func build_incline_areas() -> void:
-	pass
+func simulate_inclines(_delta : float):
+	for ball : RouletteBall in balls:
+		var ball_to_mid = ball.position - position
+		var ball_rad = ball_to_mid.length()
+		
+		if ball_rad <= inner_incline_radius + ball.ball_radius:
+			ball.apply_central_force(ball_to_mid.normalized() * inner_incline_strength)
+		elif ball_rad >= outer_incline_radius - ball.ball_radius:
+			ball.apply_central_force(-ball_to_mid.normalized() * outer_incline_strength)
+		elif ball_rad >= cell_circle_radius - ball.ball_radius:
+			ball.apply_central_force(-ball_to_mid.normalized() * 2 * outer_incline_strength)
 
-func _process_incline(delta: float) -> void:
-	pass
-# -------------------------------- Banks --------------------------------
-#
-# One small Area2D per pocket cell, positioned at that cell's mid-angle,
-# at the pocket ring's radius. When a ball enters one from the side (i.e.
-# coming from another pocket, moving roughly tangentially) we roll a
-# speed-dependent chance: low speed -> likely caught (settles into this
-# pocket), high speed -> likely skips over (just passes through, no effect
-# besides maybe a little drag, which the incline system already supplies).
-
-var bank_radius : float = 230.0          ## radius the bank Area2Ds sit at
+var bank_radius_pos : float = cell_circle_radius * 0.8
 var bank_catch_characteristic_speed : float = 150.0
-var bank_catch_sharpness : float = 1.5
-var bank_trigger_radius : float = 18.0   ## small circle per bank
+var bank_catch_sharpness : float = 2
+var bank_trigger_radius : float = 45
 
 var bank_areas : Array = []
-
 
 func build_banks() -> void:
 	var base_cell_angle = 2 * PI / total_weight
@@ -200,11 +210,11 @@ func build_banks() -> void:
 
 	for cell in cells:
 		var cur_cell_angle = base_cell_angle * cell.weight
-		var mid_angle = cur_angle - PI / 2 + cur_cell_angle / 2
+		var mid_angle = cur_angle - PI / 2
 
 		var bank_area = Area2D.new()
 		bank_area.name = "Bank_%s" % str(cell.number)
-		bank_area.position = Vector2(cos(mid_angle), sin(mid_angle)) * bank_radius
+		bank_area.position = Vector2(cos(mid_angle), sin(mid_angle)) * bank_radius_pos
 
 		var shape = CircleShape2D.new()
 		shape.radius = bank_trigger_radius
@@ -215,34 +225,78 @@ func build_banks() -> void:
 		add_child(bank_area)
 		bank_areas.append(bank_area)
 
-		# Bind the specific cell so the callback knows which pocket this is,
-		# without needing a separate class per bank.
 		bank_area.body_entered.connect(_on_bank_body_entered.bind(cell, bank_area))
-
 		cur_angle += cur_cell_angle
-
 
 func _bank_catch_probability(speed: float) -> float:
 	if speed <= 0.0:
 		return 1.0
 	return 1.0 / (1.0 + pow(speed / bank_catch_characteristic_speed, bank_catch_sharpness))
 
-
-func _on_bank_body_entered(body: Node, cell, bank_area: Area2D) -> void:
+func _on_bank_body_entered(body: RouletteBall, cell, bank_area: Area2D) -> void:
 	if not (body is RouletteBall) or body.settled:
 		return
 
 	var speed = body.get_speed()
 	var catch_chance = _bank_catch_probability(speed)
 
-	# Height also matters: a ball that's currently "up" on the incline
-	# (height closer to 1) is harder to catch even at the same speed, since
-	# it hasn't dropped down to pocket level yet. Scale the roll by
-	# (1 - height) so an elevated ball mostly skips regardless of speed.
 	var effective_chance = catch_chance * (1.0 - body.height * 0.85)
 
 	if randf() < effective_chance:
-		body.catch_in_pocket(bank_area.global_position)
+		body.catch_in_pocket(bank_area.global_position, bank_area)
 		print("Ball caught at number ", cell.number)
-	# else: ball just passes over/through, no effect -- the incline system
-	# and existing wall collisions continue to govern its motion.
+	else:
+		print("Ball missed cell ", cell.number)
+
+
+@export_group("Debug")
+## Toggle in the Inspector (or via code) to show/hide the bank trigger
+## circles. Pure debug aid -- has no effect on actual gameplay/physics.
+@export var show_bank_debug : bool = true:
+	set(v):
+		show_bank_debug = v
+		queue_redraw()
+
+@export var bank_debug_color : Color = Color(0.1, 0.9, 1.0, 0.35)
+@export var bank_debug_outline_color : Color = Color(0.1, 0.9, 1.0, 0.9)
+@export var bank_debug_label_color : Color = Color.WHITE
+@export var bank_debug_outline_width : float = 2.0
+## Toggle the small number label drawn next to each bank's circle, so you
+## can visually match trigger circles to pocket numbers.
+@export var show_bank_numbers : bool = true
+
+
+## Call this once after build_banks() so the overlay appears without
+## needing an unrelated redraw to trigger it first.
+func refresh_bank_debug() -> void:
+	queue_redraw()
+
+
+func _draw_bank_debug() -> void:
+	if not show_bank_debug:
+		return
+
+	for bank_area in bank_areas:
+		if not is_instance_valid(bank_area):
+			continue
+
+		var radius = bank_trigger_radius
+		var pos = bank_area.position
+
+		draw_circle(pos, radius, bank_debug_color)
+		draw_arc(pos, radius, 0, TAU, 32, bank_debug_outline_color, bank_debug_outline_width)
+
+		if show_bank_numbers:
+			var label_text = bank_area.name.replace("Bank_", "")
+			var font_size = 16
+			# NOTE: draw_string's HORIZONTAL_ALIGNMENT_CENTER argument has
+			# had reported bugs in some 4.x versions where it's silently
+			# ignored, and get_string_size doesn't always match what
+			# draw_string actually renders -- not worth depending on
+			# either for a debug-only label. A rough manual offset
+			# (half a character-width guess per digit) is crude but
+			# reliable and good enough for a dev overlay; eyeball it once
+			# in-editor and tweak the multiplier below if labels look off.
+			var rough_half_width = label_text.length() * font_size * 0.3
+			draw_string(default_font, pos + Vector2(-rough_half_width, -radius - 6),
+					label_text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, bank_debug_label_color)
