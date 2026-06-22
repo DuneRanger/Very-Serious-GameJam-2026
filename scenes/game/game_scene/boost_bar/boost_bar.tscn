@@ -54,7 +54,7 @@ texture = ExtResource("4_o21ja")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jmoeh"]
 texture = ExtResource("5_owshq")
 
-[node name="boost_bar" type="Node2D" unique_id=917300306]
+[node name="BoostBar" type="Node2D" unique_id=917300306]
 script = ExtResource("1_jkqmw")
 
 [node name="BoosterBarOutline" type="Sprite2D" parent="." unique_id=218356572]

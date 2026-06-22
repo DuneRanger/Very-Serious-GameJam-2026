@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://7paxof88brjl" path="res://assets/fonts/PixeloidMono.otf" id="3_qny2l"]
 [ext_resource type="PackedScene" uid="uid://ch1muups6uskk" path="res://scenes/game/game_scene/betting_system/betting_system.tscn" id="4_uj17p"]
 [ext_resource type="PackedScene" uid="uid://bt8dbkjq4nc07" path="res://scenes/game/game_scene/boost_bar/boost_bar.tscn" id="4_yjymu"]
+[ext_resource type="Texture2D" uid="uid://dut742t7mmgrt" path="res://assets/textures/chips/chip_black.png" id="7_ho26m"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qny2l"]
 font = ExtResource("3_qny2l")
@@ -50,3 +51,8 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 16
 text = "This is a test"
 label_settings = SubResource("LabelSettings_qny2l")
+
+[node name="ChipBlack" type="Sprite2D" parent="." unique_id=2140071562]
+position = Vector2(516, -268)
+scale = Vector2(1.6875, 1.6875)
+texture = ExtResource("7_ho26m")
