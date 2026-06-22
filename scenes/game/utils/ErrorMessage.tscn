@@ -64,10 +64,10 @@ tracks/1/path = NodePath("Label:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5, 4),
+"times": PackedFloat32Array(0, 0.46666667, 4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(-190, 0), Vector2(-190, 0), Vector2(-190, 100)]
+"values": [Vector2(-640, 0), Vector2(-640, 0), Vector2(-640, 100)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -95,7 +95,6 @@ _data = {
 
 [node name="ErrorMessage" type="Node2D" unique_id=371495968]
 z_index = 100
-z_as_relative = false
 script = ExtResource("1_inwfy")
 
 [node name="Label" type="Label" parent="." unique_id=1767962109]
@@ -105,20 +104,20 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -190.0
-offset_right = 310.0
-offset_bottom = 100.0
+offset_right = 1090.0
+offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 6
 theme_override_colors/font_color = Color(0.6509804, 0.14901961, 0.14901961, 1)
 theme_override_colors/font_outline_color = Color(0.6392157, 0.6392157, 0.6392157, 1)
 theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("2_phkeu")
 theme_override_font_sizes/font_size = 40
+text = "hello lobtom text"
 horizontal_alignment = 1
-max_lines_visible = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1810424893]
 libraries/ = SubResource("AnimationLibrary_phkeu")
 autoplay = &"fade_out"
-playback_auto_capture_transition_type = 1
