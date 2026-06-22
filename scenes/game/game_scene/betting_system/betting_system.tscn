@@ -21,6 +21,9 @@ bet_button_scene = ExtResource("2_gf42j")
 bet_button_label = ExtResource("3_njhud")
 background_width = 400.0
 padding = 8.0
+number_button_font_size = 16
+third_button_font_size = 18
+half_button_font_size = 10
 
 [node name="Background" type="ColorRect" parent="." unique_id=286948862]
 color = Color(1.01, 1.01, 1.01, 1)

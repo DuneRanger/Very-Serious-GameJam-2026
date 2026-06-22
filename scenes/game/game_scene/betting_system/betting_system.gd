@@ -5,6 +5,10 @@ extends Node2D
 @export var background_width: float
 @export var padding: float
 
+@export var number_button_font_size : int
+@export var third_button_font_size : int
+@export var half_button_font_size : int
+
 var bets = {}
 var labels = {}
 var max_num : int = 24
@@ -20,7 +24,28 @@ var game_manager;
 
 var button_id = 0
 
-enum button_type {NUMBER, COLOR, HALF, THIRD}
+
+func get_bet_type(id : int) -> GameEnums.bet_types:
+	if id >= 0 && id <= max_num:
+		return GameEnums.bet_types.NUMBER
+	if id >= (max_num + 1) && id <= (max_num + 3):
+		return GameEnums.bet_types.THIRD
+	if id >= (max_num + 4) && id <= (max_num + 9):
+		return GameEnums.bet_types.HALF
+	else:
+		return GameEnums.bet_types.HALF
+
+func get_button_font_size(button_type : GameEnums.bet_types) -> int:
+	match (button_type):
+		GameEnums.bet_types.NUMBER:
+			return number_button_font_size
+		GameEnums.bet_types.HALF:
+			return half_button_font_size
+		GameEnums.bet_types.THIRD:
+			return third_button_font_size
+		_:
+			return 10
+		 
 
 func get_button_id() -> int:
 	var out = button_id
@@ -116,7 +141,6 @@ func make_buttons() -> void:
 	
 	$IncrementToggle.size = Vector2(button_size, button_size)
 	$IncrementToggle.position = Vector2(0.0, (button_size + padding) * (row_count + 2))
-	
 
 func pad_all_buttons() -> void:
 	var pad_vect = Vector2(padding, padding)
@@ -132,22 +156,22 @@ func init_bets() -> void:
 	for b in buttons:
 		bets[b.button_id] = 0
 
+func set_button_size() -> void:
+	for b in buttons:
+		var button_type = get_bet_type(b.button_id)
+		var b_font_size = get_button_font_size(button_type)
+		print(b_font_size)
+		b.add_theme_font_size_override("font_size", b_font_size)
+
 func _ready() -> void:
 	button_size = (background_width - padding * (col_count + 2)) / (col_count + 1)
-	background_height = (row_count + 3) * button_size + (row_count + 4) * padding
+	background_height = (row_count + 2) * button_size + (row_count + 3) * padding
 	$Background.size = Vector2(background_width, background_height)
 	make_buttons()
 	init_bets()
 	pad_all_buttons()
+	set_button_size()
 	connect_buttons()
-
-func get_pressed_buttons ():
-	var pressed_buttons = []
-	for b in buttons:
-		if b.to_process:
-			pressed_buttons.push_back(b)
-			b.to_process = false
-	return pressed_buttons
 
 func get_label(b):
 	var b_id = b.button_id
