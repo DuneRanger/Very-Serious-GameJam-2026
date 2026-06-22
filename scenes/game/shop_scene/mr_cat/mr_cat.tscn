@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://b7f8lwt8pdpxi" path="res://assets/textures/mr_Cat/MrCatTail1.png" id="6_81l0b"]
 [ext_resource type="Texture2D" uid="uid://dsomwx37q2sk" path="res://assets/textures/mr_Cat/MrCatTail2.png" id="7_esym3"]
 [ext_resource type="Texture2D" uid="uid://dv7yio3guvyua" path="res://assets/textures/mr_Cat/MrCatTail3.png" id="8_56k00"]
+[ext_resource type="Texture2D" uid="uid://qhbwqqrnjdk8" path="res://assets/textures/mr_Cat/MrCat6.png" id="10_81l0b"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_a45xc"]
 animations = [{
@@ -67,6 +68,14 @@ animations = [{
 "loop": true,
 "name": &"money",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_81l0b")
+}],
+"loop": true,
+"name": &"sunglasses",
+"speed": 5.0
 }]
 
 [node name="MrCat" type="Node2D" unique_id=2033079592]
@@ -79,12 +88,20 @@ animation = &"money"
 
 [node name="MrCatSprite" type="AnimatedSprite2D" parent="." unique_id=1704421451]
 sprite_frames = SubResource("SpriteFrames_6wf7b")
-frame_progress = 0.5335111
+animation = &"sunglasses"
 
 [node name="Timer" type="Timer" parent="." unique_id=2098244120]
 wait_time = 1.5
 
+[node name="TestButton2" type="Button" parent="." unique_id=600080867]
+visible = false
+offset_left = -119.75
+offset_top = -48.0
+offset_right = -75.75
+offset_bottom = -24.0
+
 [node name="TestButton" type="Button" parent="." unique_id=2035756023]
+visible = false
 offset_left = -120.0
 offset_top = -77.0
 offset_right = -76.0
@@ -93,4 +110,5 @@ offset_bottom = -53.0
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1895610285]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="TestButton2" to="." method="_on_test_button_2_pressed"]
 [connection signal="pressed" from="TestButton" to="." method="_on_test_button_pressed"]
