@@ -140,10 +140,6 @@ func _ready() -> void:
 	init_bets()
 	pad_all_buttons()
 	connect_buttons()
-	
-
-func _on_increment_toggle_button_down() -> void:
-	increment *= -1
 
 func get_pressed_buttons ():
 	var pressed_buttons = []
@@ -168,15 +164,19 @@ func new_bet(b_id : int) -> void:
 	if game_manager.game_state != GameEnums.game_states.BET_PHASE:
 		return
 	var b = buttons[b_id]
-	if increment > game_manager.money:
+	var current_increment = increment
+	if $IncrementToggle.adding == false || Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+		current_increment *= -1
+	
+	if current_increment > game_manager.money:
 		print("Not enough money!")
 		return
-	elif increment < 0 and bets[b_id] == 0:
+	elif current_increment < 0 and bets[b_id] == 0:
 		print("Removing money on an empty bet!")
 		return
 		
 	var old_bet_amount = bets[b_id]
-	var new_bet_amount = max ((old_bet_amount + increment), 0)
+	var new_bet_amount = max ((old_bet_amount + current_increment), 0)
 	bets[b_id] = new_bet_amount
 	
 	var bet_difference = new_bet_amount - old_bet_amount 
