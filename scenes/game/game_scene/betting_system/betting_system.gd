@@ -2,6 +2,7 @@ extends Node2D
 
 @export var bet_button_scene: PackedScene
 @export var bet_button_label: PackedScene
+@export var error_message_label: PackedScene
 @export var background_width: float
 @export var padding: float
 
@@ -16,11 +17,10 @@ var row_count : int = 3
 var col_count : int = 8
 var increment = 1
 var buttons : Array[Button] = []
+var errors = []
 
 var button_size : float
 var background_height : float
-
-var game_manager;
 
 var button_id = 0
 
@@ -179,24 +179,35 @@ func get_label(b):
 		return labels[b_id]
 	var lab = bet_button_label.instantiate()
 	lab.size = Vector2(button_size, button_size) * 2/3
-	lab.position = b.position + b.size * 1/2 - lab.size * 1/2
+	lab.position = b.position + (b.size - lab.size) / 2.0
 	labels[b.button_id] = lab
 	return lab
-	
+
+func send_error_message(message : String) -> void:
+	var new_error_message = error_message_label.instantiate()
+	new_error_message.put_content(message)
+	var bp = $Background.position
+	var bs = $Background.size
+	var ms = new_error_message.get_text_size()
+	var mp = new_error_message.position
+	#print(bp, bs, ms, mp)
+	new_error_message.position = bp + bs/2 - ms/2
+	add_child(new_error_message)
+	errors.push_back(new_error_message)
 
 func new_bet(b_id : int) -> void:
-	if game_manager.game_state != GameEnums.game_states.BET_PHASE:
+	if GameManager.game_state != GameEnums.game_states.BET_PHASE:
 		return
 	var b = buttons[b_id]
 	var current_increment = increment
 	if $IncrementToggle.adding == false || Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		current_increment *= -1
 	
-	if current_increment > game_manager.money:
-		print("Not enough money!")
+	if current_increment > GameManager.money:
+		send_error_message("Not enough money!")
 		return
 	elif current_increment < 0 and bets[b_id] == 0:
-		print("Removing money on an empty bet!")
+		send_error_message("Removing money on an empty bet!")
 		return
 		
 	var old_bet_amount = bets[b_id]
@@ -204,10 +215,9 @@ func new_bet(b_id : int) -> void:
 	bets[b_id] = new_bet_amount
 	
 	var bet_difference = new_bet_amount - old_bet_amount 
-	game_manager.money -= bet_difference
+	GameManager.money -= bet_difference
 	
 	var l = get_label(b)
-	l.text = str(new_bet_amount)
 	
 	if new_bet_amount > 0:
 		if l.get_parent() == null:
