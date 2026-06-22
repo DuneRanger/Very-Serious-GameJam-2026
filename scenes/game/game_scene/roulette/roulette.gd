@@ -17,8 +17,6 @@ var total_weight : float = (base_roulette_numbers + 1) * base_cell_weight
 
 var rotation_speed : float = 0;
 
-var game_manager
-
 enum CellMod {STICKY, SHINY}
 
 class RouletteCell:
@@ -93,12 +91,12 @@ func stop_roulette():
 	rotation_speed = 0
 
 func _process(_delta):
-	match (game_manager.game_state):
+	match (GameManager.game_state):
 		GameEnums.game_states.SPIN_PHASE:
 			decay_rotation(_delta)
 			rotation += rotation_speed
 			if rotation_speed == 0:
-				game_manager.game_state = GameEnums.game_states.BET_PHASE
+				GameManager.game_state = GameEnums.game_states.BET_PHASE
 		GameEnums.game_states.BET_PHASE:
 			pass
 		_:
