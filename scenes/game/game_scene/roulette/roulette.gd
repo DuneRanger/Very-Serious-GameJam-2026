@@ -16,6 +16,8 @@ const base_cell_weight : float = 1.0
 # (base_roulette_numbers + 1) includes the green 0
 var total_weight : float = (base_roulette_numbers + 1) * base_cell_weight
 
+var game_manager
+
 enum CellMod {STICKY, SHINY}
 
 class RouletteCell:
@@ -35,7 +37,7 @@ func _init():
 		var curCol = Color.RED
 		if i % 2 == 0: curCol = Color.BLACK
 		cells.append(RouletteCell.new(i + 1, curCol))
-	spin_roulette()
+	#spin_roulette()
 
 # -------------------------------- Drawing --------------------------------
 
@@ -131,8 +133,16 @@ func _ready():
 	launch_balls()
 
 func _physics_process(_delta: float):
-	rotation += rotation_speed
-	_process_incline(_delta)
+	match (game_manager.game_state):
+		GameEnums.game_states.SPIN_PHASE:
+			rotation += rotation_speed
+			_process_incline(_delta)
+			if rotation_speed == 0:
+				game_manager.game_state = GameEnums.game_states.BET_PHASE
+		GameEnums.game_states.BET_PHASE:
+			pass
+		_:
+			pass
 
 func _process(delta: float) -> void:
 	pass
@@ -196,10 +206,9 @@ func build_banks() -> void:
 		bank_area.name = "Bank_%s" % str(cell.number)
 		bank_area.position = Vector2(cos(mid_angle), sin(mid_angle)) * bank_radius
 
-		var shape := CircleShape2D.new()
-		shape := CircleShape2D.new()
+		var shape = CircleShape2D.new()
 		shape.radius = bank_trigger_radius
-		var col := CollisionShape2D.new()
+		var col = CollisionShape2D.new()
 		col.shape = shape
 		bank_area.add_child(col)
 

@@ -21,9 +21,12 @@ bet_button_scene = ExtResource("2_gf42j")
 bet_button_label = ExtResource("3_njhud")
 background_width = 400.0
 padding = 8.0
+number_button_font_size = 16
+third_button_font_size = 18
+half_button_font_size = 10
 
 [node name="Background" type="ColorRect" parent="." unique_id=286948862]
-color = Color(0.75110257, 0.87685895, 1.0102729, 1)
+color = Color(1.01, 1.01, 1.01, 1)
 
 [node name="IncrementToggle" type="Button" parent="." unique_id=610838021]
 offset_right = 8.0
@@ -33,5 +36,4 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_wj0nr")
 theme_override_styles/hover = SubResource("StyleBoxTexture_p2qa8")
 script = ExtResource("4_qcixp")
 
-[connection signal="button_down" from="IncrementToggle" to="." method="_on_increment_toggle_button_down"]
 [connection signal="button_down" from="IncrementToggle" to="IncrementToggle" method="_on_button_down"]
