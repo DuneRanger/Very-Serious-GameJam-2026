@@ -15,5 +15,5 @@ dest_files=["res://.godot/imported/RouletteGameThemeLooped.mp3-d785caddc9690c1fe
 loop=true
 loop_offset=0.0
 bpm=125.0
-beat_count=0
+beat_count=328
 bar_beats=4
