@@ -6,7 +6,10 @@ func _ready() -> void:
 	GameManagerGlobal.send_error_message.connect(_on_send_error_message)
 	GameManagerGlobal.state_change.connect(_on_new_state)
 	GameManagerGlobal.money_change.connect(edit_money)
+	GameManagerGlobal.ruby_change.connect(edit_rubys)
+
 	GameManagerGlobal.modify_money(1)
+	GameManagerGlobal.modify_rubys(1)
 	GameManagerGlobal.boosts = 1
 	GameManagerGlobal.state_change.emit(GameEnums.game_states.BET_PHASE)
 
@@ -89,8 +92,10 @@ func _on_send_error_message(message : String):
 	$Table/ErrorMessage.restart_anim()
 
 func edit_money():
-	$Table/TestLabel.text = str(GameManagerGlobal.money)
-
+	$Table/CoinLabel/Label.text = str(GameManagerGlobal.money)
+	
+func edit_rubys():
+	$Table/RubyLabel/Label.text = str(GameManagerGlobal.rubys)
 
 func _on_new_state(state : GameEnums.game_states):
 	match (state):
