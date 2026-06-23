@@ -8,18 +8,19 @@ func _ready() -> void:
 	GameManagerGlobal.money_change.connect(edit_money)
 	GameManagerGlobal.ruby_change.connect(edit_rubys)
 
-	GameManagerGlobal.modify_money(1)
-	GameManagerGlobal.modify_rubys(1)
-	GameManagerGlobal.boosts = 1
-	GameManagerGlobal.state_change.emit(GameEnums.game_states.BET_PHASE)
+	GameManagerGlobal.modify_money(100)
+	GameManagerGlobal.modify_rubys(50)
+	GameManagerGlobal.boosts = 0
+	GameManagerGlobal.modify_game_state(GameEnums.game_states.BET_PHASE)
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("stop_roullete"):
 		if (GameManagerGlobal.game_state == GameEnums.game_states.SPIN_PHASE):
-			GameManagerGlobal.state_change.emit(GameEnums.game_states.BET_PHASE)
+			GameManagerGlobal.modify_game_state(GameEnums.game_states.BET_PHASE)
 	if Input.is_action_just_pressed("rotate_roullete"):
-		if (GameManagerGlobal.game_state == GameEnums.game_states.BET_PHASE):
-			GameManagerGlobal.state_change.emit(GameEnums.game_states.SPIN_PHASE)
+		GameManagerGlobal.modify_game_state(GameEnums.game_states.STOP_PHASE)
+		#if (GameManagerGlobal.game_state == GameEnums.game_states.BET_PHASE):
+			#GameManagerGlobal.modify_game_state(GameEnums.game_states.SPIN_PHASE)
 
 func does_bet_win(bet_id : int) -> bool:
 	var bet_type : GameEnums.bet_types = $Table/BettingSystem.get_bet_type(bet_id)
@@ -88,28 +89,28 @@ func get_full_bet_win() -> int:
 	return value
 
 func _on_send_error_message(message : String): 
-	$Table/ErrorMessage.put_content(message)
-	$Table/ErrorMessage.restart_anim()
+	$HUD/ErrorMessage.put_content(message)
+	$HUD/ErrorMessage.restart_anim()
 
 func edit_money():
-	$Table/CoinLabel/Label.text = str(GameManagerGlobal.money)
+	$HUD/CoinLabel/Label.text = str(GameManagerGlobal.money)
 	
 func edit_rubys():
-	$Table/RubyLabel/Label.text = str(GameManagerGlobal.rubys)
+	$HUD/RubyLabel/Label.text = str(GameManagerGlobal.rubys)
 
-func _on_new_state(state : GameEnums.game_states):
-	match (state):
+func _on_new_state():
+	match (GameManagerGlobal.game_state):
 		GameEnums.game_states.SPIN_PHASE:
 			$Table/Roulette.spin_roulette()
-			GameManagerGlobal.game_state = GameEnums.game_states.SPIN_PHASE
 		GameEnums.game_states.STOP_PHASE:
 			if GameManagerGlobal.boosts == 0:
-				GameManagerGlobal.state_change.emit(GameEnums.game_states.BET_PHASE)
+				GameManagerGlobal.modify_game_state(GameEnums.game_states.BET_PHASE)
+			$Table/BoostSystem.start_system()
+			
 			#$Table/Roulette.spin_roulette()
 			#GameManagerGlobal.game_state = GameEnums.game_states.SPIN_PHASE
 		GameEnums.game_states.BET_PHASE:
 			$Table/Roulette.stop_roulette()
-			GameManagerGlobal.game_state = GameEnums.game_states.BET_PHASE
 			var money_won = get_full_bet_win()
 			GameManagerGlobal.modify_money(money_won)
 			$Table/BettingSystem.clear_bets()

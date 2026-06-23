@@ -144,9 +144,9 @@ func _physics_process(_delta: float):
 			
 			decay_rotation()
 			queue_redraw()
-	  
+			
 			if GameManagerGlobal.caughtBalls == balls.size():
-				GameManagerGlobal.state_change.emit(GameEnums.game_states.STOP_PHASE)
+				GameManagerGlobal.modify_game_state(GameEnums.game_states.STOP_PHASE)
 		
 			#if rotation_speed == 0:
 				#GameManagerGlobal.state_change.emit(GameEnums.game_states.BET_PHASE)

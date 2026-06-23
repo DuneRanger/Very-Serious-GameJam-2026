@@ -23,6 +23,10 @@ signal send_error_message(message : String)
 
 const base_cell_weight : float = 1.0
 
+func modify_game_state (new_state : GameEnums.game_states):
+	game_state = new_state
+	state_change.emit()
+
 func modify_money (amount : int):
 	money += amount
 	money_change.emit()

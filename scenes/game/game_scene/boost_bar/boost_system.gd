@@ -1,0 +1,40 @@
+extends CanvasLayer
+
+var boost_amount
+
+func _ready() -> void:
+	$boost_bar/Button.button_down.connect(_on_boost_button_pressed)
+	$HappyButton.button_down.connect(_on_happy_button_pressed)
+	$UnHappyButton.button_down.connect(_on_unhappy_button_pressed)
+	$boost_bar.visible = false
+	$HappyButton.visible = false
+	$UnHappyButton.visible = false
+	
+
+func start_system() -> void:
+	$HappyButton.visible = true
+	$UnHappyButton.visible = true
+
+func _on_boost_button_pressed() -> void:
+	boost_amount = $boost_bar/bar/inner/boost_indicator.scale.y
+	$boost_bar/Button.visible = false
+	$boost_bar/bar/inner/boost_indicator/AnimationPlayer.pause()
+	$Timer.start()
+
+func _on_happy_button_pressed() -> void:
+	$HappyButton.visible = false
+	$UnHappyButton.visible = false
+	GameManagerGlobal.modify_game_state(GameEnums.game_states.BET_PHASE)
+
+func _on_unhappy_button_pressed() -> void:
+	$HappyButton.visible = false
+	$UnHappyButton.visible = false
+	$boost_bar.visible = true
+	#TODO boost symbol game_scene function
+	$boost_bar/bar/inner/boost_indicator/AnimationPlayer.play("boost_bar_anim")
+
+func _on_timer_timeout() -> void:
+	$boost_bar.visible = false
+	$boost_bar/Button.visible = true
+	GameManagerGlobal.modify_game_state(GameEnums.game_states.SPIN_PHASE)
+	$Timer.stop()
