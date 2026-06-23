@@ -21,7 +21,6 @@ shader_parameter/pixel_size = 3.0
 
 [node name="game_scene" type="Node2D" unique_id=1710828263]
 script = ExtResource("1_ljoy4")
-err_lab = ExtResource("8_dkmwb")
 
 [node name="GameManager" parent="." unique_id=1486485077 instance=ExtResource("1_sists")]
 
@@ -38,22 +37,24 @@ visible = false
 z_index = -10
 offset_right = 1280.0
 offset_bottom = 720.0
-color = Color(0.19744167, 0.43, 0.17630002, 1)
+color = Color(0.19607843, 0.43137255, 0.1764706, 1)
 
 [node name="Roulette" parent="Table" unique_id=574874280 instance=ExtResource("2_wftn3")]
-position = Vector2(256, 0)
+position = Vector2(284, 0)
 
 [node name="BettingSystem" parent="Table" unique_id=1381945534 instance=ExtResource("4_uj17p")]
-position = Vector2(-608, -128)
+position = Vector2(-544, -228)
+background_width = 480.0
+padding = 3.6
 
 [node name="boost_bar" parent="Table" unique_id=917300306 instance=ExtResource("4_yjymu")]
-visible = false
-position = Vector2(-554, 17)
+position = Vector2(-488, 16)
 
 [node name="ErrorMessage" parent="Table" unique_id=371495968 instance=ExtResource("8_dkmwb")]
 position = Vector2(0, -360)
 
 [node name="TestLabel" type="Label" parent="." unique_id=1877186703]
+visible = false
 offset_left = -609.0
 offset_top = -333.0
 offset_right = -310.0
@@ -64,6 +65,7 @@ text = "This is a test"
 label_settings = SubResource("LabelSettings_qny2l")
 
 [node name="ChipBlack" type="Sprite2D" parent="." unique_id=2140071562]
+visible = false
 position = Vector2(516, -268)
 scale = Vector2(1.6875, 1.6875)
 texture = ExtResource("7_ho26m")
