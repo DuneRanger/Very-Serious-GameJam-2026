@@ -4,13 +4,13 @@
 [ext_resource type="Script" uid="uid://b2d37epksykgv" path="res://scenes/game/game_scene/betting_system/bet_button.gd" id="1_fcqf7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1luq2"]
-bg_color = Color(0, 0.39215687, 0.05882353, 1)
+bg_color = Color(0.19607843, 0.43137255, 0.1764706, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8aveq"]
-bg_color = Color(0, 0.39215687, 0.05882353, 1)
+bg_color = Color(0.19607843, 0.43137255, 0.1764706, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_by6ed"]
-bg_color = Color(0, 0.39215687, 0.05882353, 1)
+bg_color = Color(0.19607843, 0.43137255, 0.1764706, 1)
 
 [node name="Button" type="Button" unique_id=1147380025]
 anchors_preset = 8
