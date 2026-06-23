@@ -8,6 +8,13 @@
 [ext_resource type="PackedScene" uid="uid://cxo23rckbhjbo" path="res://scenes/game/ui_elements/AwesomeLabel.tscn" id="7_dkmwb"]
 [ext_resource type="Texture2D" uid="uid://dut742t7mmgrt" path="res://assets/textures/chips/chip_black.png" id="7_ho26m"]
 [ext_resource type="PackedScene" uid="uid://dcu31p6twmdit" path="res://scenes/game/utils/ErrorMessage.tscn" id="8_dkmwb"]
+[ext_resource type="Shader" uid="uid://d1sj22wa4oiic" path="res://assets/shaders/pixelate.gdshader" id="10_1xuq5"]
+[ext_resource type="PackedScene" uid="uid://djtfrov4iqbnm" path="res://scenes/game/UI_elements/animated_sprites/ruby_animated_sprite.tscn" id="10_7tgh3"]
+[ext_resource type="PackedScene" uid="uid://b8s6w1lbfa62g" path="res://scenes/game/UI_elements/animated_sprites/money_animated_sprite.tscn" id="11_hdcdy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hdcdy"]
+shader = ExtResource("10_1xuq5")
+shader_parameter/pixel_size = 3.0
 
 [node name="game_scene" type="Node2D" unique_id=1710828263]
 script = ExtResource("1_ljoy4")
@@ -30,6 +37,30 @@ color = Color(0.19607843, 0.43137255, 0.1764706, 1)
 [node name="Roulette" parent="Table" unique_id=574874280 instance=ExtResource("2_wftn3")]
 position = Vector2(284, 0)
 
+[node name="PixerShaderLayer" type="CanvasLayer" parent="Table/Roulette" unique_id=731125925]
+
+[node name="DebugTableTexture" type="Sprite2D" parent="Table/Roulette/PixerShaderLayer" unique_id=668612301]
+visible = false
+position = Vector2(640, 360)
+scale = Vector2(4, 4)
+texture = ExtResource("3_dkmwb")
+
+[node name="pixelate" type="ColorRect" parent="Table/Roulette/PixerShaderLayer" unique_id=566398761]
+light_mask = 0
+texture_filter = 1
+material = SubResource("ShaderMaterial_hdcdy")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 30.0
+offset_top = -252.0
+offset_right = 533.0
+offset_bottom = 263.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="BettingSystem" parent="Table" unique_id=1381945534 instance=ExtResource("4_uj17p")]
 position = Vector2(-568, 20)
 background_width = 480.0
@@ -46,6 +77,22 @@ position = Vector2(-552, -296)
 
 [node name="RubyLabel" parent="Table" unique_id=343890864 instance=ExtResource("7_dkmwb")]
 position = Vector2(-552, -232)
+[node name="Test" type="Node" parent="." unique_id=1695512338]
+
+[node name="MoneyAnimatedSprite" parent="Test" unique_id=1016875789 instance=ExtResource("11_hdcdy")]
+position = Vector2(-352, -224)
+
+[node name="RubyAnimatedSprite" parent="Test" unique_id=701930484 instance=ExtResource("10_7tgh3")]
+position = Vector2(-352, -160)
+
+[node name="TestLabel" type="Label" parent="Table" unique_id=1877186703]
+offset_left = -609.0
+offset_top = -333.0
+offset_right = -310.0
+offset_bottom = -222.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+label_settings = SubResource("LabelSettings_qny2l")
 
 [node name="ChipBlack" type="Sprite2D" parent="." unique_id=2140071562]
 visible = false
