@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://dut742t7mmgrt" path="res://assets/textures/chips/chip_black.png" id="7_ho26m"]
 [ext_resource type="PackedScene" uid="uid://dcu31p6twmdit" path="res://scenes/game/utils/ErrorMessage.tscn" id="8_dkmwb"]
 [ext_resource type="Shader" uid="uid://d1sj22wa4oiic" path="res://assets/shaders/pixelate.gdshader" id="10_1xuq5"]
+[ext_resource type="PackedScene" uid="uid://djtfrov4iqbnm" path="res://scenes/game/UI_elements/animated_sprites/ruby_animated_sprite.tscn" id="10_7tgh3"]
+[ext_resource type="PackedScene" uid="uid://b8s6w1lbfa62g" path="res://scenes/game/UI_elements/animated_sprites/money_animated_sprite.tscn" id="11_hdcdy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hdcdy"]
 shader = ExtResource("10_1xuq5")
@@ -76,6 +78,14 @@ position = Vector2(-488, 16)
 
 [node name="ErrorMessage" parent="Table" unique_id=371495968 instance=ExtResource("8_dkmwb")]
 position = Vector2(0, -360)
+
+[node name="Test" type="Node" parent="." unique_id=1695512338]
+
+[node name="MoneyAnimatedSprite" parent="Test" unique_id=1016875789 instance=ExtResource("11_hdcdy")]
+position = Vector2(-352, -224)
+
+[node name="RubyAnimatedSprite" parent="Test" unique_id=701930484 instance=ExtResource("10_7tgh3")]
+position = Vector2(-352, -160)
 
 [node name="TestLabel" type="Label" parent="." unique_id=1877186703]
 visible = false
