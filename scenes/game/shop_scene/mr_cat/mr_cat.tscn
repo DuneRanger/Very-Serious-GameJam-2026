@@ -78,34 +78,93 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_81l0b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MrCatControlNode:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1.05)]
+}
+
+[sub_resource type="Animation" id="Animation_esym3"]
+resource_name = "mr_cat_bobbing_animation"
+length = 8.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MrCatControlNode:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4, 6, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(4, 4), Vector2(4, 4.08), Vector2(4, 4), Vector2(4, 3.93), Vector2(4, 4)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_56k00"]
+_data = {
+&"RESET": SubResource("Animation_81l0b"),
+&"mr_cat_bobbing_animation": SubResource("Animation_esym3")
+}
+
 [node name="MrCat" type="Node2D" unique_id=2033079592]
-scale = Vector2(4, 4)
 script = ExtResource("1_pepnq")
 
-[node name="MrCatTailSprite" type="AnimatedSprite2D" parent="." unique_id=2056402007]
-sprite_frames = SubResource("SpriteFrames_a45xc")
-animation = &"money"
+[node name="MrCatControlNode" type="Control" parent="." unique_id=1659558882]
+layout_mode = 3
+offset_left = -160.0
+offset_top = 180.0
+offset_right = 160.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1, 1.05)
+pivot_offset = Vector2(160, 180)
 
-[node name="MrCatSprite" type="AnimatedSprite2D" parent="." unique_id=1704421451]
+[node name="MrCatTailSprite" type="AnimatedSprite2D" parent="MrCatControlNode" unique_id=2056402007]
+position = Vector2(160, 90)
+sprite_frames = SubResource("SpriteFrames_a45xc")
+
+[node name="MrCatSprite" type="AnimatedSprite2D" parent="MrCatControlNode" unique_id=1704421451]
+position = Vector2(160, 90.381516)
 sprite_frames = SubResource("SpriteFrames_6wf7b")
 animation = &"sunglasses"
+
+[node name="BobbingAnimator" type="AnimationPlayer" parent="MrCatControlNode" unique_id=1464474444]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_56k00")
+autoplay = &"mr_cat_bobbing_animation"
 
 [node name="Timer" type="Timer" parent="." unique_id=2098244120]
 wait_time = 1.5
 
 [node name="TestButton2" type="Button" parent="." unique_id=600080867]
-offset_left = -119.75
-offset_top = -48.0
-offset_right = -75.75
-offset_bottom = -24.0
+offset_left = -326.0
+offset_top = -194.0
+offset_right = -197.0
+offset_bottom = -91.0
+text = "cool"
 
 [node name="TestButton" type="Button" parent="." unique_id=2035756023]
-offset_left = -120.0
-offset_top = -77.0
-offset_right = -76.0
-offset_bottom = -53.0
+offset_left = -470.0
+offset_top = -194.0
+offset_right = -354.0
+offset_bottom = -85.0
+text = "buy"
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1895610285]
+[node name="testCamera" type="Camera2D" parent="." unique_id=1895610285]
+visible = false
+
+[node name="Node" type="Node" parent="." unique_id=190710051]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="TestButton2" to="." method="_on_test_button_2_pressed"]
