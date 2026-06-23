@@ -14,6 +14,7 @@ var polygon_points : PackedVector2Array = []
 var outer_collider : CollisionShape2D
 var left_collider : CollisionShape2D
 var right_collider : CollisionShape2D
+var collider_visiual_width : float = 5
 
 func get_bank_position():
 	return global_position + local_bank_position
@@ -29,71 +30,76 @@ func get_arc_points(center, radius, angle_from, angle_to) -> PackedVector2Array:
 
 func build_colliders(bank_angle: float, radius_center: float, width: float):
 	var outer_r = radius_center + width * 0.5
-	var inner_r = radius_center - width * 0.5
+	var inner_r = radius_center - width * 0.48
 	var left_angle = -bank_angle * 0.5
 	var right_angle = bank_angle * 0.5
+	
+	var base_shade = 0.1
+	#if cell.colour == Color.BLACK: base_shade = 0.8
 
-	var outer_convex = Line2D.new()
-	outer_convex.points = get_arc_points(Vector2.ZERO, outer_r, left_angle, right_angle)
-	match cell.colour:
-		Color.BLACK:
-			outer_convex.default_color = Color(0.9, 0.9, 0.9, 0.2)
-		_:
-			outer_convex.default_color = Color(0.1, 0.1, 0.1, 0.4)
-	add_child(outer_convex)
+	var outer_visual = Polygon2D.new()
+	var line = get_arc_points(Vector2.ZERO, outer_r, left_angle, right_angle)
+	var line2 = get_arc_points(Vector2.ZERO, inner_r, right_angle, left_angle)
+	outer_visual.polygon = line + line2
+	var colours = []
+	for i in range(line.size()): colours.append(Color(base_shade, base_shade, base_shade, 0.4))
+	for i in range(line2.size()): colours.append(Color(base_shade, base_shade, base_shade, 0.2))
+	outer_visual.vertex_colors = colours
+	add_child(outer_visual)
+
+	var outer_shape = ConcavePolygonShape2D.new()
+	outer_shape.segments = get_arc_points(Vector2.ZERO, outer_r, left_angle, right_angle)
+
 	outer_collider = CollisionShape2D.new()
-	outer_collider.shape = outer_convex
+	outer_collider.shape = outer_shape
 	add_child(outer_collider)
 	
-	var left_side = Line2D.new()
-	left_side.points = [Vector2(cos(left_angle), sin(left_angle)) * inner_r, Vector2(cos(left_angle), sin(left_angle)) * outer_r]
-	left_side.default_color = Color.SILVER
-	add_child(left_side)
+	outer_r -= collider_visiual_width / 2
+	# Left wall visual
+	var left_a = Vector2(cos(left_angle), sin(left_angle)) * inner_r
+	var left_b = Vector2(cos(left_angle), sin(left_angle)) * outer_r
+
+	var left_visual = Line2D.new()
+	left_visual.width = collider_visiual_width
+	left_visual.points = [left_a, left_b]
+	left_visual.default_color = Color.SILVER
+	add_child(left_visual)
+
+	# Left wall collider
+	var left_shape = SegmentShape2D.new()
+	left_shape.a = left_a
+	left_shape.b = left_b
+
 	left_collider = CollisionShape2D.new()
-	left_collider.shape = left_side
+	left_collider.shape = left_shape
 	add_child(left_collider)
-	
-	var right_side = Line2D.new()
-	right_side.points = [Vector2(cos(right_angle), sin(right_angle)) * inner_r, Vector2(cos(right_angle), sin(right_angle)) * outer_r]
-	right_side.default_color = Color.SILVER
-	add_child(right_side)
+
+	# Right wall visual
+	var right_a = Vector2(cos(right_angle), sin(right_angle)) * inner_r
+	var right_b = Vector2(cos(right_angle), sin(right_angle)) * outer_r
+
+	var right_visual = Line2D.new()
+	right_visual.width = collider_visiual_width
+	right_visual.points = [right_a, right_b]
+	right_visual.default_color = Color.SILVER
+	add_child(right_visual)
+
+	# Right wall collider
+	var right_shape = SegmentShape2D.new()
+	right_shape.a = right_a
+	right_shape.b = right_b
+
 	right_collider = CollisionShape2D.new()
-	right_collider.shape = right_side
+	right_collider.shape = right_shape
 	add_child(right_collider)
 
 
 func _init(owner_cell: RouletteCell, bank_angle: float, bank_position: Vector2 = Vector2.ZERO, bank_width: float = 45.0):
 	cell = owner_cell
-	local_bank_position = bank_position
 	rotation = bank_position.angle()
 	name = "Bank_%s" % str(cell.number)
-	
-	if cell.number < 5:
-		var position_visual = Polygon2D.new()
-		position_visual.color = Color(0.204, 0.663, 0.682, 1.0)
-		position_visual.position = local_bank_position
-		position_visual.polygon = RouletteBall._make_circle_points(20, 24)
-		add_child(position_visual)
-	
-	build_colliders(bank_angle, bank_position.length() * 0.985, bank_width)
-	#polygon_points = build_bank_polygon(bank_angle - 0.05, bank_position.length(), bank_width)
-	
-	var convex = ConvexPolygonShape2D.new()
-	convex.points = polygon_points
 
-	#bank_collider = CollisionShape2D.new()
-	#bank_collider.shape = convex
-	#add_child(bank_collider)
-	
-	#var visual = Polygon2D.new()
-	#match cell.colour:
-		#Color.BLACK:
-			#visual.color = Color(0.9, 0.9, 0.9, 0.2)
-		#_:
-			#visual.color = Color(0.1, 0.1, 0.1, 0.2)
-	#visual.polygon = polygon_points
-	#add_child(visual)
-
+	build_colliders(bank_angle, bank_position.length() * 0.98, bank_width)
 	body_entered.connect(_on_body_entered)
 
 # Used by Roulette.move_banks()
@@ -120,4 +126,3 @@ func _on_body_entered(body: Node) -> void:
 		print("Ball caught at number ", cell.number)
 		return
 	print("Ball missed cell ", cell.number)
-	var ball_dir 
