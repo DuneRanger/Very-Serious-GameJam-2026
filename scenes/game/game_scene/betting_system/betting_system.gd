@@ -9,7 +9,6 @@ extends Node2D
 @export var third_button_font_size : int
 @export var half_button_font_size : int
 
-var bets = {}
 var labels = {}
 var max_num : int = 24
 var row_count : int = 3
@@ -153,10 +152,6 @@ func connect_buttons() -> void:
 	for b in buttons:
 		b.placed_bet.connect(new_bet)
 
-func init_bets() -> void:
-	for b in buttons:
-		bets[b.button_id] = 0
-
 func set_button_size() -> void:
 	for b in buttons:
 		var button_type = get_bet_type(b.button_id)
@@ -168,7 +163,6 @@ func _ready() -> void:
 	background_height = (row_count + 2) * button_size + (row_count + 3) * padding
 	$Background.size = Vector2(background_width, background_height)
 	make_buttons()
-	init_bets()
 	pad_all_buttons()
 	set_button_size()
 	connect_buttons()
@@ -194,13 +188,13 @@ func new_bet(b_id : int) -> void:
 	if current_increment > GameManager.money:
 		send_error_message.emit("Not enough money!")
 		return
-	elif current_increment < 0 and bets[b_id] == 0:
+	elif current_increment < 0 and GameManager.bets.get(b_id, 0) == 0:
 		send_error_message.emit("Removing money on an empty bet!")
 		return
 		
-	var old_bet_amount = bets[b_id]
+	var old_bet_amount = GameManager.bets.get(b_id, 0)
 	var new_bet_amount = max ((old_bet_amount + current_increment), 0)
-	bets[b_id] = new_bet_amount
+	GameManager.bets[b_id] = new_bet_amount
 	
 	var bet_difference = new_bet_amount - old_bet_amount 
 	GameManager.money -= bet_difference
