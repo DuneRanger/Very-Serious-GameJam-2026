@@ -5,6 +5,8 @@ class_name GameScene
 func _ready() -> void:
 	GameManagerGlobal.game_state = GameEnums.game_states.BET_PHASE
 	$Table/BettingSystem.send_error_message.connect(send_error_message)
+	GameManagerGlobal.money_change.connect(edit_money)
+	GameManagerGlobal.modify_money(100)
 
 func _process(_delta: float) -> void:
 	match (GameManagerGlobal.game_state):
@@ -17,6 +19,8 @@ func _process(_delta: float) -> void:
 				$Table/Roulette.stop_roulette()
 				GameManagerGlobal.game_state = GameEnums.game_states.BET_PHASE
 				var money_won = get_full_bet_win()
+				GameManagerGlobal.modify_money(money_won)
+				$Table/BettingSystem.clear_bets()
 		_:
 			pass
 
@@ -89,3 +93,7 @@ func get_full_bet_win() -> int:
 func send_error_message(message : String):
 	$Table/ErrorMessage.put_content(message)
 	$Table/ErrorMessage.restart_anim()
+
+func edit_money():
+	$Table/TestLabel.text = str(GameManagerGlobal.money)
+	

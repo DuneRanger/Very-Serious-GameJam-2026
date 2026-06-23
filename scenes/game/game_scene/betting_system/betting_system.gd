@@ -206,3 +206,12 @@ func new_bet(b_id : int) -> void:
 			add_child(l)
 	elif new_bet_amount == 0:
 		remove_child(l)
+
+func clear_bets() -> void:
+	for label_id in labels:
+		var label = labels[label_id]		
+		if label.get_parent() != null:
+			remove_child(label)
+	labels.clear()
+	GameManagerGlobal.bets.clear()
+	
