@@ -11,7 +11,7 @@ static func get_random_roulette_rot() -> float:
 	return rot
 
 var cells : Array[RouletteCell] = []
-var default_font : Font = ThemeDB.fallback_font;
+var default_font : Font = load("res://assets/fonts/PixeloidMono.otf");
 
 const base_roulette_numbers : int = 24
 # (base_roulette_numbers + 1) includes the green 0
