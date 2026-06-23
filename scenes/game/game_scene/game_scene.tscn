@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://ch1muups6uskk" path="res://scenes/game/game_scene/betting_system/betting_system.tscn" id="4_uj17p"]
 [ext_resource type="PackedScene" uid="uid://cyc3c7bbs4ui3" path="res://scenes/game/game_scene/boost_bar/BoostSystem.tscn" id="6_4jb31"]
 [ext_resource type="PackedScene" uid="uid://cqwd5xducgdsl" path="res://scenes/game/game_scene/hud/game_scene_hud.tscn" id="9_4jb31"]
-[ext_resource type="PackedScene" uid="uid://bt8dbkjq4nc07" path="res://scenes/game/game_scene/boost_bar/boost_bar.tscn" id="4_yjymu"]
 [ext_resource type="PackedScene" uid="uid://bl8sfosexqsqv" path="res://scenes/game/UI_elements/animated_sprites/spin_symbol/spin_symbol.tscn" id="10_0qrw6"]
 [ext_resource type="Shader" uid="uid://d1sj22wa4oiic" path="res://assets/shaders/pixelate.gdshader" id="10_1xuq5"]
 [ext_resource type="PackedScene" uid="uid://djtfrov4iqbnm" path="res://scenes/game/UI_elements/animated_sprites/ruby_animated_sprite.tscn" id="10_7tgh3"]
@@ -76,15 +75,11 @@ position = Vector2(-352, -224)
 visible = false
 position = Vector2(-352, -160)
 
-[node name="HUD" parent="." unique_id=1970834067 instance=ExtResource("9_4jb31")]
-layer = 200
-[node name="Test" type="Node" parent="." unique_id=1695512338]
-
-[node name="MoneyAnimatedSprite" parent="Test" unique_id=1016875789 instance=ExtResource("11_hdcdy")]
+[node name="MoneyAnimatedSprite2" parent="Test" unique_id=1342679587 instance=ExtResource("11_hdcdy")]
 visible = false
 position = Vector2(-352, -224)
 
-[node name="RubyAnimatedSprite" parent="Test" unique_id=701930484 instance=ExtResource("10_7tgh3")]
+[node name="RubyAnimatedSprite2" parent="Test" unique_id=1423863786 instance=ExtResource("10_7tgh3")]
 visible = false
 position = Vector2(-352, -160)
 
@@ -102,3 +97,8 @@ position = Vector2(-456, -272)
 
 [node name="SpinSymbol" parent="Test" unique_id=1596740823 instance=ExtResource("10_0qrw6")]
 position = Vector2(-376, -272)
+
+[node name="HUD" parent="." unique_id=1970834067 instance=ExtResource("9_4jb31")]
+layer = 200
+
+[node name="Test2" type="Node" parent="." unique_id=1816338907]
