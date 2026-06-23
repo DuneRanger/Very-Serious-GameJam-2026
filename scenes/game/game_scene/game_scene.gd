@@ -27,7 +27,7 @@ func _process(_delta: float) -> void:
 func does_bet_win(bet_id : int) -> bool:
 	var bet_type : GameEnums.bet_types = $Table/BettingSystem.get_bet_type(bet_id)
 	if bet_type == GameEnums.bet_types.NUMBER:
-		for cell : RouletteCell in GameManager.caughtCells:
+		for cell : RouletteCell in GameManagerGlobal.caughtCells:
 			if cell.number == bet_id:
 				return true
 				
