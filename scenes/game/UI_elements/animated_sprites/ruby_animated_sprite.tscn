@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://djtfrov4iqbnm"]
+
+[ext_resource type="Texture2D" uid="uid://c2fpuufjt8cmc" path="res://assets/textures/money and rubies/ruby_sprite_sheet.png" id="1_kgv5v"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8d56"]
+atlas = ExtResource("1_kgv5v")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fcr3i"]
+atlas = ExtResource("1_kgv5v")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uq0jx"]
+atlas = ExtResource("1_kgv5v")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26ida"]
+atlas = ExtResource("1_kgv5v")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4xyog"]
+atlas = ExtResource("1_kgv5v")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0y1xe"]
+atlas = ExtResource("1_kgv5v")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_37e2c"]
+atlas = ExtResource("1_kgv5v")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b8xlr"]
+atlas = ExtResource("1_kgv5v")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2c4s"]
+atlas = ExtResource("1_kgv5v")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q1uqv"]
+atlas = ExtResource("1_kgv5v")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_corto"]
+atlas = ExtResource("1_kgv5v")
+region = Rect2(160, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vpe8o"]
+atlas = ExtResource("1_kgv5v")
+region = Rect2(176, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e12w3"]
+atlas = ExtResource("1_kgv5v")
+region = Rect2(192, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_va6jm"]
+atlas = ExtResource("1_kgv5v")
+region = Rect2(208, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_aff2t"]
+animations = [{
+"frames": [{
+"duration": 20.0,
+"texture": SubResource("AtlasTexture_q8d56")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fcr3i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uq0jx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_26ida")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4xyog")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0y1xe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_37e2c")
+}, {
+"duration": 20.0,
+"texture": SubResource("AtlasTexture_b8xlr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f2c4s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q1uqv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_corto")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vpe8o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e12w3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_va6jm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="RubyAnimatedSprite" type="Node2D" unique_id=701930484]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1776629832]
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_aff2t")
+autoplay = "default"
+frame_progress = 0.34776193
