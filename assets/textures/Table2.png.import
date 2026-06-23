@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bn08ytmdst6va"
-path="res://.godot/imported/money_sprite_sheet.png-c7a56758e2d6cb8d1af274a85cee12e4.ctex"
+uid="uid://oyywqlbugqpj"
+path="res://.godot/imported/Table2.png-8cfd6a1234b2f8457d12939958855102.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/money and rubies/money_sprite_sheet.png"
-dest_files=["res://.godot/imported/money_sprite_sheet.png-c7a56758e2d6cb8d1af274a85cee12e4.ctex"]
+source_file="res://assets/textures/Table2.png"
+dest_files=["res://.godot/imported/Table2.png-8cfd6a1234b2f8457d12939958855102.ctex"]
 
 [params]
 
