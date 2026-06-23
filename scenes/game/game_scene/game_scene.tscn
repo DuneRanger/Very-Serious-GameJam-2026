@@ -77,13 +77,6 @@ position = Vector2(-552, -296)
 
 [node name="RubyLabel" parent="Table" unique_id=343890864 instance=ExtResource("7_dkmwb")]
 position = Vector2(-552, -232)
-[node name="Test" type="Node" parent="." unique_id=1695512338]
-
-[node name="MoneyAnimatedSprite" parent="Test" unique_id=1016875789 instance=ExtResource("11_hdcdy")]
-position = Vector2(-352, -224)
-
-[node name="RubyAnimatedSprite" parent="Test" unique_id=701930484 instance=ExtResource("10_7tgh3")]
-position = Vector2(-352, -160)
 
 [node name="TestLabel" type="Label" parent="Table" unique_id=1877186703]
 offset_left = -609.0
@@ -92,7 +85,14 @@ offset_right = -310.0
 offset_bottom = -222.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 16
-label_settings = SubResource("LabelSettings_qny2l")
+
+[node name="Test" type="Node" parent="." unique_id=1695512338]
+
+[node name="MoneyAnimatedSprite" parent="Test" unique_id=1016875789 instance=ExtResource("11_hdcdy")]
+position = Vector2(-352, -224)
+
+[node name="RubyAnimatedSprite" parent="Test" unique_id=701930484 instance=ExtResource("10_7tgh3")]
+position = Vector2(-352, -160)
 
 [node name="ChipBlack" type="Sprite2D" parent="." unique_id=2140071562]
 visible = false
