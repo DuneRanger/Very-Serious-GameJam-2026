@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bt8dbkjq4nc07" path="res://scenes/game/game_scene/boost_bar/boost_bar.tscn" id="4_yjymu"]
 [ext_resource type="Texture2D" uid="uid://dut742t7mmgrt" path="res://assets/textures/chips/chip_black.png" id="7_ho26m"]
 [ext_resource type="PackedScene" uid="uid://dcu31p6twmdit" path="res://scenes/game/utils/ErrorMessage.tscn" id="8_dkmwb"]
+[ext_resource type="PackedScene" uid="uid://bl8sfosexqsqv" path="res://scenes/game/UI_elements/animated_sprites/spin_symbol/spin_symbol.tscn" id="10_0qrw6"]
 [ext_resource type="Shader" uid="uid://d1sj22wa4oiic" path="res://assets/shaders/pixelate.gdshader" id="10_1xuq5"]
 [ext_resource type="PackedScene" uid="uid://djtfrov4iqbnm" path="res://scenes/game/UI_elements/animated_sprites/ruby_animated_sprite.tscn" id="10_7tgh3"]
 [ext_resource type="PackedScene" uid="uid://b8s6w1lbfa62g" path="res://scenes/game/UI_elements/animated_sprites/money_animated_sprite.tscn" id="11_hdcdy"]
@@ -106,6 +107,12 @@ position = Vector2(-208, -271)
 
 [node name="BoostSymbol3" parent="Test" unique_id=1093939258 instance=ExtResource("12_ghl7i")]
 position = Vector2(-144, -271)
+
+[node name="SpinSymbol2" parent="Test" unique_id=1373102795 instance=ExtResource("10_0qrw6")]
+position = Vector2(-456, -272)
+
+[node name="SpinSymbol" parent="Test" unique_id=1596740823 instance=ExtResource("10_0qrw6")]
+position = Vector2(-376, -272)
 
 [node name="ChipBlack" type="Sprite2D" parent="." unique_id=2140071562]
 visible = false
