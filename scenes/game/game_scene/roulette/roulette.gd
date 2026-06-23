@@ -23,6 +23,19 @@ func _init():
 		var curCol = Color.RED
 		if i % 2 == 0: curCol = Color.BLACK
 		cells.append(RouletteCell.new(i + 1, curCol))
+	cells[0].weight = 10
+	randomize_weights()
+
+func randomize_weights():
+	for cell in cells:
+		cell.weight = randf_range(0.5, 10)
+	update_total_weight()
+
+func update_total_weight():
+	total_weight = 0
+	for cell in cells:
+		total_weight += cell.weight
+	#queue_redraw()
 
 # -------------------------------- Drawing --------------------------------
 
@@ -35,7 +48,7 @@ var outer_circle_colour : Color = Color.DARK_RED
 var visual_rotation : float = 0;
 
 func draw_circle_arc_poly(center, radius, angle_from, angle_to, color):
-	var nb_points = 32  + floor(100 * abs(angle_from - angle_to)) 
+	var nb_points = 3 + floor(10 * abs(angle_from - angle_to)) 
 	var points_arc = PackedVector2Array()
 	points_arc.push_back(center)
 	var colors = PackedColorArray([color])
@@ -54,16 +67,19 @@ func draw_cells():
 		# Actual angle length of the cell
 		var cur_cell_angle = base_cell_angle * cell.weight
 		# Modifies the draw angle so that the middle of the cell is perfectly vertical
-		var draw_angle = -(PI + cur_cell_angle) / 2
-		draw_circle_arc_poly(Vector2(0, 0), cell_circle_radius, draw_angle, draw_angle + cur_cell_angle, cell.colour)
-		
-		var font_max_width = sin(cur_cell_angle) * cell_circle_radius
-		var font_size = 48
-		draw_string(default_font, Vector2(-font_max_width / 2, -cell_circle_radius * 0.9), str(cell.number),
-				HORIZONTAL_ALIGNMENT_CENTER, font_max_width, font_size)
-
-		cur_angle += cur_cell_angle
+		var draw_angle = -PI / 2
 		draw_set_transform(Vector2(0, 0), cur_angle + visual_rotation)
+		draw_circle_arc_poly(Vector2(0, 0), cell_circle_radius, draw_angle, draw_angle + cur_cell_angle, cell.colour)
+		draw_set_transform(Vector2(0, 0), cur_angle + cur_cell_angle / 2 + visual_rotation)
+		
+		var text = str(cell.number)
+		var font_max_width = sin(cur_cell_angle) * cell_circle_radius
+		var font_size = min(48, font_max_width / len(text))
+		var position = Vector2(-font_max_width / 2, -cell_circle_radius * 0.95 + font_size / 2)
+		draw_string(default_font, position, text, HORIZONTAL_ALIGNMENT_CENTER, font_max_width, font_size)
+		cur_angle += cur_cell_angle
+		print(text, " is ", cell.weight/total_weight)
+
 	draw_set_transform(Vector2(0, 0), 0)
 
 func draw_centre():
