@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://03e3sabpwkkf"]
 
 [ext_resource type="Script" uid="uid://rc270gjhg8lu" path="res://scenes/game/game_scene/game_scene.gd" id="1_ljoy4"]
-[ext_resource type="PackedScene" uid="uid://b30ld2u6p8onl" path="res://scenes/game/game_manager/game_manager.tscn" id="1_sists"]
 [ext_resource type="PackedScene" uid="uid://7jo8gxcpa6u" path="res://scenes/game/game_scene/roulette/roulette.tscn" id="2_wftn3"]
 [ext_resource type="Texture2D" uid="uid://dujcu840o5f5l" path="res://assets/textures/Table.png" id="3_dkmwb"]
 [ext_resource type="FontFile" uid="uid://7paxof88brjl" path="res://assets/fonts/PixeloidMono.otf" id="3_qny2l"]
@@ -16,8 +15,6 @@ font_size = 32
 
 [node name="game_scene" type="Node2D" unique_id=1710828263]
 script = ExtResource("1_ljoy4")
-
-[node name="GameManager" parent="." unique_id=1486485077 instance=ExtResource("1_sists")]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=650751615]
 
@@ -48,15 +45,13 @@ position = Vector2(-488, 16)
 [node name="ErrorMessage" parent="Table" unique_id=371495968 instance=ExtResource("8_dkmwb")]
 position = Vector2(0, -360)
 
-[node name="TestLabel" type="Label" parent="." unique_id=1877186703]
-visible = false
+[node name="TestLabel" type="Label" parent="Table" unique_id=1877186703]
 offset_left = -609.0
 offset_top = -333.0
 offset_right = -310.0
 offset_bottom = -222.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 16
-text = "This is a test"
 label_settings = SubResource("LabelSettings_qny2l")
 
 [node name="ChipBlack" type="Sprite2D" parent="." unique_id=2140071562]

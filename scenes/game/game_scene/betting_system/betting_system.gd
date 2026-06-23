@@ -178,26 +178,26 @@ func get_label(b):
 	return lab
 
 func new_bet(b_id : int) -> void:
-	if GameManager.game_state != GameEnums.game_states.BET_PHASE:
+	if GameManagerGlobal.game_state != GameEnums.game_states.BET_PHASE:
 		return
 	var b = buttons[b_id]
 	var current_increment = increment
 	if $IncrementToggle.adding == false || Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		current_increment *= -1
 	
-	if current_increment > GameManager.money:
+	if current_increment > GameManagerGlobal.money:
 		send_error_message.emit("Not enough money!")
 		return
-	elif current_increment < 0 and GameManager.bets.get(b_id, 0) == 0:
+	elif current_increment < 0 and GameManagerGlobal.bets.get(b_id, 0) == 0:
 		send_error_message.emit("Removing money on an empty bet!")
 		return
 		
-	var old_bet_amount = GameManager.bets.get(b_id, 0)
+	var old_bet_amount = GameManagerGlobal.bets.get(b_id, 0)
 	var new_bet_amount = max ((old_bet_amount + current_increment), 0)
-	GameManager.bets[b_id] = new_bet_amount
+	GameManagerGlobal.bets[b_id] = new_bet_amount
 	
-	var bet_difference = new_bet_amount - old_bet_amount 
-	GameManager.money -= bet_difference
+	var bet_difference = old_bet_amount - new_bet_amount
+	GameManagerGlobal.modify_money(bet_difference)
 	
 	var l = get_label(b)
 	
@@ -206,3 +206,12 @@ func new_bet(b_id : int) -> void:
 			add_child(l)
 	elif new_bet_amount == 0:
 		remove_child(l)
+
+func clear_bets() -> void:
+	for label_id in labels:
+		var label = labels[label_id]		
+		if label.get_parent() != null:
+			remove_child(label)
+	labels.clear()
+	GameManagerGlobal.bets.clear()
+	

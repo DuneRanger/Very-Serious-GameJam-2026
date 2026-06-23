@@ -133,7 +133,7 @@ func _ready():
 	refresh_bank_debug()
 
 func _physics_process(_delta: float):
-	match (GameManager.game_state):
+	match (GameManagerGlobal.game_state):
 		GameEnums.game_states.SPIN_PHASE:
 			give_balls_angular_velocity(_delta)
 			simulate_inclines(_delta)
@@ -142,7 +142,7 @@ func _physics_process(_delta: float):
 			decay_rotation()
 			queue_redraw()
 			if rotation_speed == 0:
-				GameManager.game_state = GameEnums.game_states.BET_PHASE
+				GameManagerGlobal.game_state = GameEnums.game_states.BET_PHASE
 		GameEnums.game_states.BET_PHASE:
 			pass
 		_:
