@@ -1,17 +1,23 @@
 extends Node2D
 
-class_name GameManager
+var round_budget: int
+var round_count: int
+var money: int
+var tokens: int
+var spins: int
+var boosts: int
+var game_state : GameEnums.game_states
+var bets : Dictionary
+var caughtCells : Array[RouletteCell]
 
-static var round_budget: int
-static var round_count: int
-static var money: int
-static var tokens: int
-static var spins: int
-static var boosts: int
-static var game_state : GameEnums.game_states
-static var bets : Dictionary
-static var caughtCells : Array[RouletteCell]
+var single_bet_coeff : float = 20.0
+var half_bet_coeff : float = 2.0
+var third_bet_coeff : float = 3.0
 
-static var single_bet_coeff : float = 20.0
-static var half_bet_coeff : float = 2.0
-static var third_bet_coeff : float = 3.0
+signal money_change
+
+const base_cell_weight : float = 1.0
+
+func modify_money (amount : int):
+	money += amount
+	money_change.emit()

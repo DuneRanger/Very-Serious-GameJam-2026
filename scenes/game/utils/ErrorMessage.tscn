@@ -55,7 +55,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0.0009999999, 0.35, 1.1666666),
 "transitions": PackedFloat32Array(1, 1, 0.060371093),
 "update": 0,
-"values": [Color(0.6509804, 0.14901961, 0.14901961, 1), Color(0.6509804, 0.14901961, 0.14901961, 1), Color(0.6509804, 0.14901961, 0.14901961, 0)]
+"values": [Color(0.72156864, 0.21568628, 0.21568628, 1), Color(0.72156864, 0.21568628, 0.21568628, 1), Color(0.72156864, 0.21568628, 0.21568628, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -79,7 +79,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.5, 1.5),
 "transitions": PackedFloat32Array(1, 0.21763788, 0.53588665),
 "update": 0,
-"values": [Color(0.98039216, 0.76862746, 0, 1), Color(0.98039216, 0.76862746, 0, 1), Color(0.98039216, 0.76862746, 0, 0)]
+"values": [Color(0.7294118, 0.7294118, 0.7294118, 1), Color(0.7294118, 0.7294118, 0.7294118, 1), Color(0.7294118, 0.7294118, 0.7294118, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_inwfy"]

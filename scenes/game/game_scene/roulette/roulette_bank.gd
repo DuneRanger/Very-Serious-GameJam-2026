@@ -40,7 +40,7 @@ func _on_body_entered(body: Node) -> void:
 
 	if randf() < effective_chance:
 		body.catch_in_pocket(cell)
-		GameManager.caughtCells.push_back(cell)
+		GameManagerGlobal.caughtCells.push_back(cell)
 		print("Ball caught at number ", cell.number)
 	else:
 		print("Ball missed cell ", cell.number)
