@@ -12,6 +12,7 @@ func _ready() -> void:
 	
 
 func start_system() -> void:
+	$boost_bar.visible = false
 	$HappyButton.visible = true
 	$UnHappyButton.visible = true
 

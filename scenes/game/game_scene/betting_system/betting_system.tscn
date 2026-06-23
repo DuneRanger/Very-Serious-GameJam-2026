@@ -29,6 +29,7 @@ half_button_font_size = 13
 color = Color(1.01, 1.01, 1.01, 1)
 
 [node name="IncrementToggle" type="Button" parent="." unique_id=610838021]
+visible = false
 offset_right = 8.0
 offset_bottom = 8.0
 theme_override_styles/normal = SubResource("StyleBoxTexture_60oc5")

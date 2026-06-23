@@ -37,11 +37,11 @@ offset_right = 917.0
 offset_bottom = 402.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_alnvv")
-theme_override_font_sizes/font_size = 29
+theme_override_font_sizes/font_size = 27
 theme_override_styles/normal = SubResource("StyleBoxTexture_ofgc5")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_il4g5")
 theme_override_styles/hover = SubResource("StyleBoxTexture_ydvnx")
-text = "OKAY"
+text = "ACCEPT"
 
 [node name="UnHappyButton" type="Button" parent="." unique_id=2008763814]
 offset_left = 933.0
@@ -50,7 +50,7 @@ offset_right = 1077.0
 offset_bottom = 402.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_alnvv")
-theme_override_font_sizes/font_size = 29
+theme_override_font_sizes/font_size = 27
 theme_override_styles/normal = SubResource("StyleBoxTexture_ofgc5")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_il4g5")
 theme_override_styles/hover = SubResource("StyleBoxTexture_ydvnx")
