@@ -128,7 +128,7 @@ func stop_roulette():
 func _ready():
 	build_outer_wall()
 	build_banks()
-	#prepare_balls()
+	prepare_balls()
 	refresh_bank_debug()
 	spin_roulette()
 
