@@ -23,12 +23,11 @@ var ball_radius : float = 10
 # 1.0 = up at the rim.
 # 0.5 = highest point in the centre
 var height : float = 0.0:
-	set(v):
-		height = clampf(v, 0.0, 1.0)
+	set(v): height = clampf(v, 0.0, 1.0)
 
 ## Marks the ball as settled and no longer updates physics
 var settled : bool = false
-var bound_bank : Area2D
+var caught_cell : RouletteCell
 
 func _init():
 	mass = 1.0
@@ -36,7 +35,7 @@ func _init():
 
 	var phys_mat = PhysicsMaterial.new()
 	phys_mat.bounce = 0.5
-	phys_mat.friction = 0.001
+	phys_mat.friction = 0.0001
 	physics_material_override = phys_mat
 
 	# collision detecteion mode
@@ -62,7 +61,7 @@ func get_speed() -> float:
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	if settled:
-		var bank_to_ball = bound_bank.global_position - global_position
+		var bank_to_ball = caught_cell.bank.global_position - global_position
 		state.linear_velocity = bank_to_ball.normalized() * 50 * bank_to_ball.length()
 		return
 
@@ -71,10 +70,19 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		new_vel *= 0.999
 	elif new_vel.length() > max_speed:
 		new_vel = new_vel.normalized() * max_speed
-	
+
 	state.linear_velocity = new_vel
 
-func catch_in_pocket(center: Vector2, bank : Area2D) -> void:
+func catch_in_pocket(cell: RouletteCell) -> void:
 	height = 0
 	settled = true
-	bound_bank = bank
+	caught_cell = cell
+
+func reset_ball(start_position: Vector2) -> void:
+	position = start_position
+	rotation = 0.0
+	linear_velocity = Vector2.ZERO
+	angular_velocity = 0.0
+	height = 0.0
+	settled = false
+	caught_cell = null

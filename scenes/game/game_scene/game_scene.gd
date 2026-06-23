@@ -27,7 +27,7 @@ func _process(_delta: float) -> void:
 func does_bet_win(bet_id : int) -> bool:
 	var bet_type : GameEnums.bet_types = $Table/BettingSystem.get_bet_type(bet_id)
 	if bet_type == GameEnums.bet_types.NUMBER:
-		for cell : GameManagerGlobal.RouletteCell in GameManagerGlobal.caughtCells:
+		for cell : RouletteCell in GameManager.caughtCells:
 			if cell.number == bet_id:
 				return true
 				
@@ -42,19 +42,19 @@ func does_bet_win(bet_id : int) -> bool:
 			step = GameEnums.max_roulette_num / 2
 		var lower_bound = (shift - 1) * step + 1
 		var upper_bound = shift * step
-		for cell : GameManagerGlobal.RouletteCell in GameManagerGlobal.caughtCells:
+		for cell : RouletteCell in GameManagerGlobal.caughtCells:
 			if cell.number >= lower_bound && cell.number <= upper_bound:
 				return true
 				
 	elif bet_id == (GameEnums.max_roulette_num + 6) || bet_id == (GameEnums.max_roulette_num + 7):
 		var mod_res = bet_id - (GameEnums.max_roulette_num + 6)
-		for cell : GameManagerGlobal.RouletteCell in GameManagerGlobal.caughtCells:
+		for cell : RouletteCell in GameManagerGlobal.caughtCells:
 			if (cell.number % 2) == mod_res:
 				return true
 	elif bet_id == (GameEnums.max_roulette_num + 8) || bet_id == (GameEnums.max_roulette_num + 9):
 		var whatever = bet_id - (GameEnums.max_roulette_num + 8)
 		var color : Color = Color.BLACK if whatever else Color.RED
-		for cell : GameManagerGlobal.RouletteCell in GameManagerGlobal.caughtCells:
+		for cell : RouletteCell in GameManagerGlobal.caughtCells:
 			if cell.colour == color:
 				return true
 			
