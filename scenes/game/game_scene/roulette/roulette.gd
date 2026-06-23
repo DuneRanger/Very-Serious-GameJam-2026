@@ -23,12 +23,13 @@ func _init():
 		var curCol = Color.RED
 		if i % 2 == 0: curCol = Color.BLACK
 		cells.append(RouletteCell.new(i + 1, curCol))
-	cells[0].weight = 10
 	randomize_weights()
+	cells[0].weight = 10
+	update_total_weight()
 
 func randomize_weights():
 	for cell in cells:
-		cell.weight = randf_range(0.5, 10)
+		cell.weight = randf_range(0.5, 2)
 	update_total_weight()
 
 func update_total_weight():
@@ -78,7 +79,7 @@ func draw_cells():
 		var position = Vector2(-font_max_width / 2, -cell_circle_radius * 0.95 + font_size / 2)
 		draw_string(default_font, position, text, HORIZONTAL_ALIGNMENT_CENTER, font_max_width, font_size)
 		cur_angle += cur_cell_angle
-		print(text, " is ", cell.weight/total_weight)
+		#print(text, " is ", cell.weight/total_weight)
 
 	draw_set_transform(Vector2(0, 0), 0)
 
@@ -93,7 +94,7 @@ func _draw():
 	draw_cells()
 	draw_centre()
 	move_banks()
-	_draw_bank_debug()
+	#_draw_bank_debug()
 
 # -------------------------------- Physics --------------------------------
 
@@ -180,10 +181,10 @@ func build_banks() -> void:
 
 	for cell in cells:
 		var cur_cell_angle = base_cell_angle * cell.weight
-		var mid_angle = cur_angle - PI / 2
+		var mid_angle = cur_angle + cur_cell_angle / 2 - PI / 2
 		var bank_position = Vector2(cos(mid_angle), sin(mid_angle)) * bank_radius_pos
 
-		var bank = RouletteBank.new(cell, bank_trigger_radius, bank_position)
+		var bank = RouletteBank.new(cell, cur_cell_angle, bank_position, 90)
 		bank.catch_characteristic_speed = bank_catch_characteristic_speed
 		bank.catch_sharpness = bank_catch_sharpness
 		cell.bank = bank

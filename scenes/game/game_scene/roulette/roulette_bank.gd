@@ -2,27 +2,76 @@ class_name RouletteBank
 extends Area2D
 
 var cell : RouletteCell
-var radius : float
+var local_bank_position : Vector2
 
 var catch_characteristic_speed : float = 100.0
 var catch_sharpness : float = 1.5
 
-func _init(owner_cell: RouletteCell = null, bank_radius: float = 45.0, bank_position: Vector2 = Vector2.ZERO) -> void:
-	cell = owner_cell
-	radius = bank_radius
-	position = bank_position
-	name = "Bank_%s" % str(cell.number) if cell else "Bank"
+var top_edge_radius : float
+var bottom_edge_radius : float
 
-	var shape = CircleShape2D.new()
-	shape.radius = radius
-	var col = CollisionShape2D.new()
-	col.shape = shape
-	add_child(col)
+var polygon_points : PackedVector2Array = []
+var bank_collider : CollisionShape2D
+
+func get_bank_position():
+	return global_position + local_bank_position
+
+func get_arc_points(center, radius, angle_from, angle_to) -> PackedVector2Array:
+	var nb_points = 3 + floor(10 * abs(angle_from - angle_to)) 
+	var points_arc = PackedVector2Array()
+
+	for i in range(nb_points + 1):
+		var angle_point = angle_from + i * (angle_to - angle_from) / nb_points
+		points_arc.push_back(center + Vector2(cos(angle_point), sin(angle_point)) * radius)
+	return points_arc
+
+func build_bank_polygon(bank_angle: float, radius_center: float, width: float) -> PackedVector2Array:
+	var outer_r = radius_center + width * 0.5
+	var inner_r = radius_center - width * 0.5
+
+	var pts = PackedVector2Array()
+
+	pts.append_array(get_arc_points(Vector2.ZERO, outer_r, -bank_angle * 0.5, bank_angle * 0.5))
+	pts.append_array(get_arc_points(Vector2.ZERO, inner_r, bank_angle * 0.5, -bank_angle * 0.5))
+
+	return pts
+
+func _init(owner_cell: RouletteCell, bank_angle: float, bank_position: Vector2 = Vector2.ZERO, bank_width: float = 45.0):
+	cell = owner_cell
+	local_bank_position = bank_position
+	rotation = bank_position.angle()
+	name = "Bank_%s" % str(cell.number)
+	
+	if cell.number < 5:
+		var position_visual = Polygon2D.new()
+		position_visual.color = Color(0.204, 0.663, 0.682, 1.0)
+		position_visual.position = local_bank_position
+		position_visual.polygon = RouletteBall._make_circle_points(20, 24)
+		add_child(position_visual)
+
+	polygon_points = build_bank_polygon(bank_angle - 0.05, bank_position.length(), bank_width)
+	
+	var convex = ConvexPolygonShape2D.new()
+	convex.points = polygon_points
+
+	bank_collider = CollisionShape2D.new()
+	bank_collider.shape = convex
+	add_child(bank_collider)
+	
+	var visual = Polygon2D.new()
+	match cell.colour:
+		Color.BLACK:
+			visual.color = Color(0.9, 0.9, 0.9, 0.2)
+		_:
+			visual.color = Color(0.1, 0.1, 0.1, 0.2)
+	visual.polygon = polygon_points
+	add_child(visual)
 
 	body_entered.connect(_on_body_entered)
 
 # Used by Roulette.move_banks()
 func rotate_around_center(angle: float) -> void:
+	rotation += angle
 	position = position.rotated(angle)
 
 func catch_probability(speed: float) -> float:
@@ -42,5 +91,6 @@ func _on_body_entered(body: Node) -> void:
 		body.catch_in_pocket(cell)
 		GameManager.caughtCells.push_back(cell)
 		print("Ball caught at number ", cell.number)
-	else:
-		print("Ball missed cell ", cell.number)
+		return
+	print("Ball missed cell ", cell.number)
+	var ball_dir 

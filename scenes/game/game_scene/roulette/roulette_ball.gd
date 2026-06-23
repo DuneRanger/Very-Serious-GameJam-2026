@@ -61,7 +61,7 @@ func get_speed() -> float:
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	if settled:
-		var bank_to_ball = caught_cell.bank.global_position - global_position
+		var bank_to_ball = caught_cell.bank.local_bank_position - global_position
 		state.linear_velocity = bank_to_ball.normalized() * 50 * bank_to_ball.length()
 		return
 
