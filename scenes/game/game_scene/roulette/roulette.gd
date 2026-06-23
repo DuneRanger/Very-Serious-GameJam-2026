@@ -134,8 +134,8 @@ func decay_rotation():
 		rotation_speed = min(0, max(rotation_speed + 0.000005, rotation_speed * 0.999))
 
 func spin_roulette():
-	launch_balls()
 	rotation_speed = get_random_roulette_rot()
+	launch_balls()
 
 func stop_roulette():
 	rotation_speed = 0.0
@@ -152,9 +152,9 @@ func _physics_process(_delta: float):
 			give_balls_angular_velocity(_delta)
 			simulate_inclines(_delta)
 			visual_rotation += rotation_speed
+			
 			decay_rotation()
 			queue_redraw()
-			give_balls_angular_velocity(_delta)
 			if rotation_speed == 0:
 				GameManager.game_state = GameEnums.game_states.BET_PHASE
 		GameEnums.game_states.BET_PHASE:
@@ -162,54 +162,14 @@ func _physics_process(_delta: float):
 		_:
 			pass
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
-# -------------------------------- Balls --------------------------------
-
-var balls = []
-
-func prepare_balls():
-	for i in range(3):
-		balls.append(RouletteBall.new())
-	for ball in balls:
-		ball.position = Vector2(outer_circle_radius - 50, 0)
-		add_child(ball)
- 
-func launch_balls() -> void:
-	for ball in balls:
-		if ball and is_instance_valid(ball):
-			ball.apply_impulse(Vector2(0, 1000 * (-1 * sign(rotation_speed))))
-
-var inner_incline_strength : float = 600
-var inner_incline_radius : int = inner_circle_radius
-var cell_radius_end : int = cell_circle_radius
-var outer_incline_radius : int = bank_radius_pos + bank_trigger_radius
-var outer_incline_strength : float = 800
-
-func give_balls_angular_velocity(_delta: float):
-	if rotation_speed < 0.01:
-		return
-	for ball : RouletteBall in balls:
-		var ball_to_mid = ball.position - position
-		if ball_to_mid.length() <= cell_circle_radius - ball.ball_radius:
-			ball.apply_force(-1 * sign(rotation_speed) * ball_to_mid.normalized().orthogonal() * 500 * rotation_speed)
-
-func simulate_inclines(_delta : float):
-	for ball : RouletteBall in balls:
-		var ball_to_mid = ball.position - position
-		var ball_rad = ball_to_mid.length()
-		
-		if ball_rad <= inner_incline_radius + ball.ball_radius:
-			ball.apply_central_force(ball_to_mid.normalized() * inner_incline_strength)
-		elif ball_rad >= outer_incline_radius - ball.ball_radius:
-			ball.apply_central_force(-ball_to_mid.normalized() * outer_incline_strength)
-		elif ball_rad >= cell_circle_radius - ball.ball_radius:
-			ball.apply_central_force(-ball_to_mid.normalized() * 2 * outer_incline_strength)
+# -------------------------------- Banks --------------------------------
 
 var bank_radius_pos : float = cell_circle_radius * 0.8
-var bank_catch_characteristic_speed : float = 150.0
-var bank_catch_sharpness : float = 2
+var bank_catch_characteristic_speed : float = 100.0
+var bank_catch_sharpness : float = 1.5
 var bank_trigger_radius : float = 45
 
 var bank_areas : Array = []
@@ -261,6 +221,48 @@ func _on_bank_body_entered(body: RouletteBall, cell, bank_area: Area2D) -> void:
 		print("Ball caught at number ", cell.number)
 	else:
 		print("Ball missed cell ", cell.number)
+
+# -------------------------------- Balls --------------------------------
+
+var balls = []
+
+func prepare_balls():
+	for i in range(3):
+		balls.append(RouletteBall.new())
+	for ball in balls:
+		ball.position = Vector2(outer_circle_radius - 50, 0)
+		add_child(ball)
+ 
+func launch_balls() -> void:
+	for ball in balls:
+		if ball and is_instance_valid(ball):
+			ball.apply_impulse(Vector2(0, 1000 * (-1 * sign(rotation_speed))))
+
+var inner_incline_strength : float = 600
+var inner_incline_radius : int = inner_circle_radius
+var cell_radius_end : int = cell_circle_radius
+var outer_incline_radius : int = bank_radius_pos + bank_trigger_radius
+var outer_incline_strength : float = 600
+
+func give_balls_angular_velocity(_delta: float):
+	if rotation_speed < 0.01:
+		return
+	for ball : RouletteBall in balls:
+		var ball_to_mid = ball.position
+		if ball_to_mid.length() <= cell_circle_radius - ball.ball_radius:
+			ball.apply_central_impulse(-1 * sign(rotation_speed) * ball_to_mid.normalized().orthogonal() * 500 * rotation_speed * _delta)
+
+func simulate_inclines(_delta : float):
+	for ball : RouletteBall in balls:
+		var ball_to_mid = ball.position
+		var ball_rad = ball_to_mid.length()
+		
+		if ball_rad <= inner_incline_radius + ball.ball_radius:
+			ball.apply_central_impulse(ball_to_mid.normalized() * inner_incline_strength * _delta)
+		elif ball_rad >= outer_circle_radius - ball.ball_radius:
+			ball.apply_central_impulse(-ball_to_mid.normalized() * outer_incline_strength * _delta)
+		elif ball_rad >= outer_incline_radius + ball.ball_radius:
+			ball.apply_central_impulse(-ball_to_mid.normalized() * 2 * outer_incline_strength * _delta)
 
 
 @export_group("Debug")
