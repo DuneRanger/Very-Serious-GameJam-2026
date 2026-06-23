@@ -118,7 +118,10 @@ func decay_rotation():
 	else:
 		rotation_speed = min(0, max(rotation_speed + 0.000005, rotation_speed * 0.999))
 
+
 func spin_roulette():
+	GameManagerGlobal.caughtBalls = 0
+	GameManagerGlobal.caughtCells.clear()
 	reset_balls()
 	rotation_speed = get_random_roulette_rot()
 	launch_balls()
@@ -141,8 +144,13 @@ func _physics_process(_delta: float):
 			
 			decay_rotation()
 			queue_redraw()
-			if rotation_speed == 0:
-				GameManagerGlobal.game_state = GameEnums.game_states.BET_PHASE
+	  
+			if GameManagerGlobal.caughtBalls == balls.size():
+				GameManagerGlobal.state_change.emit(GameEnums.game_states.STOP_PHASE)
+		
+			#if rotation_speed == 0:
+				#GameManagerGlobal.state_change.emit(GameEnums.game_states.BET_PHASE)
+			#no...?
 		GameEnums.game_states.BET_PHASE:
 			pass
 		_:

@@ -21,10 +21,6 @@ var background_height : float
 
 var button_id = 0
 
-var error_message = ""
-
-signal send_error_message(message : String)
-
 func get_bet_type(id : int) -> GameEnums.bet_types:
 	if id >= 0 && id <= max_num:
 		return GameEnums.bet_types.NUMBER
@@ -186,10 +182,10 @@ func new_bet(b_id : int) -> void:
 		current_increment *= -1
 	
 	if current_increment > GameManagerGlobal.money:
-		send_error_message.emit("Not enough money!")
+		GameManagerGlobal.send_error_message.emit("Not enough money!")
 		return
 	elif current_increment < 0 and GameManagerGlobal.bets.get(b_id, 0) == 0:
-		send_error_message.emit("Removing money on an empty bet!")
+		GameManagerGlobal.send_error_message.emit("Removing money on an empty bet!")
 		return
 		
 	var old_bet_amount = GameManagerGlobal.bets.get(b_id, 0)

@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://rc270gjhg8lu" path="res://scenes/game/game_scene/game_scene.gd" id="1_ljoy4"]
 [ext_resource type="PackedScene" uid="uid://7jo8gxcpa6u" path="res://scenes/game/game_scene/roulette/roulette.tscn" id="2_wftn3"]
 [ext_resource type="Texture2D" uid="uid://dujcu840o5f5l" path="res://assets/textures/Table.png" id="3_dkmwb"]
-[ext_resource type="FontFile" uid="uid://7paxof88brjl" path="res://assets/fonts/PixeloidMono.otf" id="3_qny2l"]
 [ext_resource type="PackedScene" uid="uid://ch1muups6uskk" path="res://scenes/game/game_scene/betting_system/betting_system.tscn" id="4_uj17p"]
 [ext_resource type="PackedScene" uid="uid://bt8dbkjq4nc07" path="res://scenes/game/game_scene/boost_bar/boost_bar.tscn" id="4_yjymu"]
+[ext_resource type="PackedScene" uid="uid://cxo23rckbhjbo" path="res://scenes/game/ui_elements/AwesomeLabel.tscn" id="7_dkmwb"]
 [ext_resource type="Texture2D" uid="uid://dut742t7mmgrt" path="res://assets/textures/chips/chip_black.png" id="7_ho26m"]
 [ext_resource type="PackedScene" uid="uid://dcu31p6twmdit" path="res://scenes/game/utils/ErrorMessage.tscn" id="8_dkmwb"]
 [ext_resource type="Shader" uid="uid://d1sj22wa4oiic" path="res://assets/shaders/pixelate.gdshader" id="10_1xuq5"]
@@ -15,10 +15,6 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hdcdy"]
 shader = ExtResource("10_1xuq5")
 shader_parameter/pixel_size = 3.0
-
-[sub_resource type="LabelSettings" id="LabelSettings_qny2l"]
-font = ExtResource("3_qny2l")
-font_size = 32
 
 [node name="game_scene" type="Node2D" unique_id=1710828263]
 script = ExtResource("1_ljoy4")
@@ -66,16 +62,21 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="BettingSystem" parent="Table" unique_id=1381945534 instance=ExtResource("4_uj17p")]
-position = Vector2(-544, -228)
+position = Vector2(-568, 20)
 background_width = 480.0
 padding = 3.6
 
 [node name="boost_bar" parent="Table" unique_id=917300306 instance=ExtResource("4_yjymu")]
-position = Vector2(-488, 16)
+position = Vector2(248, -144)
 
 [node name="ErrorMessage" parent="Table" unique_id=371495968 instance=ExtResource("8_dkmwb")]
 position = Vector2(0, -360)
 
+[node name="CoinLabel" parent="Table" unique_id=1310137312 instance=ExtResource("7_dkmwb")]
+position = Vector2(-552, -296)
+
+[node name="RubyLabel" parent="Table" unique_id=343890864 instance=ExtResource("7_dkmwb")]
+position = Vector2(-552, -232)
 [node name="Test" type="Node" parent="." unique_id=1695512338]
 
 [node name="MoneyAnimatedSprite" parent="Test" unique_id=1016875789 instance=ExtResource("11_hdcdy")]
