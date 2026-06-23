@@ -5,9 +5,11 @@ extends Node
 @onready var death_timer: Timer = $AudioStreamPlayer/DeathTimer
 
 var death = false
+var preloadAudio 
 
 # debug purposes
 func _ready() -> void:
+	preloadAudio = load("res://assets/music/RouletteGameThemeLooped.ogg")
 	play_from_beginning()
 
 func play_from_beginning() -> void:
@@ -29,5 +31,5 @@ func _on_death_timer_timeout() -> void:
 
 func _on_audio_stream_player_finished() -> void:
 	if death == false:
-		audio_player.stream = load("res://assets/music/RouletteGameThemeLooped.ogg")
+		audio_player.stream = preloadAudio
 		audio_player.play()
