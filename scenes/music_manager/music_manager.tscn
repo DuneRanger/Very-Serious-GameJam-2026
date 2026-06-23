@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://crjpjmps512am"]
 
 [ext_resource type="Script" uid="uid://ch7kgxuni6b0m" path="res://scenes/music_manager/music_manager.gd" id="1_5h37c"]
-[ext_resource type="AudioStream" uid="uid://bdvntqb4o6j5h" path="res://assets/music/RouletteGameThemeBegin.mp3" id="1_jy1pq"]
+[ext_resource type="AudioStream" uid="uid://i2y0ibf5lo8x" path="res://assets/music/RouletteGameThemeBegin.ogg" id="2_c2cj3"]
 
 [sub_resource type="Animation" id="Animation_c2cj3"]
 resource_name = "FadeOutAnimation"
@@ -82,7 +82,7 @@ _data = {
 script = ExtResource("1_5h37c")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1332933587]
-stream = ExtResource("1_jy1pq")
+stream = ExtResource("2_c2cj3")
 autoplay = true
 bus = &"Music"
 
