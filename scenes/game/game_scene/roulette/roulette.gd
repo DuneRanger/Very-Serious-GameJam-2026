@@ -12,29 +12,19 @@ var cells = []
 var default_font : Font = ThemeDB.fallback_font;
 
 const base_roulette_numbers : int = 24
-const base_cell_weight : float = 1.0
 # (base_roulette_numbers + 1) includes the green 0
-var total_weight : float = (base_roulette_numbers + 1) * base_cell_weight
+var total_weight : float = (base_roulette_numbers + 1) * GameManager.base_cell_weight
 
 enum CellMod {STICKY, SHINY}
 
-class RouletteCell:
-	var number
-	var colour
-	var weight
-	var modifier
-	
-	func _init(num, col, w = base_cell_weight):
-		number = num;
-		colour = col;
-		weight = w
+
 
 func _init():
-	cells.append(RouletteCell.new(0, Color.GREEN))
+	cells.append(GameManager.RouletteCell.new(0, Color.GREEN))
 	for i in range(base_roulette_numbers):
 		var curCol = Color.RED
 		if i % 2 == 0: curCol = Color.BLACK
-		cells.append(RouletteCell.new(i + 1, curCol))
+		cells.append(GameManager.RouletteCell.new(i + 1, curCol))
 
 # -------------------------------- Drawing --------------------------------
 
