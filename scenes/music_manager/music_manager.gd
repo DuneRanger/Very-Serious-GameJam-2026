@@ -15,7 +15,7 @@ func _ready() -> void:
 func play_from_beginning() -> void:
 	death = false
 	audio_player.stream = load("res://assets/music/RouletteGameThemeBegin.ogg")
-	audio_player.play(160)
+	audio_player.play()
 
 #play this when the player dies
 func play_death() -> void :

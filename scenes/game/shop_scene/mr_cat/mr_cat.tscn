@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dsomwx37q2sk" path="res://assets/textures/mr_Cat/MrCatTail2.png" id="7_esym3"]
 [ext_resource type="Texture2D" uid="uid://dv7yio3guvyua" path="res://assets/textures/mr_Cat/MrCatTail3.png" id="8_56k00"]
 [ext_resource type="Texture2D" uid="uid://qhbwqqrnjdk8" path="res://assets/textures/mr_Cat/MrCat6.png" id="10_81l0b"]
+[ext_resource type="Texture2D" uid="uid://bv86icqq725jn" path="res://assets/textures/mr_Cat/MrCatArm1.png" id="11_esym3"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_a45xc"]
 animations = [{
@@ -135,9 +136,14 @@ position = Vector2(160, 90)
 sprite_frames = SubResource("SpriteFrames_a45xc")
 
 [node name="MrCatSprite" type="AnimatedSprite2D" parent="MrCatControlNode" unique_id=1704421451]
-position = Vector2(160, 90.381516)
+position = Vector2(160, 90)
 sprite_frames = SubResource("SpriteFrames_6wf7b")
 animation = &"sunglasses"
+
+[node name="MrCatArm" type="Sprite2D" parent="MrCatControlNode" unique_id=2022596284]
+z_index = 1
+position = Vector2(160, 90)
+texture = ExtResource("11_esym3")
 
 [node name="BobbingAnimator" type="AnimationPlayer" parent="MrCatControlNode" unique_id=1464474444]
 root_node = NodePath("../..")
@@ -153,6 +159,7 @@ offset_top = -194.0
 offset_right = -197.0
 offset_bottom = -91.0
 text = "cool"
+metadata/_edit_use_anchors_ = true
 
 [node name="TestButton" type="Button" parent="." unique_id=2035756023]
 offset_left = -470.0
@@ -160,11 +167,16 @@ offset_top = -194.0
 offset_right = -354.0
 offset_bottom = -85.0
 text = "buy"
-
-[node name="testCamera" type="Camera2D" parent="." unique_id=1895610285]
-visible = false
+metadata/_edit_use_anchors_ = true
 
 [node name="Node" type="Node" parent="." unique_id=190710051]
+
+[node name="TableTest" type="ColorRect" parent="." unique_id=884531663]
+offset_left = -1156.0
+offset_top = 320.0
+offset_right = 1156.0
+offset_bottom = 360.0
+color = Color(0.3882353, 0.09019608, 0.09019608, 1)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="TestButton2" to="." method="_on_test_button_2_pressed"]
