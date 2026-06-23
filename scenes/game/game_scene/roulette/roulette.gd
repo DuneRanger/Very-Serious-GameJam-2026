@@ -147,7 +147,6 @@ func _ready():
 	build_outer_wall()
 	build_banks()
 	prepare_balls()
-	refresh_bank_debug()
 
 func _physics_process(_delta: float):
 	match (GameManager.game_state):
@@ -244,54 +243,3 @@ func simulate_inclines(_delta : float):
 			ball.apply_central_impulse(-ball_to_mid.normalized() * outer_incline_strength * _delta)
 		elif ball_rad >= outer_incline_radius + ball.ball_radius:
 			ball.apply_central_impulse(-ball_to_mid.normalized() * 2 * outer_incline_strength * _delta)
-
-
-var show_bank_debug : bool = true:
-	set(v):
-		show_bank_debug = v
-		queue_redraw()
-
-var bank_debug_color : Color = Color(0.1, 0.9, 1.0, 0.35)
-var bank_debug_outline_color : Color = Color(0.1, 0.9, 1.0, 0.9)
-var bank_debug_label_color : Color = Color.WHITE
-var bank_debug_outline_width : float = 2.0
-## Toggle the small number label drawn next to each bank's circle, so you
-## can visually match trigger circles to pocket numbers.
-var show_bank_numbers : bool = true
-
-
-## Call this once after build_banks() so the overlay appears without
-## needing an unrelated redraw to trigger it first.
-func refresh_bank_debug() -> void:
-	queue_redraw()
-
-
-func _draw_bank_debug() -> void:
-	if not show_bank_debug:
-		return
-
-	for cell in cells:
-		var bank = cell.bank
-		if not is_instance_valid(bank):
-			continue
-
-		var radius = bank.radius
-		var pos = bank.position
-
-		draw_circle(pos, radius, bank_debug_color)
-		draw_arc(pos, radius, 0, TAU, 32, bank_debug_outline_color, bank_debug_outline_width)
-
-		if show_bank_numbers:
-			var label_text = str(cell.number)
-			var font_size = 16
-			# NOTE: draw_string's HORIZONTAL_ALIGNMENT_CENTER argument has
-			# had reported bugs in some 4.x versions where it's silently
-			# ignored, and get_string_size doesn't always match what
-			# draw_string actually renders -- not worth depending on
-			# either for a debug-only label. A rough manual offset
-			# (half a character-width guess per digit) is crude but
-			# reliable and good enough for a dev overlay; eyeball it once
-			# in-editor and tweak the multiplier below if labels look off.
-			var rough_half_width = label_text.length() * font_size * 0.3
-			draw_string(default_font, pos + Vector2(-rough_half_width, -radius - 6),
-					label_text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, bank_debug_label_color)
