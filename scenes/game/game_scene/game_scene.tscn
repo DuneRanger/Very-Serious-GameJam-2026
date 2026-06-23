@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://03e3sabpwkkf"]
 
 [ext_resource type="Script" uid="uid://rc270gjhg8lu" path="res://scenes/game/game_scene/game_scene.gd" id="1_ljoy4"]
+[ext_resource type="Texture2D" uid="uid://oyywqlbugqpj" path="res://assets/textures/Table2.png" id="2_7tgh3"]
 [ext_resource type="PackedScene" uid="uid://7jo8gxcpa6u" path="res://scenes/game/game_scene/roulette/roulette.tscn" id="2_wftn3"]
 [ext_resource type="Texture2D" uid="uid://dujcu840o5f5l" path="res://assets/textures/Table.png" id="3_dkmwb"]
 [ext_resource type="FontFile" uid="uid://7paxof88brjl" path="res://assets/fonts/PixeloidMono.otf" id="3_qny2l"]
@@ -14,7 +15,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hdcdy"]
 shader = ExtResource("10_1xuq5")
-shader_parameter/pixel_size = 3.0
+shader_parameter/pixel_size = 1.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_qny2l"]
 font = ExtResource("3_qny2l")
@@ -29,7 +30,7 @@ script = ExtResource("1_ljoy4")
 
 [node name="Table2" type="Sprite2D" parent="Table" unique_id=91874108]
 scale = Vector2(4, 4)
-texture = ExtResource("3_dkmwb")
+texture = ExtResource("2_7tgh3")
 
 [node name="ColorRect" type="ColorRect" parent="Table" unique_id=466862379]
 visible = false
@@ -50,6 +51,7 @@ scale = Vector2(4, 4)
 texture = ExtResource("3_dkmwb")
 
 [node name="pixelate" type="ColorRect" parent="Table/Roulette/PixerShaderLayer" unique_id=566398761]
+visible = false
 light_mask = 0
 texture_filter = 1
 material = SubResource("ShaderMaterial_hdcdy")
@@ -76,14 +78,6 @@ position = Vector2(-488, 16)
 [node name="ErrorMessage" parent="Table" unique_id=371495968 instance=ExtResource("8_dkmwb")]
 position = Vector2(0, -360)
 
-[node name="Test" type="Node" parent="." unique_id=1695512338]
-
-[node name="MoneyAnimatedSprite" parent="Test" unique_id=1016875789 instance=ExtResource("11_hdcdy")]
-position = Vector2(-352, -224)
-
-[node name="RubyAnimatedSprite" parent="Test" unique_id=701930484 instance=ExtResource("10_7tgh3")]
-position = Vector2(-352, -160)
-
 [node name="TestLabel" type="Label" parent="Table" unique_id=1877186703]
 offset_left = -609.0
 offset_top = -333.0
@@ -92,6 +86,14 @@ offset_bottom = -222.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 16
 label_settings = SubResource("LabelSettings_qny2l")
+
+[node name="Test" type="Node" parent="." unique_id=1695512338]
+
+[node name="MoneyAnimatedSprite" parent="Test" unique_id=1016875789 instance=ExtResource("11_hdcdy")]
+position = Vector2(-352, -224)
+
+[node name="RubyAnimatedSprite" parent="Test" unique_id=701930484 instance=ExtResource("10_7tgh3")]
+position = Vector2(-352, -160)
 
 [node name="ChipBlack" type="Sprite2D" parent="." unique_id=2140071562]
 visible = false
