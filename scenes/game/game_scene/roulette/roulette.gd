@@ -244,6 +244,7 @@ func _on_bank_body_entered(body: RouletteBall, cell, bank_area: Area2D) -> void:
 
 	if randf() < effective_chance:
 		body.catch_in_pocket(bank_area.global_position, bank_area)
+		GameManager.caughtCells.push_back(cell)
 		print("Ball caught at number ", cell.number)
 	else:
 		print("Ball missed cell ", cell.number)
