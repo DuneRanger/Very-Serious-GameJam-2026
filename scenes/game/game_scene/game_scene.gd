@@ -10,7 +10,7 @@ func _ready() -> void:
 
 	GameManagerGlobal.modify_money(100)
 	GameManagerGlobal.modify_rubys(50)
-	GameManagerGlobal.boosts = 0
+	GameManagerGlobal.modify_boosts(1)
 	GameManagerGlobal.modify_game_state(GameEnums.game_states.BET_PHASE)
 
 func _process(_delta: float) -> void:
@@ -18,7 +18,7 @@ func _process(_delta: float) -> void:
 		if (GameManagerGlobal.game_state == GameEnums.game_states.SPIN_PHASE):
 			GameManagerGlobal.modify_game_state(GameEnums.game_states.BET_PHASE)
 	if Input.is_action_just_pressed("rotate_roullete"):
-		GameManagerGlobal.modify_game_state(GameEnums.game_states.STOP_PHASE)
+		GameManagerGlobal.modify_game_state(GameEnums.game_states.SPIN_PHASE)
 		#if (GameManagerGlobal.game_state == GameEnums.game_states.BET_PHASE):
 			#GameManagerGlobal.modify_game_state(GameEnums.game_states.SPIN_PHASE)
 
@@ -103,8 +103,10 @@ func _on_new_state():
 		GameEnums.game_states.SPIN_PHASE:
 			$Table/Roulette.spin_roulette()
 		GameEnums.game_states.STOP_PHASE:
+			print("Stopped, boosts: ", GameManagerGlobal.boosts)
 			if GameManagerGlobal.boosts == 0:
 				GameManagerGlobal.modify_game_state(GameEnums.game_states.BET_PHASE)
+				return
 			$Table/BoostSystem.start_system()
 			
 			#$Table/Roulette.spin_roulette()
