@@ -314,7 +314,7 @@ var contains_balls : Array[RouletteBall] = []
 
 func _physics_process(_delta: float):
 	for ball in contains_balls:
-		if ball.get_speed() < 50 and ball.settled == false:
+		if ball.get_speed() < 75 and ball.settled == false:
 			ball.settled = true
 			ball.caught_cell = cell
 			print("ball in cell ", cell.number, " settled")

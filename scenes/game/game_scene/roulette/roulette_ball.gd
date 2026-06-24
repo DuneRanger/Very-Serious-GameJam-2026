@@ -18,6 +18,7 @@ var min_speed_threshold : float = 5
 var fast_slowdown_speed : float = 100
 var max_speed : float = 10000
 static var ball_radius : float = 8
+static var ball_id : float = 0
 
 ## Marks the ball as settled and no longer updates physics
 var settled : bool = false
@@ -32,9 +33,11 @@ var launch_vector : Vector2
 func _init():
 	mass = 1.0
 	gravity_scale = 0
+	name = "Ball %s" % ball_id
+	ball_id += 1
 
 	var phys_mat = PhysicsMaterial.new()
-	phys_mat.bounce = 0.5
+	phys_mat.bounce = 0.7
 	phys_mat.friction = 0.0001
 	physics_material_override = phys_mat
 
