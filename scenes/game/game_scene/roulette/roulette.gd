@@ -218,7 +218,7 @@ func reset_balls() -> void:
 func launch_balls() -> void:
 	for ball in balls:
 		if ball and is_instance_valid(ball):
-			ball.apply_impulse(Vector2(0, 100 * (-1 * sign(rotation_speed))))
+			ball.launch(Vector2(0, 1000 * (-1 * sign(rotation_speed))))
 
 var inner_incline_strength : float = 600
 var inner_incline_radius : int = inner_circle_radius

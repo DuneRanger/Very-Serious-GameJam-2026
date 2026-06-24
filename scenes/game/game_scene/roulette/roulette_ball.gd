@@ -29,6 +29,12 @@ var height : float = 0.0:
 var settled : bool = false
 var caught_cell : RouletteCell
 
+var reset : bool = false
+var init_position : Vector2
+
+var launch_b : bool = false
+var launch_vector : Vector2
+
 func _init():
 	mass = 1.0
 	gravity_scale = 0
@@ -59,7 +65,21 @@ func give_random_impulse():
 func get_speed() -> float:
 	return linear_velocity.length()
 
-func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+func _integrate_forces(state: PhysicsDirectBodyState2D):
+	if reset:
+		position = init_position
+		rotation = 0.0
+		linear_velocity = Vector2.ZERO
+		angular_velocity = 0.0
+		height = 0.0
+		settled = false
+		caught_cell = null
+		reset = false
+		return
+	if launch_b:
+		linear_velocity = launch_vector
+		launch_b = false
+		return
 	#if settled:
 		#var bank_to_ball = caught_cell.bank.local_bank_position - global_position
 		#state.linear_velocity = bank_to_ball.normalized() * 50 * bank_to_ball.length()
@@ -73,16 +93,15 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 
 	state.linear_velocity = new_vel
 
-func catch_in_pocket(cell: RouletteCell) -> void:
+func catch_in_pocket(cell: RouletteCell):
 	height = 0
 	settled = true
 	caught_cell = cell
 
-func reset_ball(start_position: Vector2) -> void:
-	position = start_position
-	rotation = 0.0
-	linear_velocity = Vector2.ZERO
-	angular_velocity = 0.0
-	height = 0.0
-	settled = false
-	caught_cell = null
+func reset_ball(start_position: Vector2):
+	reset = true
+	init_position = start_position
+
+func launch(vec : Vector2):
+	launch_b = true
+	launch_vector = vec
