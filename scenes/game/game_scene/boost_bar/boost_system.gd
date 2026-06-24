@@ -31,6 +31,8 @@ func _on_unhappy_button_pressed() -> void:
 	$HappyButton.visible = false
 	$UnHappyButton.visible = false
 	$boost_bar.visible = true
+	var new_boost_count = GameManagerGlobal.boosts - 1
+	GameManagerGlobal.modify_boosts(new_boost_count)
 	#TODO boost symbol game_scene function
 	$boost_bar/bar/inner/boost_indicator/AnimationPlayer.play("boost_bar_anim")
 

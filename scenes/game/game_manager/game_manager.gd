@@ -16,12 +16,17 @@ var single_bet_coeff : float = 20.0
 var half_bet_coeff : float = 2.0
 var third_bet_coeff : float = 3.0
 
-signal money_change
-signal ruby_change
-signal state_change
+signal boosts_change (amount : int)
+signal money_change (amount : int)
+signal ruby_change (amount : int)
+signal state_change (amount : int)
 signal send_error_message(message : String)
 
 const base_cell_weight : float = 1.0
+
+func modify_boosts (amount : int):
+	boosts = amount
+	boosts_change.emit()
 
 func modify_game_state (new_state : GameEnums.game_states):
 	game_state = new_state
