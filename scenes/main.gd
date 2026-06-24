@@ -8,6 +8,8 @@ var current_showed_scene : GameEnums.switching_scenes
 
 var current_scene
 
+var saved_game
+
 var game_scene
 var shop_scene
 
@@ -15,6 +17,7 @@ func _ready() -> void:
 	current_showed_scene = GameEnums.switching_scenes.MAIN_MENU_SCENE
 	
 	current_scene = null
+	saved_game = null
 	
 	game_scene = null
 	shop_scene = null
@@ -23,6 +26,7 @@ func _ready() -> void:
 func get_game_scene():
 	if game_scene == null:
 		game_scene = game_scene_preloaded.instantiate()
+		saved_game = game_scene
 
 func get_shop_scene():
 	if shop_scene == null:
