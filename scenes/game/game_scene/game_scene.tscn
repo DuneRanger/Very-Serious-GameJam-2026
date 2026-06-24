@@ -84,19 +84,39 @@ visible = false
 position = Vector2(-352, -160)
 
 [node name="BoostSymbol" parent="Test" unique_id=520437521 instance=ExtResource("12_ghl7i")]
-position = Vector2(-272, -271)
+visible = false
+offset_left = -272.0
+offset_top = -271.0
+offset_right = -232.0
+offset_bottom = -231.0
 
 [node name="BoostSymbol2" parent="Test" unique_id=816301357 instance=ExtResource("12_ghl7i")]
-position = Vector2(-208, -271)
+visible = false
+offset_left = -208.0
+offset_top = -271.0
+offset_right = -168.0
+offset_bottom = -231.0
 
 [node name="BoostSymbol3" parent="Test" unique_id=1093939258 instance=ExtResource("12_ghl7i")]
-position = Vector2(-144, -271)
+visible = false
+offset_left = -144.0
+offset_top = -271.0
+offset_right = -104.0
+offset_bottom = -231.0
 
 [node name="SpinSymbol2" parent="Test" unique_id=1373102795 instance=ExtResource("10_0qrw6")]
-position = Vector2(-456, -272)
+visible = false
+offset_left = -456.0
+offset_top = -272.0
+offset_right = -456.0
+offset_bottom = -272.0
 
 [node name="SpinSymbol" parent="Test" unique_id=1596740823 instance=ExtResource("10_0qrw6")]
-position = Vector2(-376, -272)
+visible = false
+offset_left = -376.0
+offset_top = -272.0
+offset_right = -376.0
+offset_bottom = -272.0
 
 [node name="HUD" parent="." unique_id=1970834067 instance=ExtResource("9_4jb31")]
 layer = 200
