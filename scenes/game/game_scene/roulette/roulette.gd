@@ -79,7 +79,6 @@ func draw_cells():
 		var position = Vector2(-font_max_width / 2, -cell_circle_radius * 0.95 + font_size / 2)
 		draw_string(default_font, position, text, HORIZONTAL_ALIGNMENT_CENTER, font_max_width, font_size)
 		cur_angle += cur_cell_angle
-		#print(text, " is ", cell.weight/total_weight)
 
 	draw_set_transform(Vector2(0, 0), 0)
 
@@ -219,7 +218,7 @@ func reset_balls() -> void:
 func launch_balls() -> void:
 	for ball in balls:
 		if ball and is_instance_valid(ball):
-			ball.apply_impulse(Vector2(50, 100 * (-1 * sign(rotation_speed))))
+			ball.apply_impulse(Vector2(0, 100 * (-1 * sign(rotation_speed))))
 
 var inner_incline_strength : float = 600
 var inner_incline_radius : int = inner_circle_radius

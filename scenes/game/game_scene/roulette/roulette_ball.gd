@@ -17,7 +17,7 @@ var rand_impulse_size : float = 1000
 var min_speed_threshold : float = 5
 var fast_slowdown_speed : float = 100
 var max_speed : float = 10000
-var ball_radius : float = 5
+static var ball_radius : float = 6
 
 # 0 = on a pocket floor,
 # 1.0 = up at the rim.

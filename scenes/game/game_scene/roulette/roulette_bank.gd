@@ -14,7 +14,7 @@ var collider_visiual_width : float = 5
 
 var wall_skip_min_speed : float = 250.0
 var wall_skip_max_speed : float = 600.0
-var wall_skip_disable_ticks : int = 8
+var wall_skip_disable_ticks : int = 16
 
 # Holds the colliders (left, right, outer)
 var wall_body : StaticBody2D
@@ -75,6 +75,7 @@ func _build_outer_one_way_wall(inner_r: float, left_angle: float, right_angle: f
  
 		var seg_collider = CollisionShape2D.new()
 		var poly = ConvexPolygonShape2D.new()
+		seg_collider.name = "Outer collider %s" % str(cell.number, ",", i)
 		poly.points = rotated_points
 		seg_collider.shape = poly
 		seg_collider.position = quad_mid
@@ -93,6 +94,7 @@ func build_colliders(bank_angle: float, radius_center: float, width: float):
 	var base_shade = 0.1
 
 	var outer_visual = Polygon2D.new()
+	outer_visual.name = "Outer collider visual %s" % cell.number
 	var outer_line = get_arc_points(Vector2.ZERO, outer_r, left_angle, right_angle)
 	var inner_line = get_arc_points(Vector2.ZERO, inner_r, right_angle, left_angle)
 	outer_visual.polygon = outer_line + inner_line
@@ -104,6 +106,7 @@ func build_colliders(bank_angle: float, radius_center: float, width: float):
 
 	# StaticBody2D that holds all (bounce-producing) colliders
 	wall_body = StaticBody2D.new()
+	wall_body.name = "Body for bank %d" % cell.number
 	add_child(wall_body)
 
 	_build_outer_one_way_wall(outer_r, left_angle, right_angle)
@@ -111,28 +114,41 @@ func build_colliders(bank_angle: float, radius_center: float, width: float):
 	# Adjusting, so that the side wall and outer wall don't overlap
 	outer_r -= collider_visiual_width / 2
 	
+	
 	# Left wall visual
 	var left_a = Vector2(cos(left_angle), sin(left_angle)) * inner_r
 	var left_b = Vector2(cos(left_angle), sin(left_angle)) * outer_r
-
+	var wall_dir = (left_b - left_a).normalized()
+	var wall_normal = Vector2(-wall_dir.y, wall_dir.x)
+	if wall_normal.dot(-left_a) < 0:
+		wall_normal = -wall_normal
+		
 	var left_visual = Line2D.new()
 	left_visual.width = collider_visiual_width
 	left_visual.points = [left_a, left_b]
 	left_visual.default_color = Color.SILVER
 	add_child(left_visual)
 
+	# Left wall actual (wider, by a balls radius)
 	var left_shape = SegmentShape2D.new()
-	left_shape.a = left_a
-	left_shape.b = left_b
+	#left_shape.a = Vector2(cos(left_angle - acos(RouletteBall.ball_radius)), sin(left_angle - asin(RouletteBall.ball_radius))) * inner_r
+	#left_shape.b = Vector2(cos(left_angle - acos(RouletteBall.ball_radius)), sin(left_angle - asin(RouletteBall.ball_radius))) * outer_r
+	left_shape.a = left_a - wall_normal * RouletteBall.ball_radius
+	left_shape.b = left_b - wall_normal * RouletteBall.ball_radius
 
 	left_collider = CollisionShape2D.new()
+	left_collider.name = "Left collider %s" % cell.number
 	left_collider.shape = left_shape
 	wall_body.add_child(left_collider)
 
 	# Right wall visual
 	var right_a = Vector2(cos(right_angle), sin(right_angle)) * inner_r
 	var right_b = Vector2(cos(right_angle), sin(right_angle)) * outer_r
-
+	wall_dir = (right_b - right_a).normalized()
+	wall_normal = Vector2(-wall_dir.y, wall_dir.x)
+	if wall_normal.dot(-right_a) < 0:
+		wall_normal = -wall_normal
+	
 	var right_visual = Line2D.new()
 	right_visual.width = collider_visiual_width
 	right_visual.points = [right_a, right_b]
@@ -140,10 +156,13 @@ func build_colliders(bank_angle: float, radius_center: float, width: float):
 	add_child(right_visual)
 
 	var right_shape = SegmentShape2D.new()
-	right_shape.a = right_a
-	right_shape.b = right_b
+	#right_shape.a = Vector2(cos(right_angle - acos(RouletteBall.ball_radius)), sin(right_angle - asin(RouletteBall.ball_radius))) * inner_r
+	#right_shape.b = Vector2(cos(right_angle - acos(RouletteBall.ball_radius)), sin(right_angle - asin(RouletteBall.ball_radius))) * outer_r
+	right_shape.a = right_a + wall_normal * RouletteBall.ball_radius
+	right_shape.b = right_b + wall_normal * RouletteBall.ball_radius
 
 	right_collider = CollisionShape2D.new()
+	right_collider.name = "Right collider %s" % cell.number
 	right_collider.shape = right_shape
 	wall_body.add_child(right_collider)
 
@@ -162,30 +181,34 @@ func _init(owner_cell: RouletteCell, bank_angle: float, bank_position: Vector2 =
 # these fast enough has a chance to get its matching wall collider disabled
 # for a few physics ticks, letting it pass straight through/"bounce over"
 func _build_skip_gates(left_angle: float, right_angle: float, inner_r: float, outer_r: float):
-	var gate_half_thickness = 14.0
+	var gate_half_thickness = 10.0
 	var mid_r = (inner_r + outer_r) * 0.5
 	var wall_len = outer_r - inner_r
 
 	left_skip_gate = Area2D.new()
+	left_skip_gate.name = "Left skip gate %s" % cell.number 
 	left_skip_gate.position = Vector2(cos(left_angle), sin(left_angle)) * mid_r
 	left_skip_gate.rotation = left_angle
 	add_child(left_skip_gate)
 
 	var left_gate_shape = RectangleShape2D.new()
-	left_gate_shape.size = Vector2(gate_half_thickness * 2, wall_len)
+	left_gate_shape.size = Vector2(wall_len, gate_half_thickness * 2)
 	var left_gate_collider = CollisionShape2D.new()
+	left_gate_collider.name = "Left gate collider %s" % cell.number 
 	left_gate_collider.shape = left_gate_shape
 	left_skip_gate.add_child(left_gate_collider)
 	left_skip_gate.body_entered.connect(_on_left_gate_entered)
 
 	right_skip_gate = Area2D.new()
+	right_skip_gate.name = "Right skip gate %s" % cell.number 
 	right_skip_gate.position = Vector2(cos(right_angle), sin(right_angle)) * mid_r
 	right_skip_gate.rotation = right_angle
 	add_child(right_skip_gate)
 
 	var right_gate_shape = RectangleShape2D.new()
-	right_gate_shape.size = Vector2(gate_half_thickness * 2, wall_len)
+	right_gate_shape.size = Vector2(wall_len, gate_half_thickness * 2)
 	var right_gate_collider = CollisionShape2D.new()
+	right_gate_collider.name = "Right gate collider %s" % cell.number 
 	right_gate_collider.shape = right_gate_shape
 	right_skip_gate.add_child(right_gate_collider)
 	right_skip_gate.body_entered.connect(_on_right_gate_entered)
@@ -217,15 +240,20 @@ func _skip_chance(speed: float) -> float:
 func _on_left_gate_entered(body: Node):
 	if not (body is RouletteBall) or body.settled:
 		return
+	print("Entered left gate")
+	body = body as RouletteBall
 	if randf() < _skip_chance(body.get_speed()):
-		_left_skip_timer = wall_skip_disable_ticks
+		_left_skip_timer = body.ball_radius / body.get_speed() * 6000000
 		left_collider.disabled = true
 
 func _on_right_gate_entered(body: Node):
 	if not (body is RouletteBall) or body.settled:
 		return
+	print("Entered right gate")
+	body = body as RouletteBall
+	var bounce = Vector2()
 	if randf() < _skip_chance(body.get_speed()):
-		_right_skip_timer = wall_skip_disable_ticks
+		_right_skip_timer = body.ball_radius / body.get_speed() * 6000000
 		right_collider.disabled = true
 
 func _physics_process(_delta: float):
@@ -255,10 +283,10 @@ func _on_body_entered(body: Node):
 	var catch_chance = catch_probability(speed)
 	var effective_chance = catch_chance * (1.0 - body.height * 0.85)
 
-	if randf() < effective_chance:
-		body.catch_in_pocket(cell)
-		GameManagerGlobal.caughtCells.push_back(cell)
-		GameManagerGlobal.caughtBalls += 1
-		print("Ball caught at number ", cell.number)
-	else:
-		print("Ball missed cell ", cell.number)
+	#if randf() < effective_chance:
+		#body.catch_in_pocket(cell)
+		#GameManagerGlobal.caughtCells.push_back(cell)
+		#GameManagerGlobal.caughtBalls += 1
+		#print("Ball caught at number ", cell.number)
+	#else:
+		#print("Ball missed cell ", cell.number)
