@@ -3,14 +3,15 @@ extends Node2D
 class_name GameScene
 
 func _ready() -> void:
-	GameManagerGlobal.send_error_message.connect(_on_send_error_message)
-	GameManagerGlobal.state_change.connect(_on_new_state)
-	GameManagerGlobal.money_change.connect(edit_money)
-	GameManagerGlobal.ruby_change.connect(edit_rubys)
-
+	GameManagerGlobal.signal_send_error_message.connect(_on_send_error_message)
+	GameManagerGlobal.signal_state_change.connect(_on_new_state)
+	GameManagerGlobal.signal_modify_money.connect(edit_money)
+	GameManagerGlobal.signal_modify_rubys.connect(edit_rubys)
 	GameManagerGlobal.modify_money(100)
 	GameManagerGlobal.modify_rubys(50)
-	GameManagerGlobal.modify_boosts(1)
+	GameManagerGlobal.modify_boost_count(3)
+	GameManagerGlobal.modify_spin_count(4)
+	#GameManagerGlobal.modify_boost_left(3)
 	GameManagerGlobal.modify_game_state(GameEnums.game_states.BET_PHASE)
 
 func _process(_delta: float) -> void:
@@ -18,9 +19,18 @@ func _process(_delta: float) -> void:
 		if (GameManagerGlobal.game_state == GameEnums.game_states.SPIN_PHASE):
 			GameManagerGlobal.modify_game_state(GameEnums.game_states.BET_PHASE)
 	if Input.is_action_just_pressed("rotate_roullete"):
-		GameManagerGlobal.modify_game_state(GameEnums.game_states.SPIN_PHASE)
-		#if (GameManagerGlobal.game_state == GameEnums.game_states.BET_PHASE):
-			#GameManagerGlobal.modify_game_state(GameEnums.game_states.SPIN_PHASE)
+		if GameManagerGlobal.spins_left > 0:
+			GameManagerGlobal.modify_game_state(GameEnums.game_states.SPIN_PHASE)
+			GameManagerGlobal.modify_spins_left(GameManagerGlobal.spins_left - 1)
+		#TODO end round
+	
+	#Debugging temporary calls
+	if Input.is_action_just_pressed("boost_add"):
+		GameManagerGlobal.modify_boost_left(max (0, GameManagerGlobal.boosts_left - 1))
+	if Input.is_action_just_pressed("boost_del"):
+		GameManagerGlobal.modify_boost_left(min (GameManagerGlobal.boost_count, GameManagerGlobal.boosts_left + 1))
+	if Input.is_action_just_pressed("add_ball"):
+		GameManagerGlobal.modify_spins_left(min (GameManagerGlobal.spin_count, GameManagerGlobal.spins_left + 1))
 
 func does_bet_win(bet_id : int) -> bool:
 	var bet_type : GameEnums.bet_types = $Table/BettingSystem.get_bet_type(bet_id)
@@ -85,7 +95,7 @@ func get_full_bet_win() -> int:
 			print("Won bet: ", bet_id, ", amount won: ", new_value)
 			value += new_value
 	var out_str = "Total profit: " + str(value)
-	GameManagerGlobal.send_error_message.emit(out_str)
+	GameManagerGlobal.signal_send_error_message.emit(out_str)
 	return value
 
 func _on_send_error_message(message : String): 
@@ -103,8 +113,8 @@ func _on_new_state():
 		GameEnums.game_states.SPIN_PHASE:
 			$Table/Roulette.spin_roulette()
 		GameEnums.game_states.STOP_PHASE:
-			print("Stopped, boosts: ", GameManagerGlobal.boosts)
-			if GameManagerGlobal.boosts == 0:
+			print("Stopped, boosts: ", GameManagerGlobal.boosts_left)
+			if GameManagerGlobal.boosts_left == 0:
 				GameManagerGlobal.modify_game_state(GameEnums.game_states.BET_PHASE)
 				return
 			$Table/BoostSystem.start_system()

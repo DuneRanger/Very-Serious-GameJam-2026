@@ -10,19 +10,19 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Control/BoostSprite:position")
+tracks/0/path = NodePath("BoostSprite:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 0)]
+"values": [Vector2(20, 20)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Control/BoostSprite:rotation")
+tracks/1/path = NodePath("BoostSprite:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -34,7 +34,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Control/BoostSprite:modulate")
+tracks/2/path = NodePath("BoostSprite:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -46,7 +46,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Control/BoostUsedSprite:visible")
+tracks/3/path = NodePath("BoostUsedSprite:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -58,7 +58,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Control/BoostSprite:scale")
+tracks/4/path = NodePath("BoostSprite:scale")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -70,7 +70,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Control/BoostSprite:visible")
+tracks/5/path = NodePath("BoostSprite:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -85,7 +85,7 @@ resource_name = "RefilBoost"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Control/BoostUsedSprite:visible")
+tracks/0/path = NodePath("BoostUsedSprite:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -111,7 +111,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Control/BoostSprite:visible")
+tracks/2/path = NodePath("BoostSprite:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -123,19 +123,19 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = false
-tracks/3/path = NodePath("Control/BoostSprite:scale")
+tracks/3/path = NodePath("BoostSprite:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.5004025),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0.1, 0.1), Vector2(1, 1)]
+"values": [Vector2(0.2, 0.2), Vector2(2, 2)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Control/BoostSprite:modulate")
+tracks/4/path = NodePath("BoostSprite:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -147,19 +147,19 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Control/BoostSprite:position")
+tracks/5/path = NodePath("BoostSprite:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 0)]
+"values": [Vector2(50, 50)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Control/BoostSprite:rotation")
+tracks/6/path = NodePath("BoostSprite:rotation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -175,31 +175,31 @@ length = 0.8
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Control/BoostSprite:position")
+tracks/0/path = NodePath("BoostSprite:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.25, 0.5),
 "transitions": PackedFloat32Array(0.24148433, 2.0705304, 1.0000005),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(0, -9.04), Vector2(0, 22.045)]
+"values": [Vector2(32, 32), Vector2(32, 4), Vector2(32, 50)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = false
-tracks/1/path = NodePath("Control/BoostSprite:scale")
+tracks/1/path = NodePath("BoostSprite:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1.1, 1.1)]
+"values": [Vector2(8.8, 8.8)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Control/BoostSprite:rotation")
+tracks/2/path = NodePath("BoostSprite:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -211,11 +211,11 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Control/BoostSprite:modulate")
+tracks/3/path = NodePath("BoostSprite:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.46666667),
+"times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -223,7 +223,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Control/BoostUsedSprite:visible")
+tracks/4/path = NodePath("BoostUsedSprite:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -240,14 +240,14 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Control/BoostSprite:position")
+tracks/0/path = NodePath("BoostSprite:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 2, 4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(0, -2), Vector2(0, 0)]
+"values": [Vector2(32, 32), Vector2(32, 24), Vector2(32, 32)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bk4lj"]
@@ -258,54 +258,25 @@ _data = {
 &"boost_idle": SubResource("Animation_2l1nu")
 }
 
-[node name="BoostSymbol" type="Node2D" unique_id=520437521]
+[node name="BoostSymbol" type="Control" unique_id=346935977]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_q4km5")
 
-[node name="Control" type="Control" parent="." unique_id=567538398]
-layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(4, 4)
-mouse_filter = 2
-
-[node name="BoostUsedSprite" type="Sprite2D" parent="Control" unique_id=1866298265]
+[node name="BoostUsedSprite" type="Sprite2D" parent="." unique_id=1866298265]
 visible = false
 modulate = Color(1, 1, 1, 0.85882354)
+position = Vector2(32, 32)
 texture = ExtResource("2_gnxg2")
 
-[node name="BoostSprite" type="Sprite2D" parent="Control" unique_id=346437250]
+[node name="BoostSprite" type="Sprite2D" parent="." unique_id=346437250]
+position = Vector2(20, 20)
 texture = ExtResource("2_vkio7")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Control" unique_id=111266369]
-root_node = NodePath("../..")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=111266369]
 libraries/ = SubResource("AnimationLibrary_bk4lj")
-
-[node name="testCamera" type="Camera2D" parent="." unique_id=1909381181]
-visible = false
-scale = Vector2(4, 4)
-zoom = Vector2(5.475, 5.475)
-
-[node name="TestButton2" type="Button" parent="." unique_id=1565538771]
-offset_left = -16.0
-offset_top = -72.0
-offset_right = 20.0
-offset_bottom = -41.0
-text = "use
-"
-
-[node name="TestButton" type="Button" parent="." unique_id=1270256501]
-offset_left = -18.0
-offset_top = -111.0
-offset_right = 21.0
-offset_bottom = -80.0
-text = "refil"
-
-[connection signal="pressed" from="TestButton2" to="." method="_on_test_button_2_pressed"]
-[connection signal="pressed" from="TestButton" to="." method="_on_test_button_pressed"]
