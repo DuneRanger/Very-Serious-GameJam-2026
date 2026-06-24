@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dv7yio3guvyua" path="res://assets/textures/mr_Cat/MrCatTail3.png" id="8_56k00"]
 [ext_resource type="Texture2D" uid="uid://qhbwqqrnjdk8" path="res://assets/textures/mr_Cat/MrCat6.png" id="10_81l0b"]
 [ext_resource type="Texture2D" uid="uid://bv86icqq725jn" path="res://assets/textures/mr_Cat/MrCatArm1.png" id="11_esym3"]
+[ext_resource type="Texture2D" uid="uid://mfofjt3u02nb" path="res://assets/textures/ShopTabled.png" id="12_56k00"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_a45xc"]
 animations = [{
@@ -173,11 +174,17 @@ metadata/_edit_use_anchors_ = true
 [node name="Node" type="Node" parent="." unique_id=190710051]
 
 [node name="TableTest" type="ColorRect" parent="." unique_id=884531663]
+visible = false
 offset_left = -1156.0
 offset_top = 320.0
 offset_right = 1156.0
 offset_bottom = 360.0
-color = Color(0.36862746, 0.22745098, 0.16078432, 1)
+color = Color(0.3882353, 0.09019608, 0.09019608, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=617086477]
+position = Vector2(-56.375, 0)
+scale = Vector2(4, 4)
+texture = ExtResource("12_56k00")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="TestButton2" to="." method="_on_test_button_2_pressed"]
