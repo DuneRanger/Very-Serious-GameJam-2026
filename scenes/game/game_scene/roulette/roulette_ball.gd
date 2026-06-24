@@ -17,7 +17,7 @@ var rand_impulse_size : float = 1000
 var min_speed_threshold : float = 5
 var fast_slowdown_speed : float = 100
 var max_speed : float = 10000
-var ball_radius : float = 10
+var ball_radius : float = 5
 
 # 0 = on a pocket floor,
 # 1.0 = up at the rim.
@@ -49,7 +49,7 @@ func _init():
 	add_child(collider)
 
 	var visual = Polygon2D.new()
-	visual.color = Color(0.93, 0.891, 0.13, 1.0)
+	visual.color = Color(0.929, 0.89, 0.561, 1.0)
 	visual.polygon = _make_circle_points(shape.radius, 24)
 	add_child(visual)
 
@@ -60,10 +60,10 @@ func get_speed() -> float:
 	return linear_velocity.length()
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-	if settled:
-		var bank_to_ball = caught_cell.bank.local_bank_position - global_position
-		state.linear_velocity = bank_to_ball.normalized() * 50 * bank_to_ball.length()
-		return
+	#if settled:
+		#var bank_to_ball = caught_cell.bank.local_bank_position - global_position
+		#state.linear_velocity = bank_to_ball.normalized() * 50 * bank_to_ball.length()
+		#return
 
 	var new_vel = state.linear_velocity
 	if new_vel.length() < fast_slowdown_speed:
