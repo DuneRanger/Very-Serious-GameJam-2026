@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cqwd5xducgdsl"]
+
+[ext_resource type="PackedScene" uid="uid://dcu31p6twmdit" path="res://scenes/game/utils/ErrorMessage.tscn" id="1_8fe00"]
+[ext_resource type="PackedScene" uid="uid://cxo23rckbhjbo" path="res://scenes/game/ui_elements/AwesomeLabel.tscn" id="2_qkhxd"]
+[ext_resource type="PackedScene" uid="uid://b8s6w1lbfa62g" path="res://scenes/game/UI_elements/animated_sprites/money_animated_sprite.tscn" id="3_0qbnv"]
+[ext_resource type="PackedScene" uid="uid://djtfrov4iqbnm" path="res://scenes/game/UI_elements/animated_sprites/ruby_animated_sprite.tscn" id="5_3l4lp"]
+
+[node name="HUD" type="CanvasLayer" unique_id=1970834067]
+
+[node name="ErrorMessage" parent="." unique_id=371495968 instance=ExtResource("1_8fe00")]
+position = Vector2(640, 0)
+
+[node name="MoneyAnimatedSprite" parent="." unique_id=1016875789 instance=ExtResource("3_0qbnv")]
+position = Vector2(128, 120)
+
+[node name="CoinLabel" parent="." unique_id=1310137312 instance=ExtResource("2_qkhxd")]
+position = Vector2(160, 88)
+
+[node name="RubyAnimatedSprite" parent="." unique_id=701930484 instance=ExtResource("5_3l4lp")]
+position = Vector2(128, 184)
+
+[node name="RubyLabel" parent="." unique_id=1876496103 instance=ExtResource("2_qkhxd")]
+position = Vector2(160, 152)

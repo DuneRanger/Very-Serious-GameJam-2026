@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://cyc3c7bbs4ui3"]
+
+[ext_resource type="PackedScene" uid="uid://bt8dbkjq4nc07" path="res://scenes/game/game_scene/boost_bar/boost_bar.tscn" id="1_7due2"]
+[ext_resource type="Script" uid="uid://cqgngi3qndpn1" path="res://scenes/game/game_scene/boost_bar/boost_system.gd" id="1_xcsam"]
+[ext_resource type="FontFile" uid="uid://d0mkojug0pvql" path="res://assets/fonts/PixeloidSans-Bold.otf" id="2_alnvv"]
+[ext_resource type="Texture2D" uid="uid://cvc70jnauhlmx" path="res://assets/textures/UI/Button.png" id="3_xcsam"]
+[ext_resource type="Texture2D" uid="uid://bfew31gwarq5w" path="res://assets/textures/UI/ButtonPressed.png" id="4_p2nk3"]
+[ext_resource type="Texture2D" uid="uid://wt3wpr6fyrj5" path="res://assets/textures/UI/ButtonHover.png" id="5_m3pyc"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ofgc5"]
+texture = ExtResource("3_xcsam")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_il4g5"]
+texture = ExtResource("4_p2nk3")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ydvnx"]
+texture = ExtResource("5_m3pyc")
+
+[node name="BoostSystem" type="CanvasLayer" unique_id=1635259107]
+script = ExtResource("1_xcsam")
+
+[node name="boost_bar" parent="." unique_id=917300306 instance=ExtResource("1_7due2")]
+position = Vector2(888, 204)
+script = null
+
+[node name="DebugRectangle" type="ColorRect" parent="." unique_id=912258539]
+visible = false
+offset_left = 192.0
+offset_top = 32.0
+offset_right = 408.0
+offset_bottom = 192.0
+
+[node name="HappyButton" type="Button" parent="." unique_id=816810832]
+offset_left = 773.0
+offset_top = 330.0
+offset_right = 917.0
+offset_bottom = 402.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_alnvv")
+theme_override_font_sizes/font_size = 27
+theme_override_styles/normal = SubResource("StyleBoxTexture_ofgc5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_il4g5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ydvnx")
+text = "ACCEPT"
+
+[node name="UnHappyButton" type="Button" parent="." unique_id=2008763814]
+offset_left = 933.0
+offset_top = 330.0
+offset_right = 1077.0
+offset_bottom = 402.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_alnvv")
+theme_override_font_sizes/font_size = 27
+theme_override_styles/normal = SubResource("StyleBoxTexture_ofgc5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_il4g5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ydvnx")
+text = "BOOST"
+
+[node name="Timer" type="Timer" parent="." unique_id=30757026]
+wait_time = 0.5
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

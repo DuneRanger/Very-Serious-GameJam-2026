@@ -1,7 +1,7 @@
 extends Node2D
+@onready var mr_cat_tail_sprite: AnimatedSprite2D = $MrCatControlNode/MrCatTailSprite
+@onready var mr_cat_sprite: AnimatedSprite2D = $MrCatControlNode/MrCatSprite
 
-@onready var mr_cat_tail_sprite: AnimatedSprite2D = $MrCatTailSprite
-@onready var mr_cat_sprite: AnimatedSprite2D = $MrCatSprite
 @onready var timer: Timer = $Timer
 
 var has_sunglasses = false
