@@ -242,7 +242,7 @@ func rescue_orphaned_balls():
 var balls : Array[RouletteBall] = []
 
 func prepare_balls():
-	for i in range(30):
+	for i in range(5):
 		balls.append(RouletteBall.new())
 	for ball in balls:
 		add_child(ball)
