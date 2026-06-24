@@ -3,10 +3,17 @@
 [ext_resource type="PackedScene" uid="uid://sewpvrb7xfdc" path="res://scenes/game/shop_scene/mr_cat/mr_cat.tscn" id="1_nw121"]
 [ext_resource type="PackedScene" uid="uid://5vg4c83ob4lc" path="res://scenes/game/ui_elements/menu_button.tscn" id="2_i1bid"]
 [ext_resource type="Script" uid="uid://b0m5epq34gfw5" path="res://scenes/game/shop_scene/game_button.gd" id="3_8ksok"]
+[ext_resource type="Texture2D" uid="uid://bcsc264rw85de" path="res://assets/textures/ShopBackgroundBlurred.png" id="2_i1bid"]
 
 [node name="ShopScene" type="Node2D" unique_id=935466290]
 
 [node name="VisualsTest" type="Node" parent="." unique_id=412741530]
+
+[node name="ShopBackground" type="Sprite2D" parent="VisualsTest" unique_id=1294429494]
+z_index = -4
+position = Vector2(0, 2)
+scale = Vector2(4, 4)
+texture = ExtResource("2_i1bid")
 
 [node name="ColorRect" type="ColorRect" parent="VisualsTest" unique_id=89447505]
 z_index = -100
@@ -14,7 +21,7 @@ offset_left = -640.0
 offset_top = -360.0
 offset_right = 640.0
 offset_bottom = 360.0
-color = Color(0.6392157, 0.5019608, 0, 1)
+color = Color(0.61960787, 0.14117648, 0.14117648, 1)
 
 [node name="MrCat" parent="." unique_id=2033079592 instance=ExtResource("1_nw121")]
 position = Vector2(55.655, 0)
