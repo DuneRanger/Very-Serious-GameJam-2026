@@ -10,22 +10,62 @@ static func get_random_roulette_rot() -> float:
 	while abs(rot) < 0.03 : rot = randf_range(-0.04, 0.04)
 	return rot
 
+# -------------------------------- Initial values --------------------------------
+
+var initial_cell_order : Array[int] = [0, 20, 6, 8, 18, 14, 2, 4, 21, 1, 13, 3, 24, 7, 15, 19, 10, 12, 22, 5, 16, 9, 11, 23, 17]
+var initial_cells : Array[RouletteCell]
+var reset = true
+
+func get_initial_balls() -> Array[RouletteBall]:
+	return [RouletteBall.new()]
+
+func prepare_inital_cells():
+	if len(initial_cells) != 0: return
+	for i in len(initial_cell_order):
+		var curCol = Color.RED
+		var num = initial_cell_order[i]
+		if i % 2 == 0: curCol = Color.BLACK
+		if num == 0: curCol = Color.DARK_GREEN
+		initial_cells.append(RouletteCell.new(num, curCol))
+
 var cells : Array[RouletteCell] = []
 var default_font : Font = load("res://assets/fonts/PixeloidMono.otf");
 
-const base_roulette_numbers : int = 24
 # (base_roulette_numbers + 1) includes the green 0
-var total_weight : float = (base_roulette_numbers + 1) * RouletteCell.base_cell_weight
+var total_weight : float = 0
 
 func _init():
-	cells.append(RouletteCell.new(0, Color.DARK_GREEN))
-	for i in range(base_roulette_numbers):
-		var curCol = Color.RED
-		if i % 2 == 0: curCol = Color.BLACK
-		cells.append(RouletteCell.new(i + 1, curCol))
+	prepare_inital_cells()
+	cells = initial_cells.duplicate_deep()
+	balls = get_initial_balls()
+	prepare_balls()
+
 	randomize_weights()
-	cells[0].weight = 10
+	#cells[0].weight = 10
 	update_total_weight()
+
+func _ready():
+	build_outer_wall()
+	build_banks()
+	
+
+func full_reset():
+	cells.clear()
+	balls.clear()
+	for n in get_children():
+		if n is RouletteBall or RouletteCell:
+			print("Removing ", n)
+			remove_child(n)
+			n.queue_free()
+	cells = initial_cells.duplicate_deep()
+	balls = get_initial_balls()
+	prepare_balls()
+
+	randomize_weights()
+	update_total_weight()
+	
+	build_outer_wall()
+	build_banks()
 
 func randomize_weights():
 	for cell in cells:
@@ -132,25 +172,16 @@ func decay_rotation():
 	else:
 		rotation_speed = min(0, max(rotation_speed + 0.000005, rotation_speed * 0.999))
 
-
 func spin_roulette():
 	GameManagerGlobal.caughtBalls = 0
 	GameManagerGlobal.caughtCells.clear()
 	reset_balls()
-	for ball in balls:
-		ball.show()
+	for ball in balls: ball.show()
 	rotation_speed = get_random_roulette_rot()
 	launch_balls()
 
 func stop_roulette():
 	rotation_speed = 0.0
-
-func _ready():
-	build_outer_wall()
-	build_banks()
-	prepare_balls()
-	for ball in balls:
-		ball.hide()
 
 var angular_velocity : float
 func angular_speed_at_point(point : Vector2) -> float:
@@ -170,7 +201,9 @@ func _physics_process(_delta: float):
 	queue_redraw()
 	match (GameManagerGlobal.game_state):
 		GameEnums.game_states.SPIN_PHASE:
+			reset = true
 			visual_rotation += rotation_speed
+			$inner_wheel_sprite.rotation += rotation_speed
 			if balls.all(func(ball : RouletteBall): return ball.settled): settled_frames += 1
 			else: settled_frames = 0
 			if settled_frames > 60:
@@ -185,6 +218,9 @@ func _physics_process(_delta: float):
 						#text += str(round(ball.get_speed())) + str(ball.caught_cell != null) + ", "
 				#print(text)
 		GameEnums.game_states.BET_PHASE:
+			#if reset: full_reset()
+			if reset: add_ball()
+			reset = false
 			pass
 		_:
 			pass
@@ -242,11 +278,17 @@ func rescue_orphaned_balls():
 var balls : Array[RouletteBall] = []
 
 func prepare_balls():
-	for i in range(30):
-		balls.append(RouletteBall.new())
 	for ball in balls:
-		add_child(ball)
+		ball.hide()
 		ball.freeze = true
+		add_child(ball)
+
+func add_ball():
+	var ball = RouletteBall.new()
+	ball.hide()
+	ball.freeze = true
+	add_child(ball)
+	balls.append(ball)
 
 func reset_balls():
 	for ball in balls:
@@ -267,6 +309,7 @@ func launch_balls():
 var inner_incline_strength : float = 600
 var inner_incline_radius : int = inner_circle_radius
 var cell_radius_end : int = cell_circle_radius
+var cell_bank_incline_strength : float = 100
 var outer_incline_radius : int = bank_radius_pos + bank_trigger_radius
 var outer_incline_strength : float = 800
 
@@ -285,6 +328,8 @@ func simulate_inclines(_delta : float):
 
 		if ball_rad <= inner_incline_radius + ball.ball_radius:
 			ball.apply_central_impulse(ball_to_mid.normalized() * inner_incline_strength * _delta)
+		if ball_rad <= bank_radius_pos + 2 * ball.ball_radius:
+			ball.apply_central_impulse(ball_to_mid.normalized() * cell_bank_incline_strength * _delta)
 		elif ball_rad >= outer_circle_radius - ball.ball_radius:
 			ball.apply_central_impulse(-ball_to_mid.normalized() * outer_incline_strength * _delta)
 		elif ball_rad >= outer_incline_radius + ball.ball_radius:
