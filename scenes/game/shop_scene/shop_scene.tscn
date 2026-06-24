@@ -7,6 +7,12 @@
 
 [node name="VisualsTest" type="Node" parent="." unique_id=412741530]
 
+[node name="ShopBackground" type="Sprite2D" parent="VisualsTest" unique_id=1294429494]
+z_index = -4
+position = Vector2(0, 2)
+scale = Vector2(4, 4)
+texture = ExtResource("2_i1bid")
+
 [node name="ColorRect" type="ColorRect" parent="VisualsTest" unique_id=89447505]
 z_index = -100
 offset_left = -640.0
@@ -19,8 +25,3 @@ color = Color(0.61960787, 0.14117648, 0.14117648, 1)
 position = Vector2(55.655, 0)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=713897190]
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1294429494]
-z_index = -4
-scale = Vector2(4, 4)
-texture = ExtResource("2_i1bid")
