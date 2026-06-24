@@ -1,12 +1,13 @@
-extends Node2D
+extends Control
 
-@onready var animation_player: AnimationPlayer = $Control/AnimationPlayer
-@onready var boost_used_sprite: Sprite2D = $Control/BoostUsedSprite
-@onready var boost_sprite: Sprite2D = $Control/BoostSprite
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var boost_used_sprite: Sprite2D = $BoostUsedSprite
+@onready var boost_sprite: Sprite2D = $BoostSprite
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	var fucking_scale = Vector2(4,4)
+	boost_sprite.scale = fucking_scale
+	boost_used_sprite.scale = fucking_scale
 	boost_idle_anim()
 
 func boost_idle_anim():
@@ -17,15 +18,5 @@ func boost_idle_anim():
 func refil_boost_anim():
 	animation_player.play("RefilBoost")
 
-	
 func use_boost_anim():
 	animation_player.play("UseBoost")
-
-
-
-func _on_test_button_pressed() -> void:
-	refil_boost_anim()
-
-
-func _on_test_button_2_pressed() -> void:
-	use_boost_anim()

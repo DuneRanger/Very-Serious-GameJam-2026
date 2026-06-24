@@ -182,10 +182,10 @@ func new_bet(b_id : int) -> void:
 		current_increment *= -1
 	
 	if current_increment > GameManagerGlobal.money:
-		GameManagerGlobal.send_error_message.emit("Not enough money!")
+		GameManagerGlobal.signal_send_error_message.emit("Not enough money!")
 		return
 	elif current_increment < 0 and GameManagerGlobal.bets.get(b_id, 0) == 0:
-		GameManagerGlobal.send_error_message.emit("Removing money on an empty bet!")
+		GameManagerGlobal.signal_send_error_message.emit("Removing money on an empty bet!")
 		return
 		
 	var old_bet_amount = GameManagerGlobal.bets.get(b_id, 0)
