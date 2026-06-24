@@ -213,9 +213,10 @@ func _physics_process(_delta: float):
 			$inner_wheel_sprite.rotation += rotation_speed
 			if balls.all(func(ball : RouletteBall): return ball.settled): settled_frames += 1
 			else: settled_frames = 0
-			if settled_frames > 60:
+			if settled_frames > 120:
 				var temp : Array[RouletteCell] = []
 				for ball in balls: temp.append(ball.caught_cell)
+				print("Caught: ", temp.map(func(cell): return cell.number))
 				GameManagerGlobal.caughtCells = temp
 				GameManagerGlobal.modify_game_state(GameEnums.game_states.STOP_PHASE)
 			#else:
@@ -293,7 +294,7 @@ func prepare_balls():
 
 func add_ball():
 	var ball = RouletteBall.new()
-	ball.z_index = 0
+	ball.z_index = -2
 	ball.hide()
 	ball.freeze = true
 	add_child(ball)
@@ -344,3 +345,8 @@ func simulate_inclines(_delta : float):
 			ball.apply_central_impulse(-ball_to_mid.normalized() * outer_incline_strength * _delta)
 		elif ball_rad >= outer_incline_radius + ball.ball_radius:
 			ball.apply_central_impulse(-ball_to_mid.normalized() * 2 * outer_incline_strength * _delta)
+	
+func apply_boost(amount : float):
+	for ball : RouletteBall in balls:
+		ball.settled = false
+		ball.apply_central_impulse(ball.position.rotated(randf_range(-0.1, 0.1)))

@@ -165,7 +165,8 @@ func build_colliders(bank_angle: float, radius_center: float, width: float):
 	wall_body.add_child(right_collider)
 
 	_build_skip_gates(left_angle, right_angle, inner_r, outer_r)
-	_build_catch_trigger(left_angle, right_angle, inner_r, outer_r)
+	var t = acos(RouletteBall.ball_radius * 5)
+	_build_catch_trigger(left_angle + t, right_angle - t, inner_r - RouletteBall.ball_radius / 2, outer_r - RouletteBall.ball_radius / 2)
 
 func _init(owner_cell: RouletteCell, bank_angle: float, bank_position: Vector2 = Vector2.ZERO, bank_width: float = 45.0):
 	cell = owner_cell
