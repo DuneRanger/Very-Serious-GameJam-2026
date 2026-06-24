@@ -47,6 +47,7 @@ func _init():
 func _ready():
 	build_outer_wall()
 	build_banks()
+	prepare_textures()
 	
 
 func full_reset():
@@ -81,6 +82,7 @@ func update_total_weight():
 
 var inner_circle_radius : int = 350
 var inner_circle_colour : Color = Color.SADDLE_BROWN
+#var inner_circle_texture : Sprite2D = load("res://assets/textures/test.png")
 var cell_circle_radius : int = 500
 var outer_circle_radius : int = 700
 var outer_circle_colour : Color = Color.DARK_RED
@@ -120,6 +122,11 @@ func draw_cells():
 		cur_angle += cur_cell_angle
 
 	draw_set_transform(Vector2(0, 0), 0)
+
+func prepare_textures():
+	var scale = Vector2(1, 1) * inner_circle_radius / 75
+	print(scale)
+	$inner_wheel_sprite.apply_scale(scale)
 
 func draw_centre():
 	draw_circle(Vector2(0, 0), inner_circle_radius, inner_circle_colour)
@@ -279,12 +286,14 @@ var balls : Array[RouletteBall] = []
 
 func prepare_balls():
 	for ball in balls:
+		ball.z_index = 2
 		ball.hide()
 		ball.freeze = true
 		add_child(ball)
 
 func add_ball():
 	var ball = RouletteBall.new()
+	ball.z_index = 2
 	ball.hide()
 	ball.freeze = true
 	add_child(ball)
