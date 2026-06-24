@@ -156,6 +156,8 @@ var angular_velocity : float
 func angular_speed_at_point(point : Vector2) -> float:
 	return angular_velocity * point.length()
 
+var settled_frames : int = 0
+
 func _physics_process(_delta: float):
 	angular_velocity = rotation_speed / _delta
 	var linear_ang_velocity = cell_circle_radius * angular_velocity
@@ -168,8 +170,17 @@ func _physics_process(_delta: float):
 	match (GameManagerGlobal.game_state):
 		GameEnums.game_states.SPIN_PHASE:
 			visual_rotation += rotation_speed
-			if GameManagerGlobal.caughtBalls == balls.size():
+			if balls.all(func(ball : RouletteBall): return ball.settled): settled_frames += 1
+			else: settled_frames = 0
+			if settled_frames > 60:
+				GameManagerGlobal.caughtCells = balls.map(func(ball : RouletteBall): ball.caughtCell)
 				GameManagerGlobal.modify_game_state(GameEnums.game_states.STOP_PHASE)
+			else:
+				var text = ""
+				for ball in balls:
+					if ball.settled == false:
+						text += str(round(ball.get_speed())) + str(ball.caught_cell != null) + ", "
+				print(text)
 		GameEnums.game_states.BET_PHASE:
 			pass
 		_:
@@ -212,15 +223,17 @@ func move_banks():
 var balls : Array[RouletteBall] = []
 
 func prepare_balls():
-	for i in range(3):
+	for i in range(30):
 		balls.append(RouletteBall.new())
 	for ball in balls:
 		add_child(ball)
+		ball.freeze = true
 
 func reset_balls():
 	for ball in balls:
 		if is_instance_valid(ball):
 			var start_position = get_random_vector2(outer_circle_radius - 2 * RouletteBall.ball_radius)
+			ball.freeze = false
 			ball.reset_ball(start_position)
 
 func launch_balls():

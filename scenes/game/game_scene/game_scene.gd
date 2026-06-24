@@ -18,7 +18,7 @@ func _process(_delta: float) -> void:
 		if (GameManagerGlobal.game_state == GameEnums.game_states.SPIN_PHASE):
 			GameManagerGlobal.modify_game_state(GameEnums.game_states.BET_PHASE)
 	if Input.is_action_just_pressed("rotate_roullete"):
-		GameManagerGlobal.modify_game_state(GameEnums.game_states.STOP_PHASE)
+		GameManagerGlobal.modify_game_state(GameEnums.game_states.SPIN_PHASE)
 		#if (GameManagerGlobal.game_state == GameEnums.game_states.BET_PHASE):
 			#GameManagerGlobal.modify_game_state(GameEnums.game_states.SPIN_PHASE)
 

@@ -251,10 +251,12 @@ func _build_catch_trigger(left_angle: float, right_angle: float, inner_r: float,
 	pocket_shape.points = pts
 
 	var pocket_collider = CollisionShape2D.new()
+	pocket_collider.name = "Catch collider %s" % cell.number
 	pocket_collider.shape = pocket_shape
 	catch_trigger.add_child(pocket_collider)
 
 	catch_trigger.body_entered.connect(_on_body_entered)
+	catch_trigger.body_exited.connect(_on_body_exited)
 
 func _skip_chance(speed: float) -> float:
 	if speed <= wall_skip_min_speed:
@@ -298,19 +300,27 @@ func catch_probability(speed: float) -> float:
 		return 1.0
 	return 1.0 / (1.0 + pow(speed / catch_characteristic_speed, catch_sharpness))
 
+var contains_balls : Array[RouletteBall] = []
+
+func _physics_process(delta: float):
+	for ball in contains_balls:
+		if ball.get_speed() < 50 and ball.settled == false:
+			ball.settled = true
+			ball.caught_cell = cell
+			print("ball in cell ", cell.number, " settled")
+
 func _on_body_entered(body: Node):
-	if not (body is RouletteBall) or body.settled:
-		return
+	if not (body is RouletteBall): return
 	body = body as RouletteBall
 
 	var speed = body.get_speed()
-	var catch_chance = catch_probability(speed)
-	var effective_chance = catch_chance
+	contains_balls.append(body)
 
-	#if randf() < effective_chance:
-		#body.catch_in_pocket(cell)
-		#GameManagerGlobal.caughtCells.push_back(cell)
-		#GameManagerGlobal.caughtBalls += 1
-		#print("Ball caught at number ", cell.number)
-	#else:
-		#print("Ball missed cell ", cell.number)
+func _on_body_exited(body: Node):
+	if not (body is RouletteBall): return
+	body = body as RouletteBall
+	if body.settled and body.caught_cell == cell:
+		body.settled = false
+		body.caught_cell = null
+		print("ball in cell ", cell.number, " unsettled")
+	contains_balls.erase(body)
