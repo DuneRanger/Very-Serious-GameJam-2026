@@ -2,7 +2,6 @@ class_name RouletteBank
 extends Node2D
 
 var cell : RouletteCell
-var local_bank_position : Vector2
 
 var catch_characteristic_speed : float = 100.0
 var catch_sharpness : float = 1.5
@@ -19,6 +18,7 @@ var wall_skip_disable_ticks : int = 8
 
 # Holds the colliders (left, right, outer)
 var wall_body : StaticBody2D
+var base_angle : float
 
 var left_collider : CollisionShape2D
 var right_collider : CollisionShape2D
@@ -33,9 +33,6 @@ var invert_outer_one_way_direction : bool = false
 
 var _left_skip_timer : int = 0
 var _right_skip_timer : int = 0
-
-func get_bank_position():
-	return global_position + local_bank_position
 
 func get_arc_points(center, radius, angle_from, angle_to) -> PackedVector2Array:
 	var nb_points = 3 + floor(10 * abs(angle_from - angle_to))
@@ -153,6 +150,14 @@ func build_colliders(bank_angle: float, radius_center: float, width: float):
 	_build_skip_gates(left_angle, right_angle, inner_r, outer_r)
 	_build_catch_trigger(left_angle, right_angle, inner_r, outer_r)
 
+func _init(owner_cell: RouletteCell, bank_angle: float, bank_position: Vector2 = Vector2.ZERO, bank_width: float = 45.0):
+	cell = owner_cell
+	base_angle = bank_position.angle()
+	rotation = base_angle
+	name = "Bank_%s" % str(cell.number)
+
+	build_colliders(bank_angle, bank_position.length() * 0.98, bank_width)
+
 # Thin Area2D zones placed just inside each side wall. A ball entering one of
 # these fast enough has a chance to get its matching wall collider disabled
 # for a few physics ticks, letting it pass straight through/"bounce over"
@@ -207,7 +212,7 @@ func _skip_chance(speed: float) -> float:
 		return 0.0
 	if speed >= wall_skip_max_speed:
 		return 1.0
-	return (speed - wall_skip_min_speed) / (wall_skip_max_speed - wall_skip_min_speed)
+	return 1.0 / (1.0 + pow(speed / wall_skip_min_speed, catch_sharpness))
 
 func _on_left_gate_entered(body: Node):
 	if not (body is RouletteBall) or body.settled:
@@ -233,17 +238,8 @@ func _physics_process(_delta: float):
 		if _right_skip_timer == 0:
 			right_collider.disabled = false
 
-func _init(owner_cell: RouletteCell, bank_angle: float, bank_position: Vector2 = Vector2.ZERO, bank_width: float = 45.0):
-	cell = owner_cell
-	rotation = bank_position.angle()
-	name = "Bank_%s" % str(cell.number)
-
-	build_colliders(bank_angle, bank_position.length() * 0.98, bank_width)
-
-# Used by Roulette.move_banks()
-func rotate_around_center(angle: float):
-	rotation += angle
-	position = position.rotated(angle)
+func set_total_rotation(visual_rotation: float):
+	rotation = base_angle + visual_rotation
 
 func catch_probability(speed: float) -> float:
 	if speed <= 0.0:

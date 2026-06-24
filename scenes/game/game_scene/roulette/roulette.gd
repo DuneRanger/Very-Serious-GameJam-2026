@@ -7,7 +7,7 @@ static func get_random_vector2(size: float) -> Vector2:
 
 static func get_random_roulette_rot() -> float:
 	var rot = 0.0
-	while abs(rot) < 0.01 : rot = randf_range(-0.04, 0.04)
+	while abs(rot) < 0.03 : rot = randf_range(-0.04, 0.04)
 	return rot
 
 var cells : Array[RouletteCell] = []
@@ -94,7 +94,6 @@ func _draw():
 	draw_cells()
 	draw_centre()
 	move_banks()
-	#_draw_bank_debug()
 
 # -------------------------------- Physics --------------------------------
 
@@ -161,12 +160,8 @@ func _physics_process(_delta: float):
 			decay_rotation()
 			queue_redraw()
 			
-			if GameManagerGlobal.caughtBalls == balls.size():
-				GameManagerGlobal.modify_game_state(GameEnums.game_states.STOP_PHASE)
-		
-			#if rotation_speed == 0:
-				#GameManagerGlobal.state_change.emit(GameEnums.game_states.BET_PHASE)
-			#no...?
+			#if GameManagerGlobal.caughtBalls == balls.size():
+				#GameManagerGlobal.modify_game_state(GameEnums.game_states.STOP_PHASE)
 		GameEnums.game_states.BET_PHASE:
 			pass
 		_:
@@ -202,7 +197,7 @@ func build_banks() -> void:
 func move_banks() -> void:
 	for cell in cells:
 		if is_instance_valid(cell.bank):
-			cell.bank.rotate_around_center(rotation_speed * 1.001)
+			cell.bank.set_total_rotation(visual_rotation)
 
 # -------------------------------- Balls --------------------------------
 
