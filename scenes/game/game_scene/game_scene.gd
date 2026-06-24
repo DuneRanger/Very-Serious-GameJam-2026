@@ -128,3 +128,7 @@ func _on_new_state():
 			$Table/BettingSystem.clear_bets()
 		_:
 			pass
+
+
+func _on_shop_button_down() -> void:
+	GameManagerGlobal.signal_switch_scene.emit(GameEnums.switching_scenes.SHOP_SCENE)

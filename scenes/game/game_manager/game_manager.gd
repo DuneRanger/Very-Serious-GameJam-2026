@@ -14,9 +14,11 @@ var caughtCells : Array[RouletteCell]
 
 var caughtBalls : int
 
-var single_bet_coeff : float = 20.0
+var single_bet_coeff : float = 24.0
 var half_bet_coeff : float = 2.0
 var third_bet_coeff : float = 3.0
+
+signal signal_switch_scene (new_scene : GameEnums.switching_scenes)
 
 signal signal_spin_count_change (amount : int)
 signal signal_spins_left_change (amount : int)
