@@ -7,22 +7,35 @@ static func get_random_vector2(size: float) -> Vector2:
 
 static func get_random_roulette_rot() -> float:
 	var rot = 0.0
-	while abs(rot) < 0.01 : rot = randf_range(-0.04, 0.04)
+	while abs(rot) < 0.03 : rot = randf_range(-0.04, 0.04)
 	return rot
 
 var cells : Array[RouletteCell] = []
-var default_font : Font = ThemeDB.fallback_font;
+var default_font : Font = load("res://assets/fonts/PixeloidMono.otf");
 
 const base_roulette_numbers : int = 24
 # (base_roulette_numbers + 1) includes the green 0
 var total_weight : float = (base_roulette_numbers + 1) * RouletteCell.base_cell_weight
 
 func _init():
-	cells.append(RouletteCell.new(0, Color.GREEN))
+	cells.append(RouletteCell.new(0, Color.DARK_GREEN))
 	for i in range(base_roulette_numbers):
 		var curCol = Color.RED
 		if i % 2 == 0: curCol = Color.BLACK
 		cells.append(RouletteCell.new(i + 1, curCol))
+	randomize_weights()
+	cells[0].weight = 10
+	update_total_weight()
+
+func randomize_weights():
+	for cell in cells:
+		cell.weight = randf_range(0.5, 2)
+	update_total_weight()
+
+func update_total_weight():
+	total_weight = 0
+	for cell in cells:
+		total_weight += cell.weight
 
 # -------------------------------- Drawing --------------------------------
 
@@ -35,7 +48,7 @@ var outer_circle_colour : Color = Color.DARK_RED
 var visual_rotation : float = 0;
 
 func draw_circle_arc_poly(center, radius, angle_from, angle_to, color):
-	var nb_points = 32  + floor(100 * abs(angle_from - angle_to)) 
+	var nb_points = 3 + floor(10 * abs(angle_from - angle_to)) 
 	var points_arc = PackedVector2Array()
 	points_arc.push_back(center)
 	var colors = PackedColorArray([color])
@@ -54,16 +67,18 @@ func draw_cells():
 		# Actual angle length of the cell
 		var cur_cell_angle = base_cell_angle * cell.weight
 		# Modifies the draw angle so that the middle of the cell is perfectly vertical
-		var draw_angle = -(PI + cur_cell_angle) / 2
-		draw_circle_arc_poly(Vector2(0, 0), cell_circle_radius, draw_angle, draw_angle + cur_cell_angle, cell.colour)
-		
-		var font_max_width = sin(cur_cell_angle) * cell_circle_radius
-		var font_size = 48
-		draw_string(default_font, Vector2(-font_max_width / 2, -cell_circle_radius * 0.9), str(cell.number),
-				HORIZONTAL_ALIGNMENT_CENTER, font_max_width, font_size)
-
-		cur_angle += cur_cell_angle
+		var draw_angle = -PI / 2
 		draw_set_transform(Vector2(0, 0), cur_angle + visual_rotation)
+		draw_circle_arc_poly(Vector2(0, 0), cell_circle_radius, draw_angle, draw_angle + cur_cell_angle, cell.colour)
+		draw_set_transform(Vector2(0, 0), cur_angle + cur_cell_angle / 2 + visual_rotation)
+		
+		var text = str(cell.number)
+		var font_max_width = sin(cur_cell_angle) * cell_circle_radius
+		var font_size = min(48, font_max_width / len(text))
+		var pos = Vector2(-font_max_width / 2, -cell_circle_radius * 0.95 + font_size / 2)
+		draw_string(default_font, pos, text, HORIZONTAL_ALIGNMENT_CENTER, font_max_width, font_size)
+		cur_angle += cur_cell_angle
+
 	draw_set_transform(Vector2(0, 0), 0)
 
 func draw_centre():
@@ -77,12 +92,11 @@ func _draw():
 	draw_cells()
 	draw_centre()
 	move_banks()
-	_draw_bank_debug()
 
 # -------------------------------- Physics --------------------------------
 
 var rotation_speed : float = 0;
-var outer_wall_segments: int = 128
+var outer_wall_segments: int = 256
 
 func build_outer_wall():
 	var wall_body = StaticBody2D.new()
@@ -92,8 +106,8 @@ func build_outer_wall():
 		var angle_a = (float(i) / float(outer_wall_segments)) * 2 * PI
 		var angle_b = (float(i + 1) / float(outer_wall_segments)) * 2 * PI
  
-		var point_a = Vector2(cos(angle_a), sin(angle_a)) * outer_circle_radius
-		var point_b = Vector2(cos(angle_b), sin(angle_b)) * outer_circle_radius
+		var point_a = Vector2(cos(angle_a), sin(angle_a)) * (outer_circle_radius - RouletteBall.ball_radius)
+		var point_b = Vector2(cos(angle_b), sin(angle_b)) * (outer_circle_radius - RouletteBall.ball_radius)
 
 		var seg_shape = SegmentShape2D.new()
 		seg_shape.a = point_a
@@ -123,6 +137,8 @@ func spin_roulette():
 	GameManagerGlobal.caughtBalls = 0
 	GameManagerGlobal.caughtCells.clear()
 	reset_balls()
+	for ball in balls:
+		ball.show()
 	rotation_speed = get_random_roulette_rot()
 	launch_balls()
 
@@ -133,30 +149,47 @@ func _ready():
 	build_outer_wall()
 	build_banks()
 	prepare_balls()
-	refresh_bank_debug()
+	for ball in balls:
+		ball.hide()
+
+var angular_velocity : float
+func angular_speed_at_point(point : Vector2) -> float:
+	return angular_velocity * point.length()
+
+var settled_frames : int = 0
 
 func _physics_process(_delta: float):
+	angular_velocity = rotation_speed / _delta
+	#var linear_ang_velocity = cell_circle_radius * angular_velocity
+	#print("Angular velocity: ", angular_velocity, ", Linear velocity: ", linear_ang_velocity)
+	
+	give_balls_angular_velocity(_delta)
+	simulate_inclines(_delta)
+	decay_rotation()
+	rescue_orphaned_balls()
+	queue_redraw()
 	match (GameManagerGlobal.game_state):
 		GameEnums.game_states.SPIN_PHASE:
-			give_balls_angular_velocity(_delta)
-			simulate_inclines(_delta)
 			visual_rotation += rotation_speed
-			
-			decay_rotation()
-			queue_redraw()
-			
-			if GameManagerGlobal.caughtBalls == balls.size():
+			if balls.all(func(ball : RouletteBall): return ball.settled): settled_frames += 1
+			else: settled_frames = 0
+			if settled_frames > 60:
+				var temp : Array[RouletteCell] = []
+				for ball in balls: temp.append(ball.caught_cell)
+				GameManagerGlobal.caughtCells = temp
 				GameManagerGlobal.modify_game_state(GameEnums.game_states.STOP_PHASE)
-		
-			#if rotation_speed == 0:
-				#GameManagerGlobal.state_change.emit(GameEnums.game_states.BET_PHASE)
-			#no...?
+			#else:
+				#var text = ""
+				#for ball in balls:
+					#if ball.settled == false:
+						#text += str(round(ball.get_speed())) + str(ball.caught_cell != null) + ", "
+				#print(text)
 		GameEnums.game_states.BET_PHASE:
 			pass
 		_:
 			pass
 
-func _process(_delta: float) -> void:
+func _process(_delta: float):
 	pass
 
 # -------------------------------- Banks --------------------------------
@@ -166,16 +199,16 @@ var bank_catch_characteristic_speed : float = 100.0
 var bank_catch_sharpness : float = 1.5
 var bank_trigger_radius : float = 45
 
-func build_banks() -> void:
+func build_banks():
 	var base_cell_angle = 2 * PI / total_weight
 	var cur_angle = 0.0
 
 	for cell in cells:
 		var cur_cell_angle = base_cell_angle * cell.weight
-		var mid_angle = cur_angle - PI / 2
+		var mid_angle = cur_angle + cur_cell_angle / 2 - PI / 2
 		var bank_position = Vector2(cos(mid_angle), sin(mid_angle)) * bank_radius_pos
 
-		var bank = RouletteBank.new(cell, bank_trigger_radius, bank_position)
+		var bank = RouletteBank.new(cell, cur_cell_angle, bank_position, 90)
 		bank.catch_characteristic_speed = bank_catch_characteristic_speed
 		bank.catch_sharpness = bank_catch_sharpness
 		cell.bank = bank
@@ -183,38 +216,59 @@ func build_banks() -> void:
 
 		cur_angle += cur_cell_angle
 
-func move_banks() -> void:
+func move_banks():
 	for cell in cells:
 		if is_instance_valid(cell.bank):
-			cell.bank.rotate_around_center(rotation_speed * 1.001)
+			cell.bank.set_total_rotation(visual_rotation)
+
+func rescue_orphaned_balls():
+	for ball in balls:
+		if ball.settled or ball.get_speed() >= 50:
+			continue
+		var tracked_somewhere = false
+		for cell in cells:
+			if is_instance_valid(cell.bank) and cell.bank.is_tracking(ball):
+				tracked_somewhere = true
+				break
+		if tracked_somewhere:
+			continue
+		for cell in cells:
+			if is_instance_valid(cell.bank) and cell.bank.currently_overlaps(ball):
+				cell.bank.adopt_ball(ball)
+				break
 
 # -------------------------------- Balls --------------------------------
 
 var balls : Array[RouletteBall] = []
 
 func prepare_balls():
-	for i in range(3):
+	for i in range(5):
 		balls.append(RouletteBall.new())
 	for ball in balls:
-		ball.position = Vector2(outer_circle_radius - 50, 0)
 		add_child(ball)
+		ball.freeze = true
 
-func reset_balls() -> void:
-	var start_position = Vector2(outer_circle_radius - 50, 0)
+func reset_balls():
 	for ball in balls:
 		if is_instance_valid(ball):
+			var start_position = get_random_vector2(outer_circle_radius - 2 * RouletteBall.ball_radius)
+			ball.freeze = false
+			for cell in cells:
+				if is_instance_valid(cell.bank):
+					cell.bank.clear_ball(ball)
 			ball.reset_ball(start_position)
 
-func launch_balls() -> void:
+func launch_balls():
 	for ball in balls:
-		if ball and is_instance_valid(ball):
-			ball.apply_impulse(Vector2(0, 1000 * (-1 * sign(rotation_speed))))
+		if ball as RouletteBall:
+			var normal = Vector2(-ball.init_position.y, ball.init_position.x).normalized()
+			ball.launch(normal * 800 * (-1 * sign(rotation_speed)))
 
 var inner_incline_strength : float = 600
 var inner_incline_radius : int = inner_circle_radius
 var cell_radius_end : int = cell_circle_radius
 var outer_incline_radius : int = bank_radius_pos + bank_trigger_radius
-var outer_incline_strength : float = 600
+var outer_incline_strength : float = 800
 
 func give_balls_angular_velocity(_delta: float):
 	if abs(rotation_speed) < 0.01:
@@ -228,61 +282,10 @@ func simulate_inclines(_delta : float):
 	for ball : RouletteBall in balls:
 		var ball_to_mid = ball.position
 		var ball_rad = ball_to_mid.length()
-		
+
 		if ball_rad <= inner_incline_radius + ball.ball_radius:
 			ball.apply_central_impulse(ball_to_mid.normalized() * inner_incline_strength * _delta)
 		elif ball_rad >= outer_circle_radius - ball.ball_radius:
 			ball.apply_central_impulse(-ball_to_mid.normalized() * outer_incline_strength * _delta)
 		elif ball_rad >= outer_incline_radius + ball.ball_radius:
 			ball.apply_central_impulse(-ball_to_mid.normalized() * 2 * outer_incline_strength * _delta)
-
-
-var show_bank_debug : bool = true:
-	set(v):
-		show_bank_debug = v
-		queue_redraw()
-
-var bank_debug_color : Color = Color(0.1, 0.9, 1.0, 0.35)
-var bank_debug_outline_color : Color = Color(0.1, 0.9, 1.0, 0.9)
-var bank_debug_label_color : Color = Color.WHITE
-var bank_debug_outline_width : float = 2.0
-## Toggle the small number label drawn next to each bank's circle, so you
-## can visually match trigger circles to pocket numbers.
-var show_bank_numbers : bool = true
-
-
-## Call this once after build_banks() so the overlay appears without
-## needing an unrelated redraw to trigger it first.
-func refresh_bank_debug() -> void:
-	queue_redraw()
-
-
-func _draw_bank_debug() -> void:
-	if not show_bank_debug:
-		return
-
-	for cell in cells:
-		var bank = cell.bank
-		if not is_instance_valid(bank):
-			continue
-
-		var radius = bank.radius
-		var pos = bank.position
-
-		draw_circle(pos, radius, bank_debug_color)
-		draw_arc(pos, radius, 0, TAU, 32, bank_debug_outline_color, bank_debug_outline_width)
-
-		if show_bank_numbers:
-			var label_text = str(cell.number)
-			var font_size = 16
-			# NOTE: draw_string's HORIZONTAL_ALIGNMENT_CENTER argument has
-			# had reported bugs in some 4.x versions where it's silently
-			# ignored, and get_string_size doesn't always match what
-			# draw_string actually renders -- not worth depending on
-			# either for a debug-only label. A rough manual offset
-			# (half a character-width guess per digit) is crude but
-			# reliable and good enough for a dev overlay; eyeball it once
-			# in-editor and tweak the multiplier below if labels look off.
-			var rough_half_width = label_text.length() * font_size * 0.3
-			draw_string(default_font, pos + Vector2(-rough_half_width, -radius - 6),
-					label_text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, bank_debug_label_color)

@@ -83,37 +83,39 @@ position = Vector2(-517, -95)
 position = Vector2(-517, -30)
 
 [node name="BoostSymbol" parent="Test" unique_id=520437521 instance=ExtResource("12_ghl7i")]
-position = Vector2(-511, -163)
+visible = false
+offset_left = -272.0
+offset_top = -271.0
+offset_right = -232.0
+offset_bottom = -231.0
 
 [node name="BoostSymbol2" parent="Test" unique_id=816301357 instance=ExtResource("12_ghl7i")]
-position = Vector2(-447, -163)
+visible = false
+offset_left = -208.0
+offset_top = -271.0
+offset_right = -168.0
+offset_bottom = -231.0
 
 [node name="BoostSymbol3" parent="Test" unique_id=1093939258 instance=ExtResource("12_ghl7i")]
-position = Vector2(-383, -163)
+visible = false
+offset_left = -144.0
+offset_top = -271.0
+offset_right = -104.0
+offset_bottom = -231.0
 
 [node name="SpinSymbol2" parent="Test" unique_id=1373102795 instance=ExtResource("10_0qrw6")]
-position = Vector2(-511, -247)
+visible = false
+offset_left = -456.0
+offset_top = -272.0
+offset_right = -456.0
+offset_bottom = -272.0
 
 [node name="SpinSymbol" parent="Test" unique_id=1596740823 instance=ExtResource("10_0qrw6")]
-position = Vector2(-431, -247)
-
-[node name="Label" type="Label" parent="Test" unique_id=250944818]
-offset_left = -231.0
-offset_top = -351.0
-offset_right = 296.0
-offset_bottom = -324.0
-theme_override_fonts/font = ExtResource("12_qgedt")
-theme_override_font_sizes/font_size = 22
-text = "Round x - You need 600 for your rent"
-
-[node name="Label2" type="Label" parent="Test" unique_id=1804551262]
-offset_left = -303.0
-offset_top = -38.0
-offset_right = -127.0
-offset_bottom = -8.0
-theme_override_fonts/font = ExtResource("12_qgedt")
-theme_override_font_sizes/font_size = 24
-text = "SHOP BUTTON"
+visible = false
+offset_left = -376.0
+offset_top = -272.0
+offset_right = -376.0
+offset_bottom = -272.0
 
 [node name="HUD" parent="." unique_id=1970834067 instance=ExtResource("9_4jb31")]
 layer = 200
