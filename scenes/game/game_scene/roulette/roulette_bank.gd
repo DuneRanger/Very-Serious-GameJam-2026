@@ -38,7 +38,7 @@ var invert_outer_one_way_direction : bool = false
 
 
 func get_arc_points(center, radius, angle_from, angle_to) -> PackedVector2Array:
-	var nb_points = 3 + floor(10 * abs(angle_from - angle_to))
+	var nb_points = 3 + floor(20 * abs(angle_from - angle_to))
 	var points_arc = PackedVector2Array()
 
 	for i in range(nb_points + 1):
@@ -128,10 +128,6 @@ func build_colliders(bank_angle: float, radius_center: float, width: float):
 	left_visual.default_color = Color.SILVER
 	add_child(left_visual)
 
-	# Left wall actual. Using a thin RectangleShape2D instead of a zero-
-	# thickness SegmentShape2D so the solver has real volume to catch a fast
-	# ball against. No manual radius offset: circle-vs-rectangle collision
-	# already resolves contact at the ball's edge automatically.
 	var left_mid = (left_a + left_b) * 0.5
 	var left_len = left_a.distance_to(left_b)
 
@@ -181,19 +177,12 @@ func _init(owner_cell: RouletteCell, bank_angle: float, bank_position: Vector2 =
 
 # Thin Area2D zones placed just inside each side wall. A ball entering one of
 # these fast enough has a chance to get its matching wall collider disabled,
-# letting it pass straight through/"bounce over". The collider is only
-# re-enabled once the ball has fully exited a wider "clear zone" spanning
-# both sides of the wall - never on a blind tick timer. Re-enabling while the
-# ball still overlaps the wall's geometry is what was causing the visible
-# "pop"/jump: the solver applies a strong separation impulse to push the ball
-# back out of newly-solid geometry it's still touching.
+# letting it pass straight through/"bounce over"
 func _build_skip_gates(left_angle: float, right_angle: float, inner_r: float, outer_r: float):
 	var gate_half_thickness = 10.0
 	var mid_r = (inner_r + outer_r) * 0.5
 	var wall_len = outer_r - inner_r
 
-	# clear_zone is wider than the trigger gate (covers comfortably past both
-	# faces of the thick wall collider) so "fully exited" really means clear.
 	var clear_zone_half_thickness = gate_half_thickness + wall_collider_thickness
 
 	left_skip_gate = Area2D.new()
@@ -316,7 +305,7 @@ func _on_body_entered(body: Node):
 
 	var speed = body.get_speed()
 	var catch_chance = catch_probability(speed)
-	var effective_chance = catch_chance * (1.0 - body.height * 0.85)
+	var effective_chance = catch_chance
 
 	#if randf() < effective_chance:
 		#body.catch_in_pocket(cell)

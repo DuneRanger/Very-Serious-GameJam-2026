@@ -18,7 +18,7 @@ const base_roulette_numbers : int = 24
 var total_weight : float = (base_roulette_numbers + 1) * RouletteCell.base_cell_weight
 
 func _init():
-	cells.append(RouletteCell.new(0, Color.GREEN))
+	cells.append(RouletteCell.new(0, Color.DARK_GREEN))
 	for i in range(base_roulette_numbers):
 		var curCol = Color.RED
 		if i % 2 == 0: curCol = Color.BLACK
@@ -36,7 +36,6 @@ func update_total_weight():
 	total_weight = 0
 	for cell in cells:
 		total_weight += cell.weight
-	#queue_redraw()
 
 # -------------------------------- Drawing --------------------------------
 
@@ -97,7 +96,7 @@ func _draw():
 # -------------------------------- Physics --------------------------------
 
 var rotation_speed : float = 0;
-var outer_wall_segments: int = 128
+var outer_wall_segments: int = 256
 
 func build_outer_wall():
 	var wall_body = StaticBody2D.new()
@@ -107,8 +106,8 @@ func build_outer_wall():
 		var angle_a = (float(i) / float(outer_wall_segments)) * 2 * PI
 		var angle_b = (float(i + 1) / float(outer_wall_segments)) * 2 * PI
  
-		var point_a = Vector2(cos(angle_a), sin(angle_a)) * outer_circle_radius
-		var point_b = Vector2(cos(angle_b), sin(angle_b)) * outer_circle_radius
+		var point_a = Vector2(cos(angle_a), sin(angle_a)) * (outer_circle_radius - RouletteBall.ball_radius)
+		var point_b = Vector2(cos(angle_b), sin(angle_b)) * (outer_circle_radius - RouletteBall.ball_radius)
 
 		var seg_shape = SegmentShape2D.new()
 		seg_shape.a = point_a
@@ -138,6 +137,8 @@ func spin_roulette():
 	GameManagerGlobal.caughtBalls = 0
 	GameManagerGlobal.caughtCells.clear()
 	reset_balls()
+	for ball in balls:
+		ball.show()
 	rotation_speed = get_random_roulette_rot()
 	launch_balls()
 
@@ -148,25 +149,33 @@ func _ready():
 	build_outer_wall()
 	build_banks()
 	prepare_balls()
+	for ball in balls:
+		ball.hide()
+
+var angular_velocity : float
+func angular_speed_at_point(point : Vector2) -> float:
+	return angular_velocity * point.length()
 
 func _physics_process(_delta: float):
+	angular_velocity = rotation_speed / _delta
+	var linear_ang_velocity = cell_circle_radius * angular_velocity
+	#print("Angular velocity: ", angular_velocity, ", Linear velocity: ", linear_ang_velocity)
+	
+	give_balls_angular_velocity(_delta)
+	simulate_inclines(_delta)
+	decay_rotation()
+	queue_redraw()
 	match (GameManagerGlobal.game_state):
 		GameEnums.game_states.SPIN_PHASE:
-			give_balls_angular_velocity(_delta)
-			simulate_inclines(_delta)
 			visual_rotation += rotation_speed
-			
-			decay_rotation()
-			queue_redraw()
-			
-			#if GameManagerGlobal.caughtBalls == balls.size():
-				#GameManagerGlobal.modify_game_state(GameEnums.game_states.STOP_PHASE)
+			if GameManagerGlobal.caughtBalls == balls.size():
+				GameManagerGlobal.modify_game_state(GameEnums.game_states.STOP_PHASE)
 		GameEnums.game_states.BET_PHASE:
 			pass
 		_:
 			pass
 
-func _process(_delta: float) -> void:
+func _process(_delta: float):
 	pass
 
 # -------------------------------- Banks --------------------------------
@@ -176,7 +185,7 @@ var bank_catch_characteristic_speed : float = 100.0
 var bank_catch_sharpness : float = 1.5
 var bank_trigger_radius : float = 45
 
-func build_banks() -> void:
+func build_banks():
 	var base_cell_angle = 2 * PI / total_weight
 	var cur_angle = 0.0
 
@@ -193,7 +202,7 @@ func build_banks() -> void:
 
 		cur_angle += cur_cell_angle
 
-func move_banks() -> void:
+func move_banks():
 	for cell in cells:
 		if is_instance_valid(cell.bank):
 			cell.bank.set_total_rotation(visual_rotation)
@@ -206,25 +215,25 @@ func prepare_balls():
 	for i in range(3):
 		balls.append(RouletteBall.new())
 	for ball in balls:
-		ball.position = Vector2(outer_circle_radius - 50, 0)
 		add_child(ball)
 
-func reset_balls() -> void:
-	var start_position = Vector2(outer_circle_radius - 50, 0)
+func reset_balls():
 	for ball in balls:
 		if is_instance_valid(ball):
+			var start_position = get_random_vector2(outer_circle_radius - 2 * RouletteBall.ball_radius)
 			ball.reset_ball(start_position)
 
-func launch_balls() -> void:
+func launch_balls():
 	for ball in balls:
-		if ball and is_instance_valid(ball):
-			ball.launch(Vector2(0, 1000 * (-1 * sign(rotation_speed))))
+		if ball as RouletteBall:
+			var normal = Vector2(-ball.init_position.y, ball.init_position.x).normalized()
+			ball.launch(normal * 800 * (-1 * sign(rotation_speed)))
 
 var inner_incline_strength : float = 600
 var inner_incline_radius : int = inner_circle_radius
 var cell_radius_end : int = cell_circle_radius
 var outer_incline_radius : int = bank_radius_pos + bank_trigger_radius
-var outer_incline_strength : float = 600
+var outer_incline_strength : float = 800
 
 func give_balls_angular_velocity(_delta: float):
 	if abs(rotation_speed) < 0.01:
@@ -238,7 +247,7 @@ func simulate_inclines(_delta : float):
 	for ball : RouletteBall in balls:
 		var ball_to_mid = ball.position
 		var ball_rad = ball_to_mid.length()
-		
+
 		if ball_rad <= inner_incline_radius + ball.ball_radius:
 			ball.apply_central_impulse(ball_to_mid.normalized() * inner_incline_strength * _delta)
 		elif ball_rad >= outer_circle_radius - ball.ball_radius:

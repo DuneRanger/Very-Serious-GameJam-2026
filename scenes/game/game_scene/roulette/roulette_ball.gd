@@ -17,13 +17,7 @@ var rand_impulse_size : float = 1000
 var min_speed_threshold : float = 5
 var fast_slowdown_speed : float = 100
 var max_speed : float = 10000
-static var ball_radius : float = 6
-
-# 0 = on a pocket floor,
-# 1.0 = up at the rim.
-# 0.5 = highest point in the centre
-var height : float = 0.0:
-	set(v): height = clampf(v, 0.0, 1.0)
+static var ball_radius : float = 8
 
 ## Marks the ball as settled and no longer updates physics
 var settled : bool = false
@@ -71,7 +65,6 @@ func _integrate_forces(state: PhysicsDirectBodyState2D):
 		rotation = 0.0
 		linear_velocity = Vector2.ZERO
 		angular_velocity = 0.0
-		height = 0.0
 		settled = false
 		caught_cell = null
 		reset = false
@@ -80,21 +73,17 @@ func _integrate_forces(state: PhysicsDirectBodyState2D):
 		linear_velocity = launch_vector
 		launch_b = false
 		return
-	#if settled:
-		#var bank_to_ball = caught_cell.bank.local_bank_position - global_position
-		#state.linear_velocity = bank_to_ball.normalized() * 50 * bank_to_ball.length()
-		#return
 
 	var new_vel = state.linear_velocity
 	if new_vel.length() < fast_slowdown_speed:
 		new_vel *= 0.999
 	elif new_vel.length() > max_speed:
 		new_vel = new_vel.normalized() * max_speed
+	#print("Ball speed: ", new_vel.length())
 
 	state.linear_velocity = new_vel
 
 func catch_in_pocket(cell: RouletteCell):
-	height = 0
 	settled = true
 	caught_cell = cell
 
