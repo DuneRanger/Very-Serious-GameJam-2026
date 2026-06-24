@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b021fsge1vw58"]
 
 [ext_resource type="PackedScene" uid="uid://sewpvrb7xfdc" path="res://scenes/game/shop_scene/mr_cat/mr_cat.tscn" id="1_nw121"]
+[ext_resource type="Texture2D" uid="uid://bcsc264rw85de" path="res://assets/textures/ShopBackgroundBlurred.png" id="2_i1bid"]
 
 [node name="ShopScene" type="Node2D" unique_id=935466290]
 
@@ -12,9 +13,14 @@ offset_left = -640.0
 offset_top = -360.0
 offset_right = 640.0
 offset_bottom = 360.0
-color = Color(0.6392157, 0.5019608, 0, 1)
+color = Color(0.61960787, 0.14117648, 0.14117648, 1)
 
 [node name="MrCat" parent="." unique_id=2033079592 instance=ExtResource("1_nw121")]
 position = Vector2(55.655, 0)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=713897190]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1294429494]
+z_index = -4
+scale = Vector2(4, 4)
+texture = ExtResource("2_i1bid")

@@ -122,6 +122,7 @@ script = ExtResource("1_pepnq")
 
 [node name="MrCatControlNode" type="Control" parent="." unique_id=1659558882]
 layout_mode = 3
+anchors_preset = 0
 offset_left = -160.0
 offset_top = 180.0
 offset_right = 160.0
@@ -176,7 +177,7 @@ offset_left = -1156.0
 offset_top = 320.0
 offset_right = 1156.0
 offset_bottom = 360.0
-color = Color(0.3882353, 0.09019608, 0.09019608, 1)
+color = Color(0.36862746, 0.22745098, 0.16078432, 1)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="TestButton2" to="." method="_on_test_button_2_pressed"]
