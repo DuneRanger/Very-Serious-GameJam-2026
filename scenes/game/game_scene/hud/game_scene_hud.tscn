@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dcu31p6twmdit" path="res://scenes/game/utils/ErrorMessage.tscn" id="1_8fe00"]
 [ext_resource type="PackedScene" uid="uid://cxo23rckbhjbo" path="res://scenes/game/ui_elements/AwesomeLabel.tscn" id="2_qkhxd"]
 [ext_resource type="PackedScene" uid="uid://b8s6w1lbfa62g" path="res://scenes/game/UI_elements/animated_sprites/money_animated_sprite.tscn" id="3_0qbnv"]
+[ext_resource type="PackedScene" uid="uid://cdktdolx6e6pi" path="res://scenes/game/UI_elements/animated_sprites/boost_symbol/boost_symbol.tscn" id="5_0qbnv"]
 [ext_resource type="PackedScene" uid="uid://djtfrov4iqbnm" path="res://scenes/game/UI_elements/animated_sprites/ruby_animated_sprite.tscn" id="5_3l4lp"]
 
 [node name="HUD" type="CanvasLayer" unique_id=1970834067]
@@ -21,3 +22,23 @@ position = Vector2(128, 184)
 
 [node name="RubyLabel" parent="." unique_id=1876496103 instance=ExtResource("2_qkhxd")]
 position = Vector2(160, 152)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=367884083]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -640.0
+offset_bottom = 40.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+alignment = 2
+
+[node name="Button" type="Button" parent="HBoxContainer" unique_id=1481097238]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="HBoxContainer" unique_id=1446998488]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+
+[node name="BoostSymbol" parent="HBoxContainer" unique_id=520437521 instance=ExtResource("5_0qbnv")]
