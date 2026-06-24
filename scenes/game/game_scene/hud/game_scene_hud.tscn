@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://yvvimemjf8nl" path="res://scenes/game/game_scene/hud/boost_symbol_container.gd" id="5_0qbnv"]
 [ext_resource type="PackedScene" uid="uid://djtfrov4iqbnm" path="res://scenes/game/UI_elements/animated_sprites/ruby_animated_sprite.tscn" id="5_3l4lp"]
 [ext_resource type="Script" uid="uid://co80ugwq1sply" path="res://scenes/game/game_scene/hud/spin_symbol_container.gd" id="6_3l4lp"]
+[ext_resource type="Script" uid="uid://dotgt4vplgp3m" path="res://scenes/game/game_scene/hud/shop_button.gd" id="7_sbgnr"]
+[ext_resource type="PackedScene" uid="uid://5vg4c83ob4lc" path="res://scenes/game/ui_elements/menu_button.tscn" id="8_hwqol"]
 
 [node name="HUD" type="CanvasLayer" unique_id=1970834067]
 
@@ -39,3 +41,16 @@ offset_right = 64.0
 offset_bottom = 179.0
 alignment = 1
 script = ExtResource("5_0qbnv")
+metadata/_edit_use_anchors_ = true
+
+[node name="ShopButton" type="Button" parent="." unique_id=1416432798]
+offset_left = 424.0
+offset_top = 304.0
+offset_right = 552.0
+offset_bottom = 368.0
+text = "SHOP"
+script = ExtResource("7_sbgnr")
+
+[node name="MenuButton" parent="." unique_id=1837179404 instance=ExtResource("8_hwqol")]
+
+[connection signal="button_down" from="ShopButton" to="ShopButton" method="_on_button_down"]

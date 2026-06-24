@@ -41,3 +41,7 @@ func _on_test_button_pressed() -> void:
 
 func _on_test_button_2_pressed() -> void:
 	play_sunglasses_anim()
+
+
+func _on_game_button_button_down() -> void:
+	GameManagerGlobal.signal_switch_scene.emit(GameEnums.switching_scenes.GAME_SCENE)

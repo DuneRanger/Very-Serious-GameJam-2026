@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Very serious roulette game"
-run/main_scene="uid://03e3sabpwkkf"
+run/main_scene="uid://cqow47bch5ocs"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://assets/textures/icon.svg"
 

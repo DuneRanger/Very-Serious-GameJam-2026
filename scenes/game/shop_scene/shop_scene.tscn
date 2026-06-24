@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://b021fsge1vw58"]
 
 [ext_resource type="PackedScene" uid="uid://sewpvrb7xfdc" path="res://scenes/game/shop_scene/mr_cat/mr_cat.tscn" id="1_nw121"]
+[ext_resource type="PackedScene" uid="uid://5vg4c83ob4lc" path="res://scenes/game/ui_elements/menu_button.tscn" id="2_i1bid"]
+[ext_resource type="Script" uid="uid://b0m5epq34gfw5" path="res://scenes/game/shop_scene/game_button.gd" id="3_8ksok"]
 [ext_resource type="Texture2D" uid="uid://bcsc264rw85de" path="res://assets/textures/ShopBackgroundBlurred.png" id="2_i1bid"]
 
 [node name="ShopScene" type="Node2D" unique_id=935466290]
@@ -25,3 +27,19 @@ color = Color(0.61960787, 0.14117648, 0.14117648, 1)
 position = Vector2(55.655, 0)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=713897190]
+
+[node name="MenuButton" parent="." unique_id=1837179404 instance=ExtResource("2_i1bid")]
+offset_left = 560.0
+offset_top = -344.0
+offset_right = 624.0
+offset_bottom = -280.0
+
+[node name="GameButton" type="Button" parent="." unique_id=1251612653]
+offset_left = -624.0
+offset_top = -344.0
+offset_right = -496.0
+offset_bottom = -280.0
+text = "GO BACK"
+script = ExtResource("3_8ksok")
+
+[connection signal="button_down" from="GameButton" to="MrCat" method="_on_game_button_button_down"]
