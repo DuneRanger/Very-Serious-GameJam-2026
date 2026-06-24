@@ -75,8 +75,8 @@ func draw_cells():
 		var text = str(cell.number)
 		var font_max_width = sin(cur_cell_angle) * cell_circle_radius
 		var font_size = min(48, font_max_width / len(text))
-		var position = Vector2(-font_max_width / 2, -cell_circle_radius * 0.95 + font_size / 2)
-		draw_string(default_font, position, text, HORIZONTAL_ALIGNMENT_CENTER, font_max_width, font_size)
+		var pos = Vector2(-font_max_width / 2, -cell_circle_radius * 0.95 + font_size / 2)
+		draw_string(default_font, pos, text, HORIZONTAL_ALIGNMENT_CENTER, font_max_width, font_size)
 		cur_angle += cur_cell_angle
 
 	draw_set_transform(Vector2(0, 0), 0)
@@ -160,12 +160,13 @@ var settled_frames : int = 0
 
 func _physics_process(_delta: float):
 	angular_velocity = rotation_speed / _delta
-	var linear_ang_velocity = cell_circle_radius * angular_velocity
+	#var linear_ang_velocity = cell_circle_radius * angular_velocity
 	#print("Angular velocity: ", angular_velocity, ", Linear velocity: ", linear_ang_velocity)
 	
 	give_balls_angular_velocity(_delta)
 	simulate_inclines(_delta)
 	decay_rotation()
+	rescue_orphaned_balls()
 	queue_redraw()
 	match (GameManagerGlobal.game_state):
 		GameEnums.game_states.SPIN_PHASE:
@@ -173,14 +174,16 @@ func _physics_process(_delta: float):
 			if balls.all(func(ball : RouletteBall): return ball.settled): settled_frames += 1
 			else: settled_frames = 0
 			if settled_frames > 60:
-				GameManagerGlobal.caughtCells = balls.map(func(ball : RouletteBall): ball.caughtCell)
+				var temp : Array[RouletteCell] = []
+				for ball in balls: temp.append(ball.caught_cell)
+				GameManagerGlobal.caughtCells = temp
 				GameManagerGlobal.modify_game_state(GameEnums.game_states.STOP_PHASE)
-			else:
-				var text = ""
-				for ball in balls:
-					if ball.settled == false:
-						text += str(round(ball.get_speed())) + str(ball.caught_cell != null) + ", "
-				print(text)
+			#else:
+				#var text = ""
+				#for ball in balls:
+					#if ball.settled == false:
+						#text += str(round(ball.get_speed())) + str(ball.caught_cell != null) + ", "
+				#print(text)
 		GameEnums.game_states.BET_PHASE:
 			pass
 		_:
@@ -218,6 +221,22 @@ func move_banks():
 		if is_instance_valid(cell.bank):
 			cell.bank.set_total_rotation(visual_rotation)
 
+func rescue_orphaned_balls():
+	for ball in balls:
+		if ball.settled or ball.get_speed() >= 50:
+			continue
+		var tracked_somewhere = false
+		for cell in cells:
+			if is_instance_valid(cell.bank) and cell.bank.is_tracking(ball):
+				tracked_somewhere = true
+				break
+		if tracked_somewhere:
+			continue
+		for cell in cells:
+			if is_instance_valid(cell.bank) and cell.bank.currently_overlaps(ball):
+				cell.bank.adopt_ball(ball)
+				break
+
 # -------------------------------- Balls --------------------------------
 
 var balls : Array[RouletteBall] = []
@@ -234,6 +253,9 @@ func reset_balls():
 		if is_instance_valid(ball):
 			var start_position = get_random_vector2(outer_circle_radius - 2 * RouletteBall.ball_radius)
 			ball.freeze = false
+			for cell in cells:
+				if is_instance_valid(cell.bank):
+					cell.bank.clear_ball(ball)
 			ball.reset_ball(start_position)
 
 func launch_balls():

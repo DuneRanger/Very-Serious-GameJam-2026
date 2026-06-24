@@ -282,9 +282,6 @@ func _on_right_gate_entered(body: Node):
 func _on_left_clear_zone_exited(body: Node):
 	if not (body is RouletteBall):
 		return
-	# Only re-enable once the ball has actually left the zone spanning past
-	# both faces of the wall, so it can never be overlapping the collider's
-	# geometry at the moment it becomes solid again.
 	left_collider.disabled = false
 
 func _on_right_clear_zone_exited(body: Node):
@@ -295,6 +292,19 @@ func _on_right_clear_zone_exited(body: Node):
 func set_total_rotation(visual_rotation: float):
 	rotation = base_angle + visual_rotation
 
+func clear_ball(ball: RouletteBall) -> void:
+	contains_balls.erase(ball)
+
+func is_tracking(ball: RouletteBall) -> bool:
+	return contains_balls.has(ball)
+
+func adopt_ball(ball: RouletteBall) -> void:
+	if not contains_balls.has(ball):
+		contains_balls.append(ball)
+
+func currently_overlaps(ball: RouletteBall) -> bool:
+	return catch_trigger.overlaps_body(ball)
+
 func catch_probability(speed: float) -> float:
 	if speed <= 0.0:
 		return 1.0
@@ -302,7 +312,7 @@ func catch_probability(speed: float) -> float:
 
 var contains_balls : Array[RouletteBall] = []
 
-func _physics_process(delta: float):
+func _physics_process(_delta: float):
 	for ball in contains_balls:
 		if ball.get_speed() < 50 and ball.settled == false:
 			ball.settled = true
@@ -313,14 +323,15 @@ func _on_body_entered(body: Node):
 	if not (body is RouletteBall): return
 	body = body as RouletteBall
 
-	var speed = body.get_speed()
-	contains_balls.append(body)
+	if not contains_balls.has(body): contains_balls.append(body)
 
 func _on_body_exited(body: Node):
 	if not (body is RouletteBall): return
 	body = body as RouletteBall
+	if not contains_balls.has(body): return
+	
+	contains_balls.erase(body)
 	if body.settled and body.caught_cell == cell:
 		body.settled = false
 		body.caught_cell = null
 		print("ball in cell ", cell.number, " unsettled")
-	contains_balls.erase(body)
