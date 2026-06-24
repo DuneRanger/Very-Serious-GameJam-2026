@@ -293,7 +293,7 @@ func prepare_balls():
 
 func add_ball():
 	var ball = RouletteBall.new()
-	ball.z_index = 2
+	ball.z_index = 0
 	ball.hide()
 	ball.freeze = true
 	add_child(ball)
@@ -312,6 +312,7 @@ func reset_balls():
 func launch_balls():
 	for ball in balls:
 		if ball as RouletteBall:
+			ball.z_index = 2
 			var normal = Vector2(-ball.init_position.y, ball.init_position.x).normalized()
 			ball.launch(normal * 800 * (-1 * sign(rotation_speed)))
 
