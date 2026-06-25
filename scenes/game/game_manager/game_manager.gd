@@ -23,6 +23,7 @@ signal signal_spins_left_change (amount : int)
 
 signal signal_boost_count_change (amount : int)
 signal signal_boosts_left_change (amount : int)
+signal on_boost (boost_amount : float)
 
 signal signal_modify_money (amount : int)
 signal signal_modify_rubys (amount : int)

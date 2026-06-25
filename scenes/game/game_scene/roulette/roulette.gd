@@ -48,6 +48,7 @@ func _ready():
 	build_outer_wall()
 	build_banks()
 	prepare_textures()
+	GameManagerGlobal.on_boost.connect(apply_boost)
 	
 
 func full_reset():
@@ -315,7 +316,7 @@ func launch_balls():
 		if ball as RouletteBall:
 			ball.z_index = 2
 			var normal = Vector2(-ball.init_position.y, ball.init_position.x).normalized()
-			ball.launch(normal * 800 * (-1 * sign(rotation_speed)))
+			ball.launch(normal * 300 * (-1 * sign(rotation_speed)))
 
 var inner_incline_strength : float = 600
 var inner_incline_radius : int = inner_circle_radius
@@ -347,6 +348,7 @@ func simulate_inclines(_delta : float):
 			ball.apply_central_impulse(-ball_to_mid.normalized() * 2 * outer_incline_strength * _delta)
 	
 func apply_boost(amount : float):
+	print("called apply boost with ", amount)
 	for ball : RouletteBall in balls:
 		ball.settled = false
 		ball.apply_central_impulse(ball.position.rotated(randf_range(-0.1, 0.1)) * amount)
