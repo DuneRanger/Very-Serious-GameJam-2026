@@ -327,7 +327,7 @@ var inner_incline_strength : float = 600
 var inner_incline_radius : int = inner_circle_radius
 var cell_radius_end : int = cell_circle_radius
 var cell_bank_incline_strength : float = 100
-var outer_incline_radius : int = bank_radius_pos + bank_width
+var outer_incline_radius : int = bank_radius_pos + bank_width / 2
 var outer_incline_strength : float = 800
 
 func give_balls_angular_velocity(_delta: float):
@@ -349,11 +349,12 @@ func simulate_inclines(_delta : float):
 			ball.apply_central_impulse(ball_to_mid.normalized() * cell_bank_incline_strength * _delta)
 		elif ball_rad >= outer_circle_radius - ball.ball_radius:
 			ball.apply_central_impulse(-ball_to_mid.normalized() * outer_incline_strength * _delta)
-		elif ball_rad >= outer_incline_radius - ball.ball_radius / 2:
+		elif ball_rad >= outer_incline_radius - ball.ball_radius:
 			ball.apply_central_impulse(-ball_to_mid.normalized() * 2 * outer_incline_strength * _delta)
 	
 func apply_boost(amount : float):
 	print("called apply boost with ", amount)
+	rotation_speed += 0.01 * amount
 	for ball : RouletteBall in balls:
 		ball.settled = false
-		ball.apply_central_impulse(ball.position.rotated(randf_range(-0.1, 0.1)) * amount)
+		ball.apply_central_impulse(-ball.position.rotated(randf_range(-0.3, 0.3)) * amount)
