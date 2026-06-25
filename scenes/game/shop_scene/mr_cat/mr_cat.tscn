@@ -155,37 +155,9 @@ autoplay = &"mr_cat_bobbing_animation"
 [node name="Timer" type="Timer" parent="." unique_id=2098244120]
 wait_time = 1.5
 
-[node name="TestButton2" type="Button" parent="." unique_id=600080867]
-offset_left = -472.0
-offset_top = 32.0
-offset_right = -343.0
-offset_bottom = 135.0
-text = "cool"
-metadata/_edit_use_anchors_ = true
-
-[node name="TestButton" type="Button" parent="." unique_id=2035756023]
-offset_left = -616.0
-offset_top = 32.0
-offset_right = -500.0
-offset_bottom = 141.0
-text = "buy"
-metadata/_edit_use_anchors_ = true
-
-[node name="Node" type="Node" parent="." unique_id=190710051]
-
-[node name="TableTest" type="ColorRect" parent="." unique_id=884531663]
-visible = false
-offset_left = -1156.0
-offset_top = 320.0
-offset_right = 1156.0
-offset_bottom = 360.0
-color = Color(0.3882353, 0.09019608, 0.09019608, 1)
-
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=617086477]
 position = Vector2(-56.375, 0)
 scale = Vector2(4, 4)
 texture = ExtResource("12_56k00")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="pressed" from="TestButton2" to="." method="_on_test_button_2_pressed"]
-[connection signal="pressed" from="TestButton" to="." method="_on_test_button_pressed"]

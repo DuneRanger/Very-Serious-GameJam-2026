@@ -4,6 +4,8 @@ extends Node2D
 @export var game_scene_preloaded : PackedScene
 @export var shop_scene_preloaded : PackedScene
 
+var game_started : bool
+
 var scenes = {}
 
 var current_scene
@@ -24,21 +26,27 @@ func _ready() -> void:
 	
 	GameManagerGlobal.current_showed_scene = GameEnums.switching_scenes.MAIN_MENU_SCENE
 	current_scene = main_menu_scene
+	add_child(main_menu_scene)
 	GameManagerGlobal.signal_switch_scene.connect(scene_switch)
 
-func get_main_menu_scene():
-	if main_menu_scene == null:
-		main_menu_scene = main_menu_scene_preloaded.instantiate()
-		saved_game = main_menu_scene
+func new_game():
+	game_started = true
+	game_scene = game_scene_preloaded.instantiate()
+	shop_scene = shop_scene_preloaded.instantiate()
 
-func get_game_scene():
-	if game_scene == null:
-		game_scene = game_scene_preloaded.instantiate()
-		saved_game = game_scene
-
-func get_shop_scene():
-	if shop_scene == null:
-		shop_scene = shop_scene_preloaded.instantiate()
+#func get_main_menu_scene():
+	#if main_menu_scene == null:
+		#main_menu_scene = main_menu_scene_preloaded.instantiate()
+		#saved_game = main_menu_scene
+#
+#func get_game_scene():
+	#if game_scene == null:
+		#game_scene = game_scene_preloaded.instantiate()
+		#saved_game = game_scene
+#
+#func get_shop_scene():
+	#if shop_scene == null:
+		#shop_scene = shop_scene_preloaded.instantiate()
 
 func unparent_current_scene():
 	if current_scene != null:
@@ -52,12 +60,12 @@ func reparent_scenes(new_scene):
 
 func scene_switch(new_scene : GameEnums.switching_scenes):
 	GameManagerGlobal.current_showed_scene = new_scene
+	if !game_started:
+		new_game()
 	match new_scene:
 		GameEnums.switching_scenes.GAME_SCENE:
-			get_game_scene()
 			reparent_scenes(game_scene)
 		GameEnums.switching_scenes.SHOP_SCENE:
-			get_shop_scene()
 			reparent_scenes(shop_scene)
 		GameEnums.switching_scenes.MAIN_MENU_SCENE:
 			reparent_scenes(main_menu_scene)

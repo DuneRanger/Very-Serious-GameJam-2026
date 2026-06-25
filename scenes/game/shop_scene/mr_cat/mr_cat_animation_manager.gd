@@ -5,6 +5,7 @@ extends Node2D
 @onready var timer: Timer = $Timer
 
 func _ready() -> void:
+	GameManagerGlobal.signal_mr_cat_swag.connect(play_sunglasses_anim)
 	play_default_anim()
 
 # This animation should play when Mr. Cat is idle

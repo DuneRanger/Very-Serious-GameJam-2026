@@ -13,10 +13,18 @@ offset_bottom = 488.0
 text = "NEW GAME"
 
 [node name="EpicRect" type="ColorRect" parent="." unique_id=1565200869]
-offset_left = 288.0
+offset_left = 280.0
 offset_top = 136.0
-offset_right = 536.0
+offset_right = 544.0
 offset_bottom = 272.0
 color = Color(0.56025434, 0.65292406, 0.9261292, 1)
+
+[node name="Label" type="Label" parent="." unique_id=501622967]
+offset_left = 48.0
+offset_top = 160.0
+offset_right = 1083.0
+offset_bottom = 328.0
+theme_override_font_sizes/font_size = 48
+text = "awesome fucking cat gambling fucking game"
 
 [connection signal="button_down" from="NewGameButton" to="." method="_on_new_game_button_button_down"]
