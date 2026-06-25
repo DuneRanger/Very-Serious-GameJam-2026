@@ -142,8 +142,9 @@ func round_start():
 	pick_quota_message()
 	GameManagerGlobal.round_count += 1
 	GameManagerGlobal.signal_round_start.emit()
-	
-	#hraj animaci
+	$HUD/SpinSymbolContainer.refill_spins()
+	$HUD/BoostSymbolContainer.refill_boosts()
+
 
 
 func pick_quota_message():

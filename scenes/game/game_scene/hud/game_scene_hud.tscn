@@ -423,6 +423,9 @@ offset_bottom = 91.0
 alignment = 1
 script = ExtResource("6_3l4lp")
 
+[node name="RefillTimer" type="Timer" parent="SpinSymbolContainer" unique_id=1020727606]
+wait_time = 0.1
+
 [node name="BoostSymbolContainer" type="HBoxContainer" parent="." unique_id=367884083]
 offset_left = 64.0
 offset_top = 179.0
@@ -431,6 +434,9 @@ offset_bottom = 179.0
 alignment = 1
 script = ExtResource("5_0qbnv")
 metadata/_edit_use_anchors_ = true
+
+[node name="RefillTimer" type="Timer" parent="BoostSymbolContainer" unique_id=551682166]
+wait_time = 0.1
 
 [node name="ShopButton" type="Button" parent="." unique_id=1416432798]
 offset_left = 424.0
@@ -526,4 +532,6 @@ autoplay = "default"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="RoundStartAnimations" unique_id=1086076332]
 libraries/ = SubResource("AnimationLibrary_niiyn")
 
+[connection signal="timeout" from="SpinSymbolContainer/RefillTimer" to="SpinSymbolContainer" method="_on_refill_timer_timeout"]
+[connection signal="timeout" from="BoostSymbolContainer/RefillTimer" to="BoostSymbolContainer" method="_on_refill_timer_timeout"]
 [connection signal="button_down" from="ShopButton" to="ShopButton" method="_on_button_down"]
