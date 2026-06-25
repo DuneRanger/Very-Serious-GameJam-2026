@@ -13,7 +13,8 @@ var game_state : GameEnums.game_states
 var bets : Dictionary
 var caughtCells : Array[RouletteCell]
 
-var caughtBalls : int
+var initial_cells : Array[RouletteCell]
+var cells : Array[RouletteCell] = []
 
 var mr_cat_swag : bool
 

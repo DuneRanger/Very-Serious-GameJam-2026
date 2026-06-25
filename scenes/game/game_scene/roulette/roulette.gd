@@ -13,22 +13,24 @@ static func get_random_roulette_rot() -> float:
 # -------------------------------- Initial values --------------------------------
 
 var initial_cell_order : Array[int] = [0, 20, 6, 8, 18, 14, 2, 4, 21, 1, 13, 3, 24, 7, 15, 19, 10, 12, 22, 5, 16, 9, 11, 23, 17]
-var initial_cells : Array[RouletteCell]
 var reset = true
 
 func get_initial_balls() -> Array[RouletteBall]:
 	return [RouletteBall.new()]
 
 func prepare_inital_cells():
-	if len(initial_cells) != 0: return
+	if len(GameManagerGlobal.initial_cells) != 0: return
 	for i in len(initial_cell_order):
 		var curCol = Color.RED
 		var num = initial_cell_order[i]
 		if i % 2 == 0: curCol = Color.BLACK
 		if num == 0: curCol = Color.DARK_GREEN
-		initial_cells.append(RouletteCell.new(num, curCol))
+		GameManagerGlobal.initial_cells.append(RouletteCell.new(num, curCol))
 
-var cells : Array[RouletteCell] = []
+static var cells:
+	get: return GameManagerGlobal.cells
+	set(value): GameManagerGlobal.cells = value
+
 var default_font : Font = load("res://assets/fonts/PixeloidMono.otf");
 
 # (base_roulette_numbers + 1) includes the green 0
@@ -36,7 +38,7 @@ var total_weight : float = 0
 
 func _init():
 	prepare_inital_cells()
-	cells = initial_cells.duplicate_deep()
+	cells = GameManagerGlobal.initial_cells.duplicate_deep()
 	balls = get_initial_balls()
 	prepare_balls()
 
@@ -59,7 +61,7 @@ func full_reset():
 			print("Removing ", n)
 			remove_child(n)
 			n.queue_free()
-	cells = initial_cells.duplicate_deep()
+	cells = GameManagerGlobal.initial_cells.duplicate_deep()
 	balls = get_initial_balls()
 	prepare_balls()
 
@@ -181,7 +183,6 @@ func decay_rotation():
 		rotation_speed = min(0, max(rotation_speed + 0.000005, rotation_speed * 0.999))
 
 func spin_roulette():
-	GameManagerGlobal.caughtBalls = 0
 	GameManagerGlobal.caughtCells.clear()
 	reset_balls()
 	for ball in balls: ball.show()
