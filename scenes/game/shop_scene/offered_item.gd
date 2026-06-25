@@ -24,7 +24,6 @@ func remove_offer() -> void:
 	is_item_bought = true
 	$Button.disabled = true
 
-
 func _on_focus_entered() -> void:
 	GameManagerGlobal.signal_shop_start_hover.emit(shop_id)
 
