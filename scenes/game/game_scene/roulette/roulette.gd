@@ -7,7 +7,7 @@ static func get_random_vector2(size: float) -> Vector2:
 
 static func get_random_roulette_rot() -> float:
 	var rot = 0.0
-	while abs(rot) < 0.02 : rot = randf_range(-0.03, 0.03)
+	while abs(rot) < 2 : rot = randf_range(-3, 3)
 	return rot
 
 # -------------------------------- Initial values --------------------------------
@@ -176,11 +176,11 @@ func build_outer_wall():
 		visual.add_point(Vector2(cos(angle), sin(angle)) * outer_circle_radius)
 	wall_body.add_child(visual)
 
-func decay_rotation():
+func decay_rotation(_delta):
 	if rotation_speed > 0:
-		rotation_speed = max(0, min(rotation_speed - 0.000005, rotation_speed * 0.999))
+		rotation_speed = max(0, min(rotation_speed - 0.05 * _delta, rotation_speed * (1 - 0.04 * _delta)))
 	else:
-		rotation_speed = min(0, max(rotation_speed + 0.000005, rotation_speed * 0.999))
+		rotation_speed = min(0, max(rotation_speed + 0.05 * _delta, rotation_speed * (1 - 0.04 * _delta)))
 
 func spin_roulette():
 	GameManagerGlobal.caughtCells.clear()
@@ -198,9 +198,9 @@ func angular_speed_at_point(point : Vector2) -> float:
 
 var settled_frames : int = 0
 
-func rotate_roulette():
-	visual_rotation += rotation_speed
-	$inner_wheel_sprite.rotation += rotation_speed
+func rotate_roulette(_delta : float):
+	visual_rotation += rotation_speed * _delta
+	$inner_wheel_sprite.rotation += rotation_speed * _delta
 
 func _physics_process(_delta: float):
 	angular_velocity = rotation_speed / _delta
@@ -209,13 +209,13 @@ func _physics_process(_delta: float):
 	
 	give_balls_angular_velocity(_delta)
 	simulate_inclines(_delta)
-	decay_rotation()
+	decay_rotation(_delta)
 	rescue_orphaned_balls()
 	queue_redraw()
 	match (GameManagerGlobal.game_state):
 		GameEnums.game_states.SPIN_PHASE:
 			reset = true
-			rotate_roulette()
+			rotate_roulette(_delta)
 			if balls.all(func(ball : RouletteBall): return ball.settled): settled_frames += 1
 			else: settled_frames = 0
 			if settled_frames > 120:
@@ -232,7 +232,7 @@ func _physics_process(_delta: float):
 						#text += str(round(ball.get_speed())) + str(ball.caught_cell != null) + ", "
 				#print(text)
 		GameEnums.game_states.STOP_PHASE:
-			if GameManagerGlobal.applying_boost: rotate_roulette()
+			if GameManagerGlobal.applying_boost: rotate_roulette(_delta)
 		GameEnums.game_states.BET_PHASE:
 			#if reset: full_reset()
 			if reset: add_ball()
@@ -338,7 +338,7 @@ func give_balls_angular_velocity(_delta: float):
 	for ball : RouletteBall in balls:
 		var ball_to_mid = ball.position
 		if ball_to_mid.length() <= cell_circle_radius - ball.ball_radius:
-			ball.apply_central_impulse(-1 * sign(rotation_speed) * ball_to_mid.normalized().orthogonal() * 500 * rotation_speed * _delta)
+			ball.apply_central_impulse(-1 * sign(rotation_speed) * ball_to_mid.normalized().orthogonal() * 5 * rotation_speed * _delta)
 
 func simulate_inclines(_delta : float):
 	for ball : RouletteBall in balls:
@@ -356,7 +356,7 @@ func simulate_inclines(_delta : float):
 	
 func apply_boost(amount : float):
 	print("called apply boost with ", amount)
-	rotation_speed = 0.01 * sqrt(amount)
+	rotation_speed = 1.5 * sqrt(amount)
 	for ball : RouletteBall in balls:
 		ball.settled = false
 		ball.apply_central_impulse(-ball.position.rotated(randf_range(-0.3, 0.3)) * amount)
