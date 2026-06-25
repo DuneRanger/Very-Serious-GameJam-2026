@@ -11,6 +11,7 @@ func _ready() -> void:
 	GameManagerGlobal.modify_rubys(50)
 	GameManagerGlobal.modify_boost_count(3)
 	GameManagerGlobal.modify_spin_count(4)
+	GameManagerGlobal.mr_cat_swag = false
 	#GameManagerGlobal.modify_boost_left(3)
 	GameManagerGlobal.modify_game_state(GameEnums.game_states.BET_PHASE)
 
@@ -132,3 +133,7 @@ func _on_new_state():
 			$Table/BettingSystem.clear_bets()
 		_:
 			pass
+
+
+func _on_shop_button_down() -> void:
+	GameManagerGlobal.signal_switch_scene.emit(GameEnums.switching_scenes.SHOP_SCENE)

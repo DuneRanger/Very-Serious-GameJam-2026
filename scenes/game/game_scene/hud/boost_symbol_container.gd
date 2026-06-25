@@ -39,6 +39,7 @@ func _on_boosts_count_change() -> void:
 		var new_boost_symbol = boost_symbol_scene.instantiate()
 		add_child(new_boost_symbol)
 		boost_symbols.push_back(new_boost_symbol)
-		new_boost_symbol.boost_idle_anim()
+		if GameManagerGlobal.current_showed_scene == GameEnums.switching_scenes.GAME_SCENE:
+			new_boost_symbol.boost_idle_anim()
 		
-	GameManagerGlobal.modify_boost_left(GameManagerGlobal.boost_count)
+	#GameManagerGlobal.modify_boost_left(GameManagerGlobal.boost_count)

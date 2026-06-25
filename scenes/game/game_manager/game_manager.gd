@@ -8,18 +8,23 @@ var spin_count: int
 var spins_left: int
 var boost_count: int
 var boosts_left: int
+var current_showed_scene : GameEnums.switching_scenes
 var game_state : GameEnums.game_states
 var bets : Dictionary
 var caughtCells : Array[RouletteCell]
 
 var caughtBalls : int
 
-var single_bet_coeff : float = 20.0
+var mr_cat_swag : bool
+
+var single_bet_coeff : float = 24.0
 var half_bet_coeff : float = 2.0
 var third_bet_coeff : float = 3.0
 
 var applying_boost : bool = false
 signal on_boost (boost_amount : float)
+
+signal signal_switch_scene (new_scene : GameEnums.switching_scenes)
 
 signal signal_spin_count_change (amount : int)
 signal signal_spins_left_change (amount : int)
@@ -32,6 +37,8 @@ signal signal_modify_money (amount : int)
 signal signal_modify_rubys (amount : int)
 signal signal_state_change (amount : int)
 signal signal_send_error_message(message : String)
+
+signal signal_buy_item (id : int)
 
 const base_cell_weight : float = 1.0
 
