@@ -20,8 +20,6 @@ shader_parameter/pixel_size = 1.0
 [node name="game_scene" type="Node2D" unique_id=1710828263]
 script = ExtResource("1_ljoy4")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=650751615]
-
 [node name="Table" type="Node" parent="." unique_id=178289830]
 
 [node name="Table2" type="Sprite2D" parent="Table" unique_id=91874108]
@@ -122,3 +120,5 @@ offset_bottom = -272.0
 layer = 200
 
 [node name="Test2" type="Node" parent="." unique_id=1816338907]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=427457406]

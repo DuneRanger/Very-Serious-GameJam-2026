@@ -156,18 +156,18 @@ autoplay = &"mr_cat_bobbing_animation"
 wait_time = 1.5
 
 [node name="TestButton2" type="Button" parent="." unique_id=600080867]
-offset_left = -326.0
-offset_top = -194.0
-offset_right = -197.0
-offset_bottom = -91.0
+offset_left = -472.0
+offset_top = 32.0
+offset_right = -343.0
+offset_bottom = 135.0
 text = "cool"
 metadata/_edit_use_anchors_ = true
 
 [node name="TestButton" type="Button" parent="." unique_id=2035756023]
-offset_left = -470.0
-offset_top = -194.0
-offset_right = -354.0
-offset_bottom = -85.0
+offset_left = -616.0
+offset_top = 32.0
+offset_right = -500.0
+offset_bottom = 141.0
 text = "buy"
 metadata/_edit_use_anchors_ = true
 

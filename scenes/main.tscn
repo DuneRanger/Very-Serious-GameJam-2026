@@ -3,26 +3,12 @@
 [ext_resource type="Script" uid="uid://42yfbm7bfl5x" path="res://scenes/main.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://03e3sabpwkkf" path="res://scenes/game/game_scene/game_scene.tscn" id="2_sugp2"]
 [ext_resource type="PackedScene" uid="uid://b021fsge1vw58" path="res://scenes/game/shop_scene/shop_scene.tscn" id="3_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://0ut17jx42hnf" path="res://scenes/game/main_menu_scene/main_menu.tscn" id="4_jyhfs"]
 
 [node name="Main" type="Node2D" unique_id=985545494]
 script = ExtResource("1_o5qli")
+main_menu_scene_preloaded = ExtResource("4_jyhfs")
 game_scene_preloaded = ExtResource("2_sugp2")
 shop_scene_preloaded = ExtResource("3_jyhfs")
 
-[node name="MainMenu" type="Node2D" parent="." unique_id=171936093]
-
-[node name="NewGameButton" type="Button" parent="MainMenu" unique_id=166275176]
-offset_left = 840.0
-offset_top = 360.0
-offset_right = 1248.0
-offset_bottom = 488.0
-text = "NEW GAME"
-
-[node name="EpicRect" type="ColorRect" parent="MainMenu" unique_id=2083236816]
-offset_left = 288.0
-offset_top = 136.0
-offset_right = 536.0
-offset_bottom = 272.0
-color = Color(0.56025434, 0.65292406, 0.9261292, 1)
-
-[connection signal="button_down" from="MainMenu/NewGameButton" to="." method="_on_new_game_button_button_down"]
+[node name="MainMenu" parent="." unique_id=1434438599 instance=ExtResource("4_jyhfs")]

@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://c1fkvqvg8nvi6"]
+
+[ext_resource type="Script" uid="uid://dqgvr8xpyuvtp" path="res://scenes/game/shop_scene/offered_item.gd" id="1_io0jj"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_qu3jn"]
+
+[node name="OfferedItem" type="Control" unique_id=598431285]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1152.0
+offset_bottom = -592.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_io0jj")
+
+[node name="Button" type="Button" parent="." unique_id=1031244418]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 128.0
+
+[node name="Image" type="Sprite2D" parent="." unique_id=2141672804]
+position = Vector2(64, 64)
+scale = Vector2(8, 8)
+texture = SubResource("ImageTexture_qu3jn")
+
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
