@@ -221,6 +221,7 @@ func _physics_process(_delta: float):
 			if settled_frames > 120:
 				var temp : Array[RouletteCell] = []
 				for ball in balls: temp.append(ball.caught_cell)
+				temp.sort_custom(func(a, b): return a.number < b.number)
 				print("Caught: ", temp.map(func(cell): return cell.number))
 				GameManagerGlobal.caughtCells = temp
 				GameManagerGlobal.modify_game_state(GameEnums.game_states.STOP_PHASE)
