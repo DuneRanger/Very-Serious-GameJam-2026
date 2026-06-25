@@ -42,6 +42,7 @@ signal signal_state_change (amount : int)
 signal signal_send_error_message(message : String)
 
 signal signal_buy_item (id : int)
+signal commit_cell_change ()
 
 signal signal_shop_start_hover (id : int)
 signal signal_shop_stop_hover ()

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://7jo8gxcpa6u"]
 
 [ext_resource type="Script" uid="uid://3w7s26bt65ui" path="res://scenes/game/game_scene/roulette/roulette.gd" id="1_33j12"]
-[ext_resource type="Texture2D" uid="uid://b21jyti71xxkg" path="res://assets/textures/test.png" id="2_at72p"]
+[ext_resource type="Texture2D" uid="uid://c4hitryybqc8g" path="res://assets/textures/test.png" id="2_at72p"]
 
 [node name="Roulette" type="Node2D" unique_id=574874280]
 scale = Vector2(0.5, 0.5)
@@ -10,3 +10,5 @@ script = ExtResource("1_33j12")
 [node name="inner_wheel_sprite" type="Sprite2D" parent="." unique_id=2016433767]
 z_index = 1
 texture = ExtResource("2_at72p")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2136287025]
