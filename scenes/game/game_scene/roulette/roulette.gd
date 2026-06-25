@@ -349,4 +349,4 @@ func simulate_inclines(_delta : float):
 func apply_boost(amount : float):
 	for ball : RouletteBall in balls:
 		ball.settled = false
-		ball.apply_central_impulse(ball.position.rotated(randf_range(-0.1, 0.1)))
+		ball.apply_central_impulse(ball.position.rotated(randf_range(-0.1, 0.1)) * amount)
