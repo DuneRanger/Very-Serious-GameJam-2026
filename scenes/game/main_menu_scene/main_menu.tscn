@@ -27,4 +27,12 @@ offset_bottom = 328.0
 theme_override_font_sizes/font_size = 48
 text = "awesome fucking cat gambling fucking game"
 
+[node name="HowToPlayButton" type="Button" parent="." unique_id=981845966]
+offset_left = 880.0
+offset_top = 520.0
+offset_right = 1120.0
+offset_bottom = 616.0
+text = "HOW TO PLAY"
+
 [connection signal="button_down" from="NewGameButton" to="." method="_on_new_game_button_button_down"]
+[connection signal="button_down" from="HowToPlayButton" to="." method="_on_how_to_play_button_button_down"]

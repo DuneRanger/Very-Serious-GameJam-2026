@@ -51,6 +51,7 @@ func _ready():
 	build_banks()
 	prepare_textures()
 	GameManagerGlobal.on_boost.connect(apply_boost)
+	GameManagerGlobal.signal_game_start.connect(prepare_inital_cells)
 	
 
 func full_reset():

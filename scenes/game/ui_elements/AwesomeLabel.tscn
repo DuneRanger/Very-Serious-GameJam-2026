@@ -1,10 +1,14 @@
 [gd_scene format=3 uid="uid://cxo23rckbhjbo"]
 
+[ext_resource type="FontFile" uid="uid://btfhjobeerona" path="res://assets/fonts/PixeloidSans.otf" id="1_myjds"]
+
 [node name="AwesomeLabel" type="Node2D" unique_id=1310137312]
 
 [node name="Label" type="Label" parent="." unique_id=813108581]
 offset_left = 12.0
 offset_right = 332.0
 offset_bottom = 64.0
+theme_override_fonts/font = ExtResource("1_myjds")
 theme_override_font_sizes/font_size = 36
+text = "HELLO PLEASE"
 vertical_alignment = 1

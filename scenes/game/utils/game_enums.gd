@@ -2,7 +2,7 @@ extends Node
 
 class_name GameEnums
 
-enum switching_scenes {MAIN_MENU_SCENE, GAME_SCENE, SHOP_SCENE}
+enum switching_scenes {MAIN_MENU_SCENE, HOW_TO_PLAY_SCENE, GAME_SCENE, SHOP_SCENE}
 
 enum game_states {BET_PHASE, STOP_PHASE, SPIN_PHASE}
 
