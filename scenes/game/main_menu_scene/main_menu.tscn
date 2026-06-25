@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://0ut17jx42hnf"]
+
+[ext_resource type="Script" uid="uid://b7pbjamyge6wo" path="res://scenes/game/main_menu_scene/main_menu.gd" id="1_p3a2k"]
+
+[node name="MainMenu" type="Node2D" unique_id=1434438599]
+script = ExtResource("1_p3a2k")
+
+[node name="NewGameButton" type="Button" parent="." unique_id=589256499]
+offset_left = 840.0
+offset_top = 360.0
+offset_right = 1248.0
+offset_bottom = 488.0
+text = "NEW GAME"
+
+[node name="EpicRect" type="ColorRect" parent="." unique_id=1565200869]
+offset_left = 288.0
+offset_top = 136.0
+offset_right = 536.0
+offset_bottom = 272.0
+color = Color(0.56025434, 0.65292406, 0.9261292, 1)
+
+[connection signal="button_down" from="NewGameButton" to="." method="_on_new_game_button_button_down"]

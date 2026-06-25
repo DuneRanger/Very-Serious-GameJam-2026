@@ -6,8 +6,20 @@
 [ext_resource type="Script" uid="uid://yvvimemjf8nl" path="res://scenes/game/game_scene/hud/boost_symbol_container.gd" id="5_0qbnv"]
 [ext_resource type="PackedScene" uid="uid://djtfrov4iqbnm" path="res://scenes/game/UI_elements/animated_sprites/ruby_animated_sprite.tscn" id="5_3l4lp"]
 [ext_resource type="Script" uid="uid://co80ugwq1sply" path="res://scenes/game/game_scene/hud/spin_symbol_container.gd" id="6_3l4lp"]
+[ext_resource type="Texture2D" uid="uid://8mirpd64vb34" path="res://assets/textures/UI/ShopButton1.png" id="7_f4el6"]
 [ext_resource type="Script" uid="uid://dotgt4vplgp3m" path="res://scenes/game/game_scene/hud/shop_button.gd" id="7_sbgnr"]
 [ext_resource type="PackedScene" uid="uid://5vg4c83ob4lc" path="res://scenes/game/ui_elements/menu_button.tscn" id="8_hwqol"]
+[ext_resource type="Texture2D" uid="uid://cspmm8d23xl02" path="res://assets/textures/UI/ShopButtonClick.png" id="8_la7ma"]
+[ext_resource type="Texture2D" uid="uid://d3wtdve7esxcb" path="res://assets/textures/UI/ShopButtonHover.png" id="9_vy1w6"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4sguu"]
+texture = ExtResource("7_f4el6")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c6has"]
+texture = ExtResource("8_la7ma")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ag5u3"]
+texture = ExtResource("9_vy1w6")
 
 [node name="HUD" type="CanvasLayer" unique_id=1970834067]
 
@@ -48,7 +60,9 @@ offset_left = 424.0
 offset_top = 304.0
 offset_right = 552.0
 offset_bottom = 368.0
-text = "SHOP"
+theme_override_styles/normal = SubResource("StyleBoxTexture_4sguu")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_c6has")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ag5u3")
 script = ExtResource("7_sbgnr")
 
 [node name="MenuButton" parent="." unique_id=1837179404 instance=ExtResource("8_hwqol")]

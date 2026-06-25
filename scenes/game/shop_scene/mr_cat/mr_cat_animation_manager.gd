@@ -4,14 +4,12 @@ extends Node2D
 
 @onready var timer: Timer = $Timer
 
-var has_sunglasses = false
-
 func _ready() -> void:
 	play_default_anim()
 
 # This animation should play when Mr. Cat is idle
 func play_default_anim():
-	if not has_sunglasses:
+	if not GameManagerGlobal.mr_cat_swag:
 		mr_cat_sprite.play("default")
 	mr_cat_tail_sprite.play("default")
 
@@ -21,7 +19,7 @@ func play_default_anim():
 #then he will revert to the default state
 func play_money_anim():
 	timer.start()
-	if not has_sunglasses:
+	if not GameManagerGlobal.mr_cat_swag:
 		mr_cat_sprite.play("money")
 
 	mr_cat_tail_sprite.play("money")
@@ -31,7 +29,7 @@ func _on_timer_timeout() -> void:
 	play_default_anim()
 
 func play_sunglasses_anim():
-	has_sunglasses = true
+	GameManagerGlobal.mr_cat_swag = true
 	mr_cat_sprite.play("sunglasses")
 
 

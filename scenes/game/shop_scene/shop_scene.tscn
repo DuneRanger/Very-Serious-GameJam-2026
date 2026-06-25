@@ -1,11 +1,15 @@
 [gd_scene format=3 uid="uid://b021fsge1vw58"]
 
+[ext_resource type="Script" uid="uid://c0r7v1f30326o" path="res://scenes/game/shop_scene/shop_scene.gd" id="1_a0s6a"]
 [ext_resource type="PackedScene" uid="uid://sewpvrb7xfdc" path="res://scenes/game/shop_scene/mr_cat/mr_cat.tscn" id="1_nw121"]
+[ext_resource type="PackedScene" uid="uid://c1fkvqvg8nvi6" path="res://scenes/game/shop_scene/offered_item.tscn" id="2_dh51g"]
 [ext_resource type="Texture2D" uid="uid://bcsc264rw85de" path="res://assets/textures/ShopBackgroundBlurred.png" id="2_i1bid"]
 [ext_resource type="Script" uid="uid://b0m5epq34gfw5" path="res://scenes/game/shop_scene/game_button.gd" id="3_8ksok"]
 [ext_resource type="PackedScene" uid="uid://5vg4c83ob4lc" path="res://scenes/game/ui_elements/menu_button.tscn" id="4_o1uo5"]
 
 [node name="ShopScene" type="Node2D" unique_id=935466290]
+script = ExtResource("1_a0s6a")
+offered_item_scene = ExtResource("2_dh51g")
 
 [node name="VisualsTest" type="Node" parent="." unique_id=412741530]
 
@@ -41,5 +45,13 @@ offset_left = 560.0
 offset_top = -344.0
 offset_right = 624.0
 offset_bottom = -280.0
+
+[node name="OfferedItemsHBox" type="HBoxContainer" parent="." unique_id=272803681]
+custom_minimum_size = Vector2(128, 128)
+offset_left = -600.0
+offset_top = -240.0
+offset_right = -88.0
+offset_bottom = -104.0
+theme_override_constants/separation = 64
 
 [connection signal="button_down" from="GameButton" to="MrCat" method="_on_game_button_button_down"]
