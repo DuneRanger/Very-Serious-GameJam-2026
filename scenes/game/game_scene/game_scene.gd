@@ -109,6 +109,7 @@ func edit_rubys():
 	$HUD/RubyLabel/Label.text = str(GameManagerGlobal.rubys)
 
 func _on_new_state():
+	print("Current state ", GameManagerGlobal.game_state)
 	match (GameManagerGlobal.game_state):
 		GameEnums.game_states.SPIN_PHASE:
 			if GameManagerGlobal.applying_boost:
