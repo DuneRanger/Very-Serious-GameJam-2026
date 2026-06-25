@@ -3,7 +3,7 @@ extends ShopItem
 class_name propeller_hat
 
 var cost : int = 3
-var image_path : String = "res://assets/textures/items/item_propeller hat.png"
+var image_path : String = "res://assets/textures/items/item_propeller_hat.png"
 var name : String = "Propeller Hat"
 var description : String = "Propells you :D"
 

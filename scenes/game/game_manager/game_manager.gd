@@ -2,6 +2,8 @@ extends Node2D
 
 var round_budget: int
 var round_count: int
+var evening_count: int
+var quota: int
 var money: int
 var rubys: int
 var spin_count: int
@@ -41,25 +43,50 @@ signal signal_send_error_message(message : String)
 
 signal signal_buy_item (id : int)
 
+signal signal_shop_start_hover (id : int)
+signal signal_shop_stop_hover ()
+
+signal signal_mr_cat_swag
+signal signal_quota_message
+
 const base_cell_weight : float = 1.0
 
+var current_quota_message : String
+var quota_messages : Array[String] = [
+	"food",
+	"water",
+	"health insurance",
+	"rent",
+	"a Catflix subscription",
+	"cancelling your Pawdobe subscription", 
+	"paying your debt to the mafia", #this is the max amount of characters thet looks good
+	"taxes",
+	"fines",
+	"car repairs",
+	"a lifesaving operation",
+	"your fiancées ring",
+	"bitches", #TODO delete this 
+]
+
 func modify_boost_count (amount : int):
-	print("modifiing", boost_count, amount)
+	#print("modifiing", boost_count, amount)
 	boost_count = amount
+	#if current_showed_scene == GameEnums.switching_scenes.GAME_SCENE:
 	signal_boost_count_change.emit()
 
 func modify_boost_left (amount : int):
-	print("modifiing", boosts_left, amount)
+	#print("modifiing", boosts_left, amount)
 	boosts_left = amount
+	#if current_showed_scene == GameEnums.switching_scenes.GAME_SCENE:
 	signal_boosts_left_change.emit()
 	
 func modify_spin_count (amount : int):
-	print("modifiing", spin_count, amount)
+	#print("modifiing", spin_count, amount)
 	spin_count = amount
 	signal_spin_count_change.emit()
 
 func modify_spins_left (amount : int):
-	print("modifiing", spins_left, amount)
+	#print("modifiing", spins_left, amount)
 	spins_left = amount
 	signal_spins_left_change.emit()
 

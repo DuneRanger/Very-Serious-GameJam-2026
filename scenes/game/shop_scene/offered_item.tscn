@@ -27,3 +27,5 @@ scale = Vector2(8, 8)
 texture = SubResource("ImageTexture_qu3jn")
 
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
+[connection signal="mouse_entered" from="Button" to="." method="_on_focus_entered"]
+[connection signal="mouse_exited" from="Button" to="." method="_on_focus_exited"]
