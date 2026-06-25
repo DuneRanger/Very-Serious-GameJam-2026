@@ -19,6 +19,8 @@ var all_common_offered_items : Array[String] = [
 var all_rare_offered_items : Array[String] = [
 	"res://scenes/game/shop_scene/items/dynamite.gd",
 	"res://scenes/game/shop_scene/items/gigaburger.gd"
+	"res://scenes/game/shop_scene/items/gigaburger.gd",
+	"res://scenes/game/shop_scene/items/catnip.gd"
 ]
 
 func _ready() -> void:
@@ -88,7 +90,6 @@ func _on_focus_entered(button_id : int):
 	$DescriptionLabel.visible = true
 
 func _on_focus_exited():
-	print($DescriptionLabel.position)
 	$DescriptionLabel.text = ""
 	$DescriptionLabel.visible = false
 

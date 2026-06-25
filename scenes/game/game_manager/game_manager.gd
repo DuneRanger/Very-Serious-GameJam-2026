@@ -58,8 +58,8 @@ func game_start():
 	GameManagerGlobal.modify_boost_count(2)
 	GameManagerGlobal.modify_boost_left(2)
 	GameManagerGlobal.modify_spin_count(3)
+	GameManagerGlobal.modify_spins_left(3)
 	mr_cat_swag = false
-	#GameManagerGlobal.modify_boost_left(3)
 	GameManagerGlobal.modify_game_state(GameEnums.game_states.BET_PHASE)
 	signal_game_start.emit()
 
