@@ -197,6 +197,10 @@ func angular_speed_at_point(point : Vector2) -> float:
 
 var settled_frames : int = 0
 
+func rotate_roulette():
+	visual_rotation += rotation_speed
+	$inner_wheel_sprite.rotation += rotation_speed
+
 func _physics_process(_delta: float):
 	angular_velocity = rotation_speed / _delta
 	#var linear_ang_velocity = cell_circle_radius * angular_velocity
@@ -210,8 +214,7 @@ func _physics_process(_delta: float):
 	match (GameManagerGlobal.game_state):
 		GameEnums.game_states.SPIN_PHASE:
 			reset = true
-			visual_rotation += rotation_speed
-			$inner_wheel_sprite.rotation += rotation_speed
+			rotate_roulette()
 			if balls.all(func(ball : RouletteBall): return ball.settled): settled_frames += 1
 			else: settled_frames = 0
 			if settled_frames > 120:
@@ -226,6 +229,8 @@ func _physics_process(_delta: float):
 					#if ball.settled == false:
 						#text += str(round(ball.get_speed())) + str(ball.caught_cell != null) + ", "
 				#print(text)
+		GameEnums.game_states.STOP_PHASE:
+			rotate_roulette()
 		GameEnums.game_states.BET_PHASE:
 			#if reset: full_reset()
 			if reset: add_ball()

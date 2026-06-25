@@ -111,7 +111,10 @@ func edit_rubys():
 func _on_new_state():
 	match (GameManagerGlobal.game_state):
 		GameEnums.game_states.SPIN_PHASE:
-			$Table/Roulette.spin_roulette()
+			if GameManagerGlobal.applying_boost:
+				GameManagerGlobal.applying_boost = false
+			else:
+				$Table/Roulette.spin_roulette()
 		GameEnums.game_states.STOP_PHASE:
 			print("Stopped, boosts: ", GameManagerGlobal.boosts_left)
 			if GameManagerGlobal.boosts_left == 0:

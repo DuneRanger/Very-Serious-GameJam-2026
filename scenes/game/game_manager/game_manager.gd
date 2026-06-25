@@ -18,12 +18,15 @@ var single_bet_coeff : float = 20.0
 var half_bet_coeff : float = 2.0
 var third_bet_coeff : float = 3.0
 
+var applying_boost : bool = false
+signal on_boost (boost_amount : float)
+
 signal signal_spin_count_change (amount : int)
 signal signal_spins_left_change (amount : int)
 
 signal signal_boost_count_change (amount : int)
 signal signal_boosts_left_change (amount : int)
-signal on_boost (boost_amount : float)
+
 
 signal signal_modify_money (amount : int)
 signal signal_modify_rubys (amount : int)
