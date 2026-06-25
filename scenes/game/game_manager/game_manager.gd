@@ -2,6 +2,8 @@ extends Node2D
 
 var round_budget: int
 var round_count: int
+var evening_count: int
+var quota: int
 var money: int
 var rubys: int
 var spin_count: int
@@ -13,13 +15,17 @@ var game_state : GameEnums.game_states
 var bets : Dictionary
 var caughtCells : Array[RouletteCell]
 
-var caughtBalls : int
+var initial_cells : Array[RouletteCell]
+var cells : Array[RouletteCell] = []
 
 var mr_cat_swag : bool
 
 var single_bet_coeff : float = 24.0
 var half_bet_coeff : float = 2.0
 var third_bet_coeff : float = 3.0
+
+var applying_boost : bool = false
+signal on_boost (boost_amount : float)
 
 signal signal_switch_scene (new_scene : GameEnums.switching_scenes)
 
@@ -28,6 +34,7 @@ signal signal_spins_left_change (amount : int)
 
 signal signal_boost_count_change (amount : int)
 signal signal_boosts_left_change (amount : int)
+
 
 signal signal_modify_money (amount : int)
 signal signal_modify_rubys (amount : int)
@@ -40,8 +47,26 @@ signal signal_shop_start_hover (id : int)
 signal signal_shop_stop_hover ()
 
 signal signal_mr_cat_swag
+signal signal_quota_message
 
 const base_cell_weight : float = 1.0
+
+var current_quota_message : String
+var quota_messages : Array[String] = [
+	"food",
+	"water",
+	"health insurance",
+	"rent",
+	"a Catflix subscription",
+	"cancelling your Pawdobe subscription", 
+	"paying your debt to the mafia", #this is the max amount of characters thet looks good
+	"taxes",
+	"fines",
+	"car repairs",
+	"a lifesaving operation",
+	"your fiancées ring",
+	"bitches", #TODO delete this 
+]
 
 func modify_boost_count (amount : int):
 	#print("modifiing", boost_count, amount)

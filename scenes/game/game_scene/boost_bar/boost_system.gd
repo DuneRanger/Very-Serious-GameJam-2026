@@ -18,8 +18,11 @@ func start_system() -> void:
 
 func _on_boost_button_pressed() -> void:
 	boost_amount = $boost_bar/bar/inner/boost_indicator.scale.y
+	print(boost_amount, " from boost_system")
+	GameManagerGlobal.on_boost.emit(boost_amount)
 	$boost_bar/Button.visible = false
 	$boost_bar/bar/inner/boost_indicator/AnimationPlayer.pause()
+	GameManagerGlobal.applying_boost = true
 	$Timer.start()
 
 func _on_happy_button_pressed() -> void:
