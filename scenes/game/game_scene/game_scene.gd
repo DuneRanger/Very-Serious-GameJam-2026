@@ -31,7 +31,9 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("boost_del"):
 		GameManagerGlobal.modify_boost_left(min (GameManagerGlobal.boost_count, GameManagerGlobal.boosts_left + 1))
 	if Input.is_action_just_pressed("add_ball"):
-		GameManagerGlobal.modify_spins_left(min (GameManagerGlobal.spin_count, GameManagerGlobal.spins_left + 1))
+		#GameManagerGlobal.modify_spins_left(min (GameManagerGlobal.spin_count, GameManagerGlobal.spins_left + 1))
+		pick_quota_message()
+		GameManagerGlobal.signal_quota_message.emit()
 
 func does_bet_win(bet_id : int) -> bool:
 	var bet_type : GameEnums.bet_types = $Table/BettingSystem.get_bet_type(bet_id)
@@ -122,6 +124,7 @@ func _on_new_state():
 			if GameManagerGlobal.boosts_left == 0:
 				GameManagerGlobal.modify_game_state(GameEnums.game_states.BET_PHASE)
 				return
+			
 			$Table/BoostSystem.start_system()
 			
 			#$Table/Roulette.spin_roulette()
@@ -134,6 +137,13 @@ func _on_new_state():
 		_:
 			pass
 
+func pick_quota_message():
+	var previous_quota_msg = GameManagerGlobal.current_quota_message
+	var new_quota_msg = GameManagerGlobal.quota_messages.pick_random()
+	if (new_quota_msg != previous_quota_msg):
+		GameManagerGlobal.current_quota_message = new_quota_msg
+	else:
+		pick_quota_message()
 
 func _on_shop_button_down() -> void:
 	GameManagerGlobal.signal_switch_scene.emit(GameEnums.switching_scenes.SHOP_SCENE)

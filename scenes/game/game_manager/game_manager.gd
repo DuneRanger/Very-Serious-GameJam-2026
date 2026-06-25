@@ -2,6 +2,8 @@ extends Node2D
 
 var round_budget: int
 var round_count: int
+var evening_count: int
+var quota: int
 var money: int
 var rubys: int
 var spin_count: int
@@ -41,7 +43,26 @@ signal signal_send_error_message(message : String)
 
 signal signal_buy_item (id : int)
 
+signal signal_quota_message
+
 const base_cell_weight : float = 1.0
+
+var current_quota_message : String
+var quota_messages : Array[String] = [
+	"food",
+	"water",
+	"health insurance",
+	"rent",
+	"a Catflix subscription",
+	"cancelling your Pawdobe subscription", 
+	"paying your debt to the mafia", #this is the max amount of characters thet looks good
+	"taxes",
+	"fines",
+	"car repairs",
+	"a lifesaving operation",
+	"your fiancées ring",
+	"bitches", #TODO delete this 
+]
 
 func modify_boost_count (amount : int):
 	print("modifiing", boost_count, amount)
