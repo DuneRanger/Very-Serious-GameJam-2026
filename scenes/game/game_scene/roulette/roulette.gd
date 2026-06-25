@@ -63,6 +63,8 @@ func _ready():
 	build_banks()
 	prepare_textures()
 	GameManagerGlobal.on_boost.connect(apply_boost)
+	GameManagerGlobal.signal_game_start.connect(prepare_inital_cells)
+	
 	GameManagerGlobal.commit_cell_change.connect(commit_cell_mod)
 	roulette_tick_sound.stream = load("res://assets/music/RouletteTickSFX.mp3")
 

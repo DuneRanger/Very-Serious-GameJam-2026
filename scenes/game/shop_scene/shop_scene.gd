@@ -18,11 +18,14 @@ var all_common_offered_items : Array[String] = [
 
 var all_rare_offered_items : Array[String] = [
 	"res://scenes/game/shop_scene/items/dynamite.gd",
-	"res://scenes/game/shop_scene/items/gigaburger.gd"
+	"res://scenes/game/shop_scene/items/gigaburger.gd",
+	"res://scenes/game/shop_scene/items/catnip.gd"
 ]
 
 func _ready() -> void:
 	refresh_shop()
+	$DescriptionLabel.visible = false
+	GameManagerGlobal.signal_modify_rubys.connect(edit_rubys)
 	GameManagerGlobal.signal_buy_item.connect(_on_buy_item)
 	GameManagerGlobal.signal_shop_start_hover.connect(_on_focus_entered)
 	GameManagerGlobal.signal_shop_stop_hover.connect(_on_focus_exited)
@@ -83,12 +86,16 @@ func _on_focus_entered(button_id : int):
 	var item = offered_items[button_id]
 	var text = get_offered_item_text(item)
 	$DescriptionLabel.text = text
+	$DescriptionLabel.visible = true
 
 func _on_focus_exited():
-	print($DescriptionLabel.position)
 	$DescriptionLabel.text = ""
+	$DescriptionLabel.visible = false
 
 func get_offered_item_text(item : ShopItem) -> String:
 	var out = item.get_name() + "\n\n" + item.get_description() + "\n\nCost: " + str(item.get_cost()) + " rubies" 
 	return out
+
+func edit_rubys():
+	$RubyLabel/Label.text = str(GameManagerGlobal.rubys)
 	

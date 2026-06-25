@@ -25,6 +25,9 @@ var half_bet_coeff : float = 2.0
 var third_bet_coeff : float = 3.0
 
 var applying_boost : bool = false
+
+signal signal_game_start
+
 signal on_boost (boost_amount : float)
 
 signal signal_switch_scene (new_scene : GameEnums.switching_scenes)
@@ -50,6 +53,16 @@ signal signal_shop_stop_hover ()
 signal signal_mr_cat_swag
 signal signal_quota_message
 
+func game_start():
+	GameManagerGlobal.modify_money(100)
+	GameManagerGlobal.modify_rubys(5)
+	GameManagerGlobal.modify_boost_count(2)
+	GameManagerGlobal.modify_boost_left(2)
+	GameManagerGlobal.modify_spin_count(3)
+	GameManagerGlobal.modify_spins_left(3)
+	mr_cat_swag = false
+	GameManagerGlobal.modify_game_state(GameEnums.game_states.BET_PHASE)
+	signal_game_start.emit()
 signal signal_round_start
 
 const base_cell_weight : float = 1.0

@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://bfefv5mbih8it"]
+
+[ext_resource type="Script" uid="uid://dvwex7pvanj4u" path="res://scenes/game/how_to_play/how_to_play_scene.gd" id="1_mmla4"]
+
+[node name="HowToPlayScene" type="Node2D" unique_id=498387037]
+script = ExtResource("1_mmla4")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1573923267]
+custom_minimum_size = Vector2(300, 200)
+offset_left = 664.0
+offset_top = 328.0
+offset_right = 964.0
+offset_bottom = 528.0
+color = Color(1, 0.15686275, 1, 1)
+
+[node name="Label" type="Label" parent="." unique_id=779579447]
+offset_left = 152.0
+offset_top = 152.0
+offset_right = 672.0
+offset_bottom = 328.0
+text = "BITCH I DONT KNOW"
+
+[node name="MenuButton" type="Button" parent="." unique_id=1614575585]
+offset_left = 32.0
+offset_top = 16.0
+offset_right = 224.0
+offset_bottom = 72.0
+text = "GO BACK TO MENU"
+
+[node name="Label2" type="Label" parent="." unique_id=23317151]
+offset_left = 536.0
+offset_top = 96.0
+offset_right = 856.0
+offset_bottom = 296.0
+text = "this is kinda work in progres..."
+
+[connection signal="button_down" from="MenuButton" to="." method="_on_menu_button_button_down"]

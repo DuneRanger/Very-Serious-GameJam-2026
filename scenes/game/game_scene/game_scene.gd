@@ -9,13 +9,6 @@ func _ready() -> void:
 	GameManagerGlobal.signal_state_change.connect(_on_new_state)
 	GameManagerGlobal.signal_modify_money.connect(edit_money)
 	GameManagerGlobal.signal_modify_rubys.connect(edit_rubys)
-	GameManagerGlobal.modify_money(100)
-	GameManagerGlobal.modify_rubys(50)
-	GameManagerGlobal.modify_boost_count(3)
-	GameManagerGlobal.modify_spin_count(4)
-	GameManagerGlobal.mr_cat_swag = false
-	#GameManagerGlobal.modify_boost_left(3)
-	GameManagerGlobal.modify_game_state(GameEnums.game_states.BET_PHASE)
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("stop_roullete"):
