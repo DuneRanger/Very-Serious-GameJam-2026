@@ -49,6 +49,8 @@ signal signal_shop_stop_hover ()
 signal signal_mr_cat_swag
 signal signal_quota_message
 
+signal signal_round_start
+
 const base_cell_weight : float = 1.0
 
 var current_quota_message : String
@@ -65,7 +67,7 @@ var quota_messages : Array[String] = [
 	"car repairs",
 	"a lifesaving operation",
 	"your fiancées ring",
-	"bitches", #TODO delete this 
+	"a haircut",
 ]
 
 func modify_boost_count (amount : int):
