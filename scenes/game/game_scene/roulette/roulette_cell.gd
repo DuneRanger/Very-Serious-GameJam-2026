@@ -18,7 +18,13 @@ func _init(num: int, col: Color, w: float = base_cell_weight) -> void:
 	colour = col
 	weight = w
 
+static func get_colour_string(colour : Color):
+	match colour:
+		Color.RED: return "red"
+		Color.BLACK: return "black"
+		Color.DARK_GREEN: return "green"
+
+
 func _to_string() -> String:
-	var color_str = "red" if (colour == Color.RED) else "black"
-	var out = color_str + " " + str(number)
+	var out = get_colour_string(colour) + " " + str(number)
 	return out

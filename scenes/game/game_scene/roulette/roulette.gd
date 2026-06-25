@@ -50,6 +50,9 @@ func _init():
 	cells = GameManagerGlobal.initial_cells.duplicate_deep()
 	balls = get_initial_balls()
 	prepare_balls()
+	for cell in cells:
+		print(cell)
+		print(str(cell))
 
 	randomize_weights()
 	#cells[0].weight = 10
@@ -60,6 +63,7 @@ func _ready():
 	build_banks()
 	prepare_textures()
 	GameManagerGlobal.on_boost.connect(apply_boost)
+	GameManagerGlobal.commit_cell_change.connect(commit_cell_mod)
 	roulette_tick_sound.stream = load("res://assets/music/RouletteTickSFX.mp3")
 
 func full_reset():
