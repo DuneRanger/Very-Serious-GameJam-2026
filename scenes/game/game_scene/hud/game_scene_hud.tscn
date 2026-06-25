@@ -11,8 +11,11 @@
 [ext_resource type="PackedScene" uid="uid://5vg4c83ob4lc" path="res://scenes/game/UI_elements/menu_button.tscn" id="8_hwqol"]
 [ext_resource type="Texture2D" uid="uid://cspmm8d23xl02" path="res://assets/textures/UI/ShopButtonClick.png" id="8_la7ma"]
 [ext_resource type="Texture2D" uid="uid://d3wtdve7esxcb" path="res://assets/textures/UI/ShopButtonHover.png" id="9_vy1w6"]
-[ext_resource type="FontFile" uid="uid://7paxof88brjl" path="res://assets/fonts/PixeloidMono.otf" id="12_la7ma"]
 [ext_resource type="Script" uid="uid://ecrf73k4pky8" path="res://scenes/game/game_scene/hud/quota_label.gd" id="13_vy1w6"]
+[ext_resource type="FontFile" uid="uid://d0mkojug0pvql" path="res://assets/fonts/PixeloidSans-Bold.otf" id="14_4sguu"]
+[ext_resource type="Script" uid="uid://claufn611f2p4" path="res://scenes/game/game_scene/hud/round_start_animations.gd" id="14_ag5u3"]
+[ext_resource type="Texture2D" uid="uid://bn08ytmdst6va" path="res://assets/textures/symbols/money_sprite_sheet.png" id="15_ag5u3"]
+[ext_resource type="FontFile" uid="uid://btfhjobeerona" path="res://assets/fonts/PixeloidSans.otf" id="15_c6has"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4sguu"]
 texture = ExtResource("7_f4el6")
@@ -22,6 +25,378 @@ texture = ExtResource("8_la7ma")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ag5u3"]
 texture = ExtResource("9_vy1w6")
+
+[sub_resource type="Animation" id="Animation_vy1w6"]
+resource_name = "AppearAnimation"
+length = 8.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4.3333335, 6.266667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_colors/font_outline_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4.3333, 6.2667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4sguu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_colors/font_outline_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c6has"]
+_data = {
+&"AppearAnimation": SubResource("Animation_vy1w6"),
+&"RESET": SubResource("Animation_4sguu")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_niiyn"]
+atlas = ExtResource("15_ag5u3")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vx0g1"]
+atlas = ExtResource("15_ag5u3")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nqfym"]
+atlas = ExtResource("15_ag5u3")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_thqaq"]
+atlas = ExtResource("15_ag5u3")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hlngw"]
+atlas = ExtResource("15_ag5u3")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o58sx"]
+atlas = ExtResource("15_ag5u3")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nlk0o"]
+atlas = ExtResource("15_ag5u3")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4lu4x"]
+atlas = ExtResource("15_ag5u3")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kom1q"]
+animations = [{
+"frames": [{
+"duration": 20.0,
+"texture": SubResource("AtlasTexture_niiyn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vx0g1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nqfym")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_thqaq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hlngw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o58sx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nlk0o")
+}, {
+"duration": 20.0,
+"texture": SubResource("AtlasTexture_4lu4x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nlk0o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o58sx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hlngw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_thqaq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nqfym")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vx0g1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="Animation" id="Animation_c6has"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DarkenRectangle:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DarkenRectangle:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RoundNumberLabel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("RoundNumberLabel:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("QuotaMessageLabel:theme_override_colors/font_color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("QuotaMessageLabel:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Control:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Control:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("QuotaMessageLabel:theme_override_colors/font_outline_color")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ag5u3"]
+resource_name = "RoundStart"
+length = 5.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DarkenRectangle:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.23333333, 0.5, 4.7, 5.266667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0.8039216), Color(0, 0, 0, 0.8039216), Color(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DarkenRectangle:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2111236, 5.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RoundNumberLabel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.21093103, 5.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("RoundNumberLabel:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.5, 0.8, 4.133333, 4.4333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1), Vector2(1, 1), Vector2(1e-05, 1e-05)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("QuotaMessageLabel:theme_override_colors/font_color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1, 1.6, 4.1666665, 4.466666),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("QuotaMessageLabel:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.6280568, 5.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Control:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.5, 0.8, 4.1333, 4.4333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1), Vector2(1, 1), Vector2(1e-05, 1e-05)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Control:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.36817124, 5.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("QuotaMessageLabel:theme_override_colors/font_outline_color")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(1, 1.6, 4.1666665, 4.4666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_niiyn"]
+_data = {
+&"RESET": SubResource("Animation_c6has"),
+&"RoundStart": SubResource("Animation_ag5u3")
+}
 
 [node name="HUD" type="CanvasLayer" unique_id=1970834067]
 
@@ -48,6 +423,9 @@ offset_bottom = 91.0
 alignment = 1
 script = ExtResource("6_3l4lp")
 
+[node name="RefillTimer" type="Timer" parent="SpinSymbolContainer" unique_id=1020727606]
+wait_time = 0.1
+
 [node name="BoostSymbolContainer" type="HBoxContainer" parent="." unique_id=367884083]
 offset_left = 64.0
 offset_top = 179.0
@@ -56,6 +434,9 @@ offset_bottom = 179.0
 alignment = 1
 script = ExtResource("5_0qbnv")
 metadata/_edit_use_anchors_ = true
+
+[node name="RefillTimer" type="Timer" parent="BoostSymbolContainer" unique_id=551682166]
+wait_time = 0.1
 
 [node name="ShopButton" type="Button" parent="." unique_id=1416432798]
 offset_left = 424.0
@@ -74,9 +455,83 @@ offset_left = 96.0
 offset_top = 8.0
 offset_right = 1152.0
 offset_bottom = 64.0
-theme_override_fonts/font = ExtResource("12_la7ma")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("15_c6has")
 theme_override_font_sizes/font_size = 24
 horizontal_alignment = 1
 script = ExtResource("13_vy1w6")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="QuotaLabel" unique_id=1465018532]
+libraries/ = SubResource("AnimationLibrary_c6has")
+
+[node name="RoundStartAnimations" type="Node2D" parent="." unique_id=314523882]
+script = ExtResource("14_ag5u3")
+
+[node name="DarkenRectangle" type="ColorRect" parent="RoundStartAnimations" unique_id=949702093]
+z_index = 10
+offset_left = -80.0
+offset_top = -72.0
+offset_right = 1368.0
+offset_bottom = 752.0
+color = Color(0, 0, 0, 0)
+
+[node name="RoundNumberLabel" type="Label" parent="RoundStartAnimations" unique_id=1622241789]
+z_index = 11
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = 288.0004
+offset_right = 1280.0
+offset_bottom = 360.0004
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(640, 36)
+theme_override_colors/font_color = Color(0.98039216, 0.76862746, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("14_4sguu")
+theme_override_font_sizes/font_size = 48
+horizontal_alignment = 1
+
+[node name="QuotaMessageLabel" type="Label" parent="RoundStartAnimations" unique_id=575776853]
+z_index = 12
+offset_top = 352.0004
+offset_right = 1280.0
+offset_bottom = 544.00037
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("15_c6has")
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="RoundStartAnimations" unique_id=3398913]
+z_index = 11
+layout_mode = 3
+anchors_preset = 0
+offset_left = 600.0
+offset_top = 216.0004
+offset_right = 680.0
+offset_bottom = 296.0004
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(40, 40)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="RoundStartAnimations/Control" unique_id=1794808050]
+position = Vector2(40, 40)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_kom1q")
+autoplay = "default"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RoundStartAnimations" unique_id=1086076332]
+libraries/ = SubResource("AnimationLibrary_niiyn")
+
+[connection signal="timeout" from="SpinSymbolContainer/RefillTimer" to="SpinSymbolContainer" method="_on_refill_timer_timeout"]
+[connection signal="timeout" from="BoostSymbolContainer/RefillTimer" to="BoostSymbolContainer" method="_on_refill_timer_timeout"]
 [connection signal="button_down" from="ShopButton" to="ShopButton" method="_on_button_down"]

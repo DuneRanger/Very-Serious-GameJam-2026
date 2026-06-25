@@ -10,6 +10,15 @@ static func get_random_roulette_rot() -> float:
 	while abs(rot) < 2 : rot = randf_range(-3, 3)
 	return rot
 
+# -------------------------------- Sound --------------------------------
+
+@onready var roulette_tick_sound: AudioStreamPlayer = $AudioStreamPlayer
+var sound_play_rotation: float = 0.2
+var sound_acc_rotation: float = 0
+
+func play_roulette_sound():
+	roulette_tick_sound.play()
+
 # -------------------------------- Initial values --------------------------------
 
 var initial_cell_order : Array[int] = [0, 20, 6, 8, 18, 14, 2, 4, 21, 1, 13, 3, 24, 7, 15, 19, 10, 12, 22, 5, 16, 9, 11, 23, 17]
@@ -41,6 +50,9 @@ func _init():
 	cells = GameManagerGlobal.initial_cells.duplicate_deep()
 	balls = get_initial_balls()
 	prepare_balls()
+	for cell in cells:
+		print(cell)
+		print(str(cell))
 
 	randomize_weights()
 	#cells[0].weight = 10
@@ -53,6 +65,8 @@ func _ready():
 	GameManagerGlobal.on_boost.connect(apply_boost)
 	GameManagerGlobal.signal_game_start.connect(prepare_inital_cells)
 	
+	GameManagerGlobal.commit_cell_change.connect(commit_cell_mod)
+	roulette_tick_sound.stream = load("res://assets/music/RouletteTickSFX.mp3")
 
 func full_reset():
 	cells.clear()
@@ -86,12 +100,11 @@ func update_total_weight():
 
 var inner_circle_radius : int = 350
 var inner_circle_colour : Color = Color.SADDLE_BROWN
-#var inner_circle_texture : Sprite2D = load("res://assets/textures/test.png")
 var cell_circle_radius : int = 500
 var outer_circle_radius : int = 700
 var outer_circle_colour : Color = Color.DARK_RED
 
-var visual_rotation : float = 0;
+var visual_rotation : float = 0
 
 func draw_circle_arc_poly(center, radius, angle_from, angle_to, color):
 	var nb_points = 3 + floor(10 * abs(angle_from - angle_to)) 
@@ -127,9 +140,14 @@ func draw_cells():
 
 	draw_set_transform(Vector2(0, 0), 0)
 
+func rebuild_banks():
+	for child in get_children():
+		if child is RouletteBank:
+			remove_child(child)
+	build_banks()
+
 func prepare_textures():
-	var scale = Vector2(1, 1) * (inner_circle_radius + 4) / 75
-	print(scale)
+	var scale = Vector2(1, 1) * (inner_circle_radius + 2) / 75
 	$inner_wheel_sprite.apply_scale(scale)
 
 func draw_centre():
@@ -143,6 +161,16 @@ func _draw():
 	draw_cells()
 	draw_centre()
 	move_banks()
+
+func modify_cell_weight(idx: int, change: float):
+	cells[idx].weight += change
+	total_weight += change
+	rebuild_banks()
+
+# Calls the required functions to for a cell.weight change to actually occur
+func commit_cell_mod():
+	update_total_weight()
+	rebuild_banks()
 
 # -------------------------------- Physics --------------------------------
 
@@ -177,11 +205,13 @@ func build_outer_wall():
 		visual.add_point(Vector2(cos(angle), sin(angle)) * outer_circle_radius)
 	wall_body.add_child(visual)
 
+var fast_decay : bool = false
 func decay_rotation(_delta):
+	if fast_decay: _delta *= 10
 	if rotation_speed > 0:
-		rotation_speed = max(0, min(rotation_speed - 0.05 * _delta, rotation_speed * (1 - 0.04 * _delta)))
+		rotation_speed = max(0, min(rotation_speed - 0.05 * _delta, rotation_speed * (1 - 0.1 * _delta)))
 	else:
-		rotation_speed = min(0, max(rotation_speed + 0.05 * _delta, rotation_speed * (1 - 0.04 * _delta)))
+		rotation_speed = min(0, max(rotation_speed + 0.05 * _delta, rotation_speed * (1 - 0.1 * _delta)))
 
 func spin_roulette():
 	GameManagerGlobal.caughtCells.clear()
@@ -202,6 +232,11 @@ var settled_frames : int = 0
 func rotate_roulette(_delta : float):
 	visual_rotation += rotation_speed * _delta
 	$inner_wheel_sprite.rotation += rotation_speed * _delta
+	
+	sound_acc_rotation += abs(rotation_speed) * _delta
+	if sound_acc_rotation > sound_play_rotation:
+		sound_acc_rotation -= sound_play_rotation
+		play_roulette_sound()
 
 func _physics_process(_delta: float):
 	angular_velocity = rotation_speed / _delta
@@ -212,7 +247,6 @@ func _physics_process(_delta: float):
 	simulate_inclines(_delta)
 	decay_rotation(_delta)
 	rescue_orphaned_balls()
-	queue_redraw()
 	match (GameManagerGlobal.game_state):
 		GameEnums.game_states.SPIN_PHASE:
 			reset = true
@@ -220,18 +254,15 @@ func _physics_process(_delta: float):
 			if balls.all(func(ball : RouletteBall): return ball.settled): settled_frames += 1
 			else: settled_frames = 0
 			if settled_frames > 120:
+				fast_decay = true
+			if is_equal_approx(rotation_speed, 0):
 				var temp : Array[RouletteCell] = []
 				for ball in balls: temp.append(ball.caught_cell)
 				temp.sort_custom(func(a, b): return a.number < b.number)
 				print("Caught: ", temp.map(func(cell): return cell.number))
 				GameManagerGlobal.caughtCells = temp
 				GameManagerGlobal.modify_game_state(GameEnums.game_states.STOP_PHASE)
-			#else:
-				#var text = ""
-				#for ball in balls:
-					#if ball.settled == false:
-						#text += str(round(ball.get_speed())) + str(ball.caught_cell != null) + ", "
-				#print(text)
+				fast_decay = false
 		GameEnums.game_states.STOP_PHASE:
 			if GameManagerGlobal.applying_boost: rotate_roulette(_delta)
 		GameEnums.game_states.BET_PHASE:
@@ -243,7 +274,7 @@ func _physics_process(_delta: float):
 			pass
 
 func _process(_delta: float):
-	pass
+	queue_redraw()
 
 # -------------------------------- Banks --------------------------------
 
@@ -326,7 +357,7 @@ func launch_balls():
 			var normal = Vector2(-ball.init_position.y, ball.init_position.x).normalized()
 			ball.launch(normal * 300 * (-1 * sign(rotation_speed)))
 
-var inner_incline_strength : float = 600
+var inner_incline_strength : float = 800
 var inner_incline_radius : int = inner_circle_radius
 var cell_radius_end : int = cell_circle_radius
 var cell_bank_incline_strength : float = 100
@@ -339,7 +370,7 @@ func give_balls_angular_velocity(_delta: float):
 	for ball : RouletteBall in balls:
 		var ball_to_mid = ball.position
 		if ball_to_mid.length() <= cell_circle_radius - ball.ball_radius:
-			ball.apply_central_impulse(-1 * sign(rotation_speed) * ball_to_mid.normalized().orthogonal() * 5 * rotation_speed * _delta)
+			ball.apply_central_impulse(-1 * sign(rotation_speed) * ball_to_mid.normalized().orthogonal() * rotation_speed * _delta)
 
 func simulate_inclines(_delta : float):
 	for ball : RouletteBall in balls:

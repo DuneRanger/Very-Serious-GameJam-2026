@@ -8,7 +8,8 @@ var new_cell : RouletteCell
 
 func make_cell():
 	var cell_num = randf_range(1, 24)
-	new_cell = RouletteCell.new(cell_num, Color.RED, 1.0)
+	var colour = Color.RED if randi() % 2 else Color.BLACK
+	new_cell = RouletteCell.new(cell_num, colour, GameManagerGlobal.base_cell_weight)
 
 func get_cost() -> int:
 	return cost
@@ -27,4 +28,5 @@ func get_description() -> String:
 	return description
 
 func apply_effect() -> void:
-	print("But imagine it worked no")
+	GameManagerGlobal.cells.append(new_cell)
+	GameManagerGlobal.commit_cell_change.emit()

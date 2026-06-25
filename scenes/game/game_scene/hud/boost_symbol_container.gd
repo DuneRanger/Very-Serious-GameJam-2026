@@ -43,3 +43,13 @@ func _on_boosts_count_change() -> void:
 			new_boost_symbol.boost_idle_anim()
 		
 	#GameManagerGlobal.modify_boost_left(GameManagerGlobal.boost_count)
+
+func refill_boosts():
+	GameManagerGlobal.modify_boost_left(min (GameManagerGlobal.boost_count, GameManagerGlobal.boosts_left + 1))
+	$RefillTimer.start()
+	
+
+func _on_refill_timer_timeout() -> void:
+	$RefillTimer.stop()
+	if (GameManagerGlobal.boost_count != GameManagerGlobal.boosts_left):
+		refill_boosts()

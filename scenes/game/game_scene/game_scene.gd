@@ -3,6 +3,8 @@ extends Node2D
 class_name GameScene
 
 func _ready() -> void:
+	GameManagerGlobal.round_count = 0
+	round_start()
 	GameManagerGlobal.signal_send_error_message.connect(_on_send_error_message)
 	GameManagerGlobal.signal_state_change.connect(_on_new_state)
 	GameManagerGlobal.signal_modify_money.connect(edit_money)
@@ -25,8 +27,7 @@ func _process(_delta: float) -> void:
 		GameManagerGlobal.modify_boost_left(min (GameManagerGlobal.boost_count, GameManagerGlobal.boosts_left + 1))
 	if Input.is_action_just_pressed("add_ball"):
 		#GameManagerGlobal.modify_spins_left(min (GameManagerGlobal.spin_count, GameManagerGlobal.spins_left + 1))
-		pick_quota_message()
-		GameManagerGlobal.signal_quota_message.emit()
+		round_start()
 
 func does_bet_win(bet_id : int) -> bool:
 	var bet_type : GameEnums.bet_types = $Table/BettingSystem.get_bet_type(bet_id)
@@ -129,6 +130,15 @@ func _on_new_state():
 			$Table/BettingSystem.clear_bets()
 		_:
 			pass
+
+func round_start():
+	pick_quota_message()
+	GameManagerGlobal.round_count += 1
+	GameManagerGlobal.signal_round_start.emit()
+	$HUD/SpinSymbolContainer.refill_spins()
+	$HUD/BoostSymbolContainer.refill_boosts()
+
+
 
 func pick_quota_message():
 	var previous_quota_msg = GameManagerGlobal.current_quota_message

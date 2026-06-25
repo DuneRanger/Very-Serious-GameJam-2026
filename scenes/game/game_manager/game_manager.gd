@@ -45,6 +45,7 @@ signal signal_state_change (amount : int)
 signal signal_send_error_message(message : String)
 
 signal signal_buy_item (id : int)
+signal commit_cell_change ()
 
 signal signal_shop_start_hover (id : int)
 signal signal_shop_stop_hover ()
@@ -62,6 +63,7 @@ func game_start():
 	mr_cat_swag = false
 	GameManagerGlobal.modify_game_state(GameEnums.game_states.BET_PHASE)
 	signal_game_start.emit()
+signal signal_round_start
 
 const base_cell_weight : float = 1.0
 
@@ -79,7 +81,7 @@ var quota_messages : Array[String] = [
 	"car repairs",
 	"a lifesaving operation",
 	"your fiancées ring",
-	"bitches", #TODO delete this 
+	"a haircut",
 ]
 
 func modify_boost_count (amount : int):
