@@ -18,7 +18,6 @@ var all_common_offered_items : Array[String] = [
 
 var all_rare_offered_items : Array[String] = [
 	"res://scenes/game/shop_scene/items/dynamite.gd",
-	"res://scenes/game/shop_scene/items/gigaburger.gd"
 	"res://scenes/game/shop_scene/items/gigaburger.gd",
 	"res://scenes/game/shop_scene/items/catnip.gd"
 ]
