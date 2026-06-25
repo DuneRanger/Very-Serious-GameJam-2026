@@ -17,7 +17,7 @@ func get_image_path() -> String:
 
 func _init() -> void:
 	select_target_cell()
-	description = "Paints a " + str(target_cell.colour) + " " + str(target_cell.number) + " red."
+	description = "Paints a " + str(target_cell) + " to red."
 	return
 
 func get_name() -> String:
