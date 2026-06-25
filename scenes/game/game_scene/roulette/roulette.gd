@@ -242,7 +242,7 @@ func _process(_delta: float):
 var bank_radius_pos : float = cell_circle_radius * 0.8
 var bank_catch_characteristic_speed : float = 100.0
 var bank_catch_sharpness : float = 1.5
-var bank_trigger_radius : float = 45
+var bank_width : float = 90
 
 func build_banks():
 	var base_cell_angle = 2 * PI / total_weight
@@ -253,7 +253,7 @@ func build_banks():
 		var mid_angle = cur_angle + cur_cell_angle / 2 - PI / 2
 		var bank_position = Vector2(cos(mid_angle), sin(mid_angle)) * bank_radius_pos
 
-		var bank = RouletteBank.new(cell, cur_cell_angle, bank_position, 90)
+		var bank = RouletteBank.new(cell, cur_cell_angle, bank_position, bank_width)
 		bank.catch_characteristic_speed = bank_catch_characteristic_speed
 		bank.catch_sharpness = bank_catch_sharpness
 		cell.bank = bank
@@ -322,7 +322,7 @@ var inner_incline_strength : float = 600
 var inner_incline_radius : int = inner_circle_radius
 var cell_radius_end : int = cell_circle_radius
 var cell_bank_incline_strength : float = 100
-var outer_incline_radius : int = bank_radius_pos + bank_trigger_radius
+var outer_incline_radius : int = bank_radius_pos + bank_width
 var outer_incline_strength : float = 800
 
 func give_balls_angular_velocity(_delta: float):
@@ -344,7 +344,7 @@ func simulate_inclines(_delta : float):
 			ball.apply_central_impulse(ball_to_mid.normalized() * cell_bank_incline_strength * _delta)
 		elif ball_rad >= outer_circle_radius - ball.ball_radius:
 			ball.apply_central_impulse(-ball_to_mid.normalized() * outer_incline_strength * _delta)
-		elif ball_rad >= outer_incline_radius + ball.ball_radius:
+		elif ball_rad >= outer_incline_radius - ball.ball_radius / 2:
 			ball.apply_central_impulse(-ball_to_mid.normalized() * 2 * outer_incline_strength * _delta)
 	
 func apply_boost(amount : float):
