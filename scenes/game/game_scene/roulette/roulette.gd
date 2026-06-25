@@ -7,7 +7,7 @@ static func get_random_vector2(size: float) -> Vector2:
 
 static func get_random_roulette_rot() -> float:
 	var rot = 0.0
-	while abs(rot) < 0.03 : rot = randf_range(-0.04, 0.04)
+	while abs(rot) < 0.02 : rot = randf_range(-0.03, 0.03)
 	return rot
 
 # -------------------------------- Initial values --------------------------------
@@ -127,7 +127,7 @@ func draw_cells():
 	draw_set_transform(Vector2(0, 0), 0)
 
 func prepare_textures():
-	var scale = Vector2(1, 1) * inner_circle_radius / 75
+	var scale = Vector2(1, 1) * (inner_circle_radius + 4) / 75
 	print(scale)
 	$inner_wheel_sprite.apply_scale(scale)
 
@@ -232,7 +232,7 @@ func _physics_process(_delta: float):
 						#text += str(round(ball.get_speed())) + str(ball.caught_cell != null) + ", "
 				#print(text)
 		GameEnums.game_states.STOP_PHASE:
-			rotate_roulette()
+			if GameManagerGlobal.applying_boost: rotate_roulette()
 		GameEnums.game_states.BET_PHASE:
 			#if reset: full_reset()
 			if reset: add_ball()
@@ -356,7 +356,7 @@ func simulate_inclines(_delta : float):
 	
 func apply_boost(amount : float):
 	print("called apply boost with ", amount)
-	rotation_speed += 0.01 * amount
+	rotation_speed = 0.01 * sqrt(amount)
 	for ball : RouletteBall in balls:
 		ball.settled = false
 		ball.apply_central_impulse(-ball.position.rotated(randf_range(-0.3, 0.3)) * amount)
