@@ -36,6 +36,11 @@ signal signal_send_error_message(message : String)
 
 signal signal_buy_item (id : int)
 
+signal signal_shop_start_hover (id : int)
+signal signal_shop_stop_hover ()
+
+signal signal_mr_cat_swag
+
 const base_cell_weight : float = 1.0
 
 func modify_boost_count (amount : int):

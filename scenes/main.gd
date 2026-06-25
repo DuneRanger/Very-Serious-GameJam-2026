@@ -26,6 +26,7 @@ func _ready() -> void:
 	
 	GameManagerGlobal.current_showed_scene = GameEnums.switching_scenes.MAIN_MENU_SCENE
 	current_scene = main_menu_scene
+	add_child(main_menu_scene)
 	GameManagerGlobal.signal_switch_scene.connect(scene_switch)
 
 func new_game():

@@ -55,11 +55,25 @@ offset_bottom = -104.0
 theme_override_constants/separation = 64
 
 [node name="FuckingAwesomeRefreshButton" type="Button" parent="." unique_id=1644342408]
-offset_left = -192.0
-offset_top = 64.0
-offset_right = -64.0
-offset_bottom = 128.0
+offset_left = -200.0
+offset_top = -344.0
+offset_right = -24.0
+offset_bottom = -280.0
 text = "refresh"
+
+[node name="DescriptionLabel" type="RichTextLabel" parent="." unique_id=392925174]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -616.0
+offset_top = -88.0
+offset_right = -128.0
+offset_bottom = 232.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 32
 
 [connection signal="button_down" from="GameButton" to="MrCat" method="_on_game_button_button_down"]
 [connection signal="button_down" from="FuckingAwesomeRefreshButton" to="." method="_on_fucking_awesome_refresh_button_button_down"]

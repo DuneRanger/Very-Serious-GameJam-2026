@@ -23,4 +23,4 @@ func get_description() -> String:
 	return description
 
 func apply_effect() -> void:
-	GameManagerGlobal.mr_cat_swag = true
+	GameManagerGlobal.signal_mr_cat_swag.emit()

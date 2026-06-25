@@ -10,5 +10,3 @@ script = ExtResource("1_o5qli")
 main_menu_scene_preloaded = ExtResource("4_jyhfs")
 game_scene_preloaded = ExtResource("2_sugp2")
 shop_scene_preloaded = ExtResource("3_jyhfs")
-
-[node name="MainMenu" parent="." unique_id=1434438599 instance=ExtResource("4_jyhfs")]
