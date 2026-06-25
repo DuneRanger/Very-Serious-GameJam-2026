@@ -39,22 +39,24 @@ signal signal_buy_item (id : int)
 const base_cell_weight : float = 1.0
 
 func modify_boost_count (amount : int):
-	print("modifiing", boost_count, amount)
+	#print("modifiing", boost_count, amount)
 	boost_count = amount
+	#if current_showed_scene == GameEnums.switching_scenes.GAME_SCENE:
 	signal_boost_count_change.emit()
 
 func modify_boost_left (amount : int):
-	print("modifiing", boosts_left, amount)
+	#print("modifiing", boosts_left, amount)
 	boosts_left = amount
+	#if current_showed_scene == GameEnums.switching_scenes.GAME_SCENE:
 	signal_boosts_left_change.emit()
 	
 func modify_spin_count (amount : int):
-	print("modifiing", spin_count, amount)
+	#print("modifiing", spin_count, amount)
 	spin_count = amount
 	signal_spin_count_change.emit()
 
 func modify_spins_left (amount : int):
-	print("modifiing", spins_left, amount)
+	#print("modifiing", spins_left, amount)
 	spins_left = amount
 	signal_spins_left_change.emit()
 
