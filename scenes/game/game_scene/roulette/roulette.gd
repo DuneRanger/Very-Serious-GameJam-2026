@@ -94,7 +94,6 @@ func update_total_weight():
 
 var inner_circle_radius : int = 350
 var inner_circle_colour : Color = Color.SADDLE_BROWN
-#var inner_circle_texture : Sprite2D = load("res://assets/textures/test.png")
 var cell_circle_radius : int = 500
 var outer_circle_radius : int = 700
 var outer_circle_colour : Color = Color.DARK_RED
@@ -135,9 +134,14 @@ func draw_cells():
 
 	draw_set_transform(Vector2(0, 0), 0)
 
+func rebuild_banks():
+	for child in get_children():
+		if child is RouletteBank:
+			remove_child(child)
+	build_banks()
+
 func prepare_textures():
-	var scale = Vector2(1, 1) * (inner_circle_radius + 4) / 75
-	print(scale)
+	var scale = Vector2(1, 1) * (inner_circle_radius + 2) / 75
 	$inner_wheel_sprite.apply_scale(scale)
 
 func draw_centre():
@@ -151,6 +155,16 @@ func _draw():
 	draw_cells()
 	draw_centre()
 	move_banks()
+
+func modify_cell_weight(idx: int, change: float):
+	cells[idx].weight += change
+	total_weight += change
+	rebuild_banks()
+
+# Calls the required functions to for a cell.weight change to actually occur
+func commit_cell_mod():
+	update_total_weight()
+	rebuild_banks()
 
 # -------------------------------- Physics --------------------------------
 
@@ -227,7 +241,6 @@ func _physics_process(_delta: float):
 	simulate_inclines(_delta)
 	decay_rotation(_delta)
 	rescue_orphaned_balls()
-	queue_redraw()
 	match (GameManagerGlobal.game_state):
 		GameEnums.game_states.SPIN_PHASE:
 			reset = true
@@ -244,12 +257,6 @@ func _physics_process(_delta: float):
 				GameManagerGlobal.caughtCells = temp
 				GameManagerGlobal.modify_game_state(GameEnums.game_states.STOP_PHASE)
 				fast_decay = false
-			#else:
-				#var text = ""
-				#for ball in balls:
-					#if ball.settled == false:
-						#text += str(round(ball.get_speed())) + str(ball.caught_cell != null) + ", "
-				#print(text)
 		GameEnums.game_states.STOP_PHASE:
 			if GameManagerGlobal.applying_boost: rotate_roulette(_delta)
 		GameEnums.game_states.BET_PHASE:
@@ -261,7 +268,7 @@ func _physics_process(_delta: float):
 			pass
 
 func _process(_delta: float):
-	pass
+	queue_redraw()
 
 # -------------------------------- Banks --------------------------------
 
