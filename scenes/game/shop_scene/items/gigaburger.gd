@@ -14,7 +14,7 @@ func get_image_path() -> String:
 
 func _init() -> void:
 	target_colour = Color.RED if randi() % 2 else Color.BLACK
-	description = "Increase the weight of all " + ("red" if target_colour == Color.RED else "black") + " pockets by one"
+	description = "Increase the weight of all " + ("red" if target_colour == Color.RED else "black") + " pockets by one\n"
 	return
 
 func get_name() -> String:

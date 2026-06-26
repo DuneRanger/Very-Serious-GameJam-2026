@@ -8,7 +8,7 @@ func _ready() -> void:
 	GameManagerGlobal.signal_send_error_message.connect(_on_send_error_message)
 	GameManagerGlobal.signal_state_change.connect(_on_new_state)
 	GameManagerGlobal.signal_modify_money.connect(edit_money)
-	GameManagerGlobal.signal_modify_rubys.connect(edit_rubys)
+	GameManagerGlobal.signal_modify_rubies.connect(edit_rubies)
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("stop_roullete"):
@@ -22,12 +22,20 @@ func _process(_delta: float) -> void:
 	
 	#Debugging temporary calls
 	if Input.is_action_just_pressed("boost_add"):
-		GameManagerGlobal.modify_boost_left(max (0, GameManagerGlobal.boosts_left - 1))
-	if Input.is_action_just_pressed("boost_del"):
 		GameManagerGlobal.modify_boost_left(min (GameManagerGlobal.boost_count, GameManagerGlobal.boosts_left + 1))
+	if Input.is_action_just_pressed("boost_del"):
+		GameManagerGlobal.modify_boost_left(max (0, GameManagerGlobal.boosts_left - 1))
 	if Input.is_action_just_pressed("add_ball"):
-		#GameManagerGlobal.modify_spins_left(min (GameManagerGlobal.spin_count, GameManagerGlobal.spins_left + 1))
+		GameManagerGlobal.modify_spins_left(min (GameManagerGlobal.spin_count, GameManagerGlobal.spins_left + 1))
+	if Input.is_action_just_pressed("remove_ball"):
+		GameManagerGlobal.modify_spins_left(max (0, GameManagerGlobal.spins_left - 1))
+	if Input.is_action_just_pressed("story_advance"):
 		round_start()
+	if Input.is_action_just_pressed("add_ball_max"):
+		GameManagerGlobal.modify_spin_count(GameManagerGlobal.spin_count + 1)
+	if Input.is_action_just_pressed("remove_ball_max"):
+		GameManagerGlobal.modify_spin_count(max (0, GameManagerGlobal.spin_count - 1))
+	
 
 func does_bet_win(bet_id : int) -> bool:
 	var bet_type : GameEnums.bet_types = $Table/BettingSystem.get_bet_type(bet_id)
@@ -102,8 +110,8 @@ func _on_send_error_message(message : String):
 func edit_money():
 	$HUD/CoinLabel/Label.text = str(GameManagerGlobal.money)
 	
-func edit_rubys():
-	$HUD/RubyLabel/Label.text = str(GameManagerGlobal.rubys)
+func edit_rubies():
+	$HUD/RubyLabel/Label.text = str(GameManagerGlobal.rubies)
 
 func _on_new_state():
 	print("Current state " + GameEnums.game_state_str(GameManagerGlobal.game_state))
@@ -126,8 +134,8 @@ func _on_new_state():
 		GameEnums.game_states.BET_PHASE:
 			$Table/Roulette.stop_roulette()
 			var money_won = get_full_bet_win()
-			GameManagerGlobal.modify_money(money_won)
 			$Table/BettingSystem.clear_bets()
+			GameManagerGlobal.modify_money(money_won)
 		_:
 			pass
 

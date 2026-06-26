@@ -3,7 +3,7 @@ class_name red_ink extends ShopItem
 var cost : int = 3
 var image_path : String = "res://assets/textures/items/item_red_ink.png"
 var name : String ="Red Ink"
-var description : String = "Paint two black pockets red"
+var description : String = "Paint two black pockets red\n\n"
 
 func get_cost() -> int:
 	return cost
