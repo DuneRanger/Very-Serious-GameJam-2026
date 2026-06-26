@@ -8,8 +8,11 @@ func _ready() -> void:
 	round_start()
 	GameManagerGlobal.signal_send_error_message.connect(_on_send_error_message)
 	GameManagerGlobal.signal_state_change.connect(_on_new_state)
-	GameManagerGlobal.signal_modify_money.connect(edit_money)
-	GameManagerGlobal.signal_modify_rubies.connect(edit_rubies)
+	
+	GameManagerGlobal.signal_modify_money.connect(modify_money)
+	GameManagerGlobal.signal_modify_rubies.connect(modify_rubies)
+	GameManagerGlobal.signal_add_money.connect(add_money)
+	GameManagerGlobal.signal_add_rubies.connect(add_rubies)
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("stop_roullete"):
@@ -108,11 +111,19 @@ func _on_send_error_message(message : String):
 	$HUD/ErrorMessage.put_content(message)
 	$HUD/ErrorMessage.restart_anim()
 
-func edit_money():
-	$HUD/CoinLabel/Label.text = str(GameManagerGlobal.money)
+func modify_money():
+	$HUD/CoinLabel.set_value(GameManagerGlobal.money)
 	
-func edit_rubies():
-	$HUD/RubyLabel/Label.text = str(GameManagerGlobal.rubies)
+func modify_rubies():
+	$HUD/RubyLabel.set_value(GameManagerGlobal.rubies)
+	
+func add_money(amount : int):
+	$HUD/CoinLabel.set_value(GameManagerGlobal.money)
+	$HUD/CoinLabel.set_diff(amount)
+	
+func add_rubies(amount : int):
+	$HUD/RubyLabel.set_value(GameManagerGlobal.rubies)
+	$HUD/RubyLabel.set_diff(amount)
 
 func _on_new_state():
 	print("Current state " + GameEnums.game_state_str(GameManagerGlobal.game_state))
@@ -133,6 +144,7 @@ func _on_new_state():
 			#$Table/Roulette.spin_roulette()
 			#GameManagerGlobal.game_state = GameEnums.game_states.SPIN_PHASE
 		GameEnums.game_states.BET_PHASE:
+			print("\n\n\n\n\n\n\n\n\n")
 			$Table/Roulette.stop_roulette()
 			var money_won = get_full_bet_win()
 			#play SFX
@@ -141,7 +153,8 @@ func _on_new_state():
 			else:
 				SfxManager.play_SFX("res://assets/SFX/accept_profit.ogg")
 			$Table/BettingSystem.clear_bets()
-			GameManagerGlobal.modify_money(money_won)
+			if GameManagerGlobal.spins_left != GameManagerGlobal.spin_count:
+				GameManagerGlobal.add_money(money_won)
 		_:
 			pass
 
@@ -151,8 +164,6 @@ func round_start():
 	GameManagerGlobal.signal_round_start.emit()
 	$HUD/SpinSymbolContainer.refill_spins()
 	$HUD/BoostSymbolContainer.refill_boosts()
-
-
 
 func pick_quota_message():
 	var previous_quota_msg = GameManagerGlobal.current_quota_message

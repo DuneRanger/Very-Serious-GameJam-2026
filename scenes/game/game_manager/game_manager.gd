@@ -41,6 +41,10 @@ signal signal_boosts_left_change (amount : int)
 
 signal signal_modify_money (amount : int)
 signal signal_modify_rubies (amount : int)
+
+signal signal_add_money(amount : int)
+signal signal_add_rubies(amount : int)
+
 signal signal_state_change (amount : int)
 signal signal_send_error_message(message : String)
 
@@ -67,12 +71,13 @@ func game_start():
 	GameManagerGlobal.modify_spins_left(3)
 	mr_cat_swag = false
 	GameManagerGlobal.modify_game_state(GameEnums.game_states.BET_PHASE)
-	signal_game_start.emit()
 	
 	shop_max_spin_change = false
 	shop_left_spin_change = false
 	shop_max_boost_change = false
 	shop_left_boost_change = false
+	
+	signal_game_start.emit()
 	
 signal signal_round_start
 
@@ -130,12 +135,20 @@ func modify_game_state (new_state : GameEnums.game_states):
 	signal_state_change.emit()
 
 func modify_money (amount : int):
-	money += amount
+	money = amount
 	signal_modify_money.emit()
 
 func modify_rubies (amount : int):
-	rubies += amount
+	rubies = amount
 	signal_modify_rubies.emit()
+
+func add_money (amount : int):
+	money += amount
+	signal_add_money.emit(amount)
+
+func add_rubies (amount : int):
+	rubies += amount
+	signal_add_rubies.emit(amount)
 
 func check_shop_change():
 	if shop_max_spin_change:

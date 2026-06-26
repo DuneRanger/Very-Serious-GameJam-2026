@@ -2,6 +2,7 @@ extends Button
 
 func _ready() -> void:
 	GameManagerGlobal.signal_state_change.connect(check_state_validity)
+	GameManagerGlobal.signal_add_money.connect(check_bet_validity)
 	GameManagerGlobal.signal_modify_money.connect(check_bet_validity)
 	pass
 
@@ -9,10 +10,12 @@ func check_state_validity() -> void:
 	if GameManagerGlobal.game_state == GameEnums.game_states.BET_PHASE:
 		visible = true
 
-func check_bet_validity() -> void:
+func check_bet_validity(_arg = 0) -> void:
+	print("Checking validity")
 	for bet_idx in GameManagerGlobal.bets:
 		if GameManagerGlobal.bets[bet_idx] > 0:
 			disabled = false
+			text = "SPIN!"
 			return
 	disabled = true
 	text = "Place\n a bet!"
