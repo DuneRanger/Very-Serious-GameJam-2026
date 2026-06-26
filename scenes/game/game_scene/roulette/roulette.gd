@@ -55,7 +55,6 @@ func _init():
 		print(cell)
 		print(str(cell))
 
-	randomize_weights()
 	update_total_weight()
 
 func _ready():
@@ -266,10 +265,8 @@ func _physics_process(_delta: float):
 		GameEnums.game_states.STOP_PHASE:
 			if GameManagerGlobal.applying_boost: rotate_roulette(_delta)
 		GameEnums.game_states.BET_PHASE:
-			#if reset: full_reset()
-			if reset: add_ball()
-			reset = false
-			pass
+			if reset:
+				reset = false
 		_:
 			pass
 
