@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://cqwd5xducgdsl"]
 
 [ext_resource type="PackedScene" uid="uid://dcu31p6twmdit" path="res://scenes/game/utils/ErrorMessage.tscn" id="1_8fe00"]
-[ext_resource type="PackedScene" uid="uid://cxo23rckbhjbo" path="res://scenes/game/ui_elements/AwesomeLabel.tscn" id="2_qkhxd"]
+[ext_resource type="PackedScene" uid="uid://cxo23rckbhjbo" path="res://scenes/game/UI_elements/AwesomeLabel.tscn" id="2_qkhxd"]
 [ext_resource type="PackedScene" uid="uid://b8s6w1lbfa62g" path="res://scenes/game/UI_elements/animated_sprites/money_animated_sprite.tscn" id="3_0qbnv"]
 [ext_resource type="Script" uid="uid://yvvimemjf8nl" path="res://scenes/game/game_scene/hud/boost_symbol_container.gd" id="5_0qbnv"]
 [ext_resource type="PackedScene" uid="uid://djtfrov4iqbnm" path="res://scenes/game/UI_elements/animated_sprites/ruby_animated_sprite.tscn" id="5_3l4lp"]
 [ext_resource type="Script" uid="uid://co80ugwq1sply" path="res://scenes/game/game_scene/hud/spin_symbol_container.gd" id="6_3l4lp"]
 [ext_resource type="Texture2D" uid="uid://8mirpd64vb34" path="res://assets/textures/UI/ShopButton1.png" id="7_f4el6"]
 [ext_resource type="Script" uid="uid://dotgt4vplgp3m" path="res://scenes/game/game_scene/hud/shop_button.gd" id="7_sbgnr"]
-[ext_resource type="PackedScene" uid="uid://5vg4c83ob4lc" path="res://scenes/game/ui_elements/menu_button.tscn" id="8_hwqol"]
+[ext_resource type="PackedScene" uid="uid://5vg4c83ob4lc" path="res://scenes/game/UI_elements/menu_button.tscn" id="8_hwqol"]
 [ext_resource type="Texture2D" uid="uid://cspmm8d23xl02" path="res://assets/textures/UI/ShopButtonClick.png" id="8_la7ma"]
 [ext_resource type="Texture2D" uid="uid://d3wtdve7esxcb" path="res://assets/textures/UI/ShopButtonHover.png" id="9_vy1w6"]
 [ext_resource type="Script" uid="uid://ecrf73k4pky8" path="res://scenes/game/game_scene/hud/quota_label.gd" id="13_vy1w6"]
@@ -16,12 +16,12 @@
 [ext_resource type="Script" uid="uid://claufn611f2p4" path="res://scenes/game/game_scene/hud/round_start_animations.gd" id="14_ag5u3"]
 [ext_resource type="Texture2D" uid="uid://bn08ytmdst6va" path="res://assets/textures/symbols/money_sprite_sheet.png" id="15_ag5u3"]
 [ext_resource type="FontFile" uid="uid://btfhjobeerona" path="res://assets/fonts/PixeloidSans.otf" id="15_c6has"]
-[ext_resource type="PackedScene" uid="uid://b6tmlqqi73e1i" path="res://scenes/game/death_screen/death_screen.tscn" id="17_niiyn"]
 [ext_resource type="Texture2D" uid="uid://d1ydk111unfdr" path="res://assets/textures/UI/spinButtonNormal.png" id="17_niiyn"]
 [ext_resource type="Texture2D" uid="uid://deatfdjnlmpyr" path="res://assets/textures/UI/spinButtonPressed.png" id="18_thqaq"]
 [ext_resource type="Texture2D" uid="uid://soqgmjnshia6" path="res://assets/textures/UI/spinButtonHover.png" id="19_hlngw"]
 [ext_resource type="Texture2D" uid="uid://cw4woinwf7xbd" path="res://assets/textures/UI/spinButtonOff.png" id="20_o58sx"]
 [ext_resource type="Script" uid="uid://cibpkppa3lx3b" path="res://scenes/game/game_scene/hud/spin_button.gd" id="21_hlngw"]
+[ext_resource type="PackedScene" uid="uid://b6tmlqqi73e1i" path="res://scenes/game/death_screen/death_screen.tscn" id="22_o58sx"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4sguu"]
 texture = ExtResource("7_f4el6")
@@ -552,7 +552,6 @@ libraries/ = SubResource("AnimationLibrary_niiyn")
 
 [node name="SFXTimer" type="Timer" parent="RoundStartAnimations" unique_id=1561373209]
 
-[node name="DeathScreen" parent="." unique_id=1190848615 instance=ExtResource("17_niiyn")]
 [node name="SpinButton" type="Button" parent="." unique_id=701434672]
 offset_left = 860.0
 offset_top = 296.0
@@ -574,6 +573,8 @@ script = ExtResource("21_hlngw")
 
 [node name="Timer" type="Timer" parent="SpinButton" unique_id=739194610]
 wait_time = 0.3
+
+[node name="DeathScreen" parent="." unique_id=1190848615 instance=ExtResource("22_o58sx")]
 
 [connection signal="timeout" from="SpinSymbolContainer/RefillTimer" to="SpinSymbolContainer" method="_on_refill_timer_timeout"]
 [connection signal="timeout" from="BoostSymbolContainer/RefillTimer" to="BoostSymbolContainer" method="_on_refill_timer_timeout"]
