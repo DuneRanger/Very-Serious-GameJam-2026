@@ -81,15 +81,17 @@ func does_bet_win(bet_id : int) -> bool:
 
 func get_bet_coeff(bet_id : int) -> float:
 	var bet_type = $Table/BettingSystem.get_bet_type(bet_id)
+	var base_coeff
 	match bet_type:
 		GameEnums.bet_types.NUMBER:
-			return GameManagerGlobal.single_bet_coeff
+			base_coeff = GameManagerGlobal.single_bet_coeff
 		GameEnums.bet_types.THIRD:
-			return GameManagerGlobal.third_bet_coeff
+			base_coeff = GameManagerGlobal.third_bet_coeff
 		GameEnums.bet_types.HALF:
-			return GameManagerGlobal.half_bet_coeff
+			base_coeff = GameManagerGlobal.half_bet_coeff
 		_:
-			return 0.0
+			base_coeff = 0.0
+	return base_coeff * GameManagerGlobal.bet_id_multipliers[bet_id]
 
 func get_full_bet_win() -> int:
 	var value = 0

@@ -58,6 +58,8 @@ var shop_left_spin_change : bool
 var shop_max_boost_change : bool
 var shop_left_boost_change : bool
 
+var bet_id_multipliers : Array[float] = []
+
 func game_start():
 	GameManagerGlobal.modify_money(100)
 	GameManagerGlobal.modify_rubies(100)
@@ -73,6 +75,9 @@ func game_start():
 	shop_left_spin_change = false
 	shop_max_boost_change = false
 	shop_left_boost_change = false
+	
+	for i in range(GameEnums.bet_button_count):
+		bet_id_multipliers.append(1.0)
 	
 signal signal_round_start
 
