@@ -19,7 +19,7 @@ func get_image_path() -> String:
 
 func _init() -> void:
 	make_cell()
-	description = "Adds a " + str(new_cell) + " the roullete."
+	description = "Adds a %s the roullete.\n\n" %str(new_cell)
 
 func get_name() -> String:
 	return name
@@ -28,7 +28,7 @@ func get_description() -> String:
 	return description
 
 func apply_effect() -> void:
-	GameManagerGlobal.cells.append(new_cell)
+	GameManagerGlobal.cells.append(2)
 	GameManagerGlobal.commit_cell_change.emit()
 
 func is_valid(already_made_items : Array[ShopItem]) -> bool:

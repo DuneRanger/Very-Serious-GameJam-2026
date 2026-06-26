@@ -172,33 +172,43 @@ func new_bet(b_id : int) -> void:
 	if GameManagerGlobal.game_state != GameEnums.game_states.BET_PHASE:
 		return
 	var b = buttons[b_id]
-	var current_increment = GameManagerGlobal.bet_increment
-	if GameManagerGlobal.bet_is_adding == false || Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
-		current_increment *= -1
+	
+	var old_bet = GameManagerGlobal.bets.get(b_id, 0)
+	
+	var is_bet_adding = not (GameManagerGlobal.bet_is_adding == false || Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT))
+	var is_bet_max = GameManagerGlobal.bet_is_max
+	var bet_amount = GameManagerGlobal.bet_increment
+	
+	if is_bet_adding and is_bet_max:
+		bet_amount = GameManagerGlobal.money
+	elif is_bet_adding:
+		bet_amount = bet_amount
+	elif is_bet_max:
+		bet_amount = - old_bet
+	else:
+		bet_amount = max(-bet_amount, -old_bet)
+	
+	if bet_amount > GameManagerGlobal.money:
+		GameManagerGlobal.signal_send_error_message.emit("Not enough money!")
+		return
+	elif old_bet == 0 and bet_amount <= 0:
+		GameManagerGlobal.signal_send_error_message.emit("Removing money on an empty bet!")
+		return
+	
+	GameManagerGlobal.bets[b_id] = bet_amount + old_bet
+	GameManagerGlobal.add_money(-bet_amount)
+	
+	if bet_amount > 0:
 		SfxManager.play_SFX_pitched("res://assets/SFX/bet_remove.ogg")
 	else:
 		SfxManager.play_SFX_pitched("res://assets/SFX/bet_place.ogg")
 	
-	if current_increment > GameManagerGlobal.money:
-		GameManagerGlobal.signal_send_error_message.emit("Not enough money!")
-		return
-	elif current_increment < 0 and GameManagerGlobal.bets.get(b_id, 0) == 0:
-		GameManagerGlobal.signal_send_error_message.emit("Removing money on an empty bet!")
-		return
-		
-	var old_bet_amount = GameManagerGlobal.bets.get(b_id, 0)
-	var new_bet_amount = max ((old_bet_amount + current_increment), 0)
-	GameManagerGlobal.bets[b_id] = new_bet_amount
-	
-	var bet_difference = old_bet_amount - new_bet_amount
-	GameManagerGlobal.add_money(bet_difference)
-	
 	var l = get_label(b)
 	
-	if new_bet_amount > 0:
+	if GameManagerGlobal.bets[b_id] > 0:
 		if l.get_parent() == null:
 			add_child(l)
-	elif new_bet_amount == 0:
+	else:
 		remove_child(l)
 
 func clear_bets() -> void:

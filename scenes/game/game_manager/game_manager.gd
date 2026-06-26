@@ -26,6 +26,7 @@ var third_bet_coeff : float = 3.0
 
 var bet_increment : int
 var bet_is_adding : bool
+var bet_is_max : bool
 
 var applying_boost : bool = false
 
@@ -62,6 +63,7 @@ signal signal_quota_message
 
 signal signal_increment_change
 signal signal_bet_is_adding_change
+signal signal_bet_max_change
 
 var shop_max_spin_change : bool
 var shop_left_spin_change : bool
@@ -93,8 +95,10 @@ func game_start():
 	
 	bet_increment = 1
 	bet_is_adding = true
-	signal_bet_is_adding_change.emit()
+	bet_is_max = false
 	signal_increment_change.emit()
+	signal_bet_is_adding_change.emit()
+	signal_bet_max_change.emit()
 	
 	for i in range(GameEnums.bet_button_count):
 		bet_id_multipliers.append(1.0)
