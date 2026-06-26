@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://cw4woinwf7xbd" path="res://assets/textures/UI/spinButtonOff.png" id="20_o58sx"]
 [ext_resource type="Script" uid="uid://cibpkppa3lx3b" path="res://scenes/game/game_scene/hud/spin_button.gd" id="21_hlngw"]
 [ext_resource type="PackedScene" uid="uid://b6tmlqqi73e1i" path="res://scenes/game/death_screen/death_screen.tscn" id="22_o58sx"]
+[ext_resource type="PackedScene" uid="uid://2sadqrf23pit" path="res://scenes/game/game_scene/hud/increment_system.tscn" id="23_nlk0o"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4sguu"]
 texture = ExtResource("7_f4el6")
@@ -419,7 +420,7 @@ texture = ExtResource("20_o58sx")
 [node name="HUD" type="CanvasLayer" unique_id=1970834067]
 
 [node name="ErrorMessage" parent="." unique_id=371495968 instance=ExtResource("1_8fe00")]
-position = Vector2(640, 0)
+position = Vector2(640, 40)
 
 [node name="MoneyAnimatedSprite" parent="." unique_id=1016875789 instance=ExtResource("3_0qbnv")]
 position = Vector2(97, 275)
@@ -457,10 +458,10 @@ metadata/_edit_use_anchors_ = true
 wait_time = 0.1
 
 [node name="ShopButton" type="Button" parent="." unique_id=1416432798]
-offset_left = 424.0
-offset_top = 304.0
-offset_right = 552.0
-offset_bottom = 368.0
+offset_left = 576.0
+offset_top = 636.0
+offset_right = 704.0
+offset_bottom = 700.0
 theme_override_styles/normal = SubResource("StyleBoxTexture_4sguu")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_c6has")
 theme_override_styles/hover = SubResource("StyleBoxTexture_ag5u3")
@@ -485,6 +486,7 @@ script = ExtResource("13_vy1w6")
 libraries/ = SubResource("AnimationLibrary_c6has")
 
 [node name="RoundStartAnimations" type="Node2D" parent="." unique_id=314523882]
+visible = false
 script = ExtResource("14_ag5u3")
 
 [node name="DarkenRectangle" type="ColorRect" parent="RoundStartAnimations" unique_id=949702093]
@@ -575,6 +577,9 @@ script = ExtResource("21_hlngw")
 wait_time = 0.3
 
 [node name="DeathScreen" parent="." unique_id=1190848615 instance=ExtResource("22_o58sx")]
+
+[node name="IncrementSystem" parent="." unique_id=914404395 instance=ExtResource("23_nlk0o")]
+position = Vector2(208, 307)
 
 [connection signal="timeout" from="SpinSymbolContainer/RefillTimer" to="SpinSymbolContainer" method="_on_refill_timer_timeout"]
 [connection signal="timeout" from="BoostSymbolContainer/RefillTimer" to="BoostSymbolContainer" method="_on_refill_timer_timeout"]
