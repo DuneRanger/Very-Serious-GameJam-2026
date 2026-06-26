@@ -101,7 +101,7 @@ var inner_circle_radius : int = 350
 var inner_circle_colour : Color = Color.SADDLE_BROWN
 var cell_circle_radius : int = 500
 var outer_circle_radius : int = 600
-var outer_circle_colour : Color = Color.DARK_RED
+var outer_circle_colour : Color = Color.SADDLE_BROWN.blend(Color(0, 0, 0, 0.4))
 
 var visual_rotation : float = 0
 
@@ -146,8 +146,8 @@ func rebuild_banks():
 	build_banks()
 
 func prepare_textures():
-	var _scale = Vector2(1, 1) * (inner_circle_radius + 2) / 75
-	$inner_wheel_sprite.apply_scale(_scale)
+	$inner_wheel_sprite.apply_scale(Vector2(1, 1) * (inner_circle_radius + 2) / 44.2)
+	$roulette_handle_sprite.apply_scale(Vector2(1, 1) * (inner_circle_radius + 2) / 44)
 
 func draw_centre():
 	draw_circle(Vector2(0, 0), inner_circle_radius, inner_circle_colour)
@@ -230,6 +230,7 @@ var settled_frames : int = 0
 func rotate_roulette(_delta : float):
 	visual_rotation += rotation_speed * _delta
 	$inner_wheel_sprite.rotation += rotation_speed * _delta
+	$roulette_handle_sprite.rotation += rotation_speed * _delta
 	
 	move_banks()
 
