@@ -55,7 +55,6 @@ func _init():
 		print(cell)
 		print(str(cell))
 
-	randomize_weights()
 	update_total_weight()
 
 func _ready():
@@ -102,7 +101,7 @@ var inner_circle_radius : int = 350
 var inner_circle_colour : Color = Color.SADDLE_BROWN
 var cell_circle_radius : int = 500
 var outer_circle_radius : int = 600
-var outer_circle_colour : Color = Color.DARK_RED
+var outer_circle_colour : Color = Color.SADDLE_BROWN.blend(Color(0, 0, 0, 0.4))
 
 var visual_rotation : float = 0
 
@@ -147,8 +146,8 @@ func rebuild_banks():
 	build_banks()
 
 func prepare_textures():
-	var _scale = Vector2(1, 1) * (inner_circle_radius + 2) / 75
-	$inner_wheel_sprite.apply_scale(_scale)
+	$inner_wheel_sprite.apply_scale(Vector2(1, 1) * (inner_circle_radius + 2) / 44.2)
+	$roulette_handle_sprite.apply_scale(Vector2(1, 1) * (inner_circle_radius + 2) / 44)
 
 func draw_centre():
 	draw_circle(Vector2(0, 0), inner_circle_radius, inner_circle_colour)
@@ -160,7 +159,6 @@ func _draw():
 	draw_edge()
 	draw_cells()
 	draw_centre()
-	move_banks()
 
 func modify_cell_weight(idx: int, change: float):
 	cells[idx].weight += change
@@ -232,7 +230,10 @@ var settled_frames : int = 0
 func rotate_roulette(_delta : float):
 	visual_rotation += rotation_speed * _delta
 	$inner_wheel_sprite.rotation += rotation_speed * _delta
+	$roulette_handle_sprite.rotation += rotation_speed * _delta
 	
+	move_banks()
+
 	sound_acc_rotation += abs(rotation_speed) * _delta
 	if sound_acc_rotation > sound_play_rotation:
 		sound_acc_rotation -= sound_play_rotation
@@ -255,7 +256,7 @@ func _physics_process(_delta: float):
 			else: settled_frames = 0
 			if settled_frames > 120:
 				fast_decay = true
-			if is_equal_approx(rotation_speed, 0):
+			if is_equal_approx(rotation_speed, 0) and settled_frames > 0:
 				var temp : Array[RouletteCell] = []
 				for ball in balls: temp.append(ball.caught_cell)
 				temp.sort_custom(func(a, b): return a.number < b.number)
@@ -266,10 +267,8 @@ func _physics_process(_delta: float):
 		GameEnums.game_states.STOP_PHASE:
 			if GameManagerGlobal.applying_boost: rotate_roulette(_delta)
 		GameEnums.game_states.BET_PHASE:
-			#if reset: full_reset()
-			if reset: add_ball()
-			reset = false
-			pass
+			if reset:
+				reset = false
 		_:
 			pass
 

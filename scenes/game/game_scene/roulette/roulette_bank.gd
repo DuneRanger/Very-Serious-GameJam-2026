@@ -16,6 +16,8 @@ var wall_skip_min_speed : float = 250.0
 var wall_skip_max_speed : float = 600.0
 var wall_collider_thickness : float = 8.0
 
+var outer_one_way_wall_thickness : float = 5.0
+
 # Holds the colliders (left, right, outer)
 var wall_body : StaticBody2D
 var base_angle : float
@@ -48,7 +50,7 @@ func get_arc_points(center, radius, angle_from, angle_to) -> PackedVector2Array:
 
 
 func _build_outer_one_way_wall(inner_r: float, left_angle: float, right_angle: float) -> void:
-	var wall_thickness = 10.0
+	var wall_thickness = outer_one_way_wall_thickness
 	var outer_r = inner_r + wall_thickness
  
 	var outer_arc = get_arc_points(Vector2.ZERO, outer_r, left_angle, right_angle)
@@ -77,9 +79,9 @@ func _build_outer_one_way_wall(inner_r: float, left_angle: float, right_angle: f
 			rotated_points.append(p.rotated(correction))
  
 		var seg_collider = CollisionShape2D.new()
-		var poly = ConcavePolygonShape2D.new()
+		var poly = ConvexPolygonShape2D.new()
 		seg_collider.name = "Outer collider %s" % str(cell.number, ",", i)
-		poly.segments = rotated_points
+		poly.points = rotated_points
 		seg_collider.shape = poly
 		seg_collider.position = quad_mid
 		seg_collider.rotation = -correction
@@ -165,8 +167,9 @@ func build_colliders(bank_angle: float, radius_center: float, width: float):
 	wall_body.add_child(right_collider)
 
 	#_build_skip_gates(left_angle, right_angle, inner_r, outer_r)
-	var t = acos(RouletteBall.ball_radius * 10)
-	_build_catch_trigger(left_angle + t, right_angle - t, inner_r - RouletteBall.ball_radius / 2, outer_r - RouletteBall.ball_radius / 2)
+	outer_r += collider_visiual_width / 2
+	var t = 0.02
+	_build_catch_trigger(left_angle + t, right_angle - t, inner_r + RouletteBall.ball_radius / 2, outer_r + RouletteBall.ball_radius / 2)
 
 func _init(owner_cell: RouletteCell, bank_angle: float, bank_position: Vector2 = Vector2.ZERO, bank_width: float = 45.0):
 	cell = owner_cell
@@ -246,10 +249,10 @@ func _build_catch_trigger(left_angle: float, right_angle: float, inner_r: float,
 	catch_trigger = Area2D.new()
 	add_child(catch_trigger)
 
-	var pocket_shape = ConcavePolygonShape2D.new()
+	var pocket_shape = ConvexPolygonShape2D.new()
 	var pts = get_arc_points(Vector2.ZERO, outer_r, left_angle, right_angle)
 	pts += get_arc_points(Vector2.ZERO, inner_r, right_angle, left_angle)
-	pocket_shape.segments = pts
+	pocket_shape.points = pts
 
 	var pocket_collider = CollisionShape2D.new()
 	pocket_collider.name = "Catch collider %s" % cell.number
@@ -330,7 +333,7 @@ func _on_body_exited(body: Node):
 	if not (body is RouletteBall): return
 	body = body as RouletteBall
 	if not contains_balls.has(body): return
-	
+
 	contains_balls.erase(body)
 	if body.settled and body.caught_cell == cell:
 		body.settled = false

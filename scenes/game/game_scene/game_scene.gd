@@ -160,8 +160,9 @@ func _on_new_state():
 			pass
 
 func round_start():
-	pick_quota_message()
 	GameManagerGlobal.round_count += 1
+	pick_quota_message()
+	calc_next_quota()
 	GameManagerGlobal.signal_round_start.emit()
 	$HUD/SpinSymbolContainer.refill_spins()
 	$HUD/BoostSymbolContainer.refill_boosts()
@@ -173,6 +174,13 @@ func pick_quota_message():
 		GameManagerGlobal.current_quota_message = new_quota_msg
 	else:
 		pick_quota_message()
+
+func calc_next_quota():
+	var new_quota = float(GameEnums.base_quota_amount) * (1.5 ** (GameManagerGlobal.round_count ** 1.2))
+	if GameManagerGlobal.round_count < 9:
+		GameManagerGlobal.quota = round(new_quota / 10) * 10
+	else:
+		GameManagerGlobal.quota = round(new_quota / 100) * 100
 
 func _on_shop_button_down() -> void:
 	GameManagerGlobal.signal_switch_scene.emit(GameEnums.switching_scenes.SHOP_SCENE)

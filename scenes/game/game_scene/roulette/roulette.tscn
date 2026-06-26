@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://3w7s26bt65ui" path="res://scenes/game/game_scene/roulette/roulette.gd" id="1_33j12"]
 [ext_resource type="Texture2D" uid="uid://c4hitryybqc8g" path="res://assets/textures/test.png" id="2_at72p"]
+[ext_resource type="Texture2D" uid="uid://bdufab0ysldjx" path="res://assets/textures/Roulette handle.png" id="3_1j41y"]
 
 [node name="Roulette" type="Node2D" unique_id=574874280]
 scale = Vector2(0.5, 0.5)
@@ -12,3 +13,7 @@ z_index = 1
 texture = ExtResource("2_at72p")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2136287025]
+
+[node name="roulette_handle_sprite" type="Sprite2D" parent="." unique_id=666114182]
+z_index = 2
+texture = ExtResource("3_1j41y")
