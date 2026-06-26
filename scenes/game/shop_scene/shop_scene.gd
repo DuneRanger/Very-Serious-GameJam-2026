@@ -64,6 +64,8 @@ func _on_buy_item(item_id : int):
 		offered_items[item_id].remove_offer()
 		GameManagerGlobal.modify_rubies(-cost)
 		$MrCat.play_money_anim()
+		$DescriptionLabel.text = ""
+		$DescriptionLabel.visible = false
 	else:
 		$DescriptionLabel.text = "Not Enough Rubies!!!"
 

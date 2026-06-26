@@ -37,7 +37,8 @@ func get_offered_item_text() -> String:
 	return out
 
 func _on_focus_entered() -> void:
-	GameManagerGlobal.signal_shop_start_hover.emit(shop_id)
+	if !is_item_bought:
+		GameManagerGlobal.signal_shop_start_hover.emit(shop_id)
 
 func _on_focus_exited() -> void:
 	GameManagerGlobal.signal_shop_stop_hover.emit()
