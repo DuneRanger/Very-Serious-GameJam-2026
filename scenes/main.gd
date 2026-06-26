@@ -16,7 +16,10 @@ var game_scene
 var shop_scene
 var how_to_play_scene
 
+var first_game = true
+
 func _ready() -> void:
+	GameManagerGlobal.start_new_game = true
 	
 	saved_game = null
 	
@@ -31,14 +34,17 @@ func _ready() -> void:
 	GameManagerGlobal.signal_switch_scene.connect(scene_switch)
 
 func new_game():
-	GameManagerGlobal.start_new_game = true
-	game_scene = game_scene_preloaded.instantiate()
-	shop_scene = shop_scene_preloaded.instantiate()
-	add_child(game_scene)
-	add_child(shop_scene)
+	GameManagerGlobal.start_new_game = false
+	if first_game:
+		game_scene = game_scene_preloaded.instantiate()
+		shop_scene = shop_scene_preloaded.instantiate()
+		add_child(game_scene)
+		add_child(shop_scene)
 	GameManagerGlobal.game_start()
-	remove_child(game_scene)
-	remove_child(shop_scene)
+	if first_game:
+		remove_child(game_scene)
+		remove_child(shop_scene)
+	first_game = false
 	#please dont ask im tired boss
 
 func unparent_current_scene():

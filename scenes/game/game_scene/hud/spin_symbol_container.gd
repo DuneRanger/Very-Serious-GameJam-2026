@@ -9,6 +9,7 @@ func _ready() -> void:
 	GameManagerGlobal.signal_spins_left_change.connect(_on_spins_left_change)
 	GameManagerGlobal.signal_spin_count_change.connect(_on_spins_count_change)
 	old_spins_left = 0
+	GameManagerGlobal.spins_left = 0
 
 func _on_spins_left_change() -> void:
 	print("Changing count of left spins to: ", GameManagerGlobal.spins_left)
