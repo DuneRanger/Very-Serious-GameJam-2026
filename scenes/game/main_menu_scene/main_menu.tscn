@@ -1,18 +1,70 @@
 [gd_scene format=3 uid="uid://0ut17jx42hnf"]
 
 [ext_resource type="Script" uid="uid://b7pbjamyge6wo" path="res://scenes/game/main_menu_scene/main_menu.gd" id="1_p3a2k"]
+[ext_resource type="Texture2D" uid="uid://3wsbtvnctshn" path="res://assets/textures/main_menu.png" id="2_8ocso"]
+[ext_resource type="FontFile" uid="uid://d0mkojug0pvql" path="res://assets/fonts/PixeloidSans-Bold.otf" id="2_w11i7"]
+[ext_resource type="Texture2D" uid="uid://bfew31gwarq5w" path="res://assets/textures/UI/ButtonPressed.png" id="4_cf3fe"]
+[ext_resource type="Texture2D" uid="uid://3y8y1ll5bfcb" path="res://assets/textures/UI/Button2.png" id="4_w11i7"]
+[ext_resource type="Texture2D" uid="uid://wt3wpr6fyrj5" path="res://assets/textures/UI/ButtonHover.png" id="5_sng66"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5khk4"]
+texture = ExtResource("4_w11i7")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jhlmk"]
+texture = ExtResource("4_cf3fe")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j5ied"]
+texture = ExtResource("5_sng66")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w11i7"]
+texture = ExtResource("4_w11i7")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_coahj"]
+texture = ExtResource("4_cf3fe")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cf3fe"]
+texture = ExtResource("5_sng66")
 
 [node name="MainMenu" type="Node2D" unique_id=1434438599]
 script = ExtResource("1_p3a2k")
 
+[node name="Background" type="Sprite2D" parent="." unique_id=1943296414]
+z_index = -10
+position = Vector2(0, -16)
+scale = Vector2(4.0888886, 4.0888886)
+texture = ExtResource("2_8ocso")
+centered = false
+
+[node name="Shadow" type="ColorRect" parent="." unique_id=1779139650]
+offset_left = 835.0
+offset_top = 328.0
+offset_right = 1008.0
+offset_bottom = 424.0
+color = Color(0, 0, 0, 0.32156864)
+
+[node name="Shadow" type="ColorRect" parent="Shadow" unique_id=926018850]
+layout_mode = 0
+offset_left = -16.0
+offset_top = 88.0
+offset_right = 186.0
+offset_bottom = 200.0
+color = Color(0, 0, 0, 0.32156864)
+
 [node name="NewGameButton" type="Button" parent="." unique_id=589256499]
-offset_left = 840.0
-offset_top = 360.0
-offset_right = 1248.0
-offset_bottom = 488.0
-text = "NEW GAME"
+offset_left = 824.0
+offset_top = 424.0
+offset_right = 1016.0
+offset_bottom = 520.0
+theme_override_colors/font_hover_color = Color(0.98039216, 0.76862746, 0, 1)
+theme_override_fonts/font = ExtResource("2_w11i7")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxTexture_5khk4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jhlmk")
+theme_override_styles/hover = SubResource("StyleBoxTexture_j5ied")
+text = "NEW GAME!"
 
 [node name="EpicRect" type="ColorRect" parent="." unique_id=1565200869]
+visible = false
 offset_left = 280.0
 offset_top = 136.0
 offset_right = 544.0
@@ -20,6 +72,7 @@ offset_bottom = 272.0
 color = Color(0.56025434, 0.65292406, 0.9261292, 1)
 
 [node name="Label" type="Label" parent="." unique_id=501622967]
+visible = false
 offset_left = 48.0
 offset_top = 160.0
 offset_right = 1083.0
@@ -28,10 +81,16 @@ theme_override_font_sizes/font_size = 48
 text = "awesome fucking cat gambling fucking game"
 
 [node name="HowToPlayButton" type="Button" parent="." unique_id=981845966]
-offset_left = 880.0
-offset_top = 520.0
-offset_right = 1120.0
-offset_bottom = 616.0
+offset_left = 840.0
+offset_top = 336.0
+offset_right = 1002.0
+offset_bottom = 416.0
+theme_override_colors/font_hover_color = Color(0.98039216, 0.76862746, 0, 1)
+theme_override_fonts/font = ExtResource("2_w11i7")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxTexture_w11i7")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_coahj")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cf3fe")
 text = "HOW TO PLAY"
 
 [connection signal="button_down" from="NewGameButton" to="." method="_on_new_game_button_button_down"]
