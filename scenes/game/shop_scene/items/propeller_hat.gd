@@ -5,7 +5,7 @@ class_name propeller_hat
 var cost : int = 3
 var image_path : String = "res://assets/textures/items/item_propeller_hat.png"
 var name : String = "Propeller Hat"
-var description : String = "Propells you :D\n\n"
+var description : String = "Propells you :D\nIncreases max boosts by one\n"
 
 func get_cost() -> int:
 	return cost

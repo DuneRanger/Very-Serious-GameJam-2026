@@ -33,5 +33,5 @@ func apply_effect() -> void:
 	GameManagerGlobal.commit_cell_change.emit()
 
 func is_valid(already_made_items : Array[ShopItem]) -> bool:
-	var out = GameManagerGlobal.cells.size() < 4
+	var out = GameManagerGlobal.cells.size() > 4
 	return out

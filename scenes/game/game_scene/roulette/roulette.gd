@@ -56,7 +56,6 @@ func _init():
 		print(str(cell))
 
 	randomize_weights()
-	#cells[0].weight = 10
 	update_total_weight()
 
 func _ready():
@@ -102,7 +101,7 @@ func update_total_weight():
 var inner_circle_radius : int = 350
 var inner_circle_colour : Color = Color.SADDLE_BROWN
 var cell_circle_radius : int = 500
-var outer_circle_radius : int = 700
+var outer_circle_radius : int = 600
 var outer_circle_colour : Color = Color.DARK_RED
 
 var visual_rotation : float = 0
@@ -148,8 +147,8 @@ func rebuild_banks():
 	build_banks()
 
 func prepare_textures():
-	var scale = Vector2(1, 1) * (inner_circle_radius + 2) / 75
-	$inner_wheel_sprite.apply_scale(scale)
+	var _scale = Vector2(1, 1) * (inner_circle_radius + 2) / 75
+	$inner_wheel_sprite.apply_scale(_scale)
 
 func draw_centre():
 	draw_circle(Vector2(0, 0), inner_circle_radius, inner_circle_colour)
@@ -356,7 +355,7 @@ func launch_balls():
 		if ball as RouletteBall:
 			ball.z_index = 2
 			var normal = Vector2(-ball.init_position.y, ball.init_position.x).normalized()
-			ball.launch(normal * 300 * (-1 * sign(rotation_speed)))
+			ball.launch(normal * 800 * (-1 * sign(rotation_speed)))
 
 var inner_incline_strength : float = 800
 var inner_incline_radius : int = inner_circle_radius
@@ -386,10 +385,10 @@ func simulate_inclines(_delta : float):
 			ball.apply_central_impulse(-ball_to_mid.normalized() * outer_incline_strength * _delta)
 		elif ball_rad >= outer_incline_radius - ball.ball_radius:
 			ball.apply_central_impulse(-ball_to_mid.normalized() * 2 * outer_incline_strength * _delta)
-	
+
 func apply_boost(amount : float):
 	print("called apply boost with ", amount)
 	rotation_speed = 1.5 * sqrt(amount)
 	for ball : RouletteBall in balls:
 		ball.settled = false
-		ball.apply_central_impulse(-ball.position.rotated(randf_range(-0.3, 0.3)) * amount)
+		ball.apply_central_impulse(-ball.position.rotated(randf_range(-0.3, 0.3)) * 2 * sqrt(amount))

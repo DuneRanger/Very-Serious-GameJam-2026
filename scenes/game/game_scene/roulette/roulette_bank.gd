@@ -77,9 +77,9 @@ func _build_outer_one_way_wall(inner_r: float, left_angle: float, right_angle: f
 			rotated_points.append(p.rotated(correction))
  
 		var seg_collider = CollisionShape2D.new()
-		var poly = ConvexPolygonShape2D.new()
+		var poly = ConcavePolygonShape2D.new()
 		seg_collider.name = "Outer collider %s" % str(cell.number, ",", i)
-		poly.points = rotated_points
+		poly.segments = rotated_points
 		seg_collider.shape = poly
 		seg_collider.position = quad_mid
 		seg_collider.rotation = -correction
@@ -246,10 +246,10 @@ func _build_catch_trigger(left_angle: float, right_angle: float, inner_r: float,
 	catch_trigger = Area2D.new()
 	add_child(catch_trigger)
 
-	var pocket_shape = ConvexPolygonShape2D.new()
+	var pocket_shape = ConcavePolygonShape2D.new()
 	var pts = get_arc_points(Vector2.ZERO, outer_r, left_angle, right_angle)
 	pts += get_arc_points(Vector2.ZERO, inner_r, right_angle, left_angle)
-	pocket_shape.points = pts
+	pocket_shape.segments = pts
 
 	var pocket_collider = CollisionShape2D.new()
 	pocket_collider.name = "Catch collider %s" % cell.number
