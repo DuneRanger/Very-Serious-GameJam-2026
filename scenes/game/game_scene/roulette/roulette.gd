@@ -147,8 +147,8 @@ func rebuild_banks():
 	build_banks()
 
 func prepare_textures():
-	var scale = Vector2(1, 1) * (inner_circle_radius + 2) / 75
-	$inner_wheel_sprite.apply_scale(scale)
+	var _scale = Vector2(1, 1) * (inner_circle_radius + 2) / 75
+	$inner_wheel_sprite.apply_scale(_scale)
 
 func draw_centre():
 	draw_circle(Vector2(0, 0), inner_circle_radius, inner_circle_colour)

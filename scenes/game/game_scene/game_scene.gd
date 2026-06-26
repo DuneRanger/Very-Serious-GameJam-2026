@@ -19,7 +19,7 @@ func _process(_delta: float) -> void:
 			GameManagerGlobal.modify_game_state(GameEnums.game_states.SPIN_PHASE)
 			GameManagerGlobal.modify_spins_left(GameManagerGlobal.spins_left - 1)
 		#TODO end round
-	
+
 	#Debugging temporary calls
 	if Input.is_action_just_pressed("boost_add"):
 		GameManagerGlobal.modify_boost_left(min (GameManagerGlobal.boost_count, GameManagerGlobal.boosts_left + 1))
