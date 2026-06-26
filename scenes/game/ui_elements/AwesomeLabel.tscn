@@ -1,14 +1,27 @@
 [gd_scene format=3 uid="uid://cxo23rckbhjbo"]
 
+[ext_resource type="Script" uid="uid://dqekamo0autp" path="res://scenes/game/ui_elements/awesome_label.gd" id="1_mvonj"]
 [ext_resource type="FontFile" uid="uid://btfhjobeerona" path="res://assets/fonts/PixeloidSans.otf" id="1_myjds"]
 
 [node name="AwesomeLabel" type="Node2D" unique_id=1310137312]
+script = ExtResource("1_mvonj")
 
-[node name="Label" type="Label" parent="." unique_id=813108581]
-offset_left = 12.0
-offset_right = 332.0
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=514544585]
+offset_right = 608.0
 offset_bottom = 64.0
+
+[node name="ValueLabel" type="Label" parent="HBoxContainer" unique_id=813108581]
+layout_mode = 2
 theme_override_fonts/font = ExtResource("1_myjds")
 theme_override_font_sizes/font_size = 36
 text = "HELLO PLEASE"
 vertical_alignment = 1
+
+[node name="IncreaseLabel" type="Label" parent="HBoxContainer" unique_id=1092501174]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_myjds")
+theme_override_font_sizes/font_size = 24
+
+[node name="Timer" type="Timer" parent="." unique_id=1023751284]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

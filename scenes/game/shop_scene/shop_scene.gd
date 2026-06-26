@@ -29,7 +29,8 @@ var all_rare_offered_items : Array[String] = [
 func _ready() -> void:
 	refresh_shop()
 	$DescriptionLabel.visible = false
-	GameManagerGlobal.signal_modify_rubies.connect(edit_rubies)
+	GameManagerGlobal.signal_modify_rubies.connect(modify_rubies)
+	GameManagerGlobal.signal_add_rubies.connect(add_rubies)
 	GameManagerGlobal.signal_buy_item.connect(_on_buy_item)
 	GameManagerGlobal.signal_shop_start_hover.connect(_on_focus_entered)
 	GameManagerGlobal.signal_shop_stop_hover.connect(_on_focus_exited)
@@ -89,7 +90,8 @@ func _on_buy_item(item_id : int):
 	if GameManagerGlobal.rubies >= cost:
 		item.inner_item_apply_effect()
 		offered_items[item_id].remove_offer()
-		GameManagerGlobal.modify_rubies(-cost)
+		GameManagerGlobal.add_rubies(-cost)
+		print("Removing %d from rubies" %-(cost))
 		$MrCat.play_money_anim()
 		$DescriptionLabel.text = ""
 		$DescriptionLabel.visible = false
@@ -109,6 +111,12 @@ func _on_focus_exited():
 	$DescriptionLabel.text = ""
 	$DescriptionLabel.visible = false
 
-func edit_rubies():
-	$RubyLabel/Label.text = str(GameManagerGlobal.rubies)
 	
+func modify_rubies():
+	$RubyLabel.set_value(GameManagerGlobal.rubies)
+
+func add_rubies(amount : int):
+	print("I am in add rubies, amount: ", amount)
+	print("Count on gmm: ", GameManagerGlobal.rubies)
+	modify_rubies()
+	$RubyLabel.set_diff(amount)

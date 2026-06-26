@@ -196,7 +196,7 @@ func new_bet(b_id : int) -> void:
 	GameManagerGlobal.bets[b_id] = new_bet_amount
 	
 	var bet_difference = old_bet_amount - new_bet_amount
-	GameManagerGlobal.modify_money(bet_difference)
+	GameManagerGlobal.add_money(bet_difference)
 	
 	var l = get_label(b)
 	
@@ -208,7 +208,7 @@ func new_bet(b_id : int) -> void:
 
 func clear_bets() -> void:
 	for label_id in labels:
-		var label = labels[label_id]		
+		var label = labels[label_id]
 		if label.get_parent() != null:
 			remove_child(label)
 	labels.clear()
