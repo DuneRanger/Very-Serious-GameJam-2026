@@ -3,7 +3,7 @@ class_name skim_milk extends ShopItem
 var cost : int = 3
 var image_path : String = "res://assets/textures/items/item_skim_milk.png"
 var name : String = "Skim Milk"
-var description : String = "Adds 1 Max spin\n"
+var description : String = "Increases max spins by one\n"
 
 func get_cost() -> int:
 	return cost

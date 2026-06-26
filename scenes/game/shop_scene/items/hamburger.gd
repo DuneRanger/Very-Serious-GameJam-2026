@@ -14,7 +14,7 @@ func get_image_path() -> String:
 
 func _init() -> void:
 	target_number = GameManagerGlobal.cells.pick_random().number
-	description = "Increase the weight of all %d pockets by three\n" % target_number
+	description = "Increase the weight of all %d pockets by one\n" % target_number
 
 func get_name() -> String:
 	return name
@@ -25,5 +25,5 @@ func get_description() -> String:
 func apply_effect() -> void:
 	for cell in GameManagerGlobal.cells:
 		if cell.number == target_number:
-			cell.weight += 3
+			cell.weight += 1
 	GameManagerGlobal.commit_cell_change.emit()
