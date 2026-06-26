@@ -180,6 +180,9 @@ func new_bet(b_id : int) -> void:
 	var current_increment = increment
 	if $IncrementToggle.adding == false || Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		current_increment *= -1
+		SfxManager.play_SFX("res://assets/SFX/bet_remove.ogg")
+	else:
+		SfxManager.play_SFX("res://assets/SFX/bet_place.ogg")
 	
 	if current_increment > GameManagerGlobal.money:
 		GameManagerGlobal.signal_send_error_message.emit("Not enough money!")
