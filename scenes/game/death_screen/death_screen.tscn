@@ -1,0 +1,360 @@
+[gd_scene format=3 uid="uid://b6tmlqqi73e1i"]
+
+[ext_resource type="FontFile" uid="uid://d0mkojug0pvql" path="res://assets/fonts/PixeloidSans-Bold.otf" id="1_pfyih"]
+[ext_resource type="Script" uid="uid://dtmqw4ybxfcgy" path="res://scenes/game/death_screen/death_screen.gd" id="1_sbyiw"]
+[ext_resource type="FontFile" uid="uid://btfhjobeerona" path="res://assets/fonts/PixeloidSans.otf" id="2_16ikf"]
+[ext_resource type="Texture2D" uid="uid://74y8xqmf0ned" path="res://assets/textures/headstone.png" id="3_07e3x"]
+[ext_resource type="Texture2D" uid="uid://cvc70jnauhlmx" path="res://assets/textures/UI/Button.png" id="5_7kblf"]
+[ext_resource type="Texture2D" uid="uid://bfew31gwarq5w" path="res://assets/textures/UI/ButtonPressed.png" id="6_b6onb"]
+[ext_resource type="Texture2D" uid="uid://wt3wpr6fyrj5" path="res://assets/textures/UI/ButtonHover.png" id="7_l4b84"]
+
+[sub_resource type="Animation" id="Animation_sbyiw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlackScreen:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("YouDiedLabel:theme_override_colors/font_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.92, 0.21160002, 0.21160002, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Label:theme_override_colors/font_color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("StatsLabel:theme_override_colors/font_color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.98, 0.76766664, 0, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("BlackScreen:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("YouDiedLabel:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Label:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("StatsLabel:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("ReturnButton:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_07e3x"]
+resource_name = "death_screen_anim"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlackScreen:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.96666664, 1.5333333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BlackScreen:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("YouDiedLabel:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2.7333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("YouDiedLabel:theme_override_colors/font_color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(2.5, 3.1333334, 4.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.92, 0.21160002, 0.21160002, 0), Color(0.92, 0.21160002, 0.21160002, 0), Color(0.92, 0.21160002, 0.21160002, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Label:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("StatsLabel:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.03333336, 7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Label:theme_override_colors/font_color")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(4.9, 6.633333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("StatsLabel:theme_override_colors/font_color")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(6.6666665, 8.59),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.98, 0.76766664, 0, 0), Color(0.98, 0.76766664, 0, 1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("ReturnButton:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 9.033334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sbyiw"]
+_data = {
+&"RESET": SubResource("Animation_sbyiw"),
+&"death_screen_anim": SubResource("Animation_07e3x")
+}
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_67an5"]
+texture = ExtResource("5_7kblf")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ekbl1"]
+texture = ExtResource("6_b6onb")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8wfke"]
+texture = ExtResource("7_l4b84")
+
+[node name="DeathScreen" type="Node2D" unique_id=1190848615]
+script = ExtResource("1_sbyiw")
+
+[node name="BlackScreen" type="ColorRect" parent="." unique_id=878375459]
+visible = false
+z_index = 50
+offset_left = -32.0
+offset_top = -96.0
+offset_right = 1320.0
+offset_bottom = 824.0
+color = Color(0, 0, 0, 0)
+
+[node name="TestButton" type="Button" parent="." unique_id=126353391]
+z_index = 51
+offset_left = 320.0
+offset_top = 56.0
+offset_right = 504.0
+offset_bottom = 152.0
+text = "die"
+
+[node name="YouDiedLabel" type="Label" parent="." unique_id=1972059789]
+visible = false
+z_index = 51
+offset_top = -56.0
+offset_right = 1280.0
+offset_bottom = 520.0
+theme_override_colors/font_color = Color(0.92, 0.21160002, 0.21160002, 0)
+theme_override_fonts/font = ExtResource("1_pfyih")
+theme_override_font_sizes/font_size = 48
+text = "You died!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="." unique_id=87054016]
+visible = false
+z_index = 51
+offset_top = -56.0
+offset_right = 1280.0
+offset_bottom = 664.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_16ikf")
+theme_override_font_sizes/font_size = 32
+text = "You didnt have enough money for
+bbbb"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatsLabel" type="Label" parent="." unique_id=666362734]
+visible = false
+z_index = 51
+offset_top = 368.0
+offset_right = 1280.0
+offset_bottom = 568.0
+theme_override_colors/font_color = Color(0.98, 0.76766664, 0, 1)
+theme_override_fonts/font = ExtResource("2_16ikf")
+theme_override_font_sizes/font_size = 28
+text = "Reached Round 6
+
+You had xxxx money,
+needed xxxx money"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1787687629]
+visible = false
+z_index = 51
+position = Vector2(640, 128)
+scale = Vector2(4, 4)
+texture = ExtResource("3_07e3x")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=979211087]
+libraries/ = SubResource("AnimationLibrary_sbyiw")
+
+[node name="ReturnButton" type="Button" parent="." unique_id=1851579044]
+visible = false
+z_index = 51
+offset_left = 576.0
+offset_top = 544.0
+offset_right = 704.0
+offset_bottom = 608.0
+theme_override_fonts/font = ExtResource("1_pfyih")
+theme_override_styles/normal = SubResource("StyleBoxTexture_67an5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ekbl1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_8wfke")
+text = "Main menu"
+
+[connection signal="pressed" from="TestButton" to="." method="_on_test_button_pressed"]
+[connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]

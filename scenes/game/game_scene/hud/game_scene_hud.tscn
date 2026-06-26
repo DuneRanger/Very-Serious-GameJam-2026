@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://claufn611f2p4" path="res://scenes/game/game_scene/hud/round_start_animations.gd" id="14_ag5u3"]
 [ext_resource type="Texture2D" uid="uid://bn08ytmdst6va" path="res://assets/textures/symbols/money_sprite_sheet.png" id="15_ag5u3"]
 [ext_resource type="FontFile" uid="uid://btfhjobeerona" path="res://assets/fonts/PixeloidSans.otf" id="15_c6has"]
+[ext_resource type="PackedScene" uid="uid://b6tmlqqi73e1i" path="res://scenes/game/death_screen/death_screen.tscn" id="17_niiyn"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4sguu"]
 texture = ExtResource("7_f4el6")
@@ -533,6 +534,8 @@ autoplay = "default"
 libraries/ = SubResource("AnimationLibrary_niiyn")
 
 [node name="SFXTimer" type="Timer" parent="RoundStartAnimations" unique_id=1561373209]
+
+[node name="DeathScreen" parent="." unique_id=1190848615 instance=ExtResource("17_niiyn")]
 
 [connection signal="timeout" from="SpinSymbolContainer/RefillTimer" to="SpinSymbolContainer" method="_on_refill_timer_timeout"]
 [connection signal="timeout" from="BoostSymbolContainer/RefillTimer" to="BoostSymbolContainer" method="_on_refill_timer_timeout"]
