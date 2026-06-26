@@ -1,7 +1,7 @@
 class_name supercell extends ShopItem
 
 var cost : int = 7
-var image_path : String # = "res://assets/textures/items/item_supercell.png"
+var image_path : String = "res://assets/textures/items/item_supercell.png"
 var name : String = "SuperCell"
 var target_number : int
 var description : String

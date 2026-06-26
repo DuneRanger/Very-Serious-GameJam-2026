@@ -12,7 +12,11 @@ var all_common_offered_items : Array[String] = [
 	"res://scenes/game/shop_scene/items/ink.gd",
 	"res://scenes/game/shop_scene/items/red_ink.gd",
 	"res://scenes/game/shop_scene/items/hamburger.gd",
-	"res://scenes/game/shop_scene/items/skim_milk.gd"
+	"res://scenes/game/shop_scene/items/skim_milk.gd",
+	"res://scenes/game/shop_scene/items/item_789.gd",
+	"res://scenes/game/shop_scene/items/eraser.gd",
+	"res://scenes/game/shop_scene/items/pencil.gd",
+	"res://scenes/game/shop_scene/items/exercise.gd",
 ]
 
 var all_rare_offered_items : Array[String] = [
