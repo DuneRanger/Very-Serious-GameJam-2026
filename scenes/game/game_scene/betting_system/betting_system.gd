@@ -13,7 +13,6 @@ var labels = {}
 var max_num : int = 24
 var row_count : int = 3
 var col_count : int = 8
-var increment = 1
 var buttons : Array[Button] = []
 
 var button_size : float
@@ -134,15 +133,11 @@ func make_buttons() -> void:
 	button_black.init(last_row_size_x, button_size, (last_row_size_x + padding) * 3, last_row_pos_y, get_button_id())
 	buttons.push_back(button_black)
 	add_child(button_black)	
-	
-	$IncrementToggle.size = Vector2(button_size, button_size)
-	$IncrementToggle.position = Vector2(0.0, (button_size + padding) * (row_count + 2))
 
 func pad_all_buttons() -> void:
 	var pad_vect = Vector2(padding, padding)
 	for b in buttons:
 		b.position += pad_vect
-	$IncrementToggle.position += pad_vect
 
 func connect_buttons() -> void:
 	for b in buttons:
@@ -177,8 +172,8 @@ func new_bet(b_id : int) -> void:
 	if GameManagerGlobal.game_state != GameEnums.game_states.BET_PHASE:
 		return
 	var b = buttons[b_id]
-	var current_increment = increment
-	if $IncrementToggle.adding == false || Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+	var current_increment = GameManagerGlobal.bet_increment
+	if GameManagerGlobal.bet_is_adding == false || Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		current_increment *= -1
 		SfxManager.play_SFX_pitched("res://assets/SFX/bet_remove.ogg")
 	else:

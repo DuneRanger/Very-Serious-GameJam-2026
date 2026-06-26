@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://2sadqrf23pit"]
+
+[ext_resource type="FontFile" uid="uid://btfhjobeerona" path="res://assets/fonts/PixeloidSans.otf" id="1_a0wi8"]
+[ext_resource type="Script" uid="uid://daajfbimc7j3r" path="res://scenes/game/game_scene/hud/increment_system.gd" id="1_pdtjh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pdtjh"]
+bg_color = Color(0.19607843, 0.43137255, 0.1764706, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1644t"]
+bg_color = Color(0.81960785, 0.1882353, 0.1882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eatsf"]
+bg_color = Color(0.81960785, 0.1882353, 0.1882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ckuvj"]
+bg_color = Color(0.81960785, 0.1882353, 0.1882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6nvno"]
+bg_color = Color(0.81960785, 0.1882353, 0.1882353, 1)
+
+[node name="IncrementSystem" type="Node2D" unique_id=914404395]
+script = ExtResource("1_pdtjh")
+
+[node name="Background" type="ColorRect" parent="." unique_id=263976294]
+offset_right = 344.0
+offset_bottom = 64.0
+color = Color(0, 0, 0, 0.3372549)
+
+[node name="RemoveToggle" type="Button" parent="." unique_id=913139459]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 56.0
+offset_bottom = 56.0
+theme_override_font_sizes/font_size = 30
+
+[node name="BetAmountLabel" type="Label" parent="." unique_id=854519641]
+offset_left = 64.0
+offset_top = 4.0
+offset_right = 355.0
+offset_bottom = 65.0
+theme_override_fonts/font = ExtResource("1_a0wi8")
+theme_override_font_sizes/font_size = 22
+text = "Bet amount:
+1234567890"
+
+[node name="IncreaseIncrementButton" type="Button" parent="." unique_id=1992757973]
+offset_left = 260.0
+offset_top = 8.0
+offset_right = 280.0
+offset_bottom = 28.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_pdtjh")
+
+[node name="DecreaseIncrementButton" type="Button" parent="." unique_id=1683917663]
+offset_left = 260.0
+offset_top = 36.0
+offset_right = 280.0
+offset_bottom = 56.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_1644t")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_eatsf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ckuvj")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_6nvno")
+
+[node name="Button" type="Button" parent="." unique_id=199012580]
+offset_left = 288.0
+offset_top = 8.0
+offset_right = 336.0
+offset_bottom = 56.0
+theme_override_fonts/font = ExtResource("1_a0wi8")
+text = "MAX"
+
+[connection signal="button_down" from="RemoveToggle" to="." method="_on_remove_toggle_button_down"]
+[connection signal="button_down" from="IncreaseIncrementButton" to="." method="_on_increase_increment_button_button_down"]
+[connection signal="button_down" from="DecreaseIncrementButton" to="." method="_on_decrease_increment_button_button_down"]
