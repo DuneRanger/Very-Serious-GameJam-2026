@@ -5,8 +5,6 @@ extends Node2D
 @export var shop_scene_preloaded : PackedScene
 @export var how_to_play_scene_preloaded : PackedScene
 
-var game_started : bool
-
 var scenes = {}
 
 var current_scene
@@ -33,7 +31,7 @@ func _ready() -> void:
 	GameManagerGlobal.signal_switch_scene.connect(scene_switch)
 
 func new_game():
-	game_started = true
+	GameManagerGlobal.start_new_game = true
 	game_scene = game_scene_preloaded.instantiate()
 	shop_scene = shop_scene_preloaded.instantiate()
 	add_child(game_scene)
@@ -59,7 +57,7 @@ func scene_switch(new_scene : GameEnums.switching_scenes):
 		GameEnums.switching_scenes.HOW_TO_PLAY_SCENE:
 			reparent_scenes(how_to_play_scene)
 		GameEnums.switching_scenes.GAME_SCENE:
-			if !game_started:
+			if GameManagerGlobal.start_new_game:
 				new_game()
 			reparent_scenes(game_scene)
 			GameManagerGlobal.check_shop_change()
