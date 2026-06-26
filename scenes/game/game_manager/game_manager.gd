@@ -24,6 +24,9 @@ var single_bet_coeff : float = 24.0
 var half_bet_coeff : float = 2.0
 var third_bet_coeff : float = 3.0
 
+var bet_increment : int
+var bet_is_adding : bool
+
 var applying_boost : bool = false
 
 signal signal_game_start
@@ -57,6 +60,9 @@ signal signal_shop_stop_hover ()
 signal signal_mr_cat_swag
 signal signal_quota_message
 
+signal signal_increment_change
+signal signal_bet_is_adding_change
+
 var shop_max_spin_change : bool
 var shop_left_spin_change : bool
 var shop_max_boost_change : bool
@@ -85,9 +91,16 @@ func game_start():
 	shop_max_boost_change = false
 	shop_left_boost_change = false
 	
-	signal_game_start.emit()
+	bet_increment = 1
+	bet_is_adding = true
+	signal_bet_is_adding_change.emit()
+	signal_increment_change.emit()
+	
 	for i in range(GameEnums.bet_button_count):
 		bet_id_multipliers.append(1.0)
+	
+	signal_game_start.emit()
+	
 
 signal signal_round_start
 
@@ -164,11 +177,11 @@ func check_shop_change():
 		modify_spin_count(min (spin_count, GameEnums.total_max_spin_count))
 		shop_max_spin_change = false
 	if shop_left_spin_change:
-		modify_spins_left(min (spins_left, GameEnums.total_max_spin_count))
+		modify_spins_left(min (spins_left, GameEnums.total_max_spin_count, spin_count))
 		shop_left_spin_change = false
 	if shop_max_boost_change:
 		modify_boost_count(min (boost_count, GameEnums.total_max_boost_count))
 		shop_max_boost_change = false
 	if shop_left_boost_change:
-		modify_boost_left(min (boosts_left, GameEnums.total_max_boost_count))
+		modify_boost_left(min (boosts_left, GameEnums.total_max_boost_count, boost_count))
 		shop_left_boost_change = false

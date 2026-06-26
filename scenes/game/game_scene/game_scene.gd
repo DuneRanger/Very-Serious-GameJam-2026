@@ -5,7 +5,6 @@ class_name GameScene
 func _ready() -> void:
 	GameManagerGlobal.quota = 120
 	GameManagerGlobal.round_count = 0
-	round_start()
 	GameManagerGlobal.signal_send_error_message.connect(_on_send_error_message)
 	GameManagerGlobal.signal_state_change.connect(_on_new_state)
 	
@@ -13,6 +12,8 @@ func _ready() -> void:
 	GameManagerGlobal.signal_modify_rubies.connect(modify_rubies)
 	GameManagerGlobal.signal_add_money.connect(add_money)
 	GameManagerGlobal.signal_add_rubies.connect(add_rubies)
+	
+	round_start()
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("stop_roullete"):
@@ -103,10 +104,8 @@ func get_full_bet_win() -> int:
 		var bet = GameManagerGlobal.bets[bet_id]
 		if does_bet_win(bet_id):
 			var new_value = int (bet * get_bet_coeff(bet_id))
-			print("Won bet: ", bet_id, ", amount won: ", new_value)
+			#print("Won bet: ", bet_id, ", amount won: ", new_value)
 			value += new_value
-	var out_str = "Total profit: " + str(value)
-	GameManagerGlobal.signal_send_error_message.emit(out_str)
 	return value
 
 func _on_send_error_message(message : String): 
