@@ -36,6 +36,9 @@ func get_offered_item_text() -> String:
 	var out = item_name + "\n\n" + desc + "\n\nCost: " + cost + " rubies" 
 	return out
 
+func is_item_valid(already_made_items : Array[ShopItem]) -> bool:
+	return actual_item.is_valid(already_made_items)
+
 func _on_focus_entered() -> void:
 	if !is_item_bought:
 		GameManagerGlobal.signal_shop_start_hover.emit(shop_id)

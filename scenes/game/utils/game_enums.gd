@@ -10,6 +10,9 @@ enum bet_types {NUMBER, HALF, THIRD}
 
 const max_roulette_num : int = 24
 
+const total_max_spin_count : int = 8
+const total_max_boost_count : int = 8
+
 static func game_state_str(state : game_states) -> String:
 	match state:
 		game_states.BET_PHASE: return "Bet phase"

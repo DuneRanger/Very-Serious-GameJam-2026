@@ -11,3 +11,5 @@
 @abstract func get_description() -> String
 
 @abstract func apply_effect() -> void
+
+@abstract func is_valid(already_made_items : Array[ShopItem]) -> bool

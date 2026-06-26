@@ -28,3 +28,6 @@ func apply_effect() -> void:
 		if cell.colour == target_colour:
 			cell.weight += 1
 	GameManagerGlobal.commit_cell_change.emit()
+
+func is_valid(already_made_items : Array[ShopItem]) -> bool:
+	return true

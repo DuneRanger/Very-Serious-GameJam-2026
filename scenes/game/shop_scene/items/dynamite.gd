@@ -31,3 +31,7 @@ func apply_effect() -> void:
 	for idx in removal_indices:
 		GameManagerGlobal.cells.remove_at(idx)
 	GameManagerGlobal.commit_cell_change.emit()
+
+func is_valid(already_made_items : Array[ShopItem]) -> bool:
+	var out = GameManagerGlobal.cells.size() < 4
+	return out

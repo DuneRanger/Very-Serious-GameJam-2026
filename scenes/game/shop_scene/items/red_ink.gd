@@ -30,3 +30,6 @@ func apply_effect() -> void:
 		if i < len(black_cells):
 			black_cells[i].colour = Color.RED
 	GameManagerGlobal.commit_cell_change.emit()
+
+func is_valid(already_made_items : Array[ShopItem]) -> bool:
+	return true
