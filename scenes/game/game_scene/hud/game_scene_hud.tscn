@@ -486,7 +486,6 @@ script = ExtResource("13_vy1w6")
 libraries/ = SubResource("AnimationLibrary_c6has")
 
 [node name="RoundStartAnimations" type="Node2D" parent="." unique_id=314523882]
-visible = false
 script = ExtResource("14_ag5u3")
 
 [node name="DarkenRectangle" type="ColorRect" parent="RoundStartAnimations" unique_id=949702093]
