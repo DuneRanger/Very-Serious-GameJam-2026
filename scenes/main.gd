@@ -63,6 +63,7 @@ func scene_switch(new_scene : GameEnums.switching_scenes):
 				new_game()
 			reparent_scenes(game_scene)
 			GameManagerGlobal.check_shop_change()
+			GameManagerGlobal.add_rubies(0)
 		GameEnums.switching_scenes.SHOP_SCENE:
 			reparent_scenes(shop_scene)
 		GameEnums.switching_scenes.MAIN_MENU_SCENE:

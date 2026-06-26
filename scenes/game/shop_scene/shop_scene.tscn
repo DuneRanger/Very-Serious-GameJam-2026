@@ -5,10 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://c1fkvqvg8nvi6" path="res://scenes/game/shop_scene/offered_item.tscn" id="2_dh51g"]
 [ext_resource type="Texture2D" uid="uid://bcsc264rw85de" path="res://assets/textures/ShopBackgroundBlurred.png" id="2_i1bid"]
 [ext_resource type="Script" uid="uid://b0m5epq34gfw5" path="res://scenes/game/shop_scene/game_button.gd" id="3_8ksok"]
-[ext_resource type="PackedScene" uid="uid://5vg4c83ob4lc" path="res://scenes/game/UI_elements/menu_button.tscn" id="4_o1uo5"]
+[ext_resource type="PackedScene" uid="uid://5vg4c83ob4lc" path="res://scenes/game/ui_elements/menu_button.tscn" id="4_o1uo5"]
 [ext_resource type="FontFile" uid="uid://btfhjobeerona" path="res://assets/fonts/PixeloidSans.otf" id="7_wb2ns"]
 [ext_resource type="PackedScene" uid="uid://djtfrov4iqbnm" path="res://scenes/game/UI_elements/animated_sprites/ruby_animated_sprite.tscn" id="8_qmg6l"]
-[ext_resource type="PackedScene" uid="uid://cxo23rckbhjbo" path="res://scenes/game/UI_elements/AwesomeLabel.tscn" id="9_nndy6"]
+[ext_resource type="PackedScene" uid="uid://cxo23rckbhjbo" path="res://scenes/game/ui_elements/AwesomeLabel.tscn" id="9_nndy6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dh51g"]
 content_margin_left = 10.0
@@ -91,7 +91,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_dh51g")
 position = Vector2(-592, 272)
 
 [node name="RubyLabel" parent="." unique_id=1310137312 instance=ExtResource("9_nndy6")]
-position = Vector2(-560, 240)
+position = Vector2(-552, 240)
 
 [connection signal="button_down" from="GameButton" to="MrCat" method="_on_game_button_button_down"]
 [connection signal="button_down" from="FuckingAwesomeRefreshButton" to="." method="_on_fucking_awesome_refresh_button_button_down"]
