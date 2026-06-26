@@ -30,6 +30,12 @@ func _ready() -> void:
 	GameManagerGlobal.signal_shop_start_hover.connect(_on_focus_entered)
 	GameManagerGlobal.signal_shop_stop_hover.connect(_on_focus_exited)
 
+func get_inner_items() -> Array[ShopItem]:
+	var out : Array[ShopItem] = []
+	for item in offered_items:
+		out.push_back(item.actual_item)
+	return out
+
 func refresh_shop() -> void:
 	delete_old_items()
 	generate_new_items()
@@ -49,14 +55,29 @@ func delete_old_items() -> void:
 		$OfferedItemsHBox.remove_child(old_item)
 	offered_items.clear()
 
+func is_item_non_duplicate(inner_new_item : ShopItem) -> bool:
+	for old_item in offered_items:
+		var inner_old_item = old_item.actual_item
+		if inner_new_item.get_name() == inner_old_item.get_name():
+			print("Same items:")
+			print("Old item: ", inner_old_item.get_class())
+			print("New item: ", inner_new_item.get_class())
+			return false
+	return true
+
 func generate_new_items() -> void:
 	print("Generating new items")
-	for i in range(offered_items_count):
+	var i = 0
+	while offered_items.size() < offered_items_count:
 		var new_item_inner = generate_inner_item()
 		var new_item = offered_item_scene.instantiate()
 		new_item.item_init(new_item_inner, i)
-		offered_items.push_back(new_item)
-		$OfferedItemsHBox.add_child(new_item)
+		print("Tried making item: ", new_item_inner.get_name())
+		if new_item.is_item_valid(get_inner_items()) and is_item_non_duplicate(new_item_inner):
+			print("Made item with id: ", i)
+			offered_items.push_back(new_item)
+			$OfferedItemsHBox.add_child(new_item)
+			i += 1
 
 func _on_buy_item(item_id : int):
 	var item = offered_items[item_id]

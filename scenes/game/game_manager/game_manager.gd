@@ -139,14 +139,14 @@ func modify_rubies (amount : int):
 
 func check_shop_change():
 	if shop_max_spin_change:
-		modify_spin_count(spin_count)
+		modify_spin_count(min (spin_count, GameEnums.total_max_spin_count))
 		shop_max_spin_change = false
 	if shop_left_spin_change:
-		modify_spins_left(spins_left)
+		modify_spins_left(min (spins_left, GameEnums.total_max_spin_count))
 		shop_left_spin_change = false
 	if shop_max_boost_change:
-		modify_boost_count(boost_count)
+		modify_boost_count(min (boost_count, GameEnums.total_max_spin_count))
 		shop_max_boost_change = false
 	if shop_left_boost_change:
-		modify_boost_left(boosts_left)
+		modify_boost_left(min (boosts_left, GameEnums.total_max_spin_count))
 		shop_left_boost_change = false

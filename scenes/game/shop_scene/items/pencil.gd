@@ -30,3 +30,6 @@ func get_description() -> String:
 func apply_effect() -> void:
 	GameManagerGlobal.cells.append(new_cell)
 	GameManagerGlobal.commit_cell_change.emit()
+
+func is_valid(already_made_items : Array[ShopItem]) -> bool:
+	return true
