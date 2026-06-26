@@ -22,7 +22,9 @@ func play_roulette_sound():
 # -------------------------------- Initial values --------------------------------
 
 var initial_cell_order : Array[int] = [0, 20, 6, 8, 18, 14, 2, 4, 21, 1, 13, 3, 24, 7, 15, 19, 10, 12, 22, 5, 16, 9, 11, 23, 17]
-var reset = true
+var finished_spin = true
+var balls_freeze_time = 60
+var balls_freezed = 0
 
 func get_initial_balls() -> Array[RouletteBall]:
 	return [RouletteBall.new()]
@@ -36,7 +38,7 @@ func prepare_inital_cells():
 		if num == 0: curCol = Color.DARK_GREEN
 		GameManagerGlobal.initial_cells.append(RouletteCell.new(num, curCol))
 
-static var cells:
+static var cells : Array[RouletteCell]:
 	get: return GameManagerGlobal.cells
 	set(value): GameManagerGlobal.cells = value
 
@@ -160,14 +162,25 @@ func _draw():
 	draw_cells()
 	draw_centre()
 
+var cell_size_limit = 0.018
+func remove_small_cells():
+	var idx_to_remove = cells.find_custom(func(cell): return cell.weight / total_weight < cell_size_limit)
+	while idx_to_remove != -1:
+		print("Removing cell %s because of size" % cells[idx_to_remove])
+		total_weight -= cells[idx_to_remove].weight
+		cells.remove_at(idx_to_remove)
+		idx_to_remove = cells.find_custom(func(cell): return cell.weight / total_weight < cell_size_limit)
+
+
 func modify_cell_weight(idx: int, change: float):
 	cells[idx].weight += change
-	total_weight += change
-	rebuild_banks()
+	commit_cell_mod()
 
 # Calls the required functions to for a cell.weight change to actually occur
 func commit_cell_mod():
+	visual_rotation = 0
 	update_total_weight()
+	remove_small_cells()
 	rebuild_banks()
 
 # -------------------------------- Physics --------------------------------
@@ -250,7 +263,15 @@ func _physics_process(_delta: float):
 	rescue_orphaned_balls()
 	match (GameManagerGlobal.game_state):
 		GameEnums.game_states.SPIN_PHASE:
-			reset = true
+			if finished_spin == false:
+				finished_spin = true
+				balls_freezed = 0
+				show_balls()
+				freeze_balls()
+			if balls_freezed < balls_freeze_time:
+				balls_freezed += 1
+				return
+			unfreeze_balls()
 			rotate_roulette(_delta)
 			if balls.all(func(ball : RouletteBall): return ball.settled): settled_frames += 1
 			else: settled_frames = 0
@@ -267,8 +288,9 @@ func _physics_process(_delta: float):
 		GameEnums.game_states.STOP_PHASE:
 			if GameManagerGlobal.applying_boost: rotate_roulette(_delta)
 		GameEnums.game_states.BET_PHASE:
-			if reset:
-				reset = false
+			if finished_spin:
+				hide_balls()
+				finished_spin = false
 		_:
 			pass
 
@@ -338,6 +360,22 @@ func add_ball():
 	ball.freeze = true
 	add_child(ball)
 	balls.append(ball)
+
+func hide_balls():
+	for ball in balls:
+		ball.hide()
+
+func show_balls():
+	for ball in balls:
+		ball.show()
+
+func freeze_balls():
+	for ball in balls:
+		ball.freeze = true
+
+func unfreeze_balls():
+	for ball in balls:
+		ball.freeze = false
 
 func reset_balls():
 	for ball in balls:
