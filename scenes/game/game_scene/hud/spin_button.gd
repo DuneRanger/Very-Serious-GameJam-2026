@@ -15,6 +15,7 @@ func check_bet_validity() -> void:
 			disabled = false
 			return
 	disabled = true
+	text = "Place\n a bet!"
 
 func _on_button_down() -> void:
 	if GameManagerGlobal.spins_left > 0:
