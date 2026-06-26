@@ -88,7 +88,7 @@ func game_start():
 	signal_game_start.emit()
 	for i in range(GameEnums.bet_button_count):
 		bet_id_multipliers.append(1.0)
-	
+
 signal signal_round_start
 
 const base_cell_weight : float = 1.0
@@ -131,7 +131,6 @@ func modify_spin_count (amount : int):
 		signal_spin_count_change.emit()
 	else:
 		shop_max_spin_change = true
-		
 
 func modify_spins_left (amount : int):
 	spins_left = amount
