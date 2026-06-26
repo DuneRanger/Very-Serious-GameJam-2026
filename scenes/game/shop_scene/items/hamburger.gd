@@ -14,7 +14,7 @@ func get_image_path() -> String:
 
 func _init() -> void:
 	target_number = GameManagerGlobal.cells.pick_random().number
-	description = "Increase the weight of all %d pockets by one\n" % target_number
+	description = "Increase the weight of all number %d pockets by one\n" % target_number
 
 func get_name() -> String:
 	return name
