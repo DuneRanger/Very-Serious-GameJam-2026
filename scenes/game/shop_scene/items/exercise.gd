@@ -1,4 +1,4 @@
-class_name catnip extends ShopItem
+class_name exercise extends ShopItem
 
 var cost : int = 4
 var image_path : String = "res://assets/textures/items/item_exercise.png"
@@ -21,10 +21,8 @@ func get_description() -> String:
 	return description
 
 func apply_effect() -> void:
-	var new_boost_count = GameManagerGlobal.boost_count - 1
-	var new_boosts_left = GameManagerGlobal.boosts_left - 1
+	var new_boost_count = max(0, GameManagerGlobal.boost_count - 1)
 	GameManagerGlobal.modify_boost_count(new_boost_count)
-	GameManagerGlobal.modify_boost_left(new_boosts_left)
 	for mult in GameManagerGlobal.bet_id_multipliers:
 		mult *= 1.2
 

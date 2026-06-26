@@ -156,8 +156,8 @@ func check_shop_change():
 		modify_spins_left(min (spins_left, GameEnums.total_max_spin_count))
 		shop_left_spin_change = false
 	if shop_max_boost_change:
-		modify_boost_count(min (boost_count, GameEnums.total_max_spin_count))
+		modify_boost_count(min (boost_count, GameEnums.total_max_boost_count))
 		shop_max_boost_change = false
 	if shop_left_boost_change:
-		modify_boost_left(min (boosts_left, GameEnums.total_max_spin_count))
+		modify_boost_left(min (boosts_left, GameEnums.total_max_boost_count))
 		shop_left_boost_change = false
