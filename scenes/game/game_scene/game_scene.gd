@@ -3,6 +3,7 @@ extends Node2D
 class_name GameScene
 
 func _ready() -> void:
+	GameManagerGlobal.quota = 120
 	GameManagerGlobal.round_count = 0
 	round_start()
 	GameManagerGlobal.signal_send_error_message.connect(_on_send_error_message)
@@ -134,6 +135,11 @@ func _on_new_state():
 		GameEnums.game_states.BET_PHASE:
 			$Table/Roulette.stop_roulette()
 			var money_won = get_full_bet_win()
+			#play SFX
+			if money_won == 0:
+				SfxManager.play_SFX("res://assets/SFX/accept_loss.ogg")
+			else:
+				SfxManager.play_SFX("res://assets/SFX/accept_profit.ogg")
 			$Table/BettingSystem.clear_bets()
 			GameManagerGlobal.modify_money(money_won)
 		_:

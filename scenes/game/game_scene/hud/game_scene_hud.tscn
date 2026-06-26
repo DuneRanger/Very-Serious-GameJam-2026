@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://claufn611f2p4" path="res://scenes/game/game_scene/hud/round_start_animations.gd" id="14_ag5u3"]
 [ext_resource type="Texture2D" uid="uid://bn08ytmdst6va" path="res://assets/textures/symbols/money_sprite_sheet.png" id="15_ag5u3"]
 [ext_resource type="FontFile" uid="uid://btfhjobeerona" path="res://assets/fonts/PixeloidSans.otf" id="15_c6has"]
+[ext_resource type="PackedScene" uid="uid://b6tmlqqi73e1i" path="res://scenes/game/death_screen/death_screen.tscn" id="17_niiyn"]
 [ext_resource type="Texture2D" uid="uid://d1ydk111unfdr" path="res://assets/textures/UI/spinButtonNormal.png" id="17_niiyn"]
 [ext_resource type="Texture2D" uid="uid://deatfdjnlmpyr" path="res://assets/textures/UI/spinButtonPressed.png" id="18_thqaq"]
 [ext_resource type="Texture2D" uid="uid://soqgmjnshia6" path="res://assets/textures/UI/spinButtonHover.png" id="19_hlngw"]
@@ -295,10 +296,10 @@ tracks/0/path = NodePath("DarkenRectangle:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.23333333, 0.5, 4.7, 5.266667),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.23333333, 0.5, 4.7, 5.266667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0.8039216), Color(0, 0, 0, 0.8039216), Color(0, 0, 0, 0)]
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0), Color(0, 0, 0, 0.8039216), Color(0, 0, 0, 0.8039216), Color(0, 0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -307,10 +308,10 @@ tracks/1/path = NodePath("DarkenRectangle:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2111236, 5.5),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false, true, false]
+"values": [true, false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -549,6 +550,9 @@ autoplay = "default"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="RoundStartAnimations" unique_id=1086076332]
 libraries/ = SubResource("AnimationLibrary_niiyn")
 
+[node name="SFXTimer" type="Timer" parent="RoundStartAnimations" unique_id=1561373209]
+
+[node name="DeathScreen" parent="." unique_id=1190848615 instance=ExtResource("17_niiyn")]
 [node name="SpinButton" type="Button" parent="." unique_id=701434672]
 offset_left = 860.0
 offset_top = 296.0
@@ -574,5 +578,6 @@ wait_time = 0.3
 [connection signal="timeout" from="SpinSymbolContainer/RefillTimer" to="SpinSymbolContainer" method="_on_refill_timer_timeout"]
 [connection signal="timeout" from="BoostSymbolContainer/RefillTimer" to="BoostSymbolContainer" method="_on_refill_timer_timeout"]
 [connection signal="button_down" from="ShopButton" to="ShopButton" method="_on_button_down"]
+[connection signal="timeout" from="RoundStartAnimations/SFXTimer" to="RoundStartAnimations" method="_on_sfx_timer_timeout"]
 [connection signal="button_down" from="SpinButton" to="SpinButton" method="_on_button_down"]
 [connection signal="timeout" from="SpinButton/Timer" to="SpinButton" method="_on_timer_timeout"]
