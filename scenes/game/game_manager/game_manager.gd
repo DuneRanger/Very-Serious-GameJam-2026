@@ -58,7 +58,13 @@ var shop_left_spin_change : bool
 var shop_max_boost_change : bool
 var shop_left_boost_change : bool
 
+# index 0 - 24 = numbers 0 - 24
+# [25] = "1 to 8", [26] = "9 to 16", [27] = "17 to 24"
+# [28] = "1 to 12", [29] = "13 to 24"
+# [30] = "even", [31] = "odd"
+# [32] = "red", [33] = "black"
 var bet_id_multipliers : Array[float] = []
+
 
 func game_start():
 	GameManagerGlobal.modify_money(100)
