@@ -23,4 +23,7 @@ func get_description() -> String:
 	return description
 
 func apply_effect() -> void:
-	GameManagerGlobal.modify_boost_count(GameManagerGlobal.boost_count + 1)
+	var new_boost_count = GameManagerGlobal.boost_count + 1
+	var new_boosts_left = GameManagerGlobal.boosts_left + 1
+	GameManagerGlobal.modify_boost_count(new_boost_count)
+	GameManagerGlobal.modify_boost_left(new_boosts_left)

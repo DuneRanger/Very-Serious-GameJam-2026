@@ -22,12 +22,20 @@ func _process(_delta: float) -> void:
 	
 	#Debugging temporary calls
 	if Input.is_action_just_pressed("boost_add"):
-		GameManagerGlobal.modify_boost_left(max (0, GameManagerGlobal.boosts_left - 1))
-	if Input.is_action_just_pressed("boost_del"):
 		GameManagerGlobal.modify_boost_left(min (GameManagerGlobal.boost_count, GameManagerGlobal.boosts_left + 1))
+	if Input.is_action_just_pressed("boost_del"):
+		GameManagerGlobal.modify_boost_left(max (0, GameManagerGlobal.boosts_left - 1))
 	if Input.is_action_just_pressed("add_ball"):
-		#GameManagerGlobal.modify_spins_left(min (GameManagerGlobal.spin_count, GameManagerGlobal.spins_left + 1))
+		GameManagerGlobal.modify_spins_left(min (GameManagerGlobal.spin_count, GameManagerGlobal.spins_left + 1))
+	if Input.is_action_just_pressed("remove_ball"):
+		GameManagerGlobal.modify_spins_left(max (0, GameManagerGlobal.spins_left - 1))
+	if Input.is_action_just_pressed("story_advance"):
 		round_start()
+	if Input.is_action_just_pressed("add_ball_max"):
+		GameManagerGlobal.modify_spin_count(GameManagerGlobal.spin_count + 1)
+	if Input.is_action_just_pressed("remove_ball_max"):
+		GameManagerGlobal.modify_spin_count(max (0, GameManagerGlobal.spin_count - 1))
+	
 
 func does_bet_win(bet_id : int) -> bool:
 	var bet_type : GameEnums.bet_types = $Table/BettingSystem.get_bet_type(bet_id)

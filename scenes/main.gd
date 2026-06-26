@@ -55,13 +55,14 @@ func reparent_scenes(new_scene):
 
 func scene_switch(new_scene : GameEnums.switching_scenes):
 	GameManagerGlobal.current_showed_scene = new_scene
-	if !game_started:
-		new_game()
 	match new_scene:
 		GameEnums.switching_scenes.HOW_TO_PLAY_SCENE:
 			reparent_scenes(how_to_play_scene)
 		GameEnums.switching_scenes.GAME_SCENE:
+			if !game_started:
+				new_game()
 			reparent_scenes(game_scene)
+			GameManagerGlobal.check_shop_change()
 		GameEnums.switching_scenes.SHOP_SCENE:
 			reparent_scenes(shop_scene)
 		GameEnums.switching_scenes.MAIN_MENU_SCENE:

@@ -53,9 +53,14 @@ signal signal_shop_stop_hover ()
 signal signal_mr_cat_swag
 signal signal_quota_message
 
+var shop_max_spin_change : bool
+var shop_left_spin_change : bool
+var shop_max_boost_change : bool
+var shop_left_boost_change : bool
+
 func game_start():
 	GameManagerGlobal.modify_money(100)
-	GameManagerGlobal.modify_rubies(5)
+	GameManagerGlobal.modify_rubies(100)
 	GameManagerGlobal.modify_boost_count(2)
 	GameManagerGlobal.modify_boost_left(2)
 	GameManagerGlobal.modify_spin_count(3)
@@ -63,6 +68,12 @@ func game_start():
 	mr_cat_swag = false
 	GameManagerGlobal.modify_game_state(GameEnums.game_states.BET_PHASE)
 	signal_game_start.emit()
+	
+	shop_max_spin_change = false
+	shop_left_spin_change = false
+	shop_max_boost_change = false
+	shop_left_boost_change = false
+	
 signal signal_round_start
 
 const base_cell_weight : float = 1.0
@@ -86,26 +97,33 @@ var quota_messages : Array[String] = [
 ]
 
 func modify_boost_count (amount : int):
-	#print("modifiing", boost_count, amount)
 	boost_count = amount
-	#if current_showed_scene == GameEnums.switching_scenes.GAME_SCENE:
-	signal_boost_count_change.emit()
+	if current_showed_scene == GameEnums.switching_scenes.GAME_SCENE:
+		signal_boost_count_change.emit()
+	else:
+		shop_max_boost_change = true
 
 func modify_boost_left (amount : int):
-	#print("modifiing", boosts_left, amount)
 	boosts_left = amount
-	#if current_showed_scene == GameEnums.switching_scenes.GAME_SCENE:
-	signal_boosts_left_change.emit()
+	if current_showed_scene == GameEnums.switching_scenes.GAME_SCENE:
+		signal_boosts_left_change.emit()
+	else:
+		shop_left_boost_change = true
 	
 func modify_spin_count (amount : int):
-	#print("modifiing", spin_count, amount)
 	spin_count = amount
-	signal_spin_count_change.emit()
+	if current_showed_scene == GameEnums.switching_scenes.GAME_SCENE:
+		signal_spin_count_change.emit()
+	else:
+		shop_max_spin_change = true
+		
 
 func modify_spins_left (amount : int):
-	#print("modifiing", spins_left, amount)
 	spins_left = amount
-	signal_spins_left_change.emit()
+	if current_showed_scene == GameEnums.switching_scenes.GAME_SCENE:
+		signal_spins_left_change.emit()
+	else:
+		shop_left_spin_change = true
 
 func modify_game_state (new_state : GameEnums.game_states):
 	game_state = new_state
@@ -118,3 +136,17 @@ func modify_money (amount : int):
 func modify_rubies (amount : int):
 	rubies += amount
 	signal_modify_rubies.emit()
+
+func check_shop_change():
+	if shop_max_spin_change:
+		modify_spin_count(spin_count)
+		shop_max_spin_change = false
+	if shop_left_spin_change:
+		modify_spins_left(spins_left)
+		shop_left_spin_change = false
+	if shop_max_boost_change:
+		modify_boost_count(boost_count)
+		shop_max_boost_change = false
+	if shop_left_boost_change:
+		modify_boost_left(boosts_left)
+		shop_left_boost_change = false

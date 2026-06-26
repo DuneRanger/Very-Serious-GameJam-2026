@@ -550,10 +550,10 @@ autoplay = "default"
 libraries/ = SubResource("AnimationLibrary_niiyn")
 
 [node name="SpinButton" type="Button" parent="." unique_id=701434672]
-offset_left = 877.0
-offset_top = 312.0
-offset_right = 973.0
-offset_bottom = 408.0
+offset_left = 860.0
+offset_top = 296.0
+offset_right = 988.0
+offset_bottom = 424.0
 theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("15_c6has")
 theme_override_font_sizes/font_size = 20
