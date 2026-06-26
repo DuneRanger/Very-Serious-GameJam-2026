@@ -1,7 +1,7 @@
 class_name pencil extends ShopItem
 
 var cost : int = 3
-var image_path : String = "res://assets/textures/items/pencil.png"
+var image_path : String = "res://assets/textures/items/item_pencil.png"
 var name : String = "Pencil"
 var description : String 
 var new_cell : RouletteCell

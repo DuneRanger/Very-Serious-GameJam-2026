@@ -14,7 +14,7 @@ func _on_boosts_left_change() -> void:
 	print("Changing count of left boosts to: ", GameManagerGlobal.boosts_left)
 	var new_boosts_left = GameManagerGlobal.boosts_left
 	var change = old_boosts_left - new_boosts_left
-	if change == 0:
+	if change == 0 or old_boosts_left > boost_symbols.size():
 		return
 	elif change > 0:
 		for i in range(new_boosts_left, old_boosts_left):

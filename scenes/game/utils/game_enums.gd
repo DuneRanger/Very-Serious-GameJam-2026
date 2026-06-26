@@ -7,6 +7,7 @@ enum switching_scenes {MAIN_MENU_SCENE, HOW_TO_PLAY_SCENE, GAME_SCENE, SHOP_SCEN
 enum game_states {BET_PHASE, STOP_PHASE, SPIN_PHASE}
 
 enum bet_types {NUMBER, HALF, THIRD}
+const bet_button_count : int = 34
 
 const max_roulette_num : int = 24
 
