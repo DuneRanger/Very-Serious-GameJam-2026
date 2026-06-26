@@ -3,8 +3,6 @@ extends Node2D
 class_name GameScene
 
 func _ready() -> void:
-	GameManagerGlobal.quota = 120
-	GameManagerGlobal.round_count = 0
 	GameManagerGlobal.signal_send_error_message.connect(_on_send_error_message)
 	GameManagerGlobal.signal_state_change.connect(_on_new_state)
 	
@@ -13,7 +11,12 @@ func _ready() -> void:
 	GameManagerGlobal.signal_add_money.connect(add_money)
 	GameManagerGlobal.signal_add_rubies.connect(add_rubies)
 	
+	reset_rounds()
+
+func reset_rounds():
+	GameManagerGlobal.round_count = 0
 	start_next_round()
+
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("stop_roullete"):
