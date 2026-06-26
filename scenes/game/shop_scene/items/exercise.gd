@@ -27,3 +27,6 @@ func apply_effect() -> void:
 	GameManagerGlobal.modify_boost_left(new_boosts_left)
 	for mult in GameManagerGlobal.bet_id_multipliers:
 		mult *= 1.2
+
+func is_valid(already_made_items : Array[ShopItem]) -> bool:
+	return GameManagerGlobal.boost_count > 0
