@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://cqwd5xducgdsl"]
 
 [ext_resource type="PackedScene" uid="uid://dcu31p6twmdit" path="res://scenes/game/utils/ErrorMessage.tscn" id="1_8fe00"]
-[ext_resource type="PackedScene" uid="uid://cxo23rckbhjbo" path="res://scenes/game/UI_elements/AwesomeLabel.tscn" id="2_qkhxd"]
+[ext_resource type="PackedScene" uid="uid://cxo23rckbhjbo" path="res://scenes/game/ui_elements/AwesomeLabel.tscn" id="2_qkhxd"]
 [ext_resource type="PackedScene" uid="uid://b8s6w1lbfa62g" path="res://scenes/game/UI_elements/animated_sprites/money_animated_sprite.tscn" id="3_0qbnv"]
 [ext_resource type="Script" uid="uid://yvvimemjf8nl" path="res://scenes/game/game_scene/hud/boost_symbol_container.gd" id="5_0qbnv"]
 [ext_resource type="PackedScene" uid="uid://djtfrov4iqbnm" path="res://scenes/game/UI_elements/animated_sprites/ruby_animated_sprite.tscn" id="5_3l4lp"]
 [ext_resource type="Script" uid="uid://co80ugwq1sply" path="res://scenes/game/game_scene/hud/spin_symbol_container.gd" id="6_3l4lp"]
 [ext_resource type="Texture2D" uid="uid://8mirpd64vb34" path="res://assets/textures/UI/ShopButton1.png" id="7_f4el6"]
 [ext_resource type="Script" uid="uid://dotgt4vplgp3m" path="res://scenes/game/game_scene/hud/shop_button.gd" id="7_sbgnr"]
-[ext_resource type="PackedScene" uid="uid://5vg4c83ob4lc" path="res://scenes/game/UI_elements/menu_button.tscn" id="8_hwqol"]
+[ext_resource type="PackedScene" uid="uid://5vg4c83ob4lc" path="res://scenes/game/ui_elements/menu_button.tscn" id="8_hwqol"]
 [ext_resource type="Texture2D" uid="uid://cspmm8d23xl02" path="res://assets/textures/UI/ShopButtonClick.png" id="8_la7ma"]
 [ext_resource type="Texture2D" uid="uid://d3wtdve7esxcb" path="res://assets/textures/UI/ShopButtonHover.png" id="9_vy1w6"]
 [ext_resource type="Script" uid="uid://ecrf73k4pky8" path="res://scenes/game/game_scene/hud/quota_label.gd" id="13_vy1w6"]
@@ -16,6 +16,11 @@
 [ext_resource type="Script" uid="uid://claufn611f2p4" path="res://scenes/game/game_scene/hud/round_start_animations.gd" id="14_ag5u3"]
 [ext_resource type="Texture2D" uid="uid://bn08ytmdst6va" path="res://assets/textures/symbols/money_sprite_sheet.png" id="15_ag5u3"]
 [ext_resource type="FontFile" uid="uid://btfhjobeerona" path="res://assets/fonts/PixeloidSans.otf" id="15_c6has"]
+[ext_resource type="Texture2D" uid="uid://d1ydk111unfdr" path="res://assets/textures/UI/spinButtonNormal.png" id="17_niiyn"]
+[ext_resource type="Texture2D" uid="uid://deatfdjnlmpyr" path="res://assets/textures/UI/spinButtonPressed.png" id="18_thqaq"]
+[ext_resource type="Texture2D" uid="uid://soqgmjnshia6" path="res://assets/textures/UI/spinButtonHover.png" id="19_hlngw"]
+[ext_resource type="Texture2D" uid="uid://cw4woinwf7xbd" path="res://assets/textures/UI/spinButtonOff.png" id="20_o58sx"]
+[ext_resource type="Script" uid="uid://cibpkppa3lx3b" path="res://scenes/game/game_scene/hud/spin_button.gd" id="21_hlngw"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4sguu"]
 texture = ExtResource("7_f4el6")
@@ -398,6 +403,18 @@ _data = {
 &"RoundStart": SubResource("Animation_ag5u3")
 }
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vx0g1"]
+texture = ExtResource("17_niiyn")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nlk0o"]
+texture = ExtResource("18_thqaq")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nqfym"]
+texture = ExtResource("19_hlngw")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4lu4x"]
+texture = ExtResource("20_o58sx")
+
 [node name="HUD" type="CanvasLayer" unique_id=1970834067]
 
 [node name="ErrorMessage" parent="." unique_id=371495968 instance=ExtResource("1_8fe00")]
@@ -532,6 +549,26 @@ autoplay = "default"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="RoundStartAnimations" unique_id=1086076332]
 libraries/ = SubResource("AnimationLibrary_niiyn")
 
+[node name="SpinButton" type="Button" parent="." unique_id=701434672]
+offset_left = 877.0
+offset_top = 312.0
+offset_right = 973.0
+offset_bottom = 408.0
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("15_c6has")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxTexture_vx0g1")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_nlk0o")
+theme_override_styles/hover = SubResource("StyleBoxTexture_nqfym")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_4lu4x")
+text = "SPIN!"
+script = ExtResource("21_hlngw")
+
+[node name="Timer" type="Timer" parent="SpinButton" unique_id=739194610]
+wait_time = 0.3
+
 [connection signal="timeout" from="SpinSymbolContainer/RefillTimer" to="SpinSymbolContainer" method="_on_refill_timer_timeout"]
 [connection signal="timeout" from="BoostSymbolContainer/RefillTimer" to="BoostSymbolContainer" method="_on_refill_timer_timeout"]
 [connection signal="button_down" from="ShopButton" to="ShopButton" method="_on_button_down"]
+[connection signal="button_down" from="SpinButton" to="SpinButton" method="_on_button_down"]
+[connection signal="timeout" from="SpinButton/Timer" to="SpinButton" method="_on_timer_timeout"]

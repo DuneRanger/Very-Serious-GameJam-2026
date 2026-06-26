@@ -126,8 +126,8 @@ func _on_new_state():
 		GameEnums.game_states.BET_PHASE:
 			$Table/Roulette.stop_roulette()
 			var money_won = get_full_bet_win()
-			GameManagerGlobal.modify_money(money_won)
 			$Table/BettingSystem.clear_bets()
+			GameManagerGlobal.modify_money(money_won)
 		_:
 			pass
 
