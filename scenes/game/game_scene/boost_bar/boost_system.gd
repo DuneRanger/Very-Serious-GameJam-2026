@@ -17,6 +17,7 @@ func start_system() -> void:
 	$UnHappyButton.visible = true
 
 func _on_boost_button_pressed() -> void:
+	SfxManager.play_SFX("res://assets/SFX/boost_bar_use.mp3")
 	boost_amount = $boost_bar/bar/inner/boost_indicator.scale.y
 	print(boost_amount, " from boost_system")
 	GameManagerGlobal.on_boost.emit(boost_amount)
@@ -31,6 +32,7 @@ func _on_happy_button_pressed() -> void:
 	GameManagerGlobal.modify_game_state(GameEnums.game_states.BET_PHASE)
 
 func _on_unhappy_button_pressed() -> void:
+	SfxManager.play_SFX("res://assets/SFX/boost_bar_spawn.mp3")
 	$HappyButton.visible = false
 	$UnHappyButton.visible = false
 	$boost_bar.visible = true
