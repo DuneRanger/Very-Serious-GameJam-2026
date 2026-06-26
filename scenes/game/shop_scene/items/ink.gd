@@ -3,7 +3,7 @@ class_name ink extends ShopItem
 var cost : int = 3
 var image_path : String = "res://assets/textures/items/item_ink.png"
 var name : String = "Ink"
-var description : String = "Paint two red pockets black"
+var description : String = "Paint two red pockets black\n\n"
 
 func get_cost() -> int:
 	return cost
@@ -30,3 +30,6 @@ func apply_effect() -> void:
 		if i < len(red_cells):
 			red_cells[i].colour = Color.BLACK
 	GameManagerGlobal.commit_cell_change.emit()
+
+func is_valid(already_made_items : Array[ShopItem]) -> bool:
+	return true
