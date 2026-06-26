@@ -5,7 +5,7 @@ var round_count: int
 var evening_count: int
 var quota: int
 var money: int
-var rubys: int
+var rubies: int
 var spin_count: int
 var spins_left: int
 var boost_count: int
@@ -40,12 +40,12 @@ signal signal_boosts_left_change (amount : int)
 
 
 signal signal_modify_money (amount : int)
-signal signal_modify_rubys (amount : int)
+signal signal_modify_rubies (amount : int)
 signal signal_state_change (amount : int)
 signal signal_send_error_message(message : String)
 
 signal signal_buy_item (id : int)
-signal commit_cell_change ()
+signal commit_cell_change
 
 signal signal_shop_start_hover (id : int)
 signal signal_shop_stop_hover ()
@@ -55,7 +55,7 @@ signal signal_quota_message
 
 func game_start():
 	GameManagerGlobal.modify_money(100)
-	GameManagerGlobal.modify_rubys(5)
+	GameManagerGlobal.modify_rubies(5)
 	GameManagerGlobal.modify_boost_count(2)
 	GameManagerGlobal.modify_boost_left(2)
 	GameManagerGlobal.modify_spin_count(3)
@@ -82,6 +82,7 @@ var quota_messages : Array[String] = [
 	"a lifesaving operation",
 	"your fiancées ring",
 	"a haircut",
+	"bitches", #TODO delete this 
 ]
 
 func modify_boost_count (amount : int):
@@ -114,6 +115,6 @@ func modify_money (amount : int):
 	money += amount
 	signal_modify_money.emit()
 
-func modify_rubys (amount : int):
-	rubys += amount
-	signal_modify_rubys.emit()
+func modify_rubies (amount : int):
+	rubies += amount
+	signal_modify_rubies.emit()

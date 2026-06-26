@@ -45,6 +45,7 @@ var default_font : Font = load("res://assets/fonts/PixeloidMono.otf");
 # (base_roulette_numbers + 1) includes the green 0
 var total_weight : float = 0
 
+
 func _init():
 	prepare_inital_cells()
 	cells = GameManagerGlobal.initial_cells.duplicate_deep()

@@ -8,7 +8,7 @@ func _ready() -> void:
 	GameManagerGlobal.signal_send_error_message.connect(_on_send_error_message)
 	GameManagerGlobal.signal_state_change.connect(_on_new_state)
 	GameManagerGlobal.signal_modify_money.connect(edit_money)
-	GameManagerGlobal.signal_modify_rubys.connect(edit_rubys)
+	GameManagerGlobal.signal_modify_rubies.connect(edit_rubies)
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("stop_roullete"):
@@ -102,8 +102,8 @@ func _on_send_error_message(message : String):
 func edit_money():
 	$HUD/CoinLabel/Label.text = str(GameManagerGlobal.money)
 	
-func edit_rubys():
-	$HUD/RubyLabel/Label.text = str(GameManagerGlobal.rubys)
+func edit_rubies():
+	$HUD/RubyLabel/Label.text = str(GameManagerGlobal.rubies)
 
 func _on_new_state():
 	print("Current state " + GameEnums.game_state_str(GameManagerGlobal.game_state))
