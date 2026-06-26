@@ -5,7 +5,7 @@ class_name sunglasses
 var cost : int = 1
 var image_path : String = "res://assets/textures/items/item_sunglasses.png"
 var name : String = "Sunglasses"
-var description : String = "+1 swag"
+var description : String = "+1 swag\n\n"
 
 func get_cost() -> int:
 	return cost
