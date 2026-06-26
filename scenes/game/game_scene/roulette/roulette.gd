@@ -159,7 +159,6 @@ func _draw():
 	draw_edge()
 	draw_cells()
 	draw_centre()
-	move_banks()
 
 func modify_cell_weight(idx: int, change: float):
 	cells[idx].weight += change
@@ -232,6 +231,8 @@ func rotate_roulette(_delta : float):
 	visual_rotation += rotation_speed * _delta
 	$inner_wheel_sprite.rotation += rotation_speed * _delta
 	
+	move_banks()
+
 	sound_acc_rotation += abs(rotation_speed) * _delta
 	if sound_acc_rotation > sound_play_rotation:
 		sound_acc_rotation -= sound_play_rotation
@@ -254,7 +255,7 @@ func _physics_process(_delta: float):
 			else: settled_frames = 0
 			if settled_frames > 120:
 				fast_decay = true
-			if is_equal_approx(rotation_speed, 0):
+			if is_equal_approx(rotation_speed, 0) and settled_frames > 0:
 				var temp : Array[RouletteCell] = []
 				for ball in balls: temp.append(ball.caught_cell)
 				temp.sort_custom(func(a, b): return a.number < b.number)
