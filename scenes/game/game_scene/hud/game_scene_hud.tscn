@@ -290,10 +290,10 @@ tracks/0/path = NodePath("DarkenRectangle:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.23333333, 0.5, 4.7, 5.266667),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.23333333, 0.5, 4.7, 5.266667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0.8039216), Color(0, 0, 0, 0.8039216), Color(0, 0, 0, 0)]
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0), Color(0, 0, 0, 0.8039216), Color(0, 0, 0, 0.8039216), Color(0, 0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -302,10 +302,10 @@ tracks/1/path = NodePath("DarkenRectangle:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2111236, 5.5),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false, true, false]
+"values": [true, false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -532,6 +532,9 @@ autoplay = "default"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="RoundStartAnimations" unique_id=1086076332]
 libraries/ = SubResource("AnimationLibrary_niiyn")
 
+[node name="SFXTimer" type="Timer" parent="RoundStartAnimations" unique_id=1561373209]
+
 [connection signal="timeout" from="SpinSymbolContainer/RefillTimer" to="SpinSymbolContainer" method="_on_refill_timer_timeout"]
 [connection signal="timeout" from="BoostSymbolContainer/RefillTimer" to="BoostSymbolContainer" method="_on_refill_timer_timeout"]
 [connection signal="button_down" from="ShopButton" to="ShopButton" method="_on_button_down"]
+[connection signal="timeout" from="RoundStartAnimations/SFXTimer" to="RoundStartAnimations" method="_on_sfx_timer_timeout"]
