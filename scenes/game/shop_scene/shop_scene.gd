@@ -83,6 +83,7 @@ func _on_buy_item(item_id : int):
 	var item = offered_items[item_id]
 	var cost = item.get_item_cost()
 	if GameManagerGlobal.rubies >= cost:
+		SfxManager.play_SFX("res://assets/SFX/buy_item.mp3")
 		item.inner_item_apply_effect()
 		offered_items[item_id].remove_offer()
 		GameManagerGlobal.modify_rubies(-cost)
@@ -90,6 +91,7 @@ func _on_buy_item(item_id : int):
 		$DescriptionLabel.text = ""
 		$DescriptionLabel.visible = false
 	else:
+		SfxManager.play_SFX("res://assets/SFX/accept_loss.ogg")
 		$DescriptionLabel.text = "Not Enough Rubies!!!"
 
 func _on_fucking_awesome_refresh_button_button_down() -> void:

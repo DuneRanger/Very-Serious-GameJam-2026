@@ -19,6 +19,7 @@ func check_bet_validity() -> void:
 
 func _on_button_down() -> void:
 	if GameManagerGlobal.spins_left > 0:
+		SfxManager.play_SFX("res://assets/SFX/spin_start.ogg")
 		GameManagerGlobal.modify_game_state(GameEnums.game_states.SPIN_PHASE)
 		GameManagerGlobal.modify_spins_left(GameManagerGlobal.spins_left - 1)
 		$Timer.start()
