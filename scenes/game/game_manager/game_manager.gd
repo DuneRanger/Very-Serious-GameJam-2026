@@ -41,7 +41,6 @@ signal signal_spins_left_change (amount : int)
 signal signal_boost_count_change (amount : int)
 signal signal_boosts_left_change (amount : int)
 
-
 signal signal_modify_money (amount : int)
 signal signal_modify_rubies (amount : int)
 
@@ -55,10 +54,11 @@ signal signal_buy_item (id : int)
 signal commit_cell_change
 
 signal signal_shop_start_hover (id : int)
-signal signal_shop_stop_hover ()
+signal signal_shop_stop_hover
 
 signal signal_mr_cat_swag
 signal signal_quota_message
+signal signal_death_screen
 
 signal signal_increment_change
 signal signal_bet_is_adding_change

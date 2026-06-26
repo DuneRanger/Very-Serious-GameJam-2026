@@ -142,10 +142,7 @@ func _on_new_state():
 			
 			$Table/BoostSystem.start_system()
 			
-			#$Table/Roulette.spin_roulette()
-			#GameManagerGlobal.game_state = GameEnums.game_states.SPIN_PHASE
 		GameEnums.game_states.BET_PHASE:
-			print("\n\n\n\n\n\n\n\n\n")
 			$Table/Roulette.stop_roulette()
 			var money_won = get_full_bet_win()
 			#play SFX
@@ -156,6 +153,10 @@ func _on_new_state():
 			$Table/BettingSystem.clear_bets()
 			if GameManagerGlobal.spins_left != GameManagerGlobal.spin_count:
 				GameManagerGlobal.add_money(money_won)
+			if GameManagerGlobal.money == 0:
+				GameManagerGlobal.signal_death_screen.emit()
+			if GameManagerGlobal.spins_left == 0 and GameManagerGlobal.money < GameManagerGlobal.quota:
+				GameManagerGlobal.signal_death_screen.emit()
 		_:
 			pass
 
