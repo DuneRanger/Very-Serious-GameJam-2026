@@ -3,6 +3,7 @@ extends Node2D
 class_name GameScene
 
 func _ready() -> void:
+	GameManagerGlobal.signal_endless_mode.connect(start_next_round)
 	GameManagerGlobal.signal_send_error_message.connect(_on_send_error_message)
 	GameManagerGlobal.signal_state_change.connect(_on_new_state)
 	
@@ -157,7 +158,12 @@ func _on_new_state():
 				if GameManagerGlobal.money < GameManagerGlobal.quota:
 					GameManagerGlobal.signal_death_screen.emit()
 				else:
-					start_next_round()
+					#check win
+					if GameManagerGlobal.round_count == 1:
+						$HUD/WinScreen.win_screen()
+						
+					else:
+						start_next_round()
 		_:
 			pass
 
