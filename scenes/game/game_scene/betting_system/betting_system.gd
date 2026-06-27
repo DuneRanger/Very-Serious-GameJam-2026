@@ -9,6 +9,16 @@ extends Node2D
 @export var third_button_font_size : int
 @export var half_button_font_size : int
 
+@export var chip_black : StyleBoxTexture
+@export var chip_red : StyleBoxTexture
+@export var chip_blue : StyleBoxTexture
+@export var chip_yellow : StyleBoxTexture
+
+var chip_black_requirement : int = 0
+var chip_red_requirement : int = 50
+var chip_blue_requirement : int = 200
+var chip_yellow_requirement : int = 1000
+
 var labels = {}
 var max_num : int = 24
 var row_count : int = 3
@@ -164,10 +174,25 @@ func get_label(b):
 	if labels.has(b_id):
 		return labels[b_id]
 	var lab = bet_button_label.instantiate()
-	lab.size = Vector2(button_size, button_size) * 2/3
+	lab.size = Vector2(button_size, button_size) * 0.8
 	lab.position = b.position + (b.size - lab.size) / 2.0
 	labels[b.button_id] = lab
 	return lab
+
+func select_label_icon(lab : RichTextLabel, value : int):
+	print("Selecting icon, value: ", value)
+	if value >= chip_yellow_requirement:
+		print("Selected yellow")
+		lab.add_theme_stylebox_override("normal", chip_yellow)
+	elif value >= chip_blue_requirement:
+		print("Selected blue")
+		lab.add_theme_stylebox_override("normal", chip_blue)
+	elif value >= chip_red_requirement:
+		print("Selected red")
+		lab.add_theme_stylebox_override("normal", chip_red)
+	else:
+		print("Selected black")
+		lab.add_theme_stylebox_override("normal", chip_black)
 
 func new_bet(b_id : int) -> void:
 	if GameManagerGlobal.game_state != GameEnums.game_states.BET_PHASE:
@@ -205,6 +230,7 @@ func new_bet(b_id : int) -> void:
 		SfxManager.play_SFX_pitched("res://assets/SFX/bet_place.ogg")
 	
 	var l = get_label(b)
+	select_label_icon(l, bet_amount + old_bet)
 	
 	if GameManagerGlobal.bets[b_id] > 0:
 		if l.get_parent() == null:
