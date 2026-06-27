@@ -20,3 +20,8 @@ func _on_return_button_pressed() -> void:
 	$AnimationPlayer.play("RESET")
 	MusicManager.play_from_beginning()
 	GameManagerGlobal.signal_switch_scene.emit(GameEnums.switching_scenes.MAIN_MENU_SCENE)
+
+
+func _on_continue_button_pressed() -> void:
+	$AnimationPlayer.play("RESET")
+	MusicManager.play_from_beginning()

@@ -69,6 +69,30 @@ tracks/4/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("thanks label:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ContinueButton:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_kern8"]
 resource_name = "win_screen"
@@ -145,6 +169,18 @@ tracks/5/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ContinueButton:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(11.966666),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_po6pu"]
 _data = {
@@ -152,7 +188,7 @@ _data = {
 &"win_screen": SubResource("Animation_kern8")
 }
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6pe4r"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_14xkp"]
 texture = ExtResource("4_xjt1r")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pfmgx"]
@@ -160,6 +196,9 @@ texture = ExtResource("5_ww8e3")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yb04r"]
 texture = ExtResource("6_14xkp")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6pe4r"]
+texture = ExtResource("4_xjt1r")
 
 [node name="WinScreen" type="Node2D" unique_id=2085544614]
 script = ExtResource("1_4famm")
@@ -214,18 +253,34 @@ offset_right = 750.0
 offset_bottom = 144.0
 text = "win"
 
+[node name="ContinueButton" type="Button" parent="." unique_id=1881466820]
+visible = false
+z_index = 51
+offset_left = 704.0
+offset_top = 544.0
+offset_right = 832.0
+offset_bottom = 608.0
+theme_override_fonts/font = ExtResource("1_0nhwl")
+theme_override_styles/normal = SubResource("StyleBoxTexture_14xkp")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_pfmgx")
+theme_override_styles/hover = SubResource("StyleBoxTexture_yb04r")
+text = "Endless
+mode"
+
 [node name="ReturnButton" type="Button" parent="." unique_id=1616587603]
 visible = false
 z_index = 51
-offset_left = 576.0
+offset_left = 448.0
 offset_top = 544.0
-offset_right = 704.0
+offset_right = 576.0
 offset_bottom = 608.0
 theme_override_fonts/font = ExtResource("1_0nhwl")
 theme_override_styles/normal = SubResource("StyleBoxTexture_6pe4r")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_pfmgx")
 theme_override_styles/hover = SubResource("StyleBoxTexture_yb04r")
-text = "Main menu"
+text = "Main
+menu"
 
 [connection signal="pressed" from="test button" to="." method="_on_test_button_pressed"]
+[connection signal="pressed" from="ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]

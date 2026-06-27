@@ -283,6 +283,7 @@ offset_bottom = 824.0
 color = Color(0, 0, 0, 0)
 
 [node name="TestButton" type="Button" parent="." unique_id=126353391]
+visible = false
 z_index = 51
 offset_left = 320.0
 offset_top = 56.0
