@@ -97,11 +97,18 @@ func _on_buy_item(item_id : int):
 		$DescriptionLabel.text = ""
 		$DescriptionLabel.visible = false
 	else:
-		SfxManager.play_SFX("res://assets/SFX/accept_loss.ogg")
-		$DescriptionLabel.text = "Not Enough Rubies!!!"
+		not_enough_rubies()
 
 func _on_fucking_awesome_refresh_button_button_down() -> void:
-	refresh_shop()
+	var reroll_cost = GameManagerGlobal.round_shop_reroll_count + 1
+	if GameManagerGlobal.rubies >= reroll_cost:
+		GameManagerGlobal.add_rubies(-reroll_cost)
+		GameManagerGlobal.round_shop_reroll_count += 1
+		refresh_shop()
+		SfxManager.play_SFX("res://assets/SFX/buy_item.mp3")
+		_on_fucking_awesome_refresh_button_focus_entered()
+	else:
+		not_enough_rubies()
 
 func _on_focus_entered(button_id : int):
 	var item = offered_items[button_id]
@@ -113,7 +120,10 @@ func _on_focus_exited():
 	$DescriptionLabel.text = ""
 	$DescriptionLabel.visible = false
 
-	
+func _on_fucking_awesome_refresh_button_focus_entered() -> void:
+	$DescriptionLabel.text = "Refresh shop?\n\n\n\n\n\nCost: %d" %(GameManagerGlobal.round_shop_reroll_count + 1)
+	$DescriptionLabel.visible = true
+
 func modify_rubies():
 	$RubyLabel.set_value(GameManagerGlobal.rubies)
 
@@ -122,3 +132,7 @@ func add_rubies(amount : int):
 	print("Count on gmm: ", GameManagerGlobal.rubies)
 	modify_rubies()
 	$RubyLabel.set_diff(amount)
+
+func not_enough_rubies():
+	SfxManager.play_SFX("res://assets/SFX/accept_loss.ogg")
+	$DescriptionLabel.text = "Not Enough Rubies!!!"
