@@ -26,7 +26,7 @@ func apply_effect() -> void:
 	GameManagerGlobal.modify_boost_count(new_boost_count)
 	GameManagerGlobal.modify_boost_left(new_boosts_left)
 
-func is_valid(already_made_items : Array[ShopItem]) -> bool:
+func is_valid(_already_made_items : Array[ShopItem]) -> bool:
 	var potential_max_boost_count = GameManagerGlobal.boost_count + 2
 	var out = (potential_max_boost_count <= GameEnums.total_max_boost_count)
 	return out

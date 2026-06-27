@@ -28,7 +28,7 @@ func get_description() -> String:
 	return description
 
 func apply_effect() -> void:
-	GameManagerGlobal.cells.append(2)
+	GameManagerGlobal.cells.append(new_cell)
 	GameManagerGlobal.commit_cell_change.emit()
 
 func is_valid(_already_made_items : Array[ShopItem]) -> bool:
