@@ -129,7 +129,7 @@ func draw_cells():
 		draw_set_transform(Vector2(0, 0), cur_angle + cur_cell_angle / 2 + visual_rotation)
 		
 		var text = str(cell.number)
-		var font_max_width = sin(cur_cell_angle) * cell_circle_radius if abs(cur_cell_angle) < PI / 2 else 48
+		var font_max_width = sin(cur_cell_angle) * cell_circle_radius if abs(cur_cell_angle) < PI / 2 else (48 * len(text))
 		var font_size = min(48, font_max_width / len(text))
 		var pos = Vector2(-font_max_width / 2, -cell_circle_radius * 0.95 + font_size / 2)
 		draw_string(default_font, pos, text, HORIZONTAL_ALIGNMENT_CENTER, font_max_width, font_size)
