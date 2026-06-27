@@ -23,8 +23,8 @@ func get_description() -> String:
 func apply_effect() -> void:
 	var new_boost_count = max(0, GameManagerGlobal.boost_count - 1)
 	GameManagerGlobal.modify_boost_count(new_boost_count)
-	for mult in GameManagerGlobal.bet_id_multipliers:
-		mult *= 1.2
+	for i in range(len(GameManagerGlobal.bet_id_multipliers)):
+		GameManagerGlobal.bet_id_multipliers[i] *= 1.2
 
 func is_valid(already_made_items : Array[ShopItem]) -> bool:
 	return GameManagerGlobal.boost_count > 0
