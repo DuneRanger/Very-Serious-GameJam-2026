@@ -160,7 +160,7 @@ func _on_new_state():
 					GameManagerGlobal.signal_death_screen.emit()
 				else:
 					#check win
-					if GameManagerGlobal.round_count == 1:
+					if GameManagerGlobal.round_count == 10:
 						$HUD/WinScreen.win_screen()
 					else:
 						start_next_round()
