@@ -33,6 +33,7 @@ var applying_boost : bool = false
 
 signal signal_game_start
 signal signal_can_continue_game
+signal signal_cannot_continue_game
 signal reset_roulette
 
 signal on_boost (boost_amount : float)

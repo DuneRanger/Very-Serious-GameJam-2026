@@ -23,3 +23,4 @@ func continue_on() -> void:
 
 func _ready() -> void:
 	GameManagerGlobal.signal_can_continue_game.connect(continue_on)
+	GameManagerGlobal.signal_cannot_continue_game.connect(_on_continue_button_ready)

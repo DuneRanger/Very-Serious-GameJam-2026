@@ -167,6 +167,7 @@ func start_next_round():
 	calc_next_quota()
 	GameManagerGlobal.money = 100
 	modify_money()
+	print("starting next round")
 	GameManagerGlobal.signal_round_start.emit()
 	$HUD/SpinSymbolContainer.refill_spins()
 	$HUD/BoostSymbolContainer.refill_boosts()
