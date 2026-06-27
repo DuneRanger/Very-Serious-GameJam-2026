@@ -42,7 +42,6 @@ signal signal_spins_left_change (amount : int)
 signal signal_boost_count_change (amount : int)
 signal signal_boosts_left_change (amount : int)
 
-
 signal signal_modify_money (amount : int)
 signal signal_modify_rubies (amount : int)
 
@@ -64,6 +63,8 @@ signal signal_quota_message
 signal signal_increment_change
 signal signal_bet_is_adding_change
 signal signal_bet_max_change
+
+var round_shop_reroll_count : int
 
 var shop_max_spin_change : bool
 var shop_left_spin_change : bool
@@ -92,6 +93,8 @@ func game_start():
 	shop_left_spin_change = false
 	shop_max_boost_change = false
 	shop_left_boost_change = false
+	
+	round_shop_reroll_count = 0
 	
 	bet_increment = 1
 	bet_is_adding = true
