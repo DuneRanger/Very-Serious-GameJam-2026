@@ -176,11 +176,11 @@ func calculate_ruby_gain() -> int:
 
 func start_next_round():
 	GameManagerGlobal.round_count += 1
-	pick_quota_message()
-	calc_next_quota()
 	if GameManagerGlobal.round_count > 1:
 		var current_ruby_gain = calculate_ruby_gain()
 		GameManagerGlobal.add_rubies(current_ruby_gain)
+	pick_quota_message()
+	calc_next_quota()
 	GameManagerGlobal.money = 100
 	modify_money()
 	print("starting next round")
