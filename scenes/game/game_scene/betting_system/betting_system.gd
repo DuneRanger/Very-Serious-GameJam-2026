@@ -57,7 +57,6 @@ func make_buttons() -> void:
 	
 	for i in range(max_num):
 		var row = 1.0 * (i % row_count)
-		var col = 1.0 * (i / row_count)
 		@warning_ignore("integer_division")
 		var col = 1 * (i / row_count)
 		var new_button = bet_button_scene.instantiate()
