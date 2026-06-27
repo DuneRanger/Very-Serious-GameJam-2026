@@ -79,7 +79,6 @@ func full_reset():
 	for cell in GameManagerGlobal.initial_cells:
 		cells.append(cell.duplicate())
 	
-	cells[0].weight = 54
 	balls = get_initial_balls()
 	prepare_balls()
 	commit_cell_mod()
