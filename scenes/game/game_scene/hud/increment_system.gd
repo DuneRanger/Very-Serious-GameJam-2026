@@ -44,7 +44,6 @@ func _on_increase_increment_button_button_down() -> void:
 	GameManagerGlobal.bet_increment = new_increment
 	GameManagerGlobal.signal_increment_change.emit()
 
-
 func _on_decrease_increment_button_button_down() -> void:
 	SfxManager.press_button_sound()
 	var old_increment = GameManagerGlobal.bet_increment

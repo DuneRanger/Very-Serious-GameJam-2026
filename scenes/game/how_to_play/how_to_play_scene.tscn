@@ -4,8 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://ecj0m8u4dhwt" path="res://assets/textures/howtoplay_screen.png" id="2_mo0pp"]
 [ext_resource type="Texture2D" uid="uid://3y8y1ll5bfcb" path="res://assets/textures/UI/Button2.png" id="3_kt8qs"]
 [ext_resource type="FontFile" uid="uid://d0mkojug0pvql" path="res://assets/fonts/PixeloidSans-Bold.otf" id="3_l8ka4"]
+[ext_resource type="FontFile" uid="uid://btfhjobeerona" path="res://assets/fonts/PixeloidSans.otf" id="3_uowcb"]
 [ext_resource type="Texture2D" uid="uid://bfew31gwarq5w" path="res://assets/textures/UI/ButtonPressed.png" id="4_l8ka4"]
 [ext_resource type="Texture2D" uid="uid://wt3wpr6fyrj5" path="res://assets/textures/UI/ButtonHover.png" id="5_uowcb"]
+[ext_resource type="Texture2D" uid="uid://cbf3ebcpkmp1u" path="res://assets/textures/UI/button_square_normal.png" id="8_hxo6w"]
+[ext_resource type="Texture2D" uid="uid://d28yl868j06pi" path="res://assets/textures/UI/button_square_pressed.png" id="9_gakbr"]
+[ext_resource type="Texture2D" uid="uid://hgsswaxnwm5k" path="res://assets/textures/UI/button_square_hover.png" id="10_pygk0"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wh2fs"]
 texture = ExtResource("3_kt8qs")
@@ -15,6 +19,18 @@ texture = ExtResource("4_l8ka4")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hxo6w"]
 texture = ExtResource("5_uowcb")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o3rbp"]
+texture = ExtResource("8_hxo6w")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4ncuh"]
+texture = ExtResource("9_gakbr")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4uxno"]
+texture = ExtResource("10_pygk0")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_msgru"]
+texture = ExtResource("10_pygk0")
 
 [node name="HowToPlayScene" type="Node2D" unique_id=498387037]
 script = ExtResource("1_mmla4")
@@ -31,14 +47,67 @@ offset_left = -40.0
 offset_top = -24.0
 offset_right = 1352.0
 offset_bottom = 752.0
-color = Color(0, 0, 0, 0.36078432)
+color = Color(0, 0, 0, 0.627451)
 
-[node name="Label" type="Label" parent="." unique_id=779579447]
-offset_left = 152.0
-offset_top = 152.0
-offset_right = 672.0
-offset_bottom = 328.0
-text = "BITCH I DONT KNOW"
+[node name="TitleLabel" type="Label" parent="." unique_id=1672007434]
+offset_top = 24.0
+offset_right = 1280.0
+offset_bottom = 184.0
+theme_override_fonts/font = ExtResource("3_l8ka4")
+theme_override_font_sizes/font_size = 28
+text = " You are in financial ruin and need money fast!
+And there is no better way to earn a lot
+of money quickly, than visiting the CATSINO!"
+horizontal_alignment = 1
+
+[node name="RulesLabel" type="Label" parent="." unique_id=23317151]
+offset_left = 192.0
+offset_top = 184.0
+offset_right = 1088.0
+offset_bottom = 676.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/font = ExtResource("3_uowcb")
+theme_override_font_sizes/font_size = 24
+text = "1. Place bets on the betting table by clicking the numbers.
+
+2. Spin the wheel!
+
+3. If you are unhappy with the result of the spin, you can try to 
+\"boost\" your ivory balls to land in different pockets.
+
+4. Each round you have 3 roulette spins to reach a certain goal,
+after the round ends, you get some rubies and your money resets
+back to 100.
+
+5. With the newly aquired rubies you can also buy some items
+from Mr. Cat's shop.
+
+6. You win the game after solving all your financial problems."
+
+[node name="NumbersLabel" type="Label" parent="." unique_id=354388282]
+visible = false
+offset_left = 192.0
+offset_top = 184.0
+offset_right = 1088.0
+offset_bottom = 676.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/font = ExtResource("3_uowcb")
+theme_override_font_sizes/font_size = 24
+text = "The game in numbers:
+
+    Rewards for bets:
+            Numbered bets: 24x the amount bet
+            \"Third\" bets: 3x the amount bet (e.g. 1 to 8, 9 to 16)
+            \"Half\" bets: 2x the amount bet (e.g. even, red, 1 to 12)
+
+    Ruby gains:
+            3 for passing a round
+            2 for every remaining boost
+            1 for every time round goals has been passed (up to 10 times)"
 
 [node name="MenuButton" type="Button" parent="." unique_id=1614575585]
 offset_left = 32.0
@@ -51,11 +120,23 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_if5b0")
 theme_override_styles/hover = SubResource("StyleBoxTexture_hxo6w")
 text = "BACK"
 
-[node name="Label2" type="Label" parent="." unique_id=23317151]
-offset_left = 536.0
-offset_top = 96.0
-offset_right = 856.0
-offset_bottom = 296.0
-text = "this is kinda work in progres..."
+[node name="NextPageButton" type="Button" parent="." unique_id=63320327]
+offset_left = 1136.0
+offset_top = 560.0
+offset_right = 1216.0
+offset_bottom = 640.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_uowcb")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxTexture_o3rbp")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_4ncuh")
+theme_override_styles/hover = SubResource("StyleBoxTexture_4uxno")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_msgru")
+text = "1/2"
 
 [connection signal="button_down" from="MenuButton" to="." method="_on_menu_button_button_down"]
+[connection signal="button_down" from="NextPageButton" to="." method="_on_next_page_button_button_down"]
