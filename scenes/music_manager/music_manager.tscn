@@ -92,7 +92,9 @@ libraries/ = SubResource("AnimationLibrary_5jk4l")
 [node name="DeathTimer" type="Timer" parent="AudioStreamPlayer" unique_id=795075362]
 wait_time = 2.0
 
-[node name="TestTimer" type="Timer" parent="AudioStreamPlayer" unique_id=1371284133]
+[node name="WinTimer" type="Timer" parent="AudioStreamPlayer" unique_id=1371284133]
+wait_time = 2.0
 
 [connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
 [connection signal="timeout" from="AudioStreamPlayer/DeathTimer" to="." method="_on_death_timer_timeout"]
+[connection signal="timeout" from="AudioStreamPlayer/WinTimer" to="." method="_on_win_timer_timeout"]

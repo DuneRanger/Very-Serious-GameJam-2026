@@ -120,12 +120,17 @@ var quota_messages : Array[String] = [
 	"cancelling your Pawdobe subscription", 
 	"paying your debt to the mafia", #this is the max amount of characters thet looks good
 	"taxes",
-	"fines",
+	"paying fines for bad parking",
 	"car repairs",
 	"a lifesaving operation",
 	"your fiancées ring",
 	"a haircut",
-	"bitches", #TODO delete this 
+	"a new videogame",
+	"catnip",
+	"Catman comics",
+	"the newest catphone",
+	"starting a business",
+	"a rabies vaccine",
 ]
 
 func modify_boost_count (amount : int):
