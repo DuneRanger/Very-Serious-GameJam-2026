@@ -35,6 +35,7 @@ func _ready() -> void:
 	GameManagerGlobal.signal_buy_item.connect(_on_buy_item)
 	GameManagerGlobal.signal_shop_start_hover.connect(_on_focus_entered)
 	GameManagerGlobal.signal_shop_stop_hover.connect(_on_focus_exited)
+	GameManagerGlobal.signal_refresh_shop.connect(refresh_shop)
 
 func get_inner_items() -> Array[ShopItem]:
 	var out : Array[ShopItem] = []

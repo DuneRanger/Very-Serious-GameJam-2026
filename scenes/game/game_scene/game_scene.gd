@@ -171,6 +171,8 @@ func start_next_round():
 	GameManagerGlobal.signal_round_start.emit()
 	$HUD/SpinSymbolContainer.refill_spins()
 	$HUD/BoostSymbolContainer.refill_boosts()
+	GameManagerGlobal.signal_refresh_shop.emit()
+	GameManagerGlobal.round_shop_reroll_count = 0
 
 func pick_quota_message():
 	var previous_quota_msg = GameManagerGlobal.current_quota_message
