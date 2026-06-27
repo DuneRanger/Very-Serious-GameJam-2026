@@ -93,6 +93,18 @@ tracks/6/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("thanks label/thanks label:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_kern8"]
 resource_name = "win_screen"
@@ -181,6 +193,18 @@ tracks/6/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("thanks label/thanks label:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(10.05122),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_po6pu"]
 _data = {
@@ -206,17 +230,18 @@ script = ExtResource("1_4famm")
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1379590750]
 visible = false
 z_index = 50
-offset_left = -31.0
-offset_top = -19.0
-offset_right = 1318.0
-offset_bottom = 784.0
+offset_left = -24.0
+offset_top = -32.0
+offset_right = 1325.0
+offset_bottom = 771.0
 color = Color(1, 0.85882354, 0.34901962, 1)
 
 [node name="WinLabel" type="Label" parent="." unique_id=1044300290]
 visible = false
 z_index = 51
+offset_top = -88.0
 offset_right = 1280.0
-offset_bottom = 720.0
+offset_bottom = 632.0
 pivot_offset = Vector2(640, 360)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
@@ -231,16 +256,31 @@ vertical_alignment = 1
 [node name="thanks label" type="Label" parent="." unique_id=807551675]
 visible = false
 z_index = 51
-offset_top = 440.0
+offset_top = 376.0
 offset_right = 1281.0
-offset_bottom = 723.0
+offset_bottom = 659.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 2
 theme_override_fonts/font = ExtResource("3_a6nq2")
 theme_override_font_sizes/font_size = 30
 text = "Thank you for playing our game!
-Your financial situation is now acceptable."
+"
+horizontal_alignment = 1
+
+[node name="thanks label" type="Label" parent="thanks label" unique_id=326775543]
+visible = false
+z_index = 51
+layout_mode = 0
+offset_top = 40.0
+offset_right = 1281.0
+offset_bottom = 323.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("3_a6nq2")
+theme_override_font_sizes/font_size = 26
+text = "Your financial situation is now acceptable."
 horizontal_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1389388109]
