@@ -10,3 +10,6 @@ func play_SFX_pitched(path : String):
 	$AudioStreamPlayer.pitch_scale = randf_range(0.5, 1.5)
 	$AudioStreamPlayer.stream = load(path)
 	$AudioStreamPlayer.play()
+
+func press_button_sound():
+	SfxManager.play_SFX_pitched("res://assets/SFX/button_pressed.ogg")
