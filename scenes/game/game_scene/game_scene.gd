@@ -3,6 +3,7 @@ extends Node2D
 class_name GameScene
 @warning_ignore_start("integer_division")
 
+
 func _ready() -> void:
 	GameManagerGlobal.signal_endless_mode.connect(start_next_round)
 	GameManagerGlobal.signal_win_exit.connect(next_round_no_anim)
@@ -19,7 +20,7 @@ func _ready() -> void:
 func reset_rounds():
 	GameManagerGlobal.round_count = 0
 	start_next_round()
-
+	
 
 #func _process(_delta: float) -> void:
 	#if Input.is_action_just_pressed("stop_roullete"):

@@ -17,6 +17,7 @@ var shop_scene
 var how_to_play_scene
 
 var first_game = true
+var fullscreen = false
 
 func _ready() -> void:
 	GameManagerGlobal.start_new_game = true
@@ -32,6 +33,17 @@ func _ready() -> void:
 	current_scene = main_menu_scene
 	add_child(main_menu_scene)
 	GameManagerGlobal.signal_switch_scene.connect(scene_switch)
+
+
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("fullscreen_toggle"):
+		if fullscreen == false:
+			fullscreen = true
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN) 
+		else:
+			fullscreen = false
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED) 
+
 
 func new_game():
 	GameManagerGlobal.start_new_game = false
