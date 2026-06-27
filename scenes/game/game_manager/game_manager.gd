@@ -51,6 +51,7 @@ signal signal_modify_rubies (amount : int)
 
 signal signal_add_money(amount : int)
 signal signal_add_rubies(amount : int)
+signal signal_add_roulette_ball
 
 signal signal_state_change (amount : int)
 signal signal_send_error_message(message : String)

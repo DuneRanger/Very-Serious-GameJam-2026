@@ -173,6 +173,8 @@ func start_next_round():
 	$HUD/BoostSymbolContainer.refill_boosts()
 	GameManagerGlobal.signal_refresh_shop.emit()
 	GameManagerGlobal.round_shop_reroll_count = 0
+	if GameManagerGlobal.round_count % 3 == 0:
+		GameManagerGlobal.signal_add_roulette_ball.emit()
 
 func pick_quota_message():
 	var previous_quota_msg = GameManagerGlobal.current_quota_message
