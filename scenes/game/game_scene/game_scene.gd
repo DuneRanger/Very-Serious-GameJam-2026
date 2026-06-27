@@ -21,26 +21,26 @@ func reset_rounds():
 	start_next_round()
 
 
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("stop_roullete"):
-		if (GameManagerGlobal.game_state == GameEnums.game_states.SPIN_PHASE):
-			GameManagerGlobal.modify_game_state(GameEnums.game_states.BET_PHASE)
-
-	#Debugging temporary calls
-	if Input.is_action_just_pressed("boost_add"):
-		GameManagerGlobal.modify_boost_left(min (GameManagerGlobal.boost_count, GameManagerGlobal.boosts_left + 1))
-	if Input.is_action_just_pressed("boost_del"):
-		GameManagerGlobal.modify_boost_left(max (0, GameManagerGlobal.boosts_left - 1))
-	if Input.is_action_just_pressed("add_ball"):
-		GameManagerGlobal.modify_spins_left(min (GameManagerGlobal.spin_count, GameManagerGlobal.spins_left + 1))
-	if Input.is_action_just_pressed("remove_ball"):
-		GameManagerGlobal.modify_spins_left(max (0, GameManagerGlobal.spins_left - 1))
-	if Input.is_action_just_pressed("story_advance"):
-		start_next_round()
-	if Input.is_action_just_pressed("add_ball_max"):
-		GameManagerGlobal.modify_spin_count(GameManagerGlobal.spin_count + 1)
-	if Input.is_action_just_pressed("remove_ball_max"):
-		GameManagerGlobal.modify_spin_count(max (0, GameManagerGlobal.spin_count - 1))
+#func _process(_delta: float) -> void:
+	#if Input.is_action_just_pressed("stop_roullete"):
+		#if (GameManagerGlobal.game_state == GameEnums.game_states.SPIN_PHASE):
+			#GameManagerGlobal.modify_game_state(GameEnums.game_states.BET_PHASE)
+#
+	##Debugging temporary calls
+	#if Input.is_action_just_pressed("boost_add"):
+		#GameManagerGlobal.modify_boost_left(min (GameManagerGlobal.boost_count, GameManagerGlobal.boosts_left + 1))
+	#if Input.is_action_just_pressed("boost_del"):
+		#GameManagerGlobal.modify_boost_left(max (0, GameManagerGlobal.boosts_left - 1))
+	#if Input.is_action_just_pressed("add_ball"):
+		#GameManagerGlobal.modify_spins_left(min (GameManagerGlobal.spin_count, GameManagerGlobal.spins_left + 1))
+	#if Input.is_action_just_pressed("remove_ball"):
+		#GameManagerGlobal.modify_spins_left(max (0, GameManagerGlobal.spins_left - 1))
+	#if Input.is_action_just_pressed("story_advance"):
+		#start_next_round()
+	#if Input.is_action_just_pressed("add_ball_max"):
+		#GameManagerGlobal.modify_spin_count(GameManagerGlobal.spin_count + 1)
+	#if Input.is_action_just_pressed("remove_ball_max"):
+		#GameManagerGlobal.modify_spin_count(max (0, GameManagerGlobal.spin_count - 1))
 	
 
 func does_bet_win(bet_id : int) -> bool:
