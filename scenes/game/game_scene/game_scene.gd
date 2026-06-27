@@ -161,10 +161,21 @@ func _on_new_state():
 		_:
 			pass
 
+func calculate_ruby_gain() -> int:
+	var boosts_left_gain = 2 * GameManagerGlobal.boosts_left
+	var times_hit_quota = GameManagerGlobal.money / GameManagerGlobal.quota
+	var hit_quota_gain = min(10, times_hit_quota - 1)
+	print("Basic gain: 3, boosts gain: ", boosts_left_gain, ", quota gain: ", hit_quota_gain)
+	var out = 3 + boosts_left_gain + hit_quota_gain
+	return out
+
 func start_next_round():
 	GameManagerGlobal.round_count += 1
 	pick_quota_message()
 	calc_next_quota()
+	if GameManagerGlobal.round_count > 1:
+		var current_ruby_gain = calculate_ruby_gain()
+		GameManagerGlobal.add_rubies(current_ruby_gain)
 	GameManagerGlobal.money = 100
 	modify_money()
 	print("starting next round")

@@ -88,7 +88,7 @@ var bet_id_multipliers : Array[float] = []
 
 func game_start():
 	GameManagerGlobal.modify_money(100)
-	GameManagerGlobal.modify_rubies(100)
+	GameManagerGlobal.modify_rubies(5)
 	GameManagerGlobal.modify_boost_count(2)
 	GameManagerGlobal.modify_boost_left(2)
 	GameManagerGlobal.modify_spin_count(3)

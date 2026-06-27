@@ -7,11 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ch1muups6uskk" path="res://scenes/game/game_scene/betting_system/betting_system.tscn" id="4_uj17p"]
 [ext_resource type="PackedScene" uid="uid://cyc3c7bbs4ui3" path="res://scenes/game/game_scene/boost_bar/BoostSystem.tscn" id="6_4jb31"]
 [ext_resource type="PackedScene" uid="uid://cqwd5xducgdsl" path="res://scenes/game/game_scene/hud/game_scene_hud.tscn" id="9_4jb31"]
-[ext_resource type="PackedScene" uid="uid://bl8sfosexqsqv" path="res://scenes/game/UI_elements/animated_sprites/spin_symbol/spin_symbol.tscn" id="10_0qrw6"]
 [ext_resource type="Shader" uid="uid://d1sj22wa4oiic" path="res://assets/shaders/pixelate.gdshader" id="10_1xuq5"]
-[ext_resource type="PackedScene" uid="uid://djtfrov4iqbnm" path="res://scenes/game/UI_elements/animated_sprites/ruby_animated_sprite.tscn" id="10_7tgh3"]
-[ext_resource type="PackedScene" uid="uid://b8s6w1lbfa62g" path="res://scenes/game/UI_elements/animated_sprites/money_animated_sprite.tscn" id="11_hdcdy"]
-[ext_resource type="PackedScene" uid="uid://cdktdolx6e6pi" path="res://scenes/game/UI_elements/animated_sprites/boost_symbol/boost_symbol.tscn" id="12_ghl7i"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hdcdy"]
 shader = ExtResource("10_1xuq5")
@@ -63,62 +59,7 @@ padding = 3.6
 
 [node name="BoostSystem" parent="Table" unique_id=1635259107 instance=ExtResource("6_4jb31")]
 
-[node name="Test" type="Node" parent="." unique_id=1695512338]
-
-[node name="MoneyAnimatedSprite" parent="Test" unique_id=1016875789 instance=ExtResource("11_hdcdy")]
-visible = false
-position = Vector2(-352, -224)
-
-[node name="RubyAnimatedSprite" parent="Test" unique_id=701930484 instance=ExtResource("10_7tgh3")]
-visible = false
-position = Vector2(-352, -160)
-
-[node name="MoneyAnimatedSprite2" parent="Test" unique_id=1342679587 instance=ExtResource("11_hdcdy")]
-visible = false
-position = Vector2(-517, -95)
-
-[node name="RubyAnimatedSprite2" parent="Test" unique_id=1423863786 instance=ExtResource("10_7tgh3")]
-visible = false
-position = Vector2(-517, -30)
-
-[node name="BoostSymbol" parent="Test" unique_id=520437521 instance=ExtResource("12_ghl7i")]
-visible = false
-offset_left = -272.0
-offset_top = -271.0
-offset_right = -232.0
-offset_bottom = -231.0
-
-[node name="BoostSymbol2" parent="Test" unique_id=816301357 instance=ExtResource("12_ghl7i")]
-visible = false
-offset_left = -208.0
-offset_top = -271.0
-offset_right = -168.0
-offset_bottom = -231.0
-
-[node name="BoostSymbol3" parent="Test" unique_id=1093939258 instance=ExtResource("12_ghl7i")]
-visible = false
-offset_left = -144.0
-offset_top = -271.0
-offset_right = -104.0
-offset_bottom = -231.0
-
-[node name="SpinSymbol2" parent="Test" unique_id=1373102795 instance=ExtResource("10_0qrw6")]
-visible = false
-offset_left = -456.0
-offset_top = -272.0
-offset_right = -456.0
-offset_bottom = -272.0
-
-[node name="SpinSymbol" parent="Test" unique_id=1596740823 instance=ExtResource("10_0qrw6")]
-visible = false
-offset_left = -376.0
-offset_top = -272.0
-offset_right = -376.0
-offset_bottom = -272.0
-
 [node name="HUD" parent="." unique_id=1970834067 instance=ExtResource("9_4jb31")]
 layer = 200
-
-[node name="Test2" type="Node" parent="." unique_id=1816338907]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=427457406]

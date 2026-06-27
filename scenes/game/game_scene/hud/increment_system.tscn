@@ -62,7 +62,7 @@ texture = ExtResource("4_6nvno")
 script = ExtResource("1_pdtjh")
 
 [node name="Background" type="ColorRect" parent="." unique_id=263976294]
-offset_right = 344.0
+offset_right = 312.0
 offset_bottom = 64.0
 color = Color(0, 0, 0, 0.3372549)
 
@@ -85,7 +85,7 @@ theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_3fkhw")
 [node name="BetAmountLabel" type="Label" parent="." unique_id=854519641]
 offset_left = 64.0
 offset_top = 4.0
-offset_right = 355.0
+offset_right = 304.0
 offset_bottom = 65.0
 theme_override_fonts/font = ExtResource("1_a0wi8")
 theme_override_font_sizes/font_size = 22
@@ -93,9 +93,9 @@ text = "Bet amount:
 1234567890"
 
 [node name="IncreaseIncrementButton" type="Button" parent="." unique_id=1992757973]
-offset_left = 252.0
+offset_left = 220.0
 offset_top = 4.0
-offset_right = 284.0
+offset_right = 252.0
 offset_bottom = 36.0
 theme_override_styles/normal = SubResource("StyleBoxTexture_r2inl")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_tbhc7")
@@ -103,9 +103,9 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_wgydl")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_6sesk")
 
 [node name="DecreaseIncrementButton" type="Button" parent="." unique_id=1683917663]
-offset_left = 252.0
+offset_left = 220.0
 offset_top = 28.0
-offset_right = 284.0
+offset_right = 252.0
 offset_bottom = 60.0
 theme_override_styles/normal = SubResource("StyleBoxTexture_vmn4n")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_30h1v")
@@ -113,9 +113,9 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_vnmbe")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_siinx")
 
 [node name="MaxButton" type="Button" parent="." unique_id=199012580]
-offset_left = 288.0
+offset_left = 256.0
 offset_top = 8.0
-offset_right = 336.0
+offset_right = 304.0
 offset_bottom = 56.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
