@@ -1,0 +1,286 @@
+[gd_scene format=3 uid="uid://dakfa4jxso1ip"]
+
+[ext_resource type="FontFile" uid="uid://d0mkojug0pvql" path="res://assets/fonts/PixeloidSans-Bold.otf" id="1_0nhwl"]
+[ext_resource type="Script" uid="uid://rdwc5plwdkeg" path="res://scenes/game/win_screen/win_screen.gd" id="1_4famm"]
+[ext_resource type="FontFile" uid="uid://btfhjobeerona" path="res://assets/fonts/PixeloidSans.otf" id="3_a6nq2"]
+[ext_resource type="Texture2D" uid="uid://cvc70jnauhlmx" path="res://assets/textures/UI/Button.png" id="4_xjt1r"]
+[ext_resource type="Texture2D" uid="uid://bfew31gwarq5w" path="res://assets/textures/UI/ButtonPressed.png" id="5_ww8e3"]
+[ext_resource type="Texture2D" uid="uid://wt3wpr6fyrj5" path="res://assets/textures/UI/ButtonHover.png" id="6_14xkp"]
+
+[sub_resource type="Animation" id="Animation_a6nq2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.85882354, 0.34901962, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WinLabel:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WinLabel:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ReturnButton:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ColorRect:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("thanks label:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ContinueButton:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_kern8"]
+resource_name = "win_screen"
+length = 12.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0.8591666, 0.35000002, 0), Color(1, 0.8591666, 0.35000002, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WinLabel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WinLabel:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2, 7.0666666),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.1, 0.1), Vector2(1.2, 1.2)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("thanks label:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(9.066667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ReturnButton:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(11.966666),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ContinueButton:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(11.966666),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_po6pu"]
+_data = {
+&"RESET": SubResource("Animation_a6nq2"),
+&"win_screen": SubResource("Animation_kern8")
+}
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_14xkp"]
+texture = ExtResource("4_xjt1r")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pfmgx"]
+texture = ExtResource("5_ww8e3")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yb04r"]
+texture = ExtResource("6_14xkp")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6pe4r"]
+texture = ExtResource("4_xjt1r")
+
+[node name="WinScreen" type="Node2D" unique_id=2085544614]
+script = ExtResource("1_4famm")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1379590750]
+visible = false
+z_index = 50
+offset_left = -31.0
+offset_top = -19.0
+offset_right = 1318.0
+offset_bottom = 784.0
+color = Color(1, 0.85882354, 0.34901962, 1)
+
+[node name="WinLabel" type="Label" parent="." unique_id=1044300290]
+visible = false
+z_index = 51
+offset_right = 1280.0
+offset_bottom = 720.0
+pivot_offset = Vector2(640, 360)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("1_0nhwl")
+theme_override_font_sizes/font_size = 128
+text = "YOU WIN!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="thanks label" type="Label" parent="." unique_id=807551675]
+visible = false
+z_index = 51
+offset_top = 440.0
+offset_right = 1281.0
+offset_bottom = 723.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("3_a6nq2")
+theme_override_font_sizes/font_size = 35
+text = "Thank you for playing our game!
+Your financial situation is now acceptable."
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1389388109]
+libraries/ = SubResource("AnimationLibrary_po6pu")
+
+[node name="test button" type="Button" parent="." unique_id=1908034130]
+offset_left = 576.0
+offset_top = 58.0
+offset_right = 750.0
+offset_bottom = 144.0
+text = "win"
+
+[node name="ContinueButton" type="Button" parent="." unique_id=1881466820]
+visible = false
+z_index = 51
+offset_left = 704.0
+offset_top = 544.0
+offset_right = 832.0
+offset_bottom = 608.0
+theme_override_fonts/font = ExtResource("1_0nhwl")
+theme_override_styles/normal = SubResource("StyleBoxTexture_14xkp")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_pfmgx")
+theme_override_styles/hover = SubResource("StyleBoxTexture_yb04r")
+text = "Endless
+mode"
+
+[node name="ReturnButton" type="Button" parent="." unique_id=1616587603]
+visible = false
+z_index = 51
+offset_left = 448.0
+offset_top = 544.0
+offset_right = 576.0
+offset_bottom = 608.0
+theme_override_fonts/font = ExtResource("1_0nhwl")
+theme_override_styles/normal = SubResource("StyleBoxTexture_6pe4r")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_pfmgx")
+theme_override_styles/hover = SubResource("StyleBoxTexture_yb04r")
+text = "Main
+menu"
+
+[connection signal="pressed" from="test button" to="." method="_on_test_button_pressed"]
+[connection signal="pressed" from="ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]

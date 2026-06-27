@@ -2,7 +2,7 @@ class_name supercell extends ShopItem
 
 var cost : int = 7
 var image_path : String = "res://assets/textures/items/item_supercell.png"
-var name : String = "SuperCell"
+var name : String = "Super Cell"
 var target_number : int
 var description : String
 
@@ -14,7 +14,7 @@ func get_image_path() -> String:
 
 func _init() -> void:
 	target_number = GameManagerGlobal.cells.pick_random().number
-	description = "Increase the weight of a single number %d pocket by three\n" % target_number
+	description = "Increase the weight of a single number %d pocket by three" % target_number
 
 func get_name() -> String:
 	return name
