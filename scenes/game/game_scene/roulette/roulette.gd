@@ -50,13 +50,11 @@ var total_weight : float = 0
 
 func _init():
 	prepare_inital_cells()
-	cells = GameManagerGlobal.initial_cells.duplicate_deep()
+	cells = []
+	for cell in GameManagerGlobal.initial_cells:
+		cells.append(cell.duplicate())
 	balls = get_initial_balls()
 	prepare_balls()
-	for cell in cells:
-		print(cell)
-		print(str(cell))
-
 	update_total_weight()
 
 func _ready():
@@ -65,6 +63,7 @@ func _ready():
 	prepare_textures()
 	GameManagerGlobal.on_boost.connect(apply_boost)
 	GameManagerGlobal.signal_game_start.connect(prepare_inital_cells)
+	GameManagerGlobal.reset_roulette.connect(full_reset)
 	
 	GameManagerGlobal.commit_cell_change.connect(commit_cell_mod)
 	roulette_tick_sound.stream = load("res://assets/music/RouletteTickSFX.mp3")
@@ -73,19 +72,16 @@ func full_reset():
 	cells.clear()
 	balls.clear()
 	for n in get_children():
-		if n is RouletteBall or RouletteCell:
-			print("Removing ", n)
+		if n is RouletteBall or n is RouletteBank:
 			remove_child(n)
 			n.queue_free()
-	cells = GameManagerGlobal.initial_cells.duplicate_deep()
+	for cell in GameManagerGlobal.initial_cells:
+		cells.append(cell.duplicate())
+	
 	balls = get_initial_balls()
 	prepare_balls()
-
-	randomize_weights()
-	update_total_weight()
-	
-	build_outer_wall()
-	build_banks()
+	commit_cell_mod()
+	GameManagerGlobal.on_boost.connect(apply_boost)
 
 func randomize_weights():
 	for cell in cells:
@@ -148,6 +144,7 @@ func rebuild_banks():
 	build_banks()
 
 func prepare_textures():
+	#$roulette_handle_sprite.apply_scale(Vector2(1, 1) * (inner_circle_radius + 2) / 44)
 	$inner_wheel_sprite.apply_scale(Vector2(1, 1) * (inner_circle_radius + 2) / 44.2)
 	$roulette_handle_sprite.apply_scale(Vector2(1, 1) * (inner_circle_radius + 2) / 44)
 

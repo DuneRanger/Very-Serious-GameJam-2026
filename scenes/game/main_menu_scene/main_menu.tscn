@@ -116,3 +116,4 @@ color = Color(0, 0, 0, 0.32156864)
 [connection signal="button_down" from="NewGameButton" to="." method="_on_new_game_button_button_down"]
 [connection signal="button_down" from="HowToPlayButton" to="." method="_on_how_to_play_button_button_down"]
 [connection signal="button_down" from="ContinueButton" to="." method="_on_continue_button_button_down"]
+[connection signal="ready" from="ContinueButton" to="." method="_on_continue_button_ready"]
