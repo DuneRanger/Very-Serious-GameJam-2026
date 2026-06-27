@@ -115,9 +115,12 @@ func game_start():
 	signal_bet_is_adding_change.emit()
 	signal_bet_max_change.emit()
 	
-	for i in range(GameEnums.bet_button_count):
-		bet_id_multipliers.append(1.0)
-	
+	if len(bet_id_multipliers) == 0:
+		for i in range(GameEnums.bet_button_count):
+			bet_id_multipliers.append(1.0)
+	else:
+		for i in range(GameEnums.bet_button_count):
+			bet_id_multipliers[i] = 1.0
 	signal_game_start.emit()
 
 
