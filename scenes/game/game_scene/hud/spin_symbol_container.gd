@@ -9,6 +9,7 @@ func _ready() -> void:
 	GameManagerGlobal.signal_spins_left_change.connect(_on_spins_left_change)
 	GameManagerGlobal.signal_spin_count_change.connect(_on_spins_count_change)
 	old_spins_left = 0
+	GameManagerGlobal.spins_left = 0
 
 func _on_spins_left_change() -> void:
 	print("Changing count of left spins to: ", GameManagerGlobal.spins_left)
@@ -48,9 +49,6 @@ func _on_spins_count_change() -> void:
 		if GameManagerGlobal.spins_left > GameManagerGlobal.spin_count:
 			GameManagerGlobal.spins_left = spin_symbols.size()
 			old_spins_left = spin_symbols.size()
-		
-		
-	#GameManagerGlobal.modify_spins_left(GameManagerGlobal.spin_count)
 
 func refill_spins():
 	GameManagerGlobal.modify_spins_left(min (GameManagerGlobal.spin_count, GameManagerGlobal.spins_left + 1))
@@ -60,5 +58,3 @@ func _on_refill_timer_timeout() -> void:
 	$RefillTimer.stop()
 	if (GameManagerGlobal.spin_count != GameManagerGlobal.spins_left):
 		refill_spins()
-	
-	pass # Replace with function body.

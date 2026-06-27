@@ -25,6 +25,8 @@ static func get_colour_string(_colour : Color):
 		Color.DARK_GREEN: return "green"
 		_: return "unknown colour"
 
+func duplicate() -> RouletteCell:
+	return RouletteCell.new(number, colour, weight)
 
 func _to_string() -> String:
 	var out = get_colour_string(colour) + " " + str(number)

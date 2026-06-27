@@ -1,5 +1,6 @@
 extends Node2D
 
+var start_new_game : bool
 var round_budget: int
 var round_count: int
 var evening_count: int
@@ -31,6 +32,8 @@ var bet_is_max : bool
 var applying_boost : bool = false
 
 signal signal_game_start
+signal signal_can_continue_game
+signal reset_roulette
 
 signal on_boost (boost_amount : float)
 
@@ -55,10 +58,11 @@ signal signal_buy_item (id : int)
 signal commit_cell_change
 
 signal signal_shop_start_hover (id : int)
-signal signal_shop_stop_hover ()
+signal signal_shop_stop_hover
 
 signal signal_mr_cat_swag
 signal signal_quota_message
+signal signal_death_screen
 
 signal signal_increment_change
 signal signal_bet_is_adding_change
@@ -86,6 +90,7 @@ func game_start():
 	GameManagerGlobal.modify_boost_left(2)
 	GameManagerGlobal.modify_spin_count(3)
 	GameManagerGlobal.modify_spins_left(3)
+	GameManagerGlobal.round_count = 0
 	mr_cat_swag = false
 	GameManagerGlobal.modify_game_state(GameEnums.game_states.BET_PHASE)
 	
@@ -107,7 +112,7 @@ func game_start():
 		bet_id_multipliers.append(1.0)
 	
 	signal_game_start.emit()
-	
+
 
 signal signal_round_start
 

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cxo23rckbhjbo"]
 
-[ext_resource type="Script" uid="uid://dqekamo0autp" path="res://scenes/game/ui_elements/awesome_label.gd" id="1_mvonj"]
+[ext_resource type="Script" uid="uid://dqekamo0autp" path="res://scenes/game/UI_elements/awesome_label.gd" id="1_mvonj"]
 [ext_resource type="FontFile" uid="uid://btfhjobeerona" path="res://assets/fonts/PixeloidSans.otf" id="1_myjds"]
 
 [node name="AwesomeLabel" type="Node2D" unique_id=1310137312]

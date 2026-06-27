@@ -35,21 +35,6 @@ scale = Vector2(4.0888886, 4.0888886)
 texture = ExtResource("2_8ocso")
 centered = false
 
-[node name="Shadow" type="ColorRect" parent="." unique_id=1779139650]
-offset_left = 835.0
-offset_top = 328.0
-offset_right = 1008.0
-offset_bottom = 424.0
-color = Color(0, 0, 0, 0.32156864)
-
-[node name="Shadow" type="ColorRect" parent="Shadow" unique_id=926018850]
-layout_mode = 0
-offset_left = -16.0
-offset_top = 88.0
-offset_right = 186.0
-offset_bottom = 200.0
-color = Color(0, 0, 0, 0.32156864)
-
 [node name="NewGameButton" type="Button" parent="." unique_id=589256499]
 offset_left = 824.0
 offset_top = 424.0
@@ -63,13 +48,15 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_jhlmk")
 theme_override_styles/hover = SubResource("StyleBoxTexture_j5ied")
 text = "NEW GAME!"
 
-[node name="EpicRect" type="ColorRect" parent="." unique_id=1565200869]
-visible = false
-offset_left = 280.0
-offset_top = 136.0
-offset_right = 544.0
-offset_bottom = 272.0
-color = Color(0.56025434, 0.65292406, 0.9261292, 1)
+[node name="Shadow" type="ColorRect" parent="NewGameButton" unique_id=926018850]
+show_behind_parent = true
+layout_mode = 0
+offset_left = -5.0
+offset_top = -8.0
+offset_right = 197.0
+offset_bottom = 104.0
+mouse_filter = 1
+color = Color(0, 0, 0, 0.32156864)
 
 [node name="Label" type="Label" parent="." unique_id=501622967]
 visible = false
@@ -93,5 +80,40 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_coahj")
 theme_override_styles/hover = SubResource("StyleBoxTexture_cf3fe")
 text = "HOW TO PLAY"
 
+[node name="Shadow" type="ColorRect" parent="HowToPlayButton" unique_id=1779139650]
+show_behind_parent = true
+layout_mode = 0
+offset_left = -5.0
+offset_top = -8.0
+offset_right = 168.0
+offset_bottom = 88.0
+mouse_filter = 1
+color = Color(0, 0, 0, 0.32156864)
+
+[node name="ContinueButton" type="Button" parent="." unique_id=1395680593]
+offset_left = 824.0
+offset_top = 528.0
+offset_right = 1016.0
+offset_bottom = 624.0
+theme_override_colors/font_hover_color = Color(0.98039216, 0.76862746, 0, 1)
+theme_override_fonts/font = ExtResource("2_w11i7")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxTexture_w11i7")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_coahj")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cf3fe")
+text = "CONTINUE"
+
+[node name="Shadow" type="ColorRect" parent="ContinueButton" unique_id=1729177609]
+show_behind_parent = true
+layout_mode = 0
+offset_left = -5.0
+offset_top = -8.0
+offset_right = 197.0
+offset_bottom = 104.0
+mouse_filter = 1
+color = Color(0, 0, 0, 0.32156864)
+
 [connection signal="button_down" from="NewGameButton" to="." method="_on_new_game_button_button_down"]
 [connection signal="button_down" from="HowToPlayButton" to="." method="_on_how_to_play_button_button_down"]
+[connection signal="button_down" from="ContinueButton" to="." method="_on_continue_button_button_down"]
+[connection signal="ready" from="ContinueButton" to="." method="_on_continue_button_ready"]
