@@ -4,7 +4,23 @@
 [ext_resource type="PackedScene" uid="uid://c7y4bfu1vt5we" path="res://scenes/game/game_scene/betting_system/bet_button.tscn" id="2_gf42j"]
 [ext_resource type="PackedScene" uid="uid://r818ix60yp68" path="res://scenes/game/game_scene/betting_system/bet_label.tscn" id="3_njhud"]
 [ext_resource type="Texture2D" uid="uid://cvc70jnauhlmx" path="res://assets/textures/UI/Button.png" id="4_4sryy"]
+[ext_resource type="Texture2D" uid="uid://dut742t7mmgrt" path="res://assets/textures/chips/chip_black.png" id="4_60oc5"]
 [ext_resource type="Script" uid="uid://c7ho25had8seq" path="res://scenes/game/game_scene/betting_system/increment_toggle.gd" id="4_qcixp"]
+[ext_resource type="Texture2D" uid="uid://i5la5qr025mw" path="res://assets/textures/chips/chip_red.png" id="5_wj0nr"]
+[ext_resource type="Texture2D" uid="uid://drwcdh4erixtq" path="res://assets/textures/chips/chip_blue.png" id="6_p2qa8"]
+[ext_resource type="Texture2D" uid="uid://b1h766mvtji8y" path="res://assets/textures/chips/chip_yellow.png" id="7_hf4ey"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7hrj3"]
+texture = ExtResource("4_60oc5")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iwegw"]
+texture = ExtResource("5_wj0nr")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4sryy"]
+texture = ExtResource("6_p2qa8")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hf4ey"]
+texture = ExtResource("7_hf4ey")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_60oc5"]
 texture = ExtResource("4_4sryy")
@@ -24,6 +40,10 @@ padding = 4.0
 number_button_font_size = 22
 third_button_font_size = 24
 half_button_font_size = 13
+chip_black = SubResource("StyleBoxTexture_7hrj3")
+chip_red = SubResource("StyleBoxTexture_iwegw")
+chip_blue = SubResource("StyleBoxTexture_4sryy")
+chip_yellow = SubResource("StyleBoxTexture_hf4ey")
 
 [node name="Background" type="ColorRect" parent="." unique_id=286948862]
 color = Color(1.01, 1.01, 1.01, 1)
