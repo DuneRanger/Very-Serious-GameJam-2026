@@ -3,6 +3,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+
 	$ColorRect.visible = false
 	pass # Replace with function body.
 
@@ -24,4 +25,5 @@ func _on_return_button_pressed() -> void:
 
 func _on_continue_button_pressed() -> void:
 	$AnimationPlayer.play("RESET")
+	GameManagerGlobal.signal_endless_mode.emit()
 	MusicManager.play_from_beginning()

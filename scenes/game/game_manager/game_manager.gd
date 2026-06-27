@@ -71,6 +71,8 @@ signal signal_increment_change
 signal signal_bet_is_adding_change
 signal signal_bet_max_change
 
+signal signal_endless_mode
+
 var round_shop_reroll_count : int
 
 var shop_max_spin_change : bool
