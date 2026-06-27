@@ -19,7 +19,7 @@ func get_image_path() -> String:
 
 func _init() -> void:
 	make_cell()
-	description = "Adds a %s to the roullete.\n\n" %str(new_cell)
+	description = "Adds a %s to the roullete.     \n" %str(new_cell)
 
 func get_name() -> String:
 	return name
