@@ -1,11 +1,17 @@
 extends Node2D
 
+var max_button_normal : StyleBox
+var max_button_pressed : StyleBox
+
 func _ready() -> void:
+	max_button_normal = $MaxButton.get_theme_stylebox("normal")
+	max_button_pressed = $MaxButton.get_theme_stylebox("pressed")
 	GameManagerGlobal.signal_bet_is_adding_change.connect(_on_signal_bet_is_adding_change)
 	GameManagerGlobal.signal_bet_max_change.connect(_on_signal_bet_max_change)
 	GameManagerGlobal.signal_increment_change.connect(_on_signal_increment_change)
 
 func _on_remove_toggle_button_down() -> void:
+	SfxManager.press_button_sound()
 	GameManagerGlobal.bet_is_adding = not GameManagerGlobal.bet_is_adding
 	GameManagerGlobal.signal_bet_is_adding_change.emit()
 
@@ -28,6 +34,7 @@ func get_first_digit(num : int) -> int:
 	return num
 
 func _on_increase_increment_button_button_down() -> void:
+	SfxManager.press_button_sound()
 	var old_increment = GameManagerGlobal.bet_increment
 	var new_increment = old_increment
 	new_increment *= 5 if (get_first_digit(old_increment) == 1) else 2
@@ -39,6 +46,7 @@ func _on_increase_increment_button_button_down() -> void:
 
 
 func _on_decrease_increment_button_button_down() -> void:
+	SfxManager.press_button_sound()
 	var old_increment = GameManagerGlobal.bet_increment
 	var new_increment = old_increment
 	new_increment /= 2 if (get_first_digit(old_increment) == 1) else 5
@@ -49,12 +57,12 @@ func _on_decrease_increment_button_button_down() -> void:
 	GameManagerGlobal.signal_increment_change.emit()
 
 func _on_max_button_button_down() -> void:
+	SfxManager.press_button_sound()
 	GameManagerGlobal.bet_is_max = !GameManagerGlobal.bet_is_max
 	GameManagerGlobal.signal_bet_max_change.emit()
 
 func _on_signal_bet_max_change() -> void:
-	print("Caught max change!")
 	if GameManagerGlobal.bet_is_max:
-		$MaxButton.text = "max"
+		$MaxButton.add_theme_stylebox_override("normal", max_button_pressed)
 	else:
-		$MaxButton.text = "no"
+		$MaxButton.add_theme_stylebox_override("normal", max_button_normal)

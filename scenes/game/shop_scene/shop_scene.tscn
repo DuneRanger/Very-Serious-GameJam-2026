@@ -4,11 +4,39 @@
 [ext_resource type="PackedScene" uid="uid://sewpvrb7xfdc" path="res://scenes/game/shop_scene/mr_cat/mr_cat.tscn" id="1_nw121"]
 [ext_resource type="PackedScene" uid="uid://c1fkvqvg8nvi6" path="res://scenes/game/shop_scene/offered_item.tscn" id="2_dh51g"]
 [ext_resource type="Texture2D" uid="uid://bcsc264rw85de" path="res://assets/textures/ShopBackgroundBlurred.png" id="2_i1bid"]
-[ext_resource type="Script" uid="uid://b0m5epq34gfw5" path="res://scenes/game/shop_scene/game_button.gd" id="3_8ksok"]
-[ext_resource type="PackedScene" uid="uid://5vg4c83ob4lc" path="res://scenes/game/UI_elements/menu_button.tscn" id="4_o1uo5"]
+[ext_resource type="PackedScene" uid="uid://5vg4c83ob4lc" path="res://scenes/game/ui_elements/menu_button.tscn" id="4_o1uo5"]
+[ext_resource type="Texture2D" uid="uid://bc5dnsmdh2upm" path="res://assets/textures/UI/shop_back_button_normal.png" id="5_cfwce"]
+[ext_resource type="FontFile" uid="uid://d0mkojug0pvql" path="res://assets/fonts/PixeloidSans-Bold.otf" id="5_jpb3e"]
+[ext_resource type="Texture2D" uid="uid://b31d3n7am4vko" path="res://assets/textures/UI/shop_back_button_hover.png" id="6_jpb3e"]
 [ext_resource type="FontFile" uid="uid://btfhjobeerona" path="res://assets/fonts/PixeloidSans.otf" id="7_wb2ns"]
 [ext_resource type="PackedScene" uid="uid://djtfrov4iqbnm" path="res://scenes/game/UI_elements/animated_sprites/ruby_animated_sprite.tscn" id="8_qmg6l"]
-[ext_resource type="PackedScene" uid="uid://cxo23rckbhjbo" path="res://scenes/game/UI_elements/AwesomeLabel.tscn" id="9_nndy6"]
+[ext_resource type="PackedScene" uid="uid://cxo23rckbhjbo" path="res://scenes/game/ui_elements/AwesomeLabel.tscn" id="9_nndy6"]
+[ext_resource type="Texture2D" uid="uid://dh6e7tefqyxys" path="res://assets/textures/UI/refresh_button_normal.png" id="10_xtto7"]
+[ext_resource type="Texture2D" uid="uid://bbm2frgrwk7qx" path="res://assets/textures/UI/refresh_button_hover.png" id="11_8s6tu"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hw0d7"]
+texture = ExtResource("5_cfwce")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xtto7"]
+texture = ExtResource("6_jpb3e")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8s6tu"]
+texture = ExtResource("6_jpb3e")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rv85n"]
+texture = ExtResource("6_jpb3e")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eqfij"]
+texture = ExtResource("10_xtto7")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rmx28"]
+texture = ExtResource("11_8s6tu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f62kg"]
+texture = ExtResource("11_8s6tu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wwu60"]
+texture = ExtResource("11_8s6tu")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dh51g"]
 content_margin_left = 10.0
@@ -47,8 +75,17 @@ offset_left = -624.0
 offset_top = -344.0
 offset_right = -496.0
 offset_bottom = -280.0
-text = "GO BACK"
-script = ExtResource("3_8ksok")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_jpb3e")
+theme_override_styles/normal = SubResource("StyleBoxTexture_hw0d7")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_xtto7")
+theme_override_styles/hover = SubResource("StyleBoxTexture_8s6tu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_rv85n")
+text = "  BACK"
 
 [node name="MenuButton" parent="." unique_id=1837179404 instance=ExtResource("4_o1uo5")]
 offset_left = 560.0
@@ -65,11 +102,14 @@ offset_bottom = -104.0
 theme_override_constants/separation = 64
 
 [node name="FuckingAwesomeRefreshButton" type="Button" parent="." unique_id=1644342408]
-offset_left = -200.0
-offset_top = -344.0
-offset_right = -24.0
-offset_bottom = -280.0
-text = "refresh"
+offset_left = -56.0
+offset_top = -204.0
+offset_right = 8.0
+offset_bottom = -140.0
+theme_override_styles/normal = SubResource("StyleBoxTexture_eqfij")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_rmx28")
+theme_override_styles/hover = SubResource("StyleBoxTexture_f62kg")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_wwu60")
 
 [node name="DescriptionLabel" type="RichTextLabel" parent="." unique_id=392925174]
 anchors_preset = 15
@@ -95,3 +135,5 @@ position = Vector2(-552, 240)
 
 [connection signal="button_down" from="GameButton" to="MrCat" method="_on_game_button_button_down"]
 [connection signal="button_down" from="FuckingAwesomeRefreshButton" to="." method="_on_fucking_awesome_refresh_button_button_down"]
+[connection signal="mouse_entered" from="FuckingAwesomeRefreshButton" to="." method="_on_fucking_awesome_refresh_button_focus_entered"]
+[connection signal="mouse_exited" from="FuckingAwesomeRefreshButton" to="." method="_on_focus_exited"]

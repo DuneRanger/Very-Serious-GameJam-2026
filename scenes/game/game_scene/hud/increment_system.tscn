@@ -2,21 +2,61 @@
 
 [ext_resource type="FontFile" uid="uid://btfhjobeerona" path="res://assets/fonts/PixeloidSans.otf" id="1_a0wi8"]
 [ext_resource type="Script" uid="uid://daajfbimc7j3r" path="res://scenes/game/game_scene/hud/increment_system.gd" id="1_pdtjh"]
+[ext_resource type="Texture2D" uid="uid://cbf3ebcpkmp1u" path="res://assets/textures/UI/button_square_normal.png" id="3_ckuvj"]
+[ext_resource type="Texture2D" uid="uid://cush4qssbprw1" path="res://assets/textures/UI/increment_button_up.png" id="3_cqrnc"]
+[ext_resource type="Texture2D" uid="uid://d28yl868j06pi" path="res://assets/textures/UI/button_square_pressed.png" id="4_6nvno"]
+[ext_resource type="Texture2D" uid="uid://dr7rmwkgr1ljm" path="res://assets/textures/UI/increment_button_up_hover.png" id="4_xnhlg"]
+[ext_resource type="Texture2D" uid="uid://vrhe6jy20687" path="res://assets/textures/UI/increment_button_down.png" id="5_bvu1x"]
+[ext_resource type="Texture2D" uid="uid://hgsswaxnwm5k" path="res://assets/textures/UI/button_square_hover.png" id="5_cqrnc"]
+[ext_resource type="Texture2D" uid="uid://dq8eas4rris5a" path="res://assets/textures/UI/increment_button_down_hover.png" id="6_v2w7f"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pdtjh"]
-bg_color = Color(0.19607843, 0.43137255, 0.1764706, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1tmeh"]
+texture = ExtResource("3_ckuvj")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1644t"]
-bg_color = Color(0.81960785, 0.1882353, 0.1882353, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_luwvy"]
+texture = ExtResource("4_6nvno")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eatsf"]
-bg_color = Color(0.81960785, 0.1882353, 0.1882353, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fgf64"]
+texture = ExtResource("5_cqrnc")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ckuvj"]
-bg_color = Color(0.81960785, 0.1882353, 0.1882353, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3fkhw"]
+texture = ExtResource("5_cqrnc")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6nvno"]
-bg_color = Color(0.81960785, 0.1882353, 0.1882353, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r2inl"]
+texture = ExtResource("3_cqrnc")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tbhc7"]
+texture = ExtResource("4_xnhlg")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wgydl"]
+texture = ExtResource("4_xnhlg")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6sesk"]
+texture = ExtResource("4_xnhlg")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vmn4n"]
+texture = ExtResource("5_bvu1x")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_30h1v"]
+texture = ExtResource("6_v2w7f")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vnmbe"]
+texture = ExtResource("6_v2w7f")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_siinx"]
+texture = ExtResource("6_v2w7f")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xnhlg"]
+texture = ExtResource("3_ckuvj")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bvu1x"]
+texture = ExtResource("4_6nvno")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v2w7f"]
+texture = ExtResource("5_cqrnc")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jkqpo"]
+texture = ExtResource("4_6nvno")
 
 [node name="IncrementSystem" type="Node2D" unique_id=914404395]
 script = ExtResource("1_pdtjh")
@@ -31,7 +71,16 @@ offset_left = 8.0
 offset_top = 8.0
 offset_right = 56.0
 offset_bottom = 56.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxTexture_1tmeh")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_luwvy")
+theme_override_styles/hover = SubResource("StyleBoxTexture_fgf64")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_3fkhw")
 
 [node name="BetAmountLabel" type="Label" parent="." unique_id=854519641]
 offset_left = 64.0
@@ -44,28 +93,41 @@ text = "Bet amount:
 1234567890"
 
 [node name="IncreaseIncrementButton" type="Button" parent="." unique_id=1992757973]
-offset_left = 260.0
-offset_top = 8.0
-offset_right = 280.0
-offset_bottom = 28.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_pdtjh")
+offset_left = 252.0
+offset_top = 4.0
+offset_right = 284.0
+offset_bottom = 36.0
+theme_override_styles/normal = SubResource("StyleBoxTexture_r2inl")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_tbhc7")
+theme_override_styles/hover = SubResource("StyleBoxTexture_wgydl")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_6sesk")
 
 [node name="DecreaseIncrementButton" type="Button" parent="." unique_id=1683917663]
-offset_left = 260.0
-offset_top = 36.0
-offset_right = 280.0
-offset_bottom = 56.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_1644t")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_eatsf")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ckuvj")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_6nvno")
+offset_left = 252.0
+offset_top = 28.0
+offset_right = 284.0
+offset_bottom = 60.0
+theme_override_styles/normal = SubResource("StyleBoxTexture_vmn4n")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_30h1v")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vnmbe")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_siinx")
 
 [node name="MaxButton" type="Button" parent="." unique_id=199012580]
 offset_left = 288.0
 offset_top = 8.0
 offset_right = 336.0
 offset_bottom = 56.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_a0wi8")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxTexture_xnhlg")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_bvu1x")
+theme_override_styles/hover = SubResource("StyleBoxTexture_v2w7f")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_jkqpo")
 text = "MAX"
 
 [connection signal="button_down" from="RemoveToggle" to="." method="_on_remove_toggle_button_down"]

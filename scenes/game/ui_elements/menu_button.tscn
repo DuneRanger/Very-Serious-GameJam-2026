@@ -1,6 +1,21 @@
 [gd_scene format=3 uid="uid://5vg4c83ob4lc"]
 
 [ext_resource type="Script" uid="uid://cj5xicly8ggo1" path="res://button.gd" id="1_4nbr4"]
+[ext_resource type="Texture2D" uid="uid://ccvcbfoxml6if" path="res://assets/textures/UI/pause_button_normal.png" id="1_y0ry6"]
+[ext_resource type="Texture2D" uid="uid://d2ftx55jwsti7" path="res://assets/textures/UI/pause_button_pressed.png" id="2_li2jr"]
+[ext_resource type="Texture2D" uid="uid://bpkjfb48y52h5" path="res://assets/textures/UI/pause_button_hover.png" id="3_0dy7f"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sniyg"]
+texture = ExtResource("1_y0ry6")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_af5rl"]
+texture = ExtResource("2_li2jr")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mr80p"]
+texture = ExtResource("3_0dy7f")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7q7xk"]
+texture = ExtResource("3_0dy7f")
 
 [node name="Button" type="Button" unique_id=1837179404]
 offset_left = 1200.0
@@ -8,7 +23,10 @@ offset_top = 16.0
 offset_right = 1264.0
 offset_bottom = 80.0
 theme_override_font_sizes/font_size = 40
-text = "I I"
+theme_override_styles/normal = SubResource("StyleBoxTexture_sniyg")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_af5rl")
+theme_override_styles/hover = SubResource("StyleBoxTexture_mr80p")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_7q7xk")
 script = ExtResource("1_4nbr4")
 
 [connection signal="button_down" from="." to="." method="_on_button_down"]

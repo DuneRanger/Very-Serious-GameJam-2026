@@ -43,4 +43,5 @@ func _on_test_button_2_pressed() -> void:
 
 
 func _on_game_button_button_down() -> void:
+	SfxManager.press_button_sound()
 	GameManagerGlobal.signal_switch_scene.emit(GameEnums.switching_scenes.GAME_SCENE)

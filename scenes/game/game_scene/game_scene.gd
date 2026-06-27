@@ -3,8 +3,6 @@ extends Node2D
 class_name GameScene
 
 func _ready() -> void:
-	GameManagerGlobal.quota = 120
-	GameManagerGlobal.round_count = 0
 	GameManagerGlobal.signal_send_error_message.connect(_on_send_error_message)
 	GameManagerGlobal.signal_state_change.connect(_on_new_state)
 	
@@ -13,17 +11,17 @@ func _ready() -> void:
 	GameManagerGlobal.signal_add_money.connect(add_money)
 	GameManagerGlobal.signal_add_rubies.connect(add_rubies)
 	
-	round_start()
+	reset_rounds()
+
+func reset_rounds():
+	GameManagerGlobal.round_count = 0
+	start_next_round()
+
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("stop_roullete"):
 		if (GameManagerGlobal.game_state == GameEnums.game_states.SPIN_PHASE):
 			GameManagerGlobal.modify_game_state(GameEnums.game_states.BET_PHASE)
-	if Input.is_action_just_pressed("rotate_roullete"):
-		if GameManagerGlobal.spins_left > 0:
-			GameManagerGlobal.modify_game_state(GameEnums.game_states.SPIN_PHASE)
-			GameManagerGlobal.modify_spins_left(GameManagerGlobal.spins_left - 1)
-		#TODO end round
 
 	#Debugging temporary calls
 	if Input.is_action_just_pressed("boost_add"):
@@ -35,7 +33,7 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("remove_ball"):
 		GameManagerGlobal.modify_spins_left(max (0, GameManagerGlobal.spins_left - 1))
 	if Input.is_action_just_pressed("story_advance"):
-		round_start()
+		start_next_round()
 	if Input.is_action_just_pressed("add_ball_max"):
 		GameManagerGlobal.modify_spin_count(GameManagerGlobal.spin_count + 1)
 	if Input.is_action_just_pressed("remove_ball_max"):
@@ -142,10 +140,7 @@ func _on_new_state():
 			
 			$Table/BoostSystem.start_system()
 			
-			#$Table/Roulette.spin_roulette()
-			#GameManagerGlobal.game_state = GameEnums.game_states.SPIN_PHASE
 		GameEnums.game_states.BET_PHASE:
-			print("\n\n\n\n\n\n\n\n\n")
 			$Table/Roulette.stop_roulette()
 			var money_won = get_full_bet_win()
 			#play SFX
@@ -156,13 +151,23 @@ func _on_new_state():
 			$Table/BettingSystem.clear_bets()
 			if GameManagerGlobal.spins_left != GameManagerGlobal.spin_count:
 				GameManagerGlobal.add_money(money_won)
+			if GameManagerGlobal.money == 0:
+				GameManagerGlobal.signal_death_screen.emit()
+			elif GameManagerGlobal.spins_left == 0:
+				if GameManagerGlobal.money < GameManagerGlobal.quota:
+					GameManagerGlobal.signal_death_screen.emit()
+				else:
+					start_next_round()
 		_:
 			pass
 
-func round_start():
+func start_next_round():
 	GameManagerGlobal.round_count += 1
 	pick_quota_message()
 	calc_next_quota()
+	GameManagerGlobal.money = 100
+	modify_money()
+	print("starting next round")
 	GameManagerGlobal.signal_round_start.emit()
 	$HUD/SpinSymbolContainer.refill_spins()
 	$HUD/BoostSymbolContainer.refill_boosts()
