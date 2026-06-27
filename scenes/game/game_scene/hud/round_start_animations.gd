@@ -10,6 +10,8 @@ func _on_round_start():
 	$AnimationPlayer.play("RoundStart")
 	$RoundNumberLabel.text = "Round " + str(GameManagerGlobal.round_count)
 	$QuotaMessageLabel.text = "You need " + str(GameManagerGlobal.quota) + " money for " + GameManagerGlobal.current_quota_message
+	if GameManagerGlobal.round_count % 3 == 0:
+		$QuotaMessageLabel.text += "\nYou got an extra roulette ball for your spins!"
 
 
 
