@@ -51,9 +51,9 @@ func _init():
 	collider.shape = shape
 	add_child(collider)
 
-	var visual = Polygon2D.new()
-	visual.color = Color(0.929, 0.89, 0.561, 1.0)
-	visual.polygon = _make_circle_points(shape.radius, 24)
+	var visual = Sprite2D.new()
+	visual.texture = load("res://assets/textures/ball.png")
+	visual.apply_scale(Vector2(1, 1) * 2 * ball_radius / visual.texture.get_width())
 	add_child(visual)
 
 func give_random_impulse():
