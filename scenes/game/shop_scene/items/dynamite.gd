@@ -24,6 +24,7 @@ func get_description() -> String:
 
 func apply_effect() -> void:
 	var cell_count = len(GameManagerGlobal.cells)
+	@warning_ignore("integer_division")
 	var remove_count = floor(cell_count / 4)
 	var removal_indices = []
 	for i in range(remove_count):
@@ -32,6 +33,6 @@ func apply_effect() -> void:
 		GameManagerGlobal.cells.remove_at(idx)
 	GameManagerGlobal.commit_cell_change.emit()
 
-func is_valid(already_made_items : Array[ShopItem]) -> bool:
+func is_valid(_already_made_items : Array[ShopItem]) -> bool:
 	var out = GameManagerGlobal.cells.size() > 4
 	return out

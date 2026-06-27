@@ -25,6 +25,6 @@ func get_description() -> String:
 func apply_effect() -> void:
 	GameManagerGlobal.signal_mr_cat_swag.emit()
 
-func is_valid(already_made_items : Array[ShopItem]) -> bool:
+func is_valid(_already_made_items : Array[ShopItem]) -> bool:
 	var out = not GameManagerGlobal.mr_cat_swag
 	return out

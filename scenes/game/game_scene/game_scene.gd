@@ -1,6 +1,7 @@
 extends Node2D
 
 class_name GameScene
+@warning_ignore_start("integer_division")
 
 func _ready() -> void:
 	GameManagerGlobal.signal_endless_mode.connect(start_next_round)

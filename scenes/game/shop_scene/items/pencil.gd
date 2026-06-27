@@ -31,5 +31,5 @@ func apply_effect() -> void:
 	GameManagerGlobal.cells.append(2)
 	GameManagerGlobal.commit_cell_change.emit()
 
-func is_valid(already_made_items : Array[ShopItem]) -> bool:
+func is_valid(_already_made_items : Array[ShopItem]) -> bool:
 	return true

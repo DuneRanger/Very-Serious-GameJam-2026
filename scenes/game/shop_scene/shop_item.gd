@@ -12,4 +12,4 @@
 
 @abstract func apply_effect() -> void
 
-@abstract func is_valid(already_made_items : Array[ShopItem]) -> bool
+@abstract func is_valid(_already_made_items : Array[ShopItem]) -> bool

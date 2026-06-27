@@ -26,7 +26,7 @@ func apply_effect() -> void:
 	GameManagerGlobal.modify_spin_count(new_max_spin_count)
 	GameManagerGlobal.modify_spins_left(new_spins_left)
 
-func is_valid(already_made_items : Array[ShopItem]) -> bool:
+func is_valid(_already_made_items : Array[ShopItem]) -> bool:
 	var potential_max_spin_count = GameManagerGlobal.spin_count + 2
 	var out = (potential_max_spin_count <= GameEnums.total_max_spin_count)
 	return out

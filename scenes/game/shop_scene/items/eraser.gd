@@ -29,5 +29,5 @@ func apply_effect() -> void:
 	GameManagerGlobal.cells.erase(target_cell)
 	GameManagerGlobal.commit_cell_change.emit()
 
-func is_valid(already_made_items : Array[ShopItem]) -> bool:
+func is_valid(_already_made_items : Array[ShopItem]) -> bool:
 	return len(GameManagerGlobal.cells) > 4

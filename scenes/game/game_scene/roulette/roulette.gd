@@ -82,7 +82,6 @@ func full_reset():
 	balls = get_initial_balls()
 	prepare_balls()
 	commit_cell_mod()
-	GameManagerGlobal.on_boost.connect(apply_boost)
 
 func randomize_weights():
 	for cell in cells:
@@ -396,6 +395,7 @@ var inner_incline_strength : float = 800
 var inner_incline_radius : int = inner_circle_radius
 var cell_radius_end : int = cell_circle_radius
 var cell_bank_incline_strength : float = 100
+@warning_ignore("narrowing_conversion")
 var outer_incline_radius : int = bank_radius_pos + bank_width / 2
 var outer_incline_strength : float = 800
 

@@ -26,5 +26,5 @@ func apply_effect() -> void:
 	for i in range(len(GameManagerGlobal.bet_id_multipliers)):
 		GameManagerGlobal.bet_id_multipliers[i] *= 1.2
 
-func is_valid(already_made_items : Array[ShopItem]) -> bool:
+func is_valid(_already_made_items : Array[ShopItem]) -> bool:
 	return GameManagerGlobal.boost_count > 0

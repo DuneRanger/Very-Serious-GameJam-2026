@@ -1,5 +1,6 @@
 extends Node2D
 
+@warning_ignore_start("unused_signal")
 var start_new_game : bool
 var round_budget: int
 var round_count: int
