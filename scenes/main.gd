@@ -47,6 +47,7 @@ func new_game():
 		first_game = false
 		GameManagerGlobal.signal_can_continue_game.emit()
 	GameManagerGlobal.reset_roulette.emit()
+	game_scene.reset_rounds()
 
 func unparent_current_scene():
 	if current_scene != null:
