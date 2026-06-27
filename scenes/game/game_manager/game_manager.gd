@@ -72,6 +72,7 @@ signal signal_bet_is_adding_change
 signal signal_bet_max_change
 
 signal signal_endless_mode
+signal signal_win_exit
 
 var round_shop_reroll_count : int
 

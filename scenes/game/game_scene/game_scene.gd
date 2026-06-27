@@ -4,6 +4,7 @@ class_name GameScene
 
 func _ready() -> void:
 	GameManagerGlobal.signal_endless_mode.connect(start_next_round)
+	GameManagerGlobal.signal_win_exit.connect(next_round_no_anim)
 	GameManagerGlobal.signal_send_error_message.connect(_on_send_error_message)
 	GameManagerGlobal.signal_state_change.connect(_on_new_state)
 	
@@ -173,6 +174,22 @@ func calculate_ruby_gain() -> int:
 	print("Basic gain: 3, boosts gain: ", boosts_left_gain, ", quota gain: ", hit_quota_gain)
 	var out = 3 + boosts_left_gain + hit_quota_gain
 	return out
+
+func next_round_no_anim():
+	GameManagerGlobal.round_count += 1
+	pick_quota_message()
+	calc_next_quota()
+	if GameManagerGlobal.round_count > 1:
+		var current_ruby_gain = calculate_ruby_gain()
+		GameManagerGlobal.add_rubies(current_ruby_gain)
+	GameManagerGlobal.money = 100
+	modify_money()
+	$HUD/SpinSymbolContainer.refill_spins()
+	$HUD/BoostSymbolContainer.refill_boosts()
+	GameManagerGlobal.signal_refresh_shop.emit()
+	GameManagerGlobal.round_shop_reroll_count = 0
+	if GameManagerGlobal.round_count % 3 == 0:
+		GameManagerGlobal.signal_add_roulette_ball.emit()
 
 func start_next_round():
 	GameManagerGlobal.round_count += 1
