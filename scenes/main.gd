@@ -38,16 +38,17 @@ func new_game():
 	if first_game:
 		game_scene = game_scene_preloaded.instantiate()
 		shop_scene = shop_scene_preloaded.instantiate()
+
 	add_child(game_scene)
 	add_child(shop_scene)
 	GameManagerGlobal.game_start()
 	remove_child(game_scene)
 	remove_child(shop_scene)
-	if first_game:
-		first_game = false
-		GameManagerGlobal.signal_can_continue_game.emit()
+	
+	GameManagerGlobal.signal_can_continue_game.emit()
 	GameManagerGlobal.reset_roulette.emit()
 	game_scene.reset_rounds()
+	first_game = false
 
 func unparent_current_scene():
 	if current_scene != null:

@@ -60,6 +60,7 @@ signal commit_cell_change
 
 signal signal_shop_start_hover (id : int)
 signal signal_shop_stop_hover
+signal signal_refresh_shop
 
 signal signal_mr_cat_swag
 signal signal_quota_message
