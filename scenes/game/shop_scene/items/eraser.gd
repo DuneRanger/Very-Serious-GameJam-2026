@@ -17,7 +17,7 @@ func get_image_path() -> String:
 func _init() -> void:
 	target_cell = GameManagerGlobal.cells.pick_random()
 	while target_cell.colour == Color.DARK_GREEN: target_cell = GameManagerGlobal.cells.pick_random()
-	description = "Remove a " + str(target_cell) + " from the roulette"
+	description = "Remove a %s from the roulette\n" %str(target_cell)
 
 func get_name() -> String:
 	return name

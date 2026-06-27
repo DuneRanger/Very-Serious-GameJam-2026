@@ -3,7 +3,7 @@ class_name exercise extends ShopItem
 var cost : int = 4
 var image_path : String = "res://assets/textures/items/item_exercise.png"
 var name : String = "Exercise"
-var description : String = "Lose one max boost, but gain a 1.2x multiplier on all future spins\n"
+var description : String = "Lose one max boost, but gain a 1.2x multiplier on all future spins"
 
 func get_cost() -> int:
 	return cost

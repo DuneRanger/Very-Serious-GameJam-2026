@@ -3,7 +3,7 @@ class_name catnip extends ShopItem
 var cost : int = 7
 var image_path : String = "res://assets/textures/items/item_catnip.png"
 var name : String = "Catnip"
-var description : String = "SO YUMMY!\nIncreases max boosts by two\n"
+var description : String = "SO YUMMY!\nIncreases max boosts by two"
 
 func get_cost() -> int:
 	return cost

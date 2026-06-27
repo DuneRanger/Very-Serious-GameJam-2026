@@ -60,7 +60,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_eatsf")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ckuvj")
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_6nvno")
 
-[node name="Button" type="Button" parent="." unique_id=199012580]
+[node name="MaxButton" type="Button" parent="." unique_id=199012580]
 offset_left = 288.0
 offset_top = 8.0
 offset_right = 336.0
@@ -71,3 +71,4 @@ text = "MAX"
 [connection signal="button_down" from="RemoveToggle" to="." method="_on_remove_toggle_button_down"]
 [connection signal="button_down" from="IncreaseIncrementButton" to="." method="_on_increase_increment_button_button_down"]
 [connection signal="button_down" from="DecreaseIncrementButton" to="." method="_on_decrease_increment_button_button_down"]
+[connection signal="button_down" from="MaxButton" to="." method="_on_max_button_button_down"]

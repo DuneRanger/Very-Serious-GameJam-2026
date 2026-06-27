@@ -1,21 +1,24 @@
 extends Node2D
 
 func _ready() -> void:
-	GameManagerGlobal.signal_bet_is_adding_change.connect(_on_signal_bet_change)
+	GameManagerGlobal.signal_bet_is_adding_change.connect(_on_signal_bet_is_adding_change)
+	GameManagerGlobal.signal_bet_max_change.connect(_on_signal_bet_max_change)
 	GameManagerGlobal.signal_increment_change.connect(_on_signal_increment_change)
-	pass
 
 func _on_remove_toggle_button_down() -> void:
 	GameManagerGlobal.bet_is_adding = not GameManagerGlobal.bet_is_adding
 	GameManagerGlobal.signal_bet_is_adding_change.emit()
 
-func _on_signal_bet_change() -> void:
+func _on_signal_bet_is_adding_change() -> void:
 	if GameManagerGlobal.bet_is_adding:
 		print("The bet is adding")
 		$RemoveToggle.text = "+"
 	else:
 		print("The bet is not adding")
 		$RemoveToggle.text = "-"
+
+func _on_signal_increment_change() -> void:
+	$BetAmountLabel.text = "Bet amount:\n%d" %GameManagerGlobal.bet_increment
 
 func get_first_digit(num : int) -> int:
 	while true:
@@ -45,5 +48,13 @@ func _on_decrease_increment_button_button_down() -> void:
 	GameManagerGlobal.bet_increment = new_increment
 	GameManagerGlobal.signal_increment_change.emit()
 
-func _on_signal_increment_change() -> void:
-	$BetAmountLabel.text = "Bet amount:\n%d" %GameManagerGlobal.bet_increment
+func _on_max_button_button_down() -> void:
+	GameManagerGlobal.bet_is_max = !GameManagerGlobal.bet_is_max
+	GameManagerGlobal.signal_bet_max_change.emit()
+
+func _on_signal_bet_max_change() -> void:
+	print("Caught max change!")
+	if GameManagerGlobal.bet_is_max:
+		$MaxButton.text = "max"
+	else:
+		$MaxButton.text = "no"
