@@ -50,7 +50,7 @@ func _on_decrease_increment_button_button_down() -> void:
 	var new_increment = old_increment
 	new_increment /= 2 if (get_first_digit(old_increment) == 1) else 5
 	if new_increment < 1:
-		GameManagerGlobal.signal_send_error_message.emit("Cannot go smaller than 1:(")
+		GameManagerGlobal.signal_send_error_message.emit("Cannot go smaller than 1 :(")
 		return
 	GameManagerGlobal.bet_increment = new_increment
 	GameManagerGlobal.signal_increment_change.emit()
