@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/GameWin.ogg-1221e28e38655ac2506294cab5ccf7e5.
 [params]
 
 loop=false
-loop_offset=0
-bpm=0
+loop_offset=0.0
+bpm=0.0
 beat_count=0
 bar_beats=4

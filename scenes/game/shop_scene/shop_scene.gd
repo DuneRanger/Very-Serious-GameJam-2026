@@ -16,14 +16,15 @@ var all_common_offered_items : Array[String] = [
 	"res://scenes/game/shop_scene/items/item_789.gd",
 	"res://scenes/game/shop_scene/items/eraser.gd",
 	"res://scenes/game/shop_scene/items/pencil.gd",
-	"res://scenes/game/shop_scene/items/exercise.gd",
+	"res://scenes/game/shop_scene/items/exercise.gd"
 ]
 
 var all_rare_offered_items : Array[String] = [
 	"res://scenes/game/shop_scene/items/dynamite.gd",
 	"res://scenes/game/shop_scene/items/gigaburger.gd",
 	"res://scenes/game/shop_scene/items/catnip.gd",
-	"res://scenes/game/shop_scene/items/whole_milk.gd"
+	"res://scenes/game/shop_scene/items/whole_milk.gd",
+	"res://scenes/game/shop_scene/items/supercell.gd"
 ]
 
 func _ready() -> void:
