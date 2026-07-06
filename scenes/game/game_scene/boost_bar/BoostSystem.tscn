@@ -3,9 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://bt8dbkjq4nc07" path="res://scenes/game/game_scene/boost_bar/boost_bar.tscn" id="1_7due2"]
 [ext_resource type="Script" uid="uid://cqgngi3qndpn1" path="res://scenes/game/game_scene/boost_bar/boost_system.gd" id="1_xcsam"]
 [ext_resource type="FontFile" uid="uid://d0mkojug0pvql" path="res://assets/fonts/PixeloidSans-Bold.otf" id="2_alnvv"]
-[ext_resource type="Texture2D" uid="uid://cvc70jnauhlmx" path="res://assets/textures/UI/Button.png" id="3_xcsam"]
-[ext_resource type="Texture2D" uid="uid://bfew31gwarq5w" path="res://assets/textures/UI/ButtonPressed.png" id="4_p2nk3"]
-[ext_resource type="Texture2D" uid="uid://wt3wpr6fyrj5" path="res://assets/textures/UI/ButtonHover.png" id="5_m3pyc"]
+[ext_resource type="Texture2D" uid="uid://cvc70jnauhlmx" path="res://assets/textures/UI/buttons/button_basic/Button.png" id="3_xcsam"]
+[ext_resource type="Texture2D" uid="uid://bfew31gwarq5w" path="res://assets/textures/UI/buttons/button_basic/ButtonPressed.png" id="4_p2nk3"]
+[ext_resource type="Texture2D" uid="uid://wt3wpr6fyrj5" path="res://assets/textures/UI/buttons/button_basic/ButtonHover.png" id="5_m3pyc"]
+
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ofgc5"]
 texture = ExtResource("3_xcsam")

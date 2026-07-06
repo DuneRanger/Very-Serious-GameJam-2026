@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c4hitryybqc8g" path="res://assets/textures/test.png" id="2_at72p"]
 [ext_resource type="Texture2D" uid="uid://bdufab0ysldjx" path="res://assets/textures/Roulette handle.png" id="3_1j41y"]
 
+
 [node name="Roulette" type="Node2D" unique_id=574874280]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_33j12")

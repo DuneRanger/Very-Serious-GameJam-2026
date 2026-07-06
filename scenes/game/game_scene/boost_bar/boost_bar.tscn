@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://bt8dbkjq4nc07"]
 
 [ext_resource type="Script" uid="uid://bunvqjvj7wk3c" path="res://scenes/game/game_scene/boost_bar/boost_bar.gd" id="1_jkqmw"]
-[ext_resource type="Texture2D" uid="uid://cvc70jnauhlmx" path="res://assets/textures/UI/Button.png" id="2_bdtx4"]
+[ext_resource type="Texture2D" uid="uid://cvc70jnauhlmx" path="res://assets/textures/UI/buttons/button_basic/Button.png" id="2_bdtx4"]
 [ext_resource type="FontFile" uid="uid://d0mkojug0pvql" path="res://assets/fonts/PixeloidSans-Bold.otf" id="2_dkw5f"]
 [ext_resource type="Texture2D" uid="uid://ci8vi1vy2yfpj" path="res://assets/textures/UI/booster_bar_outline.png" id="2_owshq"]
-[ext_resource type="Texture2D" uid="uid://bfew31gwarq5w" path="res://assets/textures/UI/ButtonPressed.png" id="4_o21ja"]
-[ext_resource type="Texture2D" uid="uid://wt3wpr6fyrj5" path="res://assets/textures/UI/ButtonHover.png" id="5_owshq"]
+[ext_resource type="Texture2D" uid="uid://bfew31gwarq5w" path="res://assets/textures/UI/buttons/button_basic/ButtonPressed.png" id="4_o21ja"]
+[ext_resource type="Texture2D" uid="uid://wt3wpr6fyrj5" path="res://assets/textures/UI/buttons/button_basic/ButtonHover.png" id="5_owshq"]
 
 [sub_resource type="Animation" id="Animation_kbc8h"]
 length = 0.001
