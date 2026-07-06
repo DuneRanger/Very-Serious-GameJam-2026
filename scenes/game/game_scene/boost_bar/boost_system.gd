@@ -9,9 +9,12 @@ func _ready() -> void:
 	$boost_bar.visible = false
 	$HappyButton.visible = false
 	$UnHappyButton.visible = false
+	$BackgroundTest.visible = false
 	
 
 func start_system() -> void:
+	#BG Test
+	$BackgroundTest.visible = true
 	$boost_bar.visible = false
 	$HappyButton.visible = true
 	$UnHappyButton.visible = true
@@ -25,10 +28,15 @@ func _on_boost_button_pressed() -> void:
 	$boost_bar/bar/inner/boost_indicator/AnimationPlayer.pause()
 	GameManagerGlobal.applying_boost = true
 	$Timer.start()
+	#BG Test
+	$BackgroundTest.visible = true
 
 func _on_happy_button_pressed() -> void:
 	$HappyButton.visible = false
 	$UnHappyButton.visible = false
+	
+	#BG test
+	$BackgroundTest.visible = false
 	GameManagerGlobal.modify_game_state(GameEnums.game_states.BET_PHASE)
 
 func _on_unhappy_button_pressed() -> void:
@@ -42,6 +50,9 @@ func _on_unhappy_button_pressed() -> void:
 	$boost_bar/bar/inner/boost_indicator/AnimationPlayer.play("boost_bar_anim")
 
 func _on_timer_timeout() -> void:
+	#BG test
+	$BackgroundTest.visible = false
+	
 	$boost_bar.visible = false
 	$boost_bar/Button.visible = true
 	GameManagerGlobal.modify_game_state(GameEnums.game_states.SPIN_PHASE)

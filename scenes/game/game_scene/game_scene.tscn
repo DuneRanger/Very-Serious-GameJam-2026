@@ -20,11 +20,12 @@ script = ExtResource("1_ljoy4")
 
 [node name="Table2" type="Sprite2D" parent="Table" unique_id=91874108]
 z_index = -100
+position = Vector2(640, 360)
 scale = Vector2(4, 4)
 texture = ExtResource("2_7tgh3")
 
 [node name="Roulette" parent="Table" unique_id=574874280 instance=ExtResource("2_wftn3")]
-position = Vector2(284, 0)
+position = Vector2(924, 360)
 
 [node name="PixerShaderLayer" type="CanvasLayer" parent="Table/Roulette" unique_id=731125925]
 visible = false
@@ -53,7 +54,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="BettingSystem" parent="Table" unique_id=1381945534 instance=ExtResource("4_uj17p")]
-position = Vector2(-568, 20)
+position = Vector2(72, 380)
 background_width = 480.0
 padding = 3.6
 
@@ -61,5 +62,3 @@ padding = 3.6
 
 [node name="HUD" parent="." unique_id=1970834067 instance=ExtResource("9_4jb31")]
 layer = 200
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=427457406]

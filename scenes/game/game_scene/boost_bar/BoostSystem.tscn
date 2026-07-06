@@ -3,22 +3,70 @@
 [ext_resource type="PackedScene" uid="uid://bt8dbkjq4nc07" path="res://scenes/game/game_scene/boost_bar/boost_bar.tscn" id="1_7due2"]
 [ext_resource type="Script" uid="uid://cqgngi3qndpn1" path="res://scenes/game/game_scene/boost_bar/boost_system.gd" id="1_xcsam"]
 [ext_resource type="FontFile" uid="uid://d0mkojug0pvql" path="res://assets/fonts/PixeloidSans-Bold.otf" id="2_alnvv"]
+[ext_resource type="Texture2D" uid="uid://cw4woinwf7xbd" path="res://assets/textures/UI/buttons/spin_button/spinButtonOff.png" id="2_il4g5"]
 [ext_resource type="Texture2D" uid="uid://cvc70jnauhlmx" path="res://assets/textures/UI/buttons/button_basic/Button.png" id="3_xcsam"]
 [ext_resource type="Texture2D" uid="uid://bfew31gwarq5w" path="res://assets/textures/UI/buttons/button_basic/ButtonPressed.png" id="4_p2nk3"]
 [ext_resource type="Texture2D" uid="uid://wt3wpr6fyrj5" path="res://assets/textures/UI/buttons/button_basic/ButtonHover.png" id="5_m3pyc"]
-
+[ext_resource type="Texture2D" uid="uid://0ovjlr03lnjt" path="res://assets/textures/UI/buttons/boost_button/boost_button_hover.png" id="5_xcsam"]
+[ext_resource type="Texture2D" uid="uid://mfy0ew30dfi5" path="res://assets/textures/UI/buttons/boost_button/boost_button.png" id="6_p2nk3"]
+[ext_resource type="Texture2D" uid="uid://c25qumxm1ld07" path="res://assets/textures/UI/buttons/boost_button/boost_button_fire.png" id="9_ofgc5"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ofgc5"]
 texture = ExtResource("3_xcsam")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_il4g5"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a26ye"]
 texture = ExtResource("4_p2nk3")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ydvnx"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xh1f6"]
 texture = ExtResource("5_m3pyc")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m3pyc"]
+texture = ExtResource("6_p2nk3")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_il4g5"]
+texture = ExtResource("5_xcsam")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ydvnx"]
+texture = ExtResource("5_xcsam")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_il4g5"]
+atlas = ExtResource("9_ofgc5")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ydvnx"]
+atlas = ExtResource("9_ofgc5")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a26ye"]
+atlas = ExtResource("9_ofgc5")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xh1f6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_il4g5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ydvnx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a26ye")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
 
 [node name="BoostSystem" type="CanvasLayer" unique_id=1635259107]
 script = ExtResource("1_xcsam")
+
+[node name="BackgroundTest" type="Sprite2D" parent="." unique_id=2001008435]
+modulate = Color(0, 0, 0, 0.3019608)
+z_index = -2
+position = Vector2(924, 360)
+scale = Vector2(6.9374995, 7.1041665)
+texture = ExtResource("2_il4g5")
 
 [node name="boost_bar" parent="." unique_id=917300306 instance=ExtResource("1_7due2")]
 position = Vector2(888, 204)
@@ -32,30 +80,38 @@ offset_right = 408.0
 offset_bottom = 192.0
 
 [node name="HappyButton" type="Button" parent="." unique_id=816810832]
-offset_left = 773.0
-offset_top = 330.0
-offset_right = 917.0
-offset_bottom = 402.0
+offset_left = 781.0
+offset_top = 327.0
+offset_right = 909.0
+offset_bottom = 391.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_alnvv")
-theme_override_font_sizes/font_size = 27
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxTexture_ofgc5")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_il4g5")
-theme_override_styles/hover = SubResource("StyleBoxTexture_ydvnx")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_a26ye")
+theme_override_styles/hover = SubResource("StyleBoxTexture_xh1f6")
 text = "ACCEPT"
 
 [node name="UnHappyButton" type="Button" parent="." unique_id=2008763814]
-offset_left = 933.0
-offset_top = 330.0
-offset_right = 1077.0
-offset_bottom = 402.0
+offset_left = 941.0
+offset_top = 327.0
+offset_right = 1069.0
+offset_bottom = 391.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_alnvv")
-theme_override_font_sizes/font_size = 27
-theme_override_styles/normal = SubResource("StyleBoxTexture_ofgc5")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxTexture_m3pyc")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_il4g5")
 theme_override_styles/hover = SubResource("StyleBoxTexture_ydvnx")
 text = "BOOST"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UnHappyButton" unique_id=1204174515]
+z_index = -1
+position = Vector2(63.929993, 0)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_xh1f6")
+autoplay = "default"
+frame_progress = 0.9450076
 
 [node name="Timer" type="Timer" parent="." unique_id=30757026]
 wait_time = 0.5
