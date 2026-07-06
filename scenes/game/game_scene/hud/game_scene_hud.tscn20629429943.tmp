@@ -596,9 +596,6 @@ libraries/ = SubResource("AnimationLibrary_niiyn")
 position = Vector2(924, 360)
 script = ExtResource("21_hlngw")
 
-[node name="Timer" type="Timer" parent="spinButton" unique_id=739194610]
-wait_time = 0.3
-
 [node name="SpinButton" type="Button" parent="spinButton" unique_id=701434672]
 anchors_preset = -1
 anchor_left = 0.67200005
@@ -624,6 +621,9 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_nqfym")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_4lu4x")
 text = "SPIN!"
 
+[node name="Timer" type="Timer" parent="spinButton/SpinButton" unique_id=739194610]
+wait_time = 0.3
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="spinButton" unique_id=1244317362]
 root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_hgm0h")
@@ -639,5 +639,5 @@ position = Vector2(240, 307)
 [connection signal="timeout" from="BoostSymbolContainer/RefillTimer" to="BoostSymbolContainer" method="_on_refill_timer_timeout"]
 [connection signal="button_down" from="ShopButton" to="ShopButton" method="_on_button_down"]
 [connection signal="timeout" from="RoundStartAnimations/SFXTimer" to="RoundStartAnimations" method="_on_sfx_timer_timeout"]
-[connection signal="timeout" from="spinButton/Timer" to="spinButton" method="_on_timer_timeout"]
-[connection signal="button_down" from="spinButton/SpinButton" to="spinButton" method="_on_button_down"]
+[connection signal="button_down" from="spinButton/SpinButton" to="spinButton/SpinButton" method="_on_button_down"]
+[connection signal="timeout" from="spinButton/SpinButton/Timer" to="spinButton/SpinButton" method="_on_timer_timeout"]

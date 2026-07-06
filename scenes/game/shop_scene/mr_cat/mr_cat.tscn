@@ -13,7 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://bv86icqq725jn" path="res://assets/textures/mr_Cat/MrCatArm1.png" id="11_esym3"]
 [ext_resource type="Texture2D" uid="uid://mfofjt3u02nb" path="res://assets/textures/backgrounds/ShopTabled.png" id="12_56k00"]
 
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_a45xc"]
 animations = [{
 "frames": [{
@@ -83,18 +82,6 @@ animations = [{
 
 [sub_resource type="Animation" id="Animation_81l0b"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MrCatControlNode:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1.05)]
-}
 
 [sub_resource type="Animation" id="Animation_esym3"]
 resource_name = "mr_cat_bobbing_animation"
@@ -104,13 +91,13 @@ tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("MrCatControlNode:scale")
-tracks/0/interp = 2
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 2, 4, 6, 8),
+"times": PackedFloat32Array(0, 2, 4.03, 6, 8),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(4, 4), Vector2(4, 4.08), Vector2(4, 4), Vector2(4, 3.93), Vector2(4, 4)]
+"values": [Vector2(1, 1), Vector2(1, 1.02), Vector2(1, 1), Vector2(1, 0.98), Vector2(1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_56k00"]
@@ -122,7 +109,32 @@ _data = {
 [node name="MrCat" type="Node2D" unique_id=2033079592]
 script = ExtResource("1_pepnq")
 
-[node name="MrCatControlNode" type="Control" parent="." unique_id=1659558882]
+[node name="MrCatControlNode" type="Node2D" parent="." unique_id=1290728902]
+position = Vector2(-160, 340)
+
+[node name="MrCatTailSprite" type="AnimatedSprite2D" parent="MrCatControlNode" unique_id=2056402007]
+position = Vector2(160, -360)
+scale = Vector2(4, 4.2)
+sprite_frames = SubResource("SpriteFrames_a45xc")
+
+[node name="MrCatSprite" type="AnimatedSprite2D" parent="MrCatControlNode" unique_id=1704421451]
+position = Vector2(160, -360)
+scale = Vector2(4, 4.2)
+sprite_frames = SubResource("SpriteFrames_6wf7b")
+animation = &"sunglasses"
+
+[node name="MrCatArm" type="Sprite2D" parent="MrCatControlNode" unique_id=2022596284]
+z_index = 1
+position = Vector2(160, -360)
+scale = Vector2(4, 4.2)
+texture = ExtResource("11_esym3")
+
+[node name="BobbingAnimator" type="AnimationPlayer" parent="MrCatControlNode" unique_id=1464474444]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_56k00")
+autoplay = &"mr_cat_bobbing_animation"
+
+[node name="MrCatControlNodeOld" type="Control" parent="." unique_id=1659558882]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -160.0
@@ -131,27 +143,8 @@ offset_right = 160.0
 offset_bottom = 360.0
 grow_horizontal = 2
 grow_vertical = 0
-scale = Vector2(1, 1.05)
+scale = Vector2(4, 3.930022)
 pivot_offset = Vector2(160, 180)
-
-[node name="MrCatTailSprite" type="AnimatedSprite2D" parent="MrCatControlNode" unique_id=2056402007]
-position = Vector2(160, 90)
-sprite_frames = SubResource("SpriteFrames_a45xc")
-
-[node name="MrCatSprite" type="AnimatedSprite2D" parent="MrCatControlNode" unique_id=1704421451]
-position = Vector2(160, 90)
-sprite_frames = SubResource("SpriteFrames_6wf7b")
-animation = &"sunglasses"
-
-[node name="MrCatArm" type="Sprite2D" parent="MrCatControlNode" unique_id=2022596284]
-z_index = 1
-position = Vector2(160, 90)
-texture = ExtResource("11_esym3")
-
-[node name="BobbingAnimator" type="AnimationPlayer" parent="MrCatControlNode" unique_id=1464474444]
-root_node = NodePath("../..")
-libraries/ = SubResource("AnimationLibrary_56k00")
-autoplay = &"mr_cat_bobbing_animation"
 
 [node name="Timer" type="Timer" parent="." unique_id=2098244120]
 wait_time = 1.5

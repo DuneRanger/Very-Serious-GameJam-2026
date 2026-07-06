@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bt8dbkjq4nc07" path="res://scenes/game/game_scene/boost_bar/boost_bar.tscn" id="1_7due2"]
 [ext_resource type="Script" uid="uid://cqgngi3qndpn1" path="res://scenes/game/game_scene/boost_bar/boost_system.gd" id="1_xcsam"]
 [ext_resource type="FontFile" uid="uid://d0mkojug0pvql" path="res://assets/fonts/PixeloidSans-Bold.otf" id="2_alnvv"]
-[ext_resource type="Texture2D" uid="uid://cw4woinwf7xbd" path="res://assets/textures/UI/buttons/spin_button/spinButtonOff.png" id="2_il4g5"]
+[ext_resource type="Texture2D" uid="uid://chjwcv2kff15l" path="res://assets/textures/UI/koleso.png" id="2_il4g5"]
 [ext_resource type="Texture2D" uid="uid://cvc70jnauhlmx" path="res://assets/textures/UI/buttons/button_basic/Button.png" id="3_xcsam"]
 [ext_resource type="Texture2D" uid="uid://bfew31gwarq5w" path="res://assets/textures/UI/buttons/button_basic/ButtonPressed.png" id="4_p2nk3"]
 [ext_resource type="Texture2D" uid="uid://wt3wpr6fyrj5" path="res://assets/textures/UI/buttons/button_basic/ButtonHover.png" id="5_m3pyc"]
@@ -61,11 +61,12 @@ animations = [{
 [node name="BoostSystem" type="CanvasLayer" unique_id=1635259107]
 script = ExtResource("1_xcsam")
 
-[node name="BackgroundTest" type="Sprite2D" parent="." unique_id=2001008435]
+[node name="Background" type="Sprite2D" parent="." unique_id=2001008435]
+visible = false
 modulate = Color(0, 0, 0, 0.3019608)
 z_index = -2
 position = Vector2(924, 360)
-scale = Vector2(6.9374995, 7.1041665)
+scale = Vector2(4, 4)
 texture = ExtResource("2_il4g5")
 
 [node name="boost_bar" parent="." unique_id=917300306 instance=ExtResource("1_7due2")]
