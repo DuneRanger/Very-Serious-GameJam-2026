@@ -68,6 +68,9 @@ signal signal_mr_cat_swag
 signal signal_quota_message
 signal signal_death_screen
 
+signal signal_placed_bet(button_id : int)
+signal signal_change_amount_bet(button_id : int, amount : int)
+
 signal signal_increment_change
 signal signal_bet_is_adding_change
 signal signal_bet_max_change
