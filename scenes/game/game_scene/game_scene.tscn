@@ -60,9 +60,16 @@ grow_vertical = 2
 [node name="BoostSystem" parent="Table" unique_id=1635259107 instance=ExtResource("6_4jb31")]
 
 [node name="ColorRect" type="ColorRect" parent="Table" unique_id=665043885]
-offset_left = -530.0
-offset_right = 4.0
-offset_bottom = 284.0
+offset_left = 70.0
+offset_top = 380.0
+offset_right = 586.0
+offset_bottom = 624.0
+
+[node name="BettingSystem" parent="Table" unique_id=30140118 instance=ExtResource("4_uj17p")]
+offset_left = 72.0
+offset_top = 382.0
+offset_right = 584.0
+offset_bottom = 622.0
 
 [node name="HUD" parent="." unique_id=1970834067 instance=ExtResource("9_4jb31")]
 layer = 200
