@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://0ut17jx42hnf"]
 
 [ext_resource type="Script" uid="uid://b7pbjamyge6wo" path="res://scenes/game/main_menu_scene/main_menu.gd" id="1_p3a2k"]
-[ext_resource type="Texture2D" uid="uid://3wsbtvnctshn" path="res://assets/textures/main_menu.png" id="2_8ocso"]
+[ext_resource type="Texture2D" uid="uid://3wsbtvnctshn" path="res://assets/textures/backgrounds/main_menu.png" id="2_8ocso"]
 [ext_resource type="FontFile" uid="uid://d0mkojug0pvql" path="res://assets/fonts/PixeloidSans-Bold.otf" id="2_w11i7"]
-[ext_resource type="Texture2D" uid="uid://bfew31gwarq5w" path="res://assets/textures/UI/ButtonPressed.png" id="4_cf3fe"]
-[ext_resource type="Texture2D" uid="uid://3y8y1ll5bfcb" path="res://assets/textures/UI/Button2.png" id="4_w11i7"]
-[ext_resource type="Texture2D" uid="uid://wt3wpr6fyrj5" path="res://assets/textures/UI/ButtonHover.png" id="5_sng66"]
-[ext_resource type="Texture2D" uid="uid://cvc70jnauhlmx" path="res://assets/textures/UI/Button.png" id="7_coahj"]
+[ext_resource type="Texture2D" uid="uid://bfew31gwarq5w" path="res://assets/textures/UI/buttons/button_basic/ButtonPressed.png" id="4_cf3fe"]
+[ext_resource type="Texture2D" uid="uid://3y8y1ll5bfcb" path="res://assets/textures/UI/buttons/button_basic/Button2.png" id="4_w11i7"]
+[ext_resource type="Texture2D" uid="uid://wt3wpr6fyrj5" path="res://assets/textures/UI/buttons/button_basic/ButtonHover.png" id="5_sng66"]
+[ext_resource type="Texture2D" uid="uid://cvc70jnauhlmx" path="res://assets/textures/UI/buttons/button_basic/Button.png" id="7_coahj"]
 [ext_resource type="FontFile" uid="uid://btfhjobeerona" path="res://assets/fonts/PixeloidSans.otf" id="8_cf3fe"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5khk4"]

@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://03e3sabpwkkf"]
 
 [ext_resource type="Script" uid="uid://rc270gjhg8lu" path="res://scenes/game/game_scene/game_scene.gd" id="1_ljoy4"]
-[ext_resource type="Texture2D" uid="uid://oyywqlbugqpj" path="res://assets/textures/Table2.png" id="2_7tgh3"]
+[ext_resource type="PackedScene" uid="uid://b5kyuh0r2fbx6" path="res://scenes/game/game_scene/dynamic_background/dynamic_background.tscn" id="2_4jb31"]
+[ext_resource type="Texture2D" uid="uid://oyywqlbugqpj" path="res://assets/textures/backgrounds/game_scene/Table2.png" id="2_7tgh3"]
 [ext_resource type="PackedScene" uid="uid://7jo8gxcpa6u" path="res://scenes/game/game_scene/roulette/roulette.tscn" id="2_wftn3"]
-[ext_resource type="Texture2D" uid="uid://dujcu840o5f5l" path="res://assets/textures/Table.png" id="3_dkmwb"]
+[ext_resource type="Texture2D" uid="uid://dujcu840o5f5l" path="res://assets/textures/backgrounds/game_scene/Table.png" id="3_dkmwb"]
 [ext_resource type="PackedScene" uid="uid://ch1muups6uskk" path="res://scenes/game/game_scene/betting_system/betting_system.tscn" id="4_uj17p"]
 [ext_resource type="PackedScene" uid="uid://cyc3c7bbs4ui3" path="res://scenes/game/game_scene/boost_bar/BoostSystem.tscn" id="6_4jb31"]
 [ext_resource type="PackedScene" uid="uid://cqwd5xducgdsl" path="res://scenes/game/game_scene/hud/game_scene_hud.tscn" id="9_4jb31"]
@@ -18,13 +19,17 @@ script = ExtResource("1_ljoy4")
 
 [node name="Table" type="Node" parent="." unique_id=178289830]
 
+[node name="DynamicBackground" parent="Table" unique_id=1287211848 instance=ExtResource("2_4jb31")]
+
 [node name="Table2" type="Sprite2D" parent="Table" unique_id=91874108]
+visible = false
 z_index = -100
+position = Vector2(640, 360)
 scale = Vector2(4, 4)
 texture = ExtResource("2_7tgh3")
 
 [node name="Roulette" parent="Table" unique_id=574874280 instance=ExtResource("2_wftn3")]
-position = Vector2(284, 0)
+position = Vector2(924, 360)
 
 [node name="PixerShaderLayer" type="CanvasLayer" parent="Table/Roulette" unique_id=731125925]
 visible = false
@@ -59,13 +64,5 @@ offset_left = -530.0
 offset_right = 4.0
 offset_bottom = 284.0
 
-[node name="BettingSystem" parent="Table" unique_id=1571585412 instance=ExtResource("4_uj17p")]
-offset_left = -528.0
-offset_top = 2.0
-offset_right = 2.0
-offset_bottom = 282.0
-
 [node name="HUD" parent="." unique_id=1970834067 instance=ExtResource("9_4jb31")]
 layer = 200
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=427457406]

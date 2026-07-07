@@ -4,9 +4,9 @@
 [ext_resource type="Script" uid="uid://dtmqw4ybxfcgy" path="res://scenes/game/death_screen/death_screen.gd" id="1_sbyiw"]
 [ext_resource type="FontFile" uid="uid://btfhjobeerona" path="res://assets/fonts/PixeloidSans.otf" id="2_16ikf"]
 [ext_resource type="Texture2D" uid="uid://74y8xqmf0ned" path="res://assets/textures/headstone.png" id="3_07e3x"]
-[ext_resource type="Texture2D" uid="uid://cvc70jnauhlmx" path="res://assets/textures/UI/Button.png" id="5_7kblf"]
-[ext_resource type="Texture2D" uid="uid://bfew31gwarq5w" path="res://assets/textures/UI/ButtonPressed.png" id="6_b6onb"]
-[ext_resource type="Texture2D" uid="uid://wt3wpr6fyrj5" path="res://assets/textures/UI/ButtonHover.png" id="7_l4b84"]
+[ext_resource type="Texture2D" uid="uid://cvc70jnauhlmx" path="res://assets/textures/UI/buttons/button_basic/Button.png" id="5_7kblf"]
+[ext_resource type="Texture2D" uid="uid://bfew31gwarq5w" path="res://assets/textures/UI/buttons/button_basic/ButtonPressed.png" id="6_b6onb"]
+[ext_resource type="Texture2D" uid="uid://wt3wpr6fyrj5" path="res://assets/textures/UI/buttons/button_basic/ButtonHover.png" id="7_l4b84"]
 
 [sub_resource type="Animation" id="Animation_sbyiw"]
 length = 0.001

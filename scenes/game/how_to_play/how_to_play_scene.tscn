@@ -1,15 +1,15 @@
 [gd_scene format=3 uid="uid://bfefv5mbih8it"]
 
 [ext_resource type="Script" uid="uid://dvwex7pvanj4u" path="res://scenes/game/how_to_play/how_to_play_scene.gd" id="1_mmla4"]
-[ext_resource type="Texture2D" uid="uid://ecj0m8u4dhwt" path="res://assets/textures/howtoplay_screen.png" id="2_mo0pp"]
-[ext_resource type="Texture2D" uid="uid://3y8y1ll5bfcb" path="res://assets/textures/UI/Button2.png" id="3_kt8qs"]
+[ext_resource type="Texture2D" uid="uid://ecj0m8u4dhwt" path="res://assets/textures/backgrounds/howtoplay_screen.png" id="2_mo0pp"]
+[ext_resource type="Texture2D" uid="uid://3y8y1ll5bfcb" path="res://assets/textures/UI/buttons/button_basic/Button2.png" id="3_kt8qs"]
 [ext_resource type="FontFile" uid="uid://d0mkojug0pvql" path="res://assets/fonts/PixeloidSans-Bold.otf" id="3_l8ka4"]
 [ext_resource type="FontFile" uid="uid://btfhjobeerona" path="res://assets/fonts/PixeloidSans.otf" id="3_uowcb"]
-[ext_resource type="Texture2D" uid="uid://bfew31gwarq5w" path="res://assets/textures/UI/ButtonPressed.png" id="4_l8ka4"]
-[ext_resource type="Texture2D" uid="uid://wt3wpr6fyrj5" path="res://assets/textures/UI/ButtonHover.png" id="5_uowcb"]
-[ext_resource type="Texture2D" uid="uid://cbf3ebcpkmp1u" path="res://assets/textures/UI/button_square_normal.png" id="8_hxo6w"]
-[ext_resource type="Texture2D" uid="uid://d28yl868j06pi" path="res://assets/textures/UI/button_square_pressed.png" id="9_gakbr"]
-[ext_resource type="Texture2D" uid="uid://hgsswaxnwm5k" path="res://assets/textures/UI/button_square_hover.png" id="10_pygk0"]
+[ext_resource type="Texture2D" uid="uid://bfew31gwarq5w" path="res://assets/textures/UI/buttons/button_basic/ButtonPressed.png" id="4_l8ka4"]
+[ext_resource type="Texture2D" uid="uid://wt3wpr6fyrj5" path="res://assets/textures/UI/buttons/button_basic/ButtonHover.png" id="5_uowcb"]
+[ext_resource type="Texture2D" uid="uid://cbf3ebcpkmp1u" path="res://assets/textures/UI/buttons/button_square/button_square_normal.png" id="8_hxo6w"]
+[ext_resource type="Texture2D" uid="uid://d28yl868j06pi" path="res://assets/textures/UI/buttons/button_square/button_square_pressed.png" id="9_gakbr"]
+[ext_resource type="Texture2D" uid="uid://hgsswaxnwm5k" path="res://assets/textures/UI/buttons/button_square/button_square_hover.png" id="10_pygk0"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wh2fs"]
 texture = ExtResource("3_kt8qs")
