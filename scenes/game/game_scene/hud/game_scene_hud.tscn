@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cqwd5xducgdsl"]
 
 [ext_resource type="PackedScene" uid="uid://dcu31p6twmdit" path="res://scenes/game/utils/ErrorMessage.tscn" id="1_8fe00"]
-[ext_resource type="PackedScene" uid="uid://cxo23rckbhjbo" path="res://scenes/game/ui_elements/AwesomeLabel.tscn" id="2_qkhxd"]
+[ext_resource type="PackedScene" uid="uid://cxo23rckbhjbo" path="res://scenes/game/UI_elements/AwesomeLabel.tscn" id="2_qkhxd"]
 [ext_resource type="PackedScene" uid="uid://b8s6w1lbfa62g" path="res://scenes/game/UI_elements/animated_sprites/money_animated_sprite.tscn" id="3_0qbnv"]
 [ext_resource type="Script" uid="uid://yvvimemjf8nl" path="res://scenes/game/game_scene/hud/boost_symbol_container.gd" id="5_0qbnv"]
 [ext_resource type="PackedScene" uid="uid://djtfrov4iqbnm" path="res://scenes/game/UI_elements/animated_sprites/ruby_animated_sprite.tscn" id="5_3l4lp"]
@@ -773,7 +773,7 @@ position = Vector2(924, 360)
 script = ExtResource("21_hlngw")
 
 [node name="Timer" type="Timer" parent="spinButton" unique_id=739194610]
-wait_time = 1.0999999999999999
+wait_time = 1.1
 
 [node name="SpinButton" type="Button" parent="spinButton" unique_id=701434672]
 anchors_preset = -1
