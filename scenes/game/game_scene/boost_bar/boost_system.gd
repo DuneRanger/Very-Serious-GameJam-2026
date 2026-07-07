@@ -30,6 +30,7 @@ func _on_boost_button_pressed() -> void:
 	$Timer.start()
 	#BG Test
 	$Background.visible = true
+	$AnimationPlayer.play("boost_appear_dissapear")
 
 func _on_happy_button_pressed() -> void:
 	$HappyButton.visible = false
@@ -51,5 +52,6 @@ func _on_timer_timeout() -> void:
 	$Background.visible = false
 	$boost_bar.visible = false
 	$boost_bar/Button.visible = true
+	$AnimationPlayer.play("RESET")
 	GameManagerGlobal.modify_game_state(GameEnums.game_states.SPIN_PHASE)
 	$Timer.stop()
