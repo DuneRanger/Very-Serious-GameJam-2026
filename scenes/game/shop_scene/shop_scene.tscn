@@ -166,6 +166,7 @@ mouse_filter = 2
 theme_override_fonts/normal_font = ExtResource("7_wb2ns")
 theme_override_font_sizes/normal_font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_dh51g")
+bbcode_enabled = true
 
 [node name="RubyAnimatedSprite" parent="." unique_id=701930484 instance=ExtResource("8_qmg6l")]
 position = Vector2(-592, 272)

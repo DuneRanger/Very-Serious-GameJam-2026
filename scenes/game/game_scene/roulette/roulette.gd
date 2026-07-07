@@ -173,12 +173,23 @@ func modify_cell_weight(idx: int, change: float):
 	cells[idx].weight += change
 	commit_cell_mod()
 
+func fill_by_color_lists():
+	GameManagerGlobal.red_cell_counts.fill(0)
+	GameManagerGlobal.black_cell_counts.fill(0)
+	for c : RouletteCell in GameManagerGlobal.cells:
+		if c.colour == Color.RED:
+			GameManagerGlobal.red_cell_counts[c.number] += 1
+		elif c.colour == Color.BLACK:
+			GameManagerGlobal.black_cell_counts[c.number] += 1
+
 # Calls the required functions to for a cell.weight change to actually occur
 func commit_cell_mod():
 	visual_rotation = 0
 	update_total_weight()
 	remove_small_cells()
 	rebuild_banks()
+	fill_by_color_lists()
+	GameManagerGlobal.signal_commit_cell_change_finished.emit()
 
 # -------------------------------- Physics --------------------------------
 

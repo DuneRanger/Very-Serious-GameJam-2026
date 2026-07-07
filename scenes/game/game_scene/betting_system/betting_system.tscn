@@ -2,60 +2,262 @@
 
 [ext_resource type="Script" uid="uid://dnvqostopki38" path="res://scenes/game/game_scene/betting_system/betting_system.gd" id="1_dp4ot"]
 [ext_resource type="PackedScene" uid="uid://c7y4bfu1vt5we" path="res://scenes/game/game_scene/betting_system/bet_button.tscn" id="2_gf42j"]
-[ext_resource type="PackedScene" uid="uid://r818ix60yp68" path="res://scenes/game/game_scene/betting_system/bet_label.tscn" id="3_njhud"]
-[ext_resource type="Texture2D" uid="uid://cvc70jnauhlmx" path="res://assets/textures/UI/buttons/button_basic/Button.png" id="4_4sryy"]
-[ext_resource type="Texture2D" uid="uid://dut742t7mmgrt" path="res://assets/textures/chips/chip_black.png" id="4_60oc5"]
-[ext_resource type="Script" uid="uid://c7ho25had8seq" path="res://scenes/game/game_scene/betting_system/increment_toggle.gd" id="4_qcixp"]
-[ext_resource type="Texture2D" uid="uid://i5la5qr025mw" path="res://assets/textures/chips/chip_red.png" id="5_wj0nr"]
-[ext_resource type="Texture2D" uid="uid://drwcdh4erixtq" path="res://assets/textures/chips/chip_blue.png" id="6_p2qa8"]
-[ext_resource type="Texture2D" uid="uid://b1h766mvtji8y" path="res://assets/textures/chips/chip_yellow.png" id="7_hf4ey"]
 
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7hrj3"]
-texture = ExtResource("4_60oc5")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iwegw"]
-texture = ExtResource("5_wj0nr")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4sryy"]
-texture = ExtResource("6_p2qa8")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hf4ey"]
-texture = ExtResource("7_hf4ey")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_60oc5"]
-texture = ExtResource("4_4sryy")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wj0nr"]
-texture = ExtResource("4_4sryy")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p2qa8"]
-texture = ExtResource("4_4sryy")
-
-[node name="BettingSystem" type="Node2D" unique_id=1381945534]
+[node name="BettingSystem" type="VBoxContainer" unique_id=30140118]
+offset_right = 704.0
+offset_bottom = 384.0
+theme_override_constants/separation = 0
 script = ExtResource("1_dp4ot")
-bet_button_scene = ExtResource("2_gf42j")
-bet_button_label = ExtResource("3_njhud")
-background_width = 500.0
-padding = 4.0
-number_button_font_size = 22
-third_button_font_size = 24
-half_button_font_size = 13
-chip_black = SubResource("StyleBoxTexture_7hrj3")
-chip_red = SubResource("StyleBoxTexture_iwegw")
-chip_blue = SubResource("StyleBoxTexture_4sryy")
-chip_yellow = SubResource("StyleBoxTexture_hf4ey")
 
-[node name="Background" type="ColorRect" parent="." unique_id=286948862]
-color = Color(1.01, 1.01, 1.01, 1)
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=291844068]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+theme_override_constants/separation = 0
 
-[node name="IncrementToggle" type="Button" parent="." unique_id=610838021]
-visible = false
-offset_right = 8.0
-offset_bottom = 8.0
-theme_override_styles/normal = SubResource("StyleBoxTexture_60oc5")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_wj0nr")
-theme_override_styles/hover = SubResource("StyleBoxTexture_p2qa8")
-script = ExtResource("4_qcixp")
+[node name="Button0" parent="HBoxContainer" unique_id=1147380025 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "0"
 
-[connection signal="button_down" from="IncrementToggle" to="IncrementToggle" method="_on_button_down"]
+[node name="NumberButtons" type="GridContainer" parent="HBoxContainer" unique_id=641749549]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 8.0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 8
+
+[node name="Button1" parent="HBoxContainer/NumberButtons" unique_id=370527494 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "1"
+button_id = 1
+
+[node name="Button4" parent="HBoxContainer/NumberButtons" unique_id=1284816386 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "4"
+button_id = 4
+
+[node name="Button7" parent="HBoxContainer/NumberButtons" unique_id=237074829 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "7"
+button_id = 7
+
+[node name="Button10" parent="HBoxContainer/NumberButtons" unique_id=49357896 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "10"
+button_id = 10
+
+[node name="Button13" parent="HBoxContainer/NumberButtons" unique_id=2025435831 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "13"
+button_id = 13
+
+[node name="Button16" parent="HBoxContainer/NumberButtons" unique_id=602989780 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "16"
+button_id = 16
+
+[node name="Button19" parent="HBoxContainer/NumberButtons" unique_id=1468206351 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "19"
+button_id = 19
+
+[node name="Button22" parent="HBoxContainer/NumberButtons" unique_id=1648766737 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "22"
+button_id = 22
+
+[node name="Button2" parent="HBoxContainer/NumberButtons" unique_id=593126348 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "2"
+button_id = 2
+
+[node name="Button5" parent="HBoxContainer/NumberButtons" unique_id=5224901 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "5"
+button_id = 5
+
+[node name="Button8" parent="HBoxContainer/NumberButtons" unique_id=1409872943 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "8"
+button_id = 8
+
+[node name="Button11" parent="HBoxContainer/NumberButtons" unique_id=1943613880 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "11"
+button_id = 11
+
+[node name="Button14" parent="HBoxContainer/NumberButtons" unique_id=494815009 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "14"
+button_id = 14
+
+[node name="Button17" parent="HBoxContainer/NumberButtons" unique_id=1689607164 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "17"
+button_id = 17
+
+[node name="Button20" parent="HBoxContainer/NumberButtons" unique_id=2014062493 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "20"
+button_id = 20
+
+[node name="Button23" parent="HBoxContainer/NumberButtons" unique_id=1101390120 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "23"
+button_id = 23
+
+[node name="Button3" parent="HBoxContainer/NumberButtons" unique_id=1420978981 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "3"
+button_id = 3
+
+[node name="Button6" parent="HBoxContainer/NumberButtons" unique_id=123226043 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "6"
+button_id = 6
+
+[node name="Button9" parent="HBoxContainer/NumberButtons" unique_id=265931556 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "9"
+button_id = 9
+
+[node name="Button12" parent="HBoxContainer/NumberButtons" unique_id=593352802 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "12"
+button_id = 12
+
+[node name="Button15" parent="HBoxContainer/NumberButtons" unique_id=1792735356 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "15"
+button_id = 15
+
+[node name="Button18" parent="HBoxContainer/NumberButtons" unique_id=45912133 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "18"
+button_id = 18
+
+[node name="Button21" parent="HBoxContainer/NumberButtons" unique_id=1483634815 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "21"
+button_id = 21
+
+[node name="Button24" parent="HBoxContainer/NumberButtons" unique_id=782951881 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "24"
+button_id = 24
+
+[node name="ThirdsButtons" type="HBoxContainer" parent="." unique_id=2137869424]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="ButtonFirstThird" parent="ThirdsButtons" unique_id=596071378 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1 to 8"
+button_id = 25
+
+[node name="ButtonSecondThird" parent="ThirdsButtons" unique_id=266802999 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "9 to 16"
+button_id = 26
+
+[node name="ButtonThirdThird" parent="ThirdsButtons" unique_id=835919205 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "17 to 24"
+button_id = 27
+
+[node name="HalvesButtons" type="HBoxContainer" parent="." unique_id=1845926523]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="ButtonFirstHalf" parent="HalvesButtons" unique_id=882456603 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1 to 12"
+button_id = 28
+
+[node name="ButtonEven" parent="HalvesButtons" unique_id=505830959 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "EVEN"
+button_id = 30
+
+[node name="ButtonRed" parent="HalvesButtons" unique_id=242792380 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "RED"
+button_id = 32
+
+[node name="ButtonBlack" parent="HalvesButtons" unique_id=901187573 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "BLACK"
+button_id = 33
+
+[node name="ButtonOdd" parent="HalvesButtons" unique_id=315842214 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "ODD"
+button_id = 31
+
+[node name="ButtonSecondHalf" parent="HalvesButtons" unique_id=16560469 instance=ExtResource("2_gf42j")]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "13 to 24"
+button_id = 29

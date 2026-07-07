@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cqwd5xducgdsl"]
 
 [ext_resource type="PackedScene" uid="uid://dcu31p6twmdit" path="res://scenes/game/utils/ErrorMessage.tscn" id="1_8fe00"]
-[ext_resource type="PackedScene" uid="uid://cxo23rckbhjbo" path="res://scenes/game/UI_elements/AwesomeLabel.tscn" id="2_qkhxd"]
+[ext_resource type="PackedScene" uid="uid://cxo23rckbhjbo" path="res://scenes/game/ui_elements/AwesomeLabel.tscn" id="2_qkhxd"]
 [ext_resource type="PackedScene" uid="uid://b8s6w1lbfa62g" path="res://scenes/game/UI_elements/animated_sprites/money_animated_sprite.tscn" id="3_0qbnv"]
 [ext_resource type="Script" uid="uid://yvvimemjf8nl" path="res://scenes/game/game_scene/hud/boost_symbol_container.gd" id="5_0qbnv"]
 [ext_resource type="PackedScene" uid="uid://djtfrov4iqbnm" path="res://scenes/game/UI_elements/animated_sprites/ruby_animated_sprite.tscn" id="5_3l4lp"]

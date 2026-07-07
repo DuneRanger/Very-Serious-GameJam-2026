@@ -57,12 +57,12 @@ offset_bottom = 263.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BettingSystem" parent="Table" unique_id=1381945534 instance=ExtResource("4_uj17p")]
-position = Vector2(72, 380)
-background_width = 480.0
-padding = 3.6
-
 [node name="BoostSystem" parent="Table" unique_id=1635259107 instance=ExtResource("6_4jb31")]
+
+[node name="ColorRect" type="ColorRect" parent="Table" unique_id=665043885]
+offset_left = -530.0
+offset_right = 4.0
+offset_bottom = 284.0
 
 [node name="HUD" parent="." unique_id=1970834067 instance=ExtResource("9_4jb31")]
 layer = 200

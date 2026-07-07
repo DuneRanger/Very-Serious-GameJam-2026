@@ -30,4 +30,9 @@ func duplicate() -> RouletteCell:
 
 func _to_string() -> String:
 	var out = get_colour_string(colour) + " " + str(number)
+		
+	if colour == Color.RED:
+		out = "[color=#eb3636]" + out + "[/color]"
+	elif colour == Color.BLACK:
+		out = "[color=#364fe0]" + out + "[/color]"
 	return out
