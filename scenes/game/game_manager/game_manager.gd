@@ -20,6 +20,9 @@ var caughtCells : Array[RouletteCell]
 var initial_cells : Array[RouletteCell]
 var cells : Array[RouletteCell] = []
 
+var red_cell_counts : Array[int] = []
+var black_cell_counts : Array[int] = []
+
 var mr_cat_swag : bool
 
 var single_bet_coeff : float = 24.0
@@ -59,6 +62,7 @@ signal signal_send_error_message(message : String)
 
 signal signal_buy_item (id : int)
 signal commit_cell_change
+signal signal_commit_cell_change_finished
 
 signal signal_shop_start_hover (id : int)
 signal signal_shop_stop_hover
@@ -101,6 +105,8 @@ func game_start():
 	GameManagerGlobal.modify_spin_count(3)
 	GameManagerGlobal.modify_spins_left(3)
 	GameManagerGlobal.round_count = 0
+	red_cell_counts.resize(betting_system.max_num + 1)
+	black_cell_counts.resize(betting_system.max_num + 1)
 	mr_cat_swag = false
 	GameManagerGlobal.modify_game_state(GameEnums.game_states.BET_PHASE)
 	

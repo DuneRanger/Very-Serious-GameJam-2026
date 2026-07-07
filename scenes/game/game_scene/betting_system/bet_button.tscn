@@ -6,16 +6,26 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_by6ed"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7vuyt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iygw7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qfsh5"]
+
 [node name="Button" type="Button" unique_id=1147380025]
 offset_right = 8.0
 offset_bottom = 8.0
 theme_override_fonts/font = ExtResource("1_8aveq")
 theme_override_font_sizes/font_size = 8
 theme_override_styles/normal = SubResource("StyleBoxFlat_by6ed")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7vuyt")
+theme_override_styles/hover = SubResource("StyleBoxFlat_iygw7")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_qfsh5")
 button_mask = 3
 script = ExtResource("1_fcqf7")
 
 [node name="ChipAbove" type="TextureRect" parent="." unique_id=1105024843]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -30,4 +40,18 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_7vuyt")
 
+[node name="BetValueLabel" type="Label" parent="." unique_id=604725977]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 123.0
+offset_top = 14.0
+offset_right = 172.0
+offset_bottom = 37.0
+grow_horizontal = 2
+text = "honvo"
+
 [connection signal="button_down" from="." to="." method="_on_button_down"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
