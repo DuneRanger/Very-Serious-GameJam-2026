@@ -17,6 +17,7 @@ func start_system() -> void:
 	$boost_bar.visible = false
 	$HappyButton.visible = true
 	$UnHappyButton.visible = true
+	$AnimationPlayer.play("appear")
 
 func _on_boost_button_pressed() -> void:
 	SfxManager.play_SFX("res://assets/SFX/boost_bar_use.mp3")

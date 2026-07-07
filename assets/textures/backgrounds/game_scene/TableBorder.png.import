@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://oyywqlbugqpj"
-path="res://.godot/imported/Table2.png-9e2388eba9cd58b68f52ab5f62397250.ctex"
+uid="uid://ia6r2ogd2yf6"
+path="res://.godot/imported/TableBorder.png-3794b288c7b9ddacf87fb66c0accd8e6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/backgrounds/Table2.png"
-dest_files=["res://.godot/imported/Table2.png-9e2388eba9cd58b68f52ab5f62397250.ctex"]
+source_file="res://assets/textures/backgrounds/game_scene/TableBorder.png"
+dest_files=["res://.godot/imported/TableBorder.png-3794b288c7b9ddacf87fb66c0accd8e6.ctex"]
 
 [params]
 

@@ -19,7 +19,7 @@ func check_bet_validity(_arg = 0) -> void:
 			$AnimationPlayer.play("activate_anim")
 			return
 	$SpinButton.disabled = true
-	$AnimationPlayer.play("RESET")
+	$AnimationPlayer.play("shaking")
 	$SpinButton.text = "Place\n a bet!"
 
 func _on_button_down() -> void:
@@ -29,8 +29,10 @@ func _on_button_down() -> void:
 		GameManagerGlobal.modify_game_state(GameEnums.game_states.SPIN_PHASE)
 		GameManagerGlobal.modify_spins_left(GameManagerGlobal.spins_left - 1)
 		$Timer.start()
+		$AnimationPlayer.play("use_spin")
 
 func _on_timer_timeout() -> void:
 	$Timer.stop()
 	visible = false
 	$SpinButton.disabled = true
+	$AnimationPlayer.play("RESET")

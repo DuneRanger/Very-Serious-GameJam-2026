@@ -1,0 +1,138 @@
+[gd_scene format=3 uid="uid://b5kyuh0r2fbx6"]
+
+[ext_resource type="Shader" uid="uid://dnh863ys2jdy2" path="res://assets/shaders/scroll_texture.gdshader" id="1_af65t"]
+[ext_resource type="Texture2D" uid="uid://dvttg5rahg8b" path="res://assets/textures/backgrounds/game_scene/scrollingTexture.png" id="2_x1iwy"]
+[ext_resource type="Shader" uid="uid://cdij03v22y8o5" path="res://assets/shaders/blur.gdshader" id="3_x1iwy"]
+[ext_resource type="Texture2D" uid="uid://ia6r2ogd2yf6" path="res://assets/textures/backgrounds/game_scene/TableBorder.png" id="4_cqnpj"]
+[ext_resource type="Texture2D" uid="uid://4cqxc3nkge28" path="res://assets/textures/UI/light_circle.png" id="5_ll4b2"]
+[ext_resource type="Script" uid="uid://j1dq2e1w1o2j" path="res://scenes/game/game_scene/dynamic_background/lights_movement.gd" id="5_lr2cd"]
+
+[sub_resource type="Gradient" id="Gradient_cqnpj"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.27419356)
+colors = PackedColorArray(0.13725491, 0.3019608, 0.12156863, 1, 0.19607843, 0.43137255, 0.1764706, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ll4b2"]
+gradient = SubResource("Gradient_cqnpj")
+width = 720
+height = 1280
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lr2cd"]
+shader = ExtResource("1_af65t")
+shader_parameter/speed = 0.2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cqnpj"]
+shader = ExtResource("3_x1iwy")
+shader_parameter/blur_amount = 1.0000000475
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_lr2cd"]
+blend_mode = 1
+
+[sub_resource type="Animation" id="Animation_d6mit"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Light:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(128, 609)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Light2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1333.0001, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_kx7il"]
+resource_name = "light"
+length = 240.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Light:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 15.082213, 27.033333, 45.59739, 96.45602, 127.67269, 175.88483, 202.19101, 240),
+"transitions": PackedFloat32Array(1, 1, 1.5691683, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-64.999985, 676), Vector2(-105, 245), Vector2(-34.999992, -27), Vector2(288.99997, -38.999992), Vector2(946.9999, -30.999985), Vector2(1343, 180), Vector2(1118.9999, 784), Vector2(745, 806), Vector2(-64.999985, 676)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Light2:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 31.918173, 72.26667, 94.70227, 116.44872, 240),
+"transitions": PackedFloat32Array(1, 1, 1.8025011, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1333.0001, 2), Vector2(638.00006, -73.99999), Vector2(-193.99988, 237.99995), Vector2(-149.99998, 893), Vector2(534, 1089), Vector2(1333.0001, 2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_00gy1"]
+_data = {
+&"RESET": SubResource("Animation_d6mit"),
+&"light": SubResource("Animation_kx7il")
+}
+
+[node name="DynamicBackground" type="Node2D" unique_id=1287211848]
+
+[node name="Gradient" type="Sprite2D" parent="." unique_id=167169688]
+rotation = -1.5707964
+texture = SubResource("GradientTexture2D_ll4b2")
+centered = false
+offset = Vector2(-720, 0)
+
+[node name="ScrollingTexture" type="TextureRect" parent="." unique_id=243387138]
+material = SubResource("ShaderMaterial_lr2cd")
+offset_right = 640.0
+offset_bottom = 360.0
+scale = Vector2(2, 2)
+texture = ExtResource("2_x1iwy")
+stretch_mode = 1
+
+[node name="Blur" type="ColorRect" parent="." unique_id=723418689]
+material = SubResource("ShaderMaterial_cqnpj")
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="TableBorder" type="Sprite2D" parent="." unique_id=930859841]
+scale = Vector2(4, 4)
+texture = ExtResource("4_cqnpj")
+centered = false
+
+[node name="Lights" type="Node" parent="." unique_id=1490826225]
+script = ExtResource("5_lr2cd")
+
+[node name="Light" type="Sprite2D" parent="Lights" unique_id=149319072]
+modulate = Color(1, 0.7833333, 0, 0.25882354)
+material = SubResource("CanvasItemMaterial_lr2cd")
+position = Vector2(128, 609)
+scale = Vector2(1.6, 1.6)
+texture = ExtResource("5_ll4b2")
+
+[node name="Light2" type="Sprite2D" parent="Lights" unique_id=1061679177]
+modulate = Color(1, 0.23000002, 0.23000002, 0.25882354)
+material = SubResource("CanvasItemMaterial_lr2cd")
+position = Vector2(1333.0001, 2)
+scale = Vector2(2.8, 2.8)
+texture = ExtResource("5_ll4b2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Lights" unique_id=1750829410]
+libraries/ = SubResource("AnimationLibrary_00gy1")
+autoplay = &"light"

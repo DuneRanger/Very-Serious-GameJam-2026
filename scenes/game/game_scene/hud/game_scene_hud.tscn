@@ -34,6 +34,44 @@ texture = ExtResource("8_la7ma")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ag5u3"]
 texture = ExtResource("9_vy1w6")
 
+[sub_resource type="Animation" id="Animation_ux3qy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(640, 672)]
+}
+
+[sub_resource type="Animation" id="Animation_4sj20"]
+resource_name = "wobbling"
+length = 8.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 6, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(640, 672), Vector2(640, 670), Vector2(640, 678), Vector2(640, 672)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gykqv"]
+_data = {
+&"RESET": SubResource("Animation_ux3qy"),
+&"wobbling": SubResource("Animation_4sj20")
+}
+
 [sub_resource type="Animation" id="Animation_vy1w6"]
 resource_name = "AppearAnimation"
 length = 8.0
@@ -432,6 +470,42 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("spinButton:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("spinButton:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("spinButton:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(924, 360)]
+}
 
 [sub_resource type="Animation" id="Animation_kom1q"]
 resource_name = "activate_anim"
@@ -449,11 +523,105 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1.1, 1.1)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("spinButton:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(924, 360)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("spinButton:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_yxnto"]
+resource_name = "shaking"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("spinButton:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.033333335, 1, 1.05, 1.1, 1.15, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(924, 360), Vector2(924, 360), Vector2(922, 360), Vector2(924, 360), Vector2(926, 360), Vector2(924, 360)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("spinButton:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1, 1.05, 1.1, 1.15, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.017453292, 0.0, -0.017453292, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_hgm0h"]
+resource_name = "use_spin"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("spinButton:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1.5157168, 1),
+"update": 0,
+"values": [0.0, 25.31600080017775]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("spinButton:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("spinButton:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.23333333, 0.88),
+"transitions": PackedFloat32Array(0.4204483, 1.8025018, 1),
+"update": 0,
+"values": [Vector2(924, 360), Vector2(924, 330.945), Vector2(924, 448.85)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hgm0h"]
 _data = {
 &"RESET": SubResource("Animation_4lu4x"),
-&"activate_anim": SubResource("Animation_kom1q")
+&"activate_anim": SubResource("Animation_kom1q"),
+&"shaking": SubResource("Animation_yxnto"),
+&"use_spin": SubResource("Animation_hgm0h")
 }
 
 [node name="HUD" type="CanvasLayer" unique_id=1970834067]
@@ -496,15 +664,23 @@ metadata/_edit_use_anchors_ = true
 [node name="RefillTimer" type="Timer" parent="BoostSymbolContainer" unique_id=551682166]
 wait_time = 0.1
 
-[node name="ShopButton" type="Button" parent="." unique_id=1416432798]
-offset_left = 576.0
-offset_top = 636.0
-offset_right = 704.0
-offset_bottom = 700.0
+[node name="ShopButtonNode" type="Node2D" parent="." unique_id=2093048482]
+position = Vector2(640, 672)
+
+[node name="ShopButton" type="Button" parent="ShopButtonNode" unique_id=1416432798]
+offset_left = -64.0
+offset_top = -36.0
+offset_right = 64.0
+offset_bottom = 28.0
 theme_override_styles/normal = SubResource("StyleBoxTexture_4sguu")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_c6has")
 theme_override_styles/hover = SubResource("StyleBoxTexture_ag5u3")
 script = ExtResource("7_sbgnr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ShopButtonNode" unique_id=1168706748]
+root_node = NodePath("../ShopButton")
+libraries/ = SubResource("AnimationLibrary_gykqv")
+autoplay = &"wobbling"
 
 [node name="MenuButton" parent="." unique_id=1837179404 instance=ExtResource("8_hwqol")]
 
@@ -597,7 +773,7 @@ position = Vector2(924, 360)
 script = ExtResource("21_hlngw")
 
 [node name="Timer" type="Timer" parent="spinButton" unique_id=739194610]
-wait_time = 0.3
+wait_time = 1.0999999999999999
 
 [node name="SpinButton" type="Button" parent="spinButton" unique_id=701434672]
 anchors_preset = -1
@@ -637,7 +813,7 @@ position = Vector2(240, 307)
 
 [connection signal="timeout" from="SpinSymbolContainer/RefillTimer" to="SpinSymbolContainer" method="_on_refill_timer_timeout"]
 [connection signal="timeout" from="BoostSymbolContainer/RefillTimer" to="BoostSymbolContainer" method="_on_refill_timer_timeout"]
-[connection signal="button_down" from="ShopButton" to="ShopButton" method="_on_button_down"]
+[connection signal="button_down" from="ShopButtonNode/ShopButton" to="ShopButtonNode/ShopButton" method="_on_button_down"]
 [connection signal="timeout" from="RoundStartAnimations/SFXTimer" to="RoundStartAnimations" method="_on_sfx_timer_timeout"]
 [connection signal="timeout" from="spinButton/Timer" to="spinButton" method="_on_timer_timeout"]
 [connection signal="button_down" from="spinButton/SpinButton" to="spinButton" method="_on_button_down"]
