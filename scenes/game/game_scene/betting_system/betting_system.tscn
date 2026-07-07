@@ -6,186 +6,191 @@
 [node name="BettingSystem" type="VBoxContainer" unique_id=30140118]
 offset_right = 704.0
 offset_bottom = 384.0
+theme_override_constants/separation = 0
 script = ExtResource("1_dp4ot")
 
-[node name="NumberButtons" type="HBoxContainer" parent="." unique_id=676976511]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=291844068]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
+theme_override_constants/separation = 0
 
-[node name="Button0" parent="NumberButtons" unique_id=1147380025 instance=ExtResource("2_gf42j")]
+[node name="Button0" parent="HBoxContainer" unique_id=1147380025 instance=ExtResource("2_gf42j")]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 text = "0"
 
-[node name="GridContainer" type="GridContainer" parent="NumberButtons" unique_id=494121812]
+[node name="NumberButtons" type="GridContainer" parent="HBoxContainer" unique_id=641749549]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 8.0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
 columns = 8
 
-[node name="Button1" parent="NumberButtons/GridContainer" unique_id=370527494 instance=ExtResource("2_gf42j")]
+[node name="Button1" parent="HBoxContainer/NumberButtons" unique_id=370527494 instance=ExtResource("2_gf42j")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "1"
 button_id = 1
 
-[node name="Button4" parent="NumberButtons/GridContainer" unique_id=1284816386 instance=ExtResource("2_gf42j")]
+[node name="Button4" parent="HBoxContainer/NumberButtons" unique_id=1284816386 instance=ExtResource("2_gf42j")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "4"
 button_id = 4
 
-[node name="Button7" parent="NumberButtons/GridContainer" unique_id=237074829 instance=ExtResource("2_gf42j")]
+[node name="Button7" parent="HBoxContainer/NumberButtons" unique_id=237074829 instance=ExtResource("2_gf42j")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "7"
 button_id = 7
 
-[node name="Button10" parent="NumberButtons/GridContainer" unique_id=49357896 instance=ExtResource("2_gf42j")]
+[node name="Button10" parent="HBoxContainer/NumberButtons" unique_id=49357896 instance=ExtResource("2_gf42j")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "10"
 button_id = 10
 
-[node name="Button13" parent="NumberButtons/GridContainer" unique_id=2025435831 instance=ExtResource("2_gf42j")]
+[node name="Button13" parent="HBoxContainer/NumberButtons" unique_id=2025435831 instance=ExtResource("2_gf42j")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "13"
 button_id = 13
 
-[node name="Button16" parent="NumberButtons/GridContainer" unique_id=602989780 instance=ExtResource("2_gf42j")]
+[node name="Button16" parent="HBoxContainer/NumberButtons" unique_id=602989780 instance=ExtResource("2_gf42j")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "16"
 button_id = 16
 
-[node name="Button19" parent="NumberButtons/GridContainer" unique_id=1468206351 instance=ExtResource("2_gf42j")]
+[node name="Button19" parent="HBoxContainer/NumberButtons" unique_id=1468206351 instance=ExtResource("2_gf42j")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "19"
 button_id = 19
 
-[node name="Button22" parent="NumberButtons/GridContainer" unique_id=1648766737 instance=ExtResource("2_gf42j")]
+[node name="Button22" parent="HBoxContainer/NumberButtons" unique_id=1648766737 instance=ExtResource("2_gf42j")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "22"
 button_id = 22
 
-[node name="Button2" parent="NumberButtons/GridContainer" unique_id=593126348 instance=ExtResource("2_gf42j")]
+[node name="Button2" parent="HBoxContainer/NumberButtons" unique_id=593126348 instance=ExtResource("2_gf42j")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "2"
 button_id = 2
 
-[node name="Button5" parent="NumberButtons/GridContainer" unique_id=5224901 instance=ExtResource("2_gf42j")]
+[node name="Button5" parent="HBoxContainer/NumberButtons" unique_id=5224901 instance=ExtResource("2_gf42j")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "5"
 button_id = 5
 
-[node name="Button8" parent="NumberButtons/GridContainer" unique_id=1409872943 instance=ExtResource("2_gf42j")]
+[node name="Button8" parent="HBoxContainer/NumberButtons" unique_id=1409872943 instance=ExtResource("2_gf42j")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "8"
 button_id = 8
 
-[node name="Button11" parent="NumberButtons/GridContainer" unique_id=1943613880 instance=ExtResource("2_gf42j")]
+[node name="Button11" parent="HBoxContainer/NumberButtons" unique_id=1943613880 instance=ExtResource("2_gf42j")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "11"
 button_id = 11
 
-[node name="Button14" parent="NumberButtons/GridContainer" unique_id=494815009 instance=ExtResource("2_gf42j")]
+[node name="Button14" parent="HBoxContainer/NumberButtons" unique_id=494815009 instance=ExtResource("2_gf42j")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "14"
 button_id = 14
 
-[node name="Button17" parent="NumberButtons/GridContainer" unique_id=1689607164 instance=ExtResource("2_gf42j")]
+[node name="Button17" parent="HBoxContainer/NumberButtons" unique_id=1689607164 instance=ExtResource("2_gf42j")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "17"
 button_id = 17
 
-[node name="Button20" parent="NumberButtons/GridContainer" unique_id=2014062493 instance=ExtResource("2_gf42j")]
+[node name="Button20" parent="HBoxContainer/NumberButtons" unique_id=2014062493 instance=ExtResource("2_gf42j")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "20"
 button_id = 20
 
-[node name="Button23" parent="NumberButtons/GridContainer" unique_id=1101390120 instance=ExtResource("2_gf42j")]
+[node name="Button23" parent="HBoxContainer/NumberButtons" unique_id=1101390120 instance=ExtResource("2_gf42j")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "23"
 button_id = 23
 
-[node name="Button3" parent="NumberButtons/GridContainer" unique_id=1420978981 instance=ExtResource("2_gf42j")]
+[node name="Button3" parent="HBoxContainer/NumberButtons" unique_id=1420978981 instance=ExtResource("2_gf42j")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "3"
 button_id = 3
 
-[node name="Button6" parent="NumberButtons/GridContainer" unique_id=123226043 instance=ExtResource("2_gf42j")]
+[node name="Button6" parent="HBoxContainer/NumberButtons" unique_id=123226043 instance=ExtResource("2_gf42j")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "6"
 button_id = 6
 
-[node name="Button9" parent="NumberButtons/GridContainer" unique_id=265931556 instance=ExtResource("2_gf42j")]
+[node name="Button9" parent="HBoxContainer/NumberButtons" unique_id=265931556 instance=ExtResource("2_gf42j")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "9"
 button_id = 9
 
-[node name="Button12" parent="NumberButtons/GridContainer" unique_id=593352802 instance=ExtResource("2_gf42j")]
+[node name="Button12" parent="HBoxContainer/NumberButtons" unique_id=593352802 instance=ExtResource("2_gf42j")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "12"
 button_id = 12
 
-[node name="Button15" parent="NumberButtons/GridContainer" unique_id=1792735356 instance=ExtResource("2_gf42j")]
+[node name="Button15" parent="HBoxContainer/NumberButtons" unique_id=1792735356 instance=ExtResource("2_gf42j")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "15"
 button_id = 15
 
-[node name="Button18" parent="NumberButtons/GridContainer" unique_id=45912133 instance=ExtResource("2_gf42j")]
+[node name="Button18" parent="HBoxContainer/NumberButtons" unique_id=45912133 instance=ExtResource("2_gf42j")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "18"
 button_id = 18
 
-[node name="Button21" parent="NumberButtons/GridContainer" unique_id=1483634815 instance=ExtResource("2_gf42j")]
+[node name="Button21" parent="HBoxContainer/NumberButtons" unique_id=1483634815 instance=ExtResource("2_gf42j")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "21"
 button_id = 21
 
-[node name="Button24" parent="NumberButtons/GridContainer" unique_id=782951881 instance=ExtResource("2_gf42j")]
+[node name="Button24" parent="HBoxContainer/NumberButtons" unique_id=782951881 instance=ExtResource("2_gf42j")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -195,6 +200,7 @@ button_id = 24
 [node name="ThirdsButtons" type="HBoxContainer" parent="." unique_id=2137869424]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/separation = 0
 
 [node name="ButtonFirstThird" parent="ThirdsButtons" unique_id=596071378 instance=ExtResource("2_gf42j")]
 layout_mode = 2
@@ -217,6 +223,7 @@ button_id = 27
 [node name="HalvesButtons" type="HBoxContainer" parent="." unique_id=1845926523]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/separation = 0
 alignment = 1
 
 [node name="ButtonFirstHalf" parent="HalvesButtons" unique_id=882456603 instance=ExtResource("2_gf42j")]

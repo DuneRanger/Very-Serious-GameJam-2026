@@ -3,29 +3,29 @@
 [ext_resource type="FontFile" uid="uid://d0mkojug0pvql" path="res://assets/fonts/PixeloidSans-Bold.otf" id="1_8aveq"]
 [ext_resource type="Script" uid="uid://b2d37epksykgv" path="res://scenes/game/game_scene/betting_system/bet_button.gd" id="1_fcqf7"]
 [ext_resource type="Texture2D" uid="uid://dut742t7mmgrt" path="res://assets/textures/chips/chip_black.png" id="4_7vuyt"]
+[ext_resource type="FontFile" uid="uid://btfhjobeerona" path="res://assets/fonts/PixeloidSans.otf" id="4_iygw7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_by6ed"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7vuyt"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iygw7"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qfsh5"]
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.7329726, 0.7956592, 0.9768823, 1)
 
 [node name="Button" type="Button" unique_id=1147380025]
 offset_right = 8.0
 offset_bottom = 8.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.6392157, 0.5019608, 0, 1)
+theme_override_colors/font_hover_color = Color(0.98039216, 0.76862746, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("1_8aveq")
 theme_override_font_sizes/font_size = 8
 theme_override_styles/normal = SubResource("StyleBoxFlat_by6ed")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_7vuyt")
-theme_override_styles/hover = SubResource("StyleBoxFlat_iygw7")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_qfsh5")
 button_mask = 3
 script = ExtResource("1_fcqf7")
 
 [node name="ChipAbove" type="TextureRect" parent="." unique_id=1105024843]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -38,19 +38,28 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("4_7vuyt")
 
-[node name="BetValueLabel" type="Label" parent="." unique_id=604725977]
+[node name="BetValueLabel" type="RichTextLabel" parent="." unique_id=1625257675]
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-offset_left = 123.0
-offset_top = 14.0
-offset_right = 172.0
-offset_bottom = 37.0
+anchor_bottom = 0.5
+offset_left = -124.25
+offset_top = -36.5
+offset_right = 124.25
+offset_bottom = 36.5
 grow_horizontal = 2
-text = "honvo"
+grow_vertical = 2
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("4_iygw7")
+bbcode_enabled = true
+text = "1234567890"
+shortcut_keys_enabled = false
+horizontal_alignment = 1
 
 [connection signal="button_down" from="." to="." method="_on_button_down"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
