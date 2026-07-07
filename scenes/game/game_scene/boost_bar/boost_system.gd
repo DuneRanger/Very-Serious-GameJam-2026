@@ -9,12 +9,15 @@ func _ready() -> void:
 	$boost_bar.visible = false
 	$HappyButton.visible = false
 	$UnHappyButton.visible = false
+	$Background.visible = false
 	
 
 func start_system() -> void:
+	$Background.visible = true
 	$boost_bar.visible = false
 	$HappyButton.visible = true
 	$UnHappyButton.visible = true
+	$AnimationPlayer.play("appear")
 
 func _on_boost_button_pressed() -> void:
 	SfxManager.play_SFX("res://assets/SFX/boost_bar_use.mp3")
@@ -25,10 +28,14 @@ func _on_boost_button_pressed() -> void:
 	$boost_bar/bar/inner/boost_indicator/AnimationPlayer.pause()
 	GameManagerGlobal.applying_boost = true
 	$Timer.start()
+	#BG Test
+	$Background.visible = true
+	$AnimationPlayer.play("boost_appear_dissapear")
 
 func _on_happy_button_pressed() -> void:
 	$HappyButton.visible = false
 	$UnHappyButton.visible = false
+	$Background.visible = false
 	GameManagerGlobal.modify_game_state(GameEnums.game_states.BET_PHASE)
 
 func _on_unhappy_button_pressed() -> void:
@@ -42,7 +49,9 @@ func _on_unhappy_button_pressed() -> void:
 	$boost_bar/bar/inner/boost_indicator/AnimationPlayer.play("boost_bar_anim")
 
 func _on_timer_timeout() -> void:
+	$Background.visible = false
 	$boost_bar.visible = false
 	$boost_bar/Button.visible = true
+	$AnimationPlayer.play("RESET")
 	GameManagerGlobal.modify_game_state(GameEnums.game_states.SPIN_PHASE)
 	$Timer.stop()

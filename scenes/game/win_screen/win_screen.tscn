@@ -3,9 +3,9 @@
 [ext_resource type="FontFile" uid="uid://d0mkojug0pvql" path="res://assets/fonts/PixeloidSans-Bold.otf" id="1_0nhwl"]
 [ext_resource type="Script" uid="uid://rdwc5plwdkeg" path="res://scenes/game/win_screen/win_screen.gd" id="1_4famm"]
 [ext_resource type="FontFile" uid="uid://btfhjobeerona" path="res://assets/fonts/PixeloidSans.otf" id="3_a6nq2"]
-[ext_resource type="Texture2D" uid="uid://cvc70jnauhlmx" path="res://assets/textures/UI/Button.png" id="4_xjt1r"]
-[ext_resource type="Texture2D" uid="uid://bfew31gwarq5w" path="res://assets/textures/UI/ButtonPressed.png" id="5_ww8e3"]
-[ext_resource type="Texture2D" uid="uid://wt3wpr6fyrj5" path="res://assets/textures/UI/ButtonHover.png" id="6_14xkp"]
+[ext_resource type="Texture2D" uid="uid://cvc70jnauhlmx" path="res://assets/textures/UI/buttons/button_basic/Button.png" id="4_xjt1r"]
+[ext_resource type="Texture2D" uid="uid://bfew31gwarq5w" path="res://assets/textures/UI/buttons/button_basic/ButtonPressed.png" id="5_ww8e3"]
+[ext_resource type="Texture2D" uid="uid://wt3wpr6fyrj5" path="res://assets/textures/UI/buttons/button_basic/ButtonHover.png" id="6_14xkp"]
 
 [sub_resource type="Animation" id="Animation_a6nq2"]
 length = 0.001

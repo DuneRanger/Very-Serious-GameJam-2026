@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://bt8dbkjq4nc07"]
 
 [ext_resource type="Script" uid="uid://bunvqjvj7wk3c" path="res://scenes/game/game_scene/boost_bar/boost_bar.gd" id="1_jkqmw"]
-[ext_resource type="Texture2D" uid="uid://cvc70jnauhlmx" path="res://assets/textures/UI/Button.png" id="2_bdtx4"]
 [ext_resource type="FontFile" uid="uid://d0mkojug0pvql" path="res://assets/fonts/PixeloidSans-Bold.otf" id="2_dkw5f"]
 [ext_resource type="Texture2D" uid="uid://ci8vi1vy2yfpj" path="res://assets/textures/UI/booster_bar_outline.png" id="2_owshq"]
-[ext_resource type="Texture2D" uid="uid://bfew31gwarq5w" path="res://assets/textures/UI/ButtonPressed.png" id="4_o21ja"]
-[ext_resource type="Texture2D" uid="uid://wt3wpr6fyrj5" path="res://assets/textures/UI/ButtonHover.png" id="5_owshq"]
+[ext_resource type="Texture2D" uid="uid://mfy0ew30dfi5" path="res://assets/textures/UI/buttons/boost_button/boost_button.png" id="4_o21ja"]
+[ext_resource type="Texture2D" uid="uid://0ovjlr03lnjt" path="res://assets/textures/UI/buttons/boost_button/boost_button_hover.png" id="5_owshq"]
+[ext_resource type="Texture2D" uid="uid://c25qumxm1ld07" path="res://assets/textures/UI/buttons/boost_button/boost_button_fire.png" id="6_owshq"]
 
 [sub_resource type="Animation" id="Animation_kbc8h"]
 length = 0.001
@@ -46,13 +46,42 @@ _data = {
 }
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bdtx4"]
-texture = ExtResource("2_bdtx4")
+texture = ExtResource("4_o21ja")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y1wug"]
-texture = ExtResource("4_o21ja")
+texture = ExtResource("5_owshq")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jmoeh"]
 texture = ExtResource("5_owshq")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_il4g5"]
+atlas = ExtResource("6_owshq")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ydvnx"]
+atlas = ExtResource("6_owshq")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a26ye"]
+atlas = ExtResource("6_owshq")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y1wug"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_il4g5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ydvnx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a26ye")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
 
 [node name="BoostBar" type="Node2D" unique_id=917300306]
 script = ExtResource("1_jkqmw")
@@ -132,5 +161,12 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_bdtx4")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_y1wug")
 theme_override_styles/hover = SubResource("StyleBoxTexture_jmoeh")
 text = "BOOST!"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Button" unique_id=404942339]
+z_index = -1
+position = Vector2(72.00001, -2.861023e-06)
+scale = Vector2(4.4999995, 4.4999995)
+sprite_frames = SubResource("SpriteFrames_y1wug")
+autoplay = "default"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
