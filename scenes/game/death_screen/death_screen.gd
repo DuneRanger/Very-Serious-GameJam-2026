@@ -9,7 +9,11 @@ func _ready() -> void:
 #activates the death screen animation
 func death_screen():
 	$Label.text = "You didnt have enough money for\n" + GameManagerGlobal.current_quota_message 
-	$StatsLabel.text = "Reached round " + str(GameManagerGlobal.round_count) + "\n \nYou had " + str(GameManagerGlobal.money) + " money \nneeded " + str(GameManagerGlobal.quota) + " money"
+	var round_count : String = str(GameManagerGlobal.round_count)
+	var actual_money : String = GameEnums.format_num(GameManagerGlobal.money)
+	var needed_money : String = GameEnums.format_num(GameManagerGlobal.quota)
+	var values_arr : Array[String] = [round_count, actual_money, needed_money]
+	$StatsLabel.text = "Reached round %s\n \nYou had %s money \nneeded %s money" % values_arr
 	$AnimationPlayer.play("death_screen_anim")
 	MusicManager.play_death()
 
