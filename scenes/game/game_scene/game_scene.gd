@@ -87,8 +87,8 @@ func does_bet_win(bet_id : int) -> bool:
 	return false
 
 func get_bet_coeff(bet_id : int) -> float:
-	var bet_type = $Table/BettingSystem.get_bet_type(bet_id)
-	var base_coeff
+	var bet_type : GameEnums.bet_types = $Table/BettingSystem.get_bet_type(bet_id)
+	var base_coeff : float
 	match bet_type:
 		GameEnums.bet_types.NUMBER:
 			base_coeff = GameManagerGlobal.single_bet_coeff
@@ -100,31 +100,31 @@ func get_bet_coeff(bet_id : int) -> float:
 			base_coeff = 0.0
 	return base_coeff * GameManagerGlobal.bet_id_multipliers[bet_id]
 
-func get_full_bet_win() -> int:
-	var value = 0
+func get_full_bet_win() -> float:
+	var value = 0.0
 	for bet_id in GameManagerGlobal.bets:
 		var bet = GameManagerGlobal.bets[bet_id]
 		if does_bet_win(bet_id):
-			var new_value = int (bet * get_bet_coeff(bet_id))
-			#print("Won bet: ", bet_id, ", amount won: ", new_value)
+			var new_value = bet * get_bet_coeff(bet_id)
+			print("Won bet: ", bet_id, ", amount won: ", new_value)
 			value += new_value
 	return value
 
-func _on_send_error_message(message : String): 
+func _on_send_error_message(message : String) -> void:
 	$HUD/ErrorMessage.put_content(message)
 	$HUD/ErrorMessage.restart_anim()
 
-func modify_money():
+func modify_money() -> void:
 	$HUD/CoinLabel.set_value(GameManagerGlobal.money)
 	
-func modify_rubies():
+func modify_rubies() -> void:
 	$HUD/RubyLabel.set_value(GameManagerGlobal.rubies)
 	
-func add_money(amount : int):
+func add_money(amount : float) -> void:
 	$HUD/CoinLabel.set_value(GameManagerGlobal.money)
 	$HUD/CoinLabel.set_diff(amount)
 	
-func add_rubies(amount : int):
+func add_rubies(amount : float) -> void:
 	$HUD/RubyLabel.set_value(GameManagerGlobal.rubies)
 	$HUD/RubyLabel.set_diff(amount)
 
@@ -148,14 +148,14 @@ func _on_new_state():
 			$Table/Roulette.stop_roulette()
 			var money_won = get_full_bet_win()
 			#play SFX
-			if money_won == 0:
+			if money_won == 0.0:
 				SfxManager.play_SFX("res://assets/SFX/accept_loss.ogg")
 			else:
 				SfxManager.play_SFX("res://assets/SFX/accept_profit.ogg")
 			$Table/BettingSystem.clear_bets()
 			if GameManagerGlobal.spins_left != GameManagerGlobal.spin_count:
 				GameManagerGlobal.add_money(money_won)
-			if GameManagerGlobal.money == 0:
+			if GameManagerGlobal.money == 0.0:
 				GameManagerGlobal.signal_death_screen.emit()
 			elif GameManagerGlobal.spins_left == 0:
 				if GameManagerGlobal.money < GameManagerGlobal.quota:
@@ -169,7 +169,7 @@ func _on_new_state():
 		_:
 			pass
 
-func calculate_ruby_gain() -> int:
+func calculate_ruby_gain() -> float:
 	var boosts_left_gain = 2 * GameManagerGlobal.boosts_left
 	var times_hit_quota = GameManagerGlobal.money / GameManagerGlobal.quota
 	var hit_quota_gain = min(10, times_hit_quota - 1)
@@ -184,7 +184,7 @@ func next_round_no_anim():
 	if GameManagerGlobal.round_count > 1:
 		var current_ruby_gain = calculate_ruby_gain()
 		GameManagerGlobal.add_rubies(current_ruby_gain)
-	GameManagerGlobal.money = 100
+	GameManagerGlobal.money = 100.0
 	modify_money()
 	$HUD/SpinSymbolContainer.refill_spins()
 	$HUD/BoostSymbolContainer.refill_boosts()
@@ -200,7 +200,7 @@ func start_next_round():
 		GameManagerGlobal.add_rubies(current_ruby_gain)
 	pick_quota_message()
 	calc_next_quota()
-	GameManagerGlobal.money = 100
+	GameManagerGlobal.money = 100.0
 	modify_money()
 	print("starting next round")
 	GameManagerGlobal.signal_round_start.emit()

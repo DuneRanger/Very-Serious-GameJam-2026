@@ -7,7 +7,7 @@ const black_color : Color = Color("000000ff")
 var stylebox : StyleBoxFlat = null
 
 @export var button_id: int
-var amount_bet : int
+var amount_bet : float
 
 func make_stylebox():
 	stylebox = StyleBoxFlat.new()
@@ -50,7 +50,7 @@ func _ready() -> void:
 	GameManagerGlobal.signal_change_amount_bet.connect(_on_change_amount)
 	GameManagerGlobal.signal_commit_cell_change_finished.connect(_on_cells_change)
 
-func _on_change_amount(id : int, value : int):
+func _on_change_amount(id : int, value : float):
 	if (id != button_id and id != betting_system.all_buttons_id):
 		return
 	$ChipAbove.texture = betting_system.get_chip_texture(value)
@@ -68,7 +68,7 @@ func _on_button_down() -> void:
 func _on_mouse_entered() -> void:
 	if amount_bet > 0:
 		print("Showing value on: ", button_id)
-		$BetValueLabel.text = "[bgcolor=dim_gray]" + str(amount_bet) + "[/bgcolor]"
+		$BetValueLabel.text = "[bgcolor=dim_gray]" + GameEnums.format_num(amount_bet) + "[/bgcolor]"
 		$BetValueLabel.z_index = 100
 		$BetValueLabel.visible = true
 

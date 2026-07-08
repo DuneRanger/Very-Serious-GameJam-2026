@@ -114,8 +114,7 @@ func _on_fucking_awesome_refresh_button_button_down() -> void:
 
 func _on_focus_entered(button_id : int):
 	var item = offered_items[button_id]
-	var text = item.get_offered_item_text()
-	$DescriptionLabel.text = text
+	$DescriptionLabel.text = item.get_offered_item_text()
 	$DescriptionLabel.visible = true
 
 func _on_focus_exited():
@@ -129,7 +128,7 @@ func _on_fucking_awesome_refresh_button_focus_entered() -> void:
 func modify_rubies():
 	$RubyLabel.set_value(GameManagerGlobal.rubies)
 
-func add_rubies(amount : int):
+func add_rubies(amount : float):
 	print("I am in add rubies, amount: ", amount)
 	print("Count on gmm: ", GameManagerGlobal.rubies)
 	modify_rubies()

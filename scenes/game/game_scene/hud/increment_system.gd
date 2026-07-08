@@ -24,7 +24,7 @@ func _on_signal_bet_is_adding_change() -> void:
 		$RemoveToggle.text = "-"
 
 func _on_signal_increment_change() -> void:
-	$BetAmountLabel.text = "Bet amount:\n%d" %GameManagerGlobal.bet_increment
+	$BetAmountLabel.text = "Bet amount:\n" + GameEnums.format_num(GameManagerGlobal.bet_increment)
 
 func get_first_digit(num : int) -> int:
 	while true:

@@ -6,4 +6,4 @@ func _ready() -> void:
 
 func _on_round_start() :
 	$AnimationPlayer.play("AppearAnimation")
-	text = "You need " + str(GameManagerGlobal.quota) + " money for " + GameManagerGlobal.current_quota_message
+	text = "You need " + GameEnums.format_num(GameManagerGlobal.quota) + " money for " + GameManagerGlobal.current_quota_message

@@ -9,10 +9,10 @@ static var texture_chip_red : Texture2D = load("res://assets/textures/chips/chip
 static var texture_chip_blue : Texture2D = load("res://assets/textures/chips/chip_blue.png")
 static var texture_chip_yellow : Texture2D = load("res://assets/textures/chips/chip_yellow.png")
 
-const chip_black_requirement : int = 0
-const chip_red_requirement : int = 50
-const chip_blue_requirement : int = 200
-const chip_yellow_requirement : int = 1000
+const chip_black_requirement : float = 0.0
+const chip_red_requirement : float = 50.0
+const chip_blue_requirement : float = 200.0
+const chip_yellow_requirement : float = 1000.0
 
 const all_buttons_id : int = 12345678
 
@@ -54,7 +54,7 @@ func get_button_font_size(button_type : GameEnums.bet_types) -> int:
 func _ready() -> void:
 	GameManagerGlobal.signal_placed_bet.connect(new_bet)
 
-static func get_chip_texture(value : int) -> Texture2D:
+static func get_chip_texture(value : float) -> Texture2D:
 	print("Selecting icon, value: ", value)
 	if value >= chip_yellow_requirement:
 		print("Selected yellow")
@@ -73,7 +73,7 @@ func new_bet(button_id : int) -> void:
 	if GameManagerGlobal.game_state != GameEnums.game_states.BET_PHASE:
 		return
 	
-	var old_bet = GameManagerGlobal.bets.get(button_id, 0)
+	var old_bet = GameManagerGlobal.bets.get(button_id, 0.0)
 	
 	var is_bet_adding = not (GameManagerGlobal.bet_is_adding == false || Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT))
 	var is_bet_max = GameManagerGlobal.bet_is_max
@@ -91,7 +91,7 @@ func new_bet(button_id : int) -> void:
 	if bet_amount > GameManagerGlobal.money:
 		GameManagerGlobal.signal_send_error_message.emit("Not enough money!")
 		return
-	elif old_bet == 0 and bet_amount <= 0:
+	elif old_bet == 0.0 and bet_amount <= 0.0:
 		GameManagerGlobal.signal_send_error_message.emit("Cannot remove money from an empty bet!")
 		return
 	
@@ -106,6 +106,6 @@ func new_bet(button_id : int) -> void:
 	GameManagerGlobal.signal_change_amount_bet.emit(button_id, bet_amount + old_bet)
 
 func clear_bets() -> void:
-	GameManagerGlobal.signal_change_amount_bet.emit(all_buttons_id, 0)
+	GameManagerGlobal.signal_change_amount_bet.emit(all_buttons_id, 0.0)
 	GameManagerGlobal.bets.clear()
 	

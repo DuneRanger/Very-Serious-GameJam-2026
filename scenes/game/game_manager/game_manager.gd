@@ -5,16 +5,16 @@ var start_new_game : bool
 var round_budget: int
 var round_count: int
 var evening_count: int
-var quota: int
-var money: int
-var rubies: int
+var quota: float
+var money: float
+var rubies: float
 var spin_count: int
 var spins_left: int
 var boost_count: int
 var boosts_left: int
 var current_showed_scene : GameEnums.switching_scenes
 var game_state : GameEnums.game_states
-var bets : Dictionary
+var bets : Dictionary[int, float]
 var caughtCells : Array[RouletteCell]
 
 var initial_cells : Array[RouletteCell]
@@ -50,11 +50,11 @@ signal signal_spins_left_change (amount : int)
 signal signal_boost_count_change (amount : int)
 signal signal_boosts_left_change (amount : int)
 
-signal signal_modify_money (amount : int)
-signal signal_modify_rubies (amount : int)
+signal signal_modify_money (amount : float)
+signal signal_modify_rubies (amount : float)
 
-signal signal_add_money(amount : int)
-signal signal_add_rubies(amount : int)
+signal signal_add_money(amount : float)
+signal signal_add_rubies(amount : float)
 signal signal_add_roulette_ball
 
 signal signal_state_change (amount : int)
@@ -73,7 +73,7 @@ signal signal_quota_message
 signal signal_death_screen
 
 signal signal_placed_bet(button_id : int)
-signal signal_change_amount_bet(button_id : int, amount : int)
+signal signal_change_amount_bet(button_id : int, amount : float)
 
 signal signal_increment_change
 signal signal_bet_is_adding_change
@@ -192,19 +192,19 @@ func modify_game_state (new_state : GameEnums.game_states):
 	game_state = new_state
 	signal_state_change.emit()
 
-func modify_money (amount : int):
+func modify_money (amount : float):
 	money = amount
 	signal_modify_money.emit()
 
-func modify_rubies (amount : int):
+func modify_rubies (amount : float):
 	rubies = amount
 	signal_modify_rubies.emit()
 
-func add_money (amount : int):
+func add_money (amount : float):
 	money += amount
 	signal_add_money.emit(amount)
 
-func add_rubies (amount : int):
+func add_rubies (amount : float):
 	rubies += amount
 	signal_add_rubies.emit(amount)
 
