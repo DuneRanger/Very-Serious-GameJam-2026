@@ -24,44 +24,27 @@ func play_roulette_sound():
 
 # -------------------------------- Initial values --------------------------------
 
-var initial_cell_order: Array[int] = [0, 20, 6, 8, 18, 14, 2, 4, 21, 1, 13, 3, 24, 7, 15, 19, 10, 12, 22, 5, 16, 9, 11, 23, 17]
 var finished_spin = true
-
-func prepare_inital_cells():
-	if len(GameManagerGlobal.initial_cells) != 0: return
-	for i in len(initial_cell_order):
-		var curCol = Color.RED
-		var num = initial_cell_order[i]
-		if i % 2 == 0: curCol = Color.BLACK
-		if num == 0: curCol = Color.DARK_GREEN
-		GameManagerGlobal.initial_cells.append(RouletteCell.new(num, curCol))
-
-static var cells: Array[RouletteCell]:
-	get: return GameManagerGlobal.cells
-	set(value): GameManagerGlobal.cells = value
-
 var default_font: Font = load("res://assets/fonts/PixeloidMono.otf");
 
-# (base_roulette_numbers + 1) includes the green 0
-var total_weight: float = 0
-
 var ball_manager: RouletteBallManager
+var cell_manager: RouletteCellManager
 
 func _init():
 	ball_manager = RouletteBallManager.new(self)
-	prepare_inital_cells()
-	cells = []
-	for cell in GameManagerGlobal.initial_cells:
-		cells.append(cell.duplicate())
+	cell_manager = RouletteCellManager.new()
+
+	cell_manager.prepare_initial_cells()
+	cell_manager.overwrite_cells(GameManagerGlobal.initial_cells)
+
 	ball_manager.prepare_initial_balls()
-	update_total_weight()
 
 func _ready():
 	build_outer_wall()
 	build_banks()
 	prepare_textures()
 	GameManagerGlobal.on_boost.connect(apply_boost)
-	GameManagerGlobal.signal_game_start.connect(prepare_inital_cells)
+	GameManagerGlobal.signal_game_start.connect(cell_manager.prepare_initial_cells)
 	GameManagerGlobal.reset_roulette.connect(full_reset)
 	GameManagerGlobal.signal_add_roulette_ball.connect(ball_manager.add_ball)
 	
@@ -70,26 +53,12 @@ func _ready():
 
 func full_reset():
 	ball_manager.full_reset()
-	cells.clear()
+	cell_manager.full_reset()
 	for n in get_children():
 		if n is RouletteBank:
 			remove_child(n)
 			n.queue_free()
-	
-	for cell in GameManagerGlobal.initial_cells:
-		cells.append(cell.duplicate())
-	
 	commit_cell_mod()
-
-func randomize_weights():
-	for cell in cells:
-		cell.weight = randf_range(0.5, 2)
-	update_total_weight()
-
-func update_total_weight():
-	total_weight = 0
-	for cell in cells:
-		total_weight += cell.weight
 
 # -------------------------------- Drawing --------------------------------
 
@@ -113,11 +82,11 @@ func draw_circle_arc_poly(center, radius, angle_from, angle_to, color):
 	draw_polygon(points_arc, colors)
 
 func draw_cells():
-	var base_cell_angle = 2 * PI / total_weight
+	var base_cell_angle = 2 * PI / cell_manager.total_weight
 	var cur_angle = 0
 
 	draw_set_transform(Vector2(0, 0), visual_rotation)
-	for cell in cells:
+	for cell in cell_manager.cells:
 		# Actual angle length of the cell
 		var cur_cell_angle = base_cell_angle * cell.weight
 		# Modifies the draw angle so that the middle of the cell is perfectly vertical
@@ -157,24 +126,10 @@ func _draw():
 	draw_cells()
 	draw_centre()
 
-var cell_size_limit = 0.018
-func remove_small_cells():
-	var idx_to_remove = cells.find_custom(func(cell): return cell.weight / total_weight < cell_size_limit)
-	while idx_to_remove != -1:
-		print("Removing cell %s because of size" % cells[idx_to_remove])
-		total_weight -= cells[idx_to_remove].weight
-		cells.remove_at(idx_to_remove)
-		idx_to_remove = cells.find_custom(func(cell): return cell.weight / total_weight < cell_size_limit)
-
-
-func modify_cell_weight(idx: int, change: float):
-	cells[idx].weight += change
-	commit_cell_mod()
-
 func fill_by_color_lists():
 	GameManagerGlobal.red_cell_counts.fill(0)
 	GameManagerGlobal.black_cell_counts.fill(0)
-	for c : RouletteCell in GameManagerGlobal.cells:
+	for c: RouletteCell in GameManagerGlobal.cells:
 		if c.colour == Color.RED:
 			GameManagerGlobal.red_cell_counts[c.number] += 1
 		elif c.colour == Color.BLACK:
@@ -183,8 +138,7 @@ func fill_by_color_lists():
 # Calls the required functions to for a cell.weight change to actually occur
 func commit_cell_mod():
 	visual_rotation = 0
-	update_total_weight()
-	remove_small_cells()
+	cell_manager.commit_cell_mod()
 	rebuild_banks()
 	fill_by_color_lists()
 	GameManagerGlobal.signal_commit_cell_change_finished.emit()
@@ -309,10 +263,10 @@ var bank_catch_sharpness: float = 1.5
 var bank_width: float = 90
 
 func build_banks():
-	var base_cell_angle = 2 * PI / total_weight
+	var base_cell_angle = 2 * PI / cell_manager.total_weight
 	var cur_angle = 0.0
 
-	for cell in cells:
+	for cell in cell_manager.cells:
 		var cur_cell_angle = base_cell_angle * cell.weight
 		var mid_angle = cur_angle + cur_cell_angle / 2 - PI / 2
 		var bank_position = Vector2(cos(mid_angle), sin(mid_angle)) * bank_radius_pos
@@ -326,7 +280,7 @@ func build_banks():
 		cur_angle += cur_cell_angle
 
 func move_banks():
-	for cell in cells:
+	for cell in cell_manager.cells:
 		if is_instance_valid(cell.bank):
 			cell.bank.set_total_rotation(visual_rotation)
 
@@ -336,13 +290,13 @@ func rescue_orphaned_balls():
 		if ball.settled or ball.get_speed() >= 50:
 			continue
 		var tracked_somewhere = false
-		for cell in cells:
+		for cell in cell_manager.cells:
 			if is_instance_valid(cell.bank) and cell.bank.is_tracking(ball):
 				tracked_somewhere = true
 				break
 		if tracked_somewhere:
 			continue
-		for cell in cells:
+		for cell in cell_manager.cells:
 			if is_instance_valid(cell.bank) and cell.bank.currently_overlaps(ball):
 				cell.bank.adopt_ball(ball)
 				break
