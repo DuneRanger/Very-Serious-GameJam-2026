@@ -7,8 +7,11 @@ static func get_random_vector2(size: float) -> Vector2:
 
 static func get_random_roulette_rot() -> float:
 	var rot = 0.0
-	while abs(rot) < 2 : rot = randf_range(-3, 3)
+	while abs(rot) < 2: rot = randf_range(-3, 3)
 	return rot
+
+@export var debug: bool = false
+@export var roulette_time_scale: float = 1.0
 
 # -------------------------------- Sound --------------------------------
 
@@ -21,13 +24,8 @@ func play_roulette_sound():
 
 # -------------------------------- Initial values --------------------------------
 
-var initial_cell_order : Array[int] = [0, 20, 6, 8, 18, 14, 2, 4, 21, 1, 13, 3, 24, 7, 15, 19, 10, 12, 22, 5, 16, 9, 11, 23, 17]
+var initial_cell_order: Array[int] = [0, 20, 6, 8, 18, 14, 2, 4, 21, 1, 13, 3, 24, 7, 15, 19, 10, 12, 22, 5, 16, 9, 11, 23, 17]
 var finished_spin = true
-var balls_freeze_time = 60
-var balls_freezed = 0
-
-func get_initial_balls() -> Array[RouletteBall]:
-	return [RouletteBall.new()]
 
 func prepare_inital_cells():
 	if len(GameManagerGlobal.initial_cells) != 0: return
@@ -38,23 +36,24 @@ func prepare_inital_cells():
 		if num == 0: curCol = Color.DARK_GREEN
 		GameManagerGlobal.initial_cells.append(RouletteCell.new(num, curCol))
 
-static var cells : Array[RouletteCell]:
+static var cells: Array[RouletteCell]:
 	get: return GameManagerGlobal.cells
 	set(value): GameManagerGlobal.cells = value
 
-var default_font : Font = load("res://assets/fonts/PixeloidMono.otf");
+var default_font: Font = load("res://assets/fonts/PixeloidMono.otf");
 
 # (base_roulette_numbers + 1) includes the green 0
-var total_weight : float = 0
+var total_weight: float = 0
 
+var ball_manager: RouletteBallManager
 
 func _init():
+	ball_manager = RouletteBallManager.new(self)
 	prepare_inital_cells()
 	cells = []
 	for cell in GameManagerGlobal.initial_cells:
 		cells.append(cell.duplicate())
-	balls = get_initial_balls()
-	prepare_balls()
+	ball_manager.prepare_initial_balls()
 	update_total_weight()
 
 func _ready():
@@ -64,23 +63,22 @@ func _ready():
 	GameManagerGlobal.on_boost.connect(apply_boost)
 	GameManagerGlobal.signal_game_start.connect(prepare_inital_cells)
 	GameManagerGlobal.reset_roulette.connect(full_reset)
-	GameManagerGlobal.signal_add_roulette_ball.connect(add_ball)
+	GameManagerGlobal.signal_add_roulette_ball.connect(ball_manager.add_ball)
 	
 	GameManagerGlobal.commit_cell_change.connect(commit_cell_mod)
 	roulette_tick_sound.stream = load("res://assets/music/RouletteTickSFX.mp3")
 
 func full_reset():
+	ball_manager.full_reset()
 	cells.clear()
-	balls.clear()
 	for n in get_children():
-		if n is RouletteBall or n is RouletteBank:
+		if n is RouletteBank:
 			remove_child(n)
 			n.queue_free()
+	
 	for cell in GameManagerGlobal.initial_cells:
 		cells.append(cell.duplicate())
 	
-	balls = get_initial_balls()
-	prepare_balls()
 	commit_cell_mod()
 
 func randomize_weights():
@@ -95,16 +93,16 @@ func update_total_weight():
 
 # -------------------------------- Drawing --------------------------------
 
-var inner_circle_radius : int = 350
-var inner_circle_colour : Color = Color.SADDLE_BROWN
-var cell_circle_radius : int = 500
-var outer_circle_radius : int = 600
-var outer_circle_colour : Color = Color.SADDLE_BROWN.blend(Color(0, 0, 0, 0.4))
+var inner_circle_radius: int = 350
+var inner_circle_colour: Color = Color.SADDLE_BROWN
+var cell_circle_radius: int = 500
+var outer_circle_radius: int = 600
+var outer_circle_colour: Color = Color.SADDLE_BROWN.blend(Color(0, 0, 0, 0.4))
 
-var visual_rotation : float = 0
+var visual_rotation: float = 0
 
 func draw_circle_arc_poly(center, radius, angle_from, angle_to, color):
-	var nb_points = 3 + floor(10 * abs(angle_from - angle_to)) 
+	var nb_points = 3 + floor(10 * abs(angle_from - angle_to))
 	var points_arc = PackedVector2Array()
 	points_arc.push_back(center)
 	var colors = PackedColorArray([color])
@@ -123,7 +121,7 @@ func draw_cells():
 		# Actual angle length of the cell
 		var cur_cell_angle = base_cell_angle * cell.weight
 		# Modifies the draw angle so that the middle of the cell is perfectly vertical
-		var draw_angle = -PI / 2
+		var draw_angle = - PI / 2
 		draw_set_transform(Vector2(0, 0), cur_angle + visual_rotation)
 		draw_circle_arc_poly(Vector2(0, 0), cell_circle_radius, draw_angle, draw_angle + cur_cell_angle, cell.colour)
 		draw_set_transform(Vector2(0, 0), cur_angle + cur_cell_angle / 2 + visual_rotation)
@@ -193,7 +191,10 @@ func commit_cell_mod():
 
 # -------------------------------- Physics --------------------------------
 
-var rotation_speed : float = 0;
+var launch_freeze_time = 60
+var launch_freezed = 0
+
+var rotation_speed: float = 0;
 var outer_wall_segments: int = 256
 
 func build_outer_wall():
@@ -224,7 +225,7 @@ func build_outer_wall():
 		visual.add_point(Vector2(cos(angle), sin(angle)) * outer_circle_radius)
 	wall_body.add_child(visual)
 
-var fast_decay : bool = false
+var fast_decay: bool = false
 func decay_rotation(_delta):
 	if fast_decay: _delta *= 10
 	if rotation_speed > 0:
@@ -234,21 +235,19 @@ func decay_rotation(_delta):
 
 func spin_roulette():
 	GameManagerGlobal.caughtCells.clear()
-	reset_balls()
-	for ball in balls: ball.show()
 	rotation_speed = get_random_roulette_rot()
-	launch_balls()
+	ball_manager.launch_balls(-sign(rotation_speed))
 
 func stop_roulette():
 	rotation_speed = 0.0
 
-var angular_velocity : float
-func angular_speed_at_point(point : Vector2) -> float:
+var angular_velocity: float
+func angular_speed_at_point(point: Vector2) -> float:
 	return angular_velocity * point.length()
 
-var settled_frames : int = 0
+var settled_frames: int = 0
 
-func rotate_roulette(_delta : float):
+func rotate_roulette(_delta: float):
 	visual_rotation += rotation_speed * _delta
 	$inner_wheel_sprite.rotation += rotation_speed * _delta
 	$roulette_handle_sprite.rotation += rotation_speed * _delta
@@ -261,33 +260,30 @@ func rotate_roulette(_delta : float):
 		play_roulette_sound()
 
 func _physics_process(_delta: float):
-	angular_velocity = rotation_speed / _delta
-	#var linear_ang_velocity = cell_circle_radius * angular_velocity
-	#print("Angular velocity: ", angular_velocity, ", Linear velocity: ", linear_ang_velocity)
-	
-	give_balls_angular_velocity(_delta)
+	simulate_angular_velocity(_delta)
 	simulate_inclines(_delta)
+
 	decay_rotation(_delta)
 	rescue_orphaned_balls()
 	match (GameManagerGlobal.game_state):
 		GameEnums.game_states.SPIN_PHASE:
 			if finished_spin == false:
 				finished_spin = true
-				balls_freezed = 0
-				show_balls()
-				freeze_balls()
-			if balls_freezed < balls_freeze_time:
-				balls_freezed += 1
+				launch_freezed = 0
+				ball_manager.show_balls()
+				ball_manager.freeze_balls()
+			if launch_freezed < launch_freeze_time:
+				launch_freezed += 1
 				return
-			unfreeze_balls()
+			ball_manager.unfreeze_balls()
 			rotate_roulette(_delta)
-			if balls.all(func(ball : RouletteBall): return ball.settled): settled_frames += 1
+			if ball_manager.balls.all(func(ball: RouletteBall): return ball.settled): settled_frames += 1
 			else: settled_frames = 0
 			if settled_frames > 120:
 				fast_decay = true
 			if is_equal_approx(rotation_speed, 0) and settled_frames > 0:
-				var temp : Array[RouletteCell] = []
-				for ball in balls: temp.append(ball.caught_cell)
+				var temp: Array[RouletteCell] = []
+				for ball in ball_manager.balls: temp.append(ball.caught_cell)
 				temp.sort_custom(func(a, b): return a.number < b.number)
 				print("Caught: ", temp.map(func(cell): return cell.number))
 				GameManagerGlobal.caughtCells = temp
@@ -297,7 +293,7 @@ func _physics_process(_delta: float):
 			if GameManagerGlobal.applying_boost: rotate_roulette(_delta)
 		GameEnums.game_states.BET_PHASE:
 			if finished_spin:
-				hide_balls()
+				ball_manager.hide_balls()
 				finished_spin = false
 		_:
 			pass
@@ -307,10 +303,10 @@ func _process(_delta: float):
 
 # -------------------------------- Banks --------------------------------
 
-var bank_radius_pos : float = cell_circle_radius * 0.8
-var bank_catch_characteristic_speed : float = 100.0
-var bank_catch_sharpness : float = 1.5
-var bank_width : float = 90
+var bank_radius_pos: float = cell_circle_radius * 0.8
+var bank_catch_characteristic_speed: float = 100.0
+var bank_catch_sharpness: float = 1.5
+var bank_width: float = 90
 
 func build_banks():
 	var base_cell_angle = 2 * PI / total_weight
@@ -334,8 +330,9 @@ func move_banks():
 		if is_instance_valid(cell.bank):
 			cell.bank.set_total_rotation(visual_rotation)
 
+
 func rescue_orphaned_balls():
-	for ball in balls:
+	for ball in ball_manager.balls:
 		if ball.settled or ball.get_speed() >= 50:
 			continue
 		var tracked_somewhere = false
@@ -352,74 +349,23 @@ func rescue_orphaned_balls():
 
 # -------------------------------- Balls --------------------------------
 
-var balls : Array[RouletteBall] = []
+var inner_incline_strength: float = 800
+var inner_incline_radius: int = inner_circle_radius
+var cell_radius_end: int = cell_circle_radius
+var cell_bank_incline_strength: float = 100
+var outer_incline_radius: int = bank_radius_pos + bank_width / 2
+var outer_incline_strength: float = 800
 
-func prepare_balls():
-	for ball in balls:
-		ball.z_index = 2
-		ball.hide()
-		ball.freeze = true
-		add_child(ball)
-
-func add_ball():
-	var ball = RouletteBall.new()
-	ball.z_index = -2
-	ball.hide()
-	ball.freeze = true
-	add_child(ball)
-	balls.append(ball)
-
-func hide_balls():
-	for ball in balls:
-		ball.hide()
-
-func show_balls():
-	for ball in balls:
-		ball.show()
-
-func freeze_balls():
-	for ball in balls:
-		ball.freeze = true
-
-func unfreeze_balls():
-	for ball in balls:
-		ball.freeze = false
-
-func reset_balls():
-	for ball in balls:
-		if is_instance_valid(ball):
-			var start_position = get_random_vector2(outer_circle_radius - 2 * RouletteBall.ball_radius)
-			ball.freeze = false
-			for cell in cells:
-				if is_instance_valid(cell.bank):
-					cell.bank.clear_ball(ball)
-			ball.reset_ball(start_position)
-
-func launch_balls():
-	for ball in balls:
-		if ball as RouletteBall:
-			ball.z_index = 2
-			var normal = Vector2(-ball.init_position.y, ball.init_position.x).normalized()
-			ball.launch(normal * 800 * (-1 * sign(rotation_speed)))
-
-var inner_incline_strength : float = 800
-var inner_incline_radius : int = inner_circle_radius
-var cell_radius_end : int = cell_circle_radius
-var cell_bank_incline_strength : float = 100
-@warning_ignore("narrowing_conversion")
-var outer_incline_radius : int = bank_radius_pos + bank_width / 2
-var outer_incline_strength : float = 800
-
-func give_balls_angular_velocity(_delta: float):
+func simulate_angular_velocity(_delta: float):
 	if abs(rotation_speed) < 0.01:
 		return
-	for ball : RouletteBall in balls:
+	for ball: RouletteBall in ball_manager.balls:
 		var ball_to_mid = ball.position
 		if ball_to_mid.length() <= cell_circle_radius - ball.ball_radius:
 			ball.apply_central_impulse(-1 * sign(rotation_speed) * ball_to_mid.normalized().orthogonal() * rotation_speed * _delta)
 
-func simulate_inclines(_delta : float):
-	for ball : RouletteBall in balls:
+func simulate_inclines(_delta: float):
+	for ball: RouletteBall in ball_manager.balls:
 		var ball_to_mid = ball.position
 		var ball_rad = ball_to_mid.length()
 
@@ -432,9 +378,9 @@ func simulate_inclines(_delta : float):
 		elif ball_rad >= outer_incline_radius - ball.ball_radius:
 			ball.apply_central_impulse(-ball_to_mid.normalized() * 2 * outer_incline_strength * _delta)
 
-func apply_boost(amount : float):
+func apply_boost(amount: float):
 	print("called apply boost with ", amount)
 	rotation_speed = 1.5 * sqrt(amount)
-	for ball : RouletteBall in balls:
+	for ball: RouletteBall in ball_manager.balls:
 		ball.settled = false
 		ball.apply_central_impulse(-ball.position.rotated(randf_range(-0.3, 0.3)) * 2 * sqrt(amount))

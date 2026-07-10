@@ -82,7 +82,6 @@ func _integrate_forces(state: PhysicsDirectBodyState2D):
 		new_vel *= 0.999
 	elif new_vel.length() > max_speed:
 		new_vel = new_vel.normalized() * max_speed
-	#print("Ball speed: ", new_vel.length())
 
 	state.linear_velocity = new_vel
 
