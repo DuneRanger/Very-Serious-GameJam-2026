@@ -12,23 +12,25 @@ static func get_random_vector2(_max_x: float, _max_y: float, size: float) -> Vec
 	var angle = randf_range(0, 2 * PI)
 	return Vector2(cos(angle), sin(angle)) * size
 
-var rand_impulse_size : float = 1000
+var rand_impulse_size: float = 1000
 
-var min_speed_threshold : float = 5
-var fast_slowdown_speed : float = 100
-var max_speed : float = 10000
-static var ball_radius : float = 8
-static var ball_id : float = 0
+var min_speed_threshold: float = 5
+var fast_slowdown_speed: float = 100
+var max_speed: float = 10000
+static var ball_radius: float = 8
+static var ball_id: float = 0
 
 ## Marks the ball as settled and no longer updates physics
-var settled : bool = false
-var caught_cell : RouletteCell
+var settled: bool = false
+var caught_cell: RouletteCell
 
-var reset : bool = false
-var init_position : Vector2
+var reset: bool = false
+var init_position: Vector2
 
-var launch_b : bool = false
-var launch_vector : Vector2
+var launch_b: bool = false
+var launch_vector: Vector2
+
+var visual: Sprite2D
 
 func _init():
 	mass = 1.0
@@ -51,7 +53,7 @@ func _init():
 	collider.shape = shape
 	add_child(collider)
 
-	var visual = Sprite2D.new()
+	visual = Sprite2D.new()
 	visual.texture = load("res://assets/textures/ball.png")
 	visual.apply_scale(Vector2(1, 1) * 2 * ball_radius / visual.texture.get_width())
 	add_child(visual)
@@ -62,7 +64,11 @@ func give_random_impulse():
 func get_speed() -> float:
 	return linear_velocity.length()
 
+func going_clockwise() -> bool:
+	return linear_velocity.cross(Vector2(0, -1)) > 0
+
 func _integrate_forces(state: PhysicsDirectBodyState2D):
+	visual.rotation += self.get_speed() / 1000 * (1 if going_clockwise() else -1)
 	if reset:
 		position = init_position
 		rotation = 0.0
@@ -93,6 +99,6 @@ func reset_ball(start_position: Vector2):
 	reset = true
 	init_position = start_position
 
-func launch(vec : Vector2):
+func launch(vec: Vector2):
 	launch_b = true
 	launch_vector = vec
