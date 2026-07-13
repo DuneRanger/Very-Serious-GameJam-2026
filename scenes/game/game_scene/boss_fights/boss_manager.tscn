@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bgny8ujkgie7m"]
+
+[ext_resource type="Script" uid="uid://7q8htiq2yhdl" path="res://scenes/game/game_scene/boss_fights/boss_manager.gd" id="1_28l2i"]
+
+[node name="BossManager" type="Node2D" unique_id=718459684]
+script = ExtResource("1_28l2i")
+
+[node name="ActiveBoss" type="Node2D" parent="." unique_id=116852712]
+position = Vector2(924, 360)
+
+[node name="BossSprite" type="Sprite2D" parent="ActiveBoss" unique_id=1951874135]
+z_index = 5
+scale = Vector2(4, 4)

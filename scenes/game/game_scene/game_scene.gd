@@ -5,6 +5,7 @@ class_name GameScene
 
 
 func _ready() -> void:
+
 	GameManagerGlobal.signal_endless_mode.connect(start_next_round)
 	GameManagerGlobal.signal_win_exit.connect(next_round_no_anim)
 	GameManagerGlobal.signal_send_error_message.connect(_on_send_error_message)
@@ -170,11 +171,18 @@ func _on_new_state():
 			pass
 
 func calculate_ruby_gain() -> int:
+
 	var boosts_left_gain = 2 * GameManagerGlobal.boosts_left
 	var times_hit_quota = GameManagerGlobal.money / GameManagerGlobal.quota
 	var hit_quota_gain = min(10, times_hit_quota - 1)
 	print("Basic gain: 3, boosts gain: ", boosts_left_gain, ", quota gain: ", hit_quota_gain)
 	var out = 3 + boosts_left_gain + hit_quota_gain
+	
+	#pass the numbers to the start round screen
+	$HUD/RoundStartAnimations.boosts_left_gain = boosts_left_gain
+	$HUD/RoundStartAnimations.times_hit_quota = times_hit_quota
+	$HUD/RoundStartAnimations.hit_quota_gain = hit_quota_gain
+	
 	return out
 
 func next_round_no_anim():
@@ -210,6 +218,8 @@ func start_next_round():
 	GameManagerGlobal.round_shop_reroll_count = 0
 	if GameManagerGlobal.round_count % 3 == 0:
 		GameManagerGlobal.signal_add_roulette_ball.emit()
+	if GameManagerGlobal.round_count % 1 == 0:
+		GameManagerGlobal.signal_boss_fight_start.emit()
 
 func pick_quota_message():
 	var previous_quota_msg = GameManagerGlobal.current_quota_message

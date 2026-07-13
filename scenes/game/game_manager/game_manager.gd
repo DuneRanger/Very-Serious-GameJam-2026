@@ -82,6 +82,9 @@ signal signal_bet_max_change
 signal signal_endless_mode
 signal signal_win_exit
 
+signal signal_boss_fight_start
+signal signal_boss_fight_end
+
 var round_shop_reroll_count : int
 
 var shop_max_spin_change : bool

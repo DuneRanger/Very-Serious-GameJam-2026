@@ -1,5 +1,8 @@
 extends Node2D
 
+var boosts_left_gain
+var times_hit_quota
+var hit_quota_gain
 
 func _ready() -> void:
 	GameManagerGlobal.signal_round_start.connect(_on_round_start)
@@ -8,6 +11,14 @@ func _ready() -> void:
 func _on_round_start():
 	$SFXTimer.start()
 	$AnimationPlayer.play("RoundStart")
+	if GameManagerGlobal.round_count == 1 :
+		$RubiesGainedMessage.visible = false
+	else:
+		$RubiesGainedMessage.visible = true
+		$RubiesGainedMessage/RubiesGained.text = "[color=#d13030]Rubies gained: +" + str(3 + boosts_left_gain + hit_quota_gain) + "[/color]"
+		$RubiesGainedMessage/ForExisting.text = "[color=#d13030]-[/color] for existing: [color=#d13030]+3[/color]"
+		$RubiesGainedMessage/ForBoostsLeft.text = "[color=#d13030]-[/color] for " + str(boosts_left_gain/2) + " boosts left: [color=#d13030]+" + str(boosts_left_gain) + "[/color]"
+		$RubiesGainedMessage/ForQuota.text = "[color=#d13030]-[/color] for reaching the quota " + str(times_hit_quota) + "x : [color=#d13030]+" +str(hit_quota_gain) + "[/color]"
 	$RoundNumberLabel.text = "Round " + str(GameManagerGlobal.round_count)
 	$QuotaMessageLabel.text = "You need " + str(GameManagerGlobal.quota) + " money for " + GameManagerGlobal.current_quota_message
 	if GameManagerGlobal.round_count % 3 == 0:
@@ -18,3 +29,7 @@ func _on_round_start():
 func _on_sfx_timer_timeout() -> void:
 	$SFXTimer.stop()
 	SfxManager.play_SFX("res://assets/SFX/new_round.ogg")
+
+
+func _on_confirm_button_pressed() -> void:
+	$AnimationPlayer.play("FadeOut")
