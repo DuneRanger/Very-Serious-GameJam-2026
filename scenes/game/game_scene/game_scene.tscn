@@ -76,3 +76,8 @@ offset_bottom = 622.0
 layer = 200
 
 [node name="BossManager" parent="." unique_id=718459684 instance=ExtResource("10_hdcdy")]
+
+[node name="BossDefeatAnimTimer" type="Timer" parent="." unique_id=293993914]
+wait_time = 2.5
+
+[connection signal="timeout" from="BossDefeatAnimTimer" to="." method="_on_boss_defeat_anim_timer_timeout"]

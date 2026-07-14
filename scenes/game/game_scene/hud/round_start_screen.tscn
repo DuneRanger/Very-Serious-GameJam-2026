@@ -109,7 +109,7 @@ tracks/1/path = NodePath("DarkenRectangle:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.8333334),
+"times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -305,6 +305,30 @@ tracks/17/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("NextBossMessage/BossMessage:visible")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0, 1.96),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("NextBossMessage/BossMessage:modulate")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0.16666669, 0.6666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_c6has"]
@@ -524,6 +548,30 @@ tracks/17/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(305, 352)]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("NextBossMessage/BossMessage:visible")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("NextBossMessage/BossMessage:modulate")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_ag5u3"]
@@ -757,6 +805,30 @@ tracks/18/keys = {
 "update": 1,
 "values": [false, true]
 }
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("NextBossMessage/BossMessage:visible")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0.0666666, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("NextBossMessage/BossMessage:modulate")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(2.7666667, 3.26),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_niiyn"]
 _data = {
@@ -836,7 +908,7 @@ z_index = -1
 layout_mode = 0
 offset_left = -4.7400055
 offset_top = 32.48999
-offset_right = 508.26
+offset_right = 483.26
 offset_bottom = 35.48999
 
 [node name="ColorRect2" type="ColorRect" parent="RubiesGainedMessage/RubiesGained" unique_id=711827420]
@@ -891,6 +963,22 @@ theme_override_font_sizes/normal_font_size = 28
 bbcode_enabled = true
 text = "- for reaching 2x your quota:"
 
+[node name="NextBossMessage" type="Node2D" parent="." unique_id=255446066]
+
+[node name="BossMessage" type="RichTextLabel" parent="NextBossMessage" unique_id=182759515]
+visible = false
+z_index = 12
+offset_left = 775.0
+offset_top = 445.0
+offset_right = 1261.0
+offset_bottom = 489.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/normal_font = ExtResource("3_4bo2x")
+theme_override_font_sizes/normal_font_size = 28
+bbcode_enabled = true
+text = "Next Boss: Bingus"
+
 [node name="Control" type="Control" parent="." unique_id=1679783294]
 z_index = 11
 layout_mode = 3
@@ -914,6 +1002,7 @@ libraries/ = SubResource("AnimationLibrary_niiyn")
 [node name="SFXTimer" type="Timer" parent="." unique_id=672081663]
 
 [node name="ConfirmButton" type="Button" parent="." unique_id=1069039451]
+visible = false
 z_index = 11
 offset_left = 536.0
 offset_top = 560.0
@@ -921,5 +1010,9 @@ offset_right = 736.0
 offset_bottom = 632.0
 text = "CONFIRM"
 
+[node name="FadeOutTimer" type="Timer" parent="." unique_id=1717163912]
+wait_time = 1.9
+
 [connection signal="timeout" from="SFXTimer" to="." method="_on_sfx_timer_timeout"]
 [connection signal="pressed" from="ConfirmButton" to="." method="_on_confirm_button_pressed"]
+[connection signal="timeout" from="FadeOutTimer" to="." method="_on_fade_out_timer_timeout"]

@@ -35,6 +35,8 @@ var bet_is_max : bool
 
 var applying_boost : bool = false
 
+var is_boss_round : bool = false
+
 signal signal_game_start
 signal signal_can_continue_game
 signal signal_cannot_continue_game
@@ -84,6 +86,8 @@ signal signal_win_exit
 
 signal signal_boss_fight_start
 signal signal_boss_fight_end
+signal signal_hide_spin_button
+signal signal_show_spin_button
 
 var round_shop_reroll_count : int
 

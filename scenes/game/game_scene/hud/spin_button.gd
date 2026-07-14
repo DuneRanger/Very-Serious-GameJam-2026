@@ -4,6 +4,8 @@ func _ready() -> void:
 	GameManagerGlobal.signal_state_change.connect(check_state_validity)
 	GameManagerGlobal.signal_add_money.connect(check_bet_validity)
 	GameManagerGlobal.signal_modify_money.connect(check_bet_validity)
+	GameManagerGlobal.signal_hide_spin_button.connect(hide_self)
+	GameManagerGlobal.signal_show_spin_button.connect(show_self)
 	pass
 
 func check_state_validity() -> void:
@@ -36,3 +38,13 @@ func _on_timer_timeout() -> void:
 	visible = false
 	$SpinButton.disabled = true
 	$AnimationPlayer.play("RESET")
+	
+	
+func hide_self():
+	visible = false
+
+func show_self():
+	$AnimationPlayer.play("show_button")
+	
+func shake_anim():
+	$AnimationPlayer.play("shaking")

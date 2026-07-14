@@ -33,3 +33,10 @@ func _on_sfx_timer_timeout() -> void:
 
 func _on_confirm_button_pressed() -> void:
 	$AnimationPlayer.play("FadeOut")
+	if GameManagerGlobal.is_boss_round == true:
+		GameManagerGlobal.signal_hide_spin_button.emit()
+		$FadeOutTimer.start()
+
+func _on_fade_out_timer_timeout() -> void:
+	$FadeOutTimer.stop()
+	GameManagerGlobal.signal_boss_fight_start.emit()
