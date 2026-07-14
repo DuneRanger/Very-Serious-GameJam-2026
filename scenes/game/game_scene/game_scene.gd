@@ -47,6 +47,7 @@ func reset_rounds():
 
 func does_bet_win(bet_id : int) -> bool:
 	var bet_type : GameEnums.bet_types = $Table/BettingSystem.get_bet_type(bet_id)
+	
 	if bet_type == GameEnums.bet_types.NUMBER:
 		for cell : RouletteCell in GameManagerGlobal.caughtCells:
 			if cell.number == bet_id:
@@ -66,7 +67,7 @@ func does_bet_win(bet_id : int) -> bool:
 		for cell : RouletteCell in GameManagerGlobal.caughtCells:
 			if cell.number >= lower_bound && cell.number <= upper_bound:
 				return true
-				
+			
 	elif bet_id == (GameEnums.max_roulette_num + 6) || bet_id == (GameEnums.max_roulette_num + 7):
 		var mod_res = bet_id - (GameEnums.max_roulette_num + 6)
 		for cell : RouletteCell in GameManagerGlobal.caughtCells:
@@ -246,6 +247,7 @@ func pick_quota_message():
 func pick_next_boss():
 	$BossManager.pick_boss()
 	$HUD/RoundStartAnimations/NextBossMessage/BossMessage.text = "Next boss: " + $BossManager/Boss.boss_name
+	$HUD/RoundStartAnimations/NextBossMessage/BossDescription.text = $BossManager/Boss.description 
 
 func calc_next_quota():
 	var new_quota = float(GameEnums.base_quota_amount) * (1.5 ** (GameManagerGlobal.round_count ** 1.2))
