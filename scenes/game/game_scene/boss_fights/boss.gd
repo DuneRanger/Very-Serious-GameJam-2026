@@ -2,13 +2,14 @@
 
 var boss_name: String
 var description: String
-var boss_sprite_idle_path: String
-var boss_sprite_laugh_path: String
-var boss_sprite_defeat_path: String
+var boss_sprite_idle: Texture2D
+var boss_sprite_laugh: Texture2D
+var boss_sprite_defeat: Texture2D
 
 func activate() -> void:
 	$BossSprite.visible = true
-	$BossSprite.texture = load(boss_sprite_idle_path)
+	$BossSprite.texture = boss_sprite_idle
+	$BossSprite/AnimationPlayer.play("floating_anim")
 
 @abstract func assign_name_and_sprite() -> void
 	

@@ -158,14 +158,18 @@ func _on_new_state():
 			if GameManagerGlobal.spins_left != GameManagerGlobal.spin_count:
 				GameManagerGlobal.add_money(money_won)
 			if GameManagerGlobal.money == 0:
+				if GameManagerGlobal.is_boss_round:
+					GameManagerGlobal.signal_boss_fight_lost.emit()
 				GameManagerGlobal.signal_death_screen.emit()
 			elif GameManagerGlobal.spins_left == 0:
 				if GameManagerGlobal.money < GameManagerGlobal.quota:
+					if GameManagerGlobal.is_boss_round:
+						GameManagerGlobal.signal_boss_fight_lost.emit()
 					GameManagerGlobal.signal_death_screen.emit()
 				else:
 					#check boss
 					if GameManagerGlobal.is_boss_round == true:
-						$BossManager.boss_end()
+						$BossManager.boss_defeat()
 						$HUD/spinButton.visible = false
 						#počká až dohraje boss defeat animace a pak checkne vítězství/pujde do dalšího kola
 						$BossDefeatAnimTimer.start()
@@ -225,6 +229,8 @@ func start_next_round():
 	print("starting next round")
 	if GameManagerGlobal.round_count % 2 == 1:
 		pick_next_boss()
+	if GameManagerGlobal.round_count % 2 == 0:
+		GameManagerGlobal.is_boss_round = true
 	GameManagerGlobal.signal_round_start.emit()
 	$HUD/SpinSymbolContainer.refill_spins()
 	$HUD/BoostSymbolContainer.refill_boosts()
@@ -232,8 +238,7 @@ func start_next_round():
 	GameManagerGlobal.round_shop_reroll_count = 0
 	if GameManagerGlobal.round_count % 3 == 0:
 		GameManagerGlobal.signal_add_roulette_ball.emit()
-	if GameManagerGlobal.round_count % 2 == 0:
-		GameManagerGlobal.is_boss_round = true
+
 		
 
 func pick_quota_message():
@@ -246,7 +251,8 @@ func pick_quota_message():
 
 func pick_next_boss():
 	$BossManager.pick_boss()
-	$HUD/RoundStartAnimations/NextBossMessage/BossMessage.text = "Next boss: " + $BossManager/Boss.boss_name
+	GameManagerGlobal.next_boss_name = $BossManager/Boss.boss_name
+	$HUD/RoundStartAnimations/NextBossMessage/BossMessage.text = "Next boss: " + GameManagerGlobal.next_boss_name
 	$HUD/RoundStartAnimations/NextBossMessage/BossDescription.text = $BossManager/Boss.description 
 
 func calc_next_quota():

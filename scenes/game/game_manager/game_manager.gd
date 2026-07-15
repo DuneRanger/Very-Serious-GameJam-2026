@@ -36,6 +36,7 @@ var bet_is_max : bool
 var applying_boost : bool = false
 
 var is_boss_round : bool = false
+var next_boss_name : String
 
 signal signal_game_start
 signal signal_can_continue_game
@@ -84,8 +85,11 @@ signal signal_bet_max_change
 signal signal_endless_mode
 signal signal_win_exit
 
+#signals related to boss fights
 signal signal_boss_fight_start
-signal signal_boss_fight_end
+signal signal_boss_fight_defeat
+signal signal_boss_fight_lost
+signal signal_boss_hide
 signal signal_hide_spin_button
 signal signal_show_spin_button
 
@@ -130,6 +134,7 @@ func game_start():
 	signal_increment_change.emit()
 	signal_bet_is_adding_change.emit()
 	signal_bet_max_change.emit()
+	is_boss_round = false
 	
 	if len(bet_id_multipliers) == 0:
 		for i in range(GameEnums.bet_button_count):

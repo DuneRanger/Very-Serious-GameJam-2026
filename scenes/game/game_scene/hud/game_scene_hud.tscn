@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://ecrf73k4pky8" path="res://scenes/game/game_scene/hud/quota_label.gd" id="13_vy1w6"]
 [ext_resource type="PackedScene" uid="uid://bl2aavwi1826s" path="res://scenes/game/game_scene/hud/round_start_screen.tscn" id="14_o58sx"]
 [ext_resource type="FontFile" uid="uid://btfhjobeerona" path="res://assets/fonts/PixeloidSans.otf" id="15_c6has"]
+[ext_resource type="Texture2D" uid="uid://4cqxc3nkge28" path="res://assets/textures/UI/light_circle.png" id="15_nlk0o"]
 [ext_resource type="Texture2D" uid="uid://d1ydk111unfdr" path="res://assets/textures/UI/buttons/spin_button/spinButtonNormal.png" id="17_niiyn"]
 [ext_resource type="Texture2D" uid="uid://deatfdjnlmpyr" path="res://assets/textures/UI/buttons/spin_button/spinButtonPressed.png" id="18_thqaq"]
 [ext_resource type="Texture2D" uid="uid://soqgmjnshia6" path="res://assets/textures/UI/buttons/spin_button/spinButtonHover.png" id="19_hlngw"]
@@ -429,14 +430,18 @@ script = ExtResource("13_vy1w6")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="QuotaLabel" unique_id=1465018532]
 libraries/ = SubResource("AnimationLibrary_c6has")
 
-[node name="RoundStartAnimations" parent="." unique_id=1789023740 instance=ExtResource("14_o58sx")]
-
 [node name="spinButton" type="Node2D" parent="." unique_id=1493063226]
 position = Vector2(924, 360)
 script = ExtResource("21_hlngw")
 
 [node name="Timer" type="Timer" parent="spinButton" unique_id=739194610]
 wait_time = 1.1
+
+[node name="Shadow" type="Sprite2D" parent="spinButton" unique_id=547743669]
+modulate = Color(0, 0, 0, 0.85882354)
+scale = Vector2(0.24, 0.24)
+texture = ExtResource("15_nlk0o")
+offset = Vector2(-9.46, 38.965)
 
 [node name="SpinButton" type="Button" parent="spinButton" unique_id=701434672]
 anchors_preset = -1
@@ -473,6 +478,8 @@ libraries/ = SubResource("AnimationLibrary_hgm0h")
 position = Vector2(240, 307)
 
 [node name="WinScreen" parent="." unique_id=2085544614 instance=ExtResource("24_4lu4x")]
+
+[node name="RoundStartAnimations" parent="." unique_id=1789023740 instance=ExtResource("14_o58sx")]
 
 [connection signal="timeout" from="SpinSymbolContainer/RefillTimer" to="SpinSymbolContainer" method="_on_refill_timer_timeout"]
 [connection signal="timeout" from="BoostSymbolContainer/RefillTimer" to="BoostSymbolContainer" method="_on_refill_timer_timeout"]
