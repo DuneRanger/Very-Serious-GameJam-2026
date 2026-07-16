@@ -438,7 +438,7 @@ script = ExtResource("21_hlngw")
 wait_time = 1.1
 
 [node name="Shadow" type="Sprite2D" parent="spinButton" unique_id=547743669]
-modulate = Color(0, 0, 0, 0.85882354)
+modulate = Color(0, 0, 0, 0.74509805)
 scale = Vector2(0.24, 0.24)
 texture = ExtResource("15_nlk0o")
 offset = Vector2(-9.46, 38.965)
@@ -472,6 +472,9 @@ text = "SPIN!"
 root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_hgm0h")
 
+[node name="Timer2" type="Timer" parent="spinButton" unique_id=202650952]
+wait_time = 1.4
+
 [node name="DeathScreen" parent="." unique_id=1190848615 instance=ExtResource("22_o58sx")]
 
 [node name="IncrementSystem" parent="." unique_id=914404395 instance=ExtResource("23_nlk0o")]
@@ -486,3 +489,4 @@ position = Vector2(240, 307)
 [connection signal="button_down" from="ShopButtonNode/ShopButton" to="ShopButtonNode/ShopButton" method="_on_button_down"]
 [connection signal="timeout" from="spinButton/Timer" to="spinButton" method="_on_timer_timeout"]
 [connection signal="button_down" from="spinButton/SpinButton" to="spinButton" method="_on_button_down"]
+[connection signal="timeout" from="spinButton/Timer2" to="spinButton" method="_on_timer_2_timeout"]

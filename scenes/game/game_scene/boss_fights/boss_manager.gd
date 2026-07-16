@@ -27,7 +27,7 @@ func boss_defeat():
 	$BossDefeatTimer.start()
 	MusicManager.boss_defeat()
 	SfxManager.play_SFX_pitched("res://assets/SFX/boss_defeat.mp3")
-	$Boss/BossSprite.texture = load($Boss.boss_sprite_defeat_path)
+	$Boss/BossSprite.texture = $Boss.boss_sprite_defeat
 	$AnimationPlayer.play("boss_defeat")
 	GameManagerGlobal.is_boss_round = false
 	GameManagerGlobal.signal_boss_fight_defeat.emit()

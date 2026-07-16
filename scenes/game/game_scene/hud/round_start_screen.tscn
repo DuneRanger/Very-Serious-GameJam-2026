@@ -622,6 +622,30 @@ tracks/21/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("BossBlackBars/bar1:position")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(-0.03333333, 1.0333333, 4, 5),
+"transitions": PackedFloat32Array(0.43527535, 1, 0.36602157, 1),
+"update": 0,
+"values": [Vector2(0, -112), Vector2(0, -16), Vector2(0, -16), Vector2(0, -112)]
+}
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("BossBlackBars/bar2:position")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"times": PackedFloat32Array(-0.03333333, 1.0333333, 4, 5),
+"transitions": PackedFloat32Array(0.43527535, 1, 0.36602157, 1),
+"update": 0,
+"values": [Vector2(0, 728), Vector2(0, 632), Vector2(0, 632), Vector2(0, 728)]
+}
 
 [sub_resource type="Animation" id="Animation_c6has"]
 length = 0.001
@@ -888,6 +912,30 @@ tracks/21/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("BossBlackBars/bar1:position")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -112)]
+}
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("BossBlackBars/bar2:position")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 728)]
 }
 
 [sub_resource type="Animation" id="Animation_ag5u3"]
@@ -1200,9 +1248,9 @@ script = ExtResource("1_jsxk5")
 [node name="DarkenRectangle" type="ColorRect" parent="." unique_id=1782932035]
 z_index = 10
 offset_left = -80.0
-offset_top = -72.0
+offset_top = -48.0
 offset_right = 1368.0
-offset_bottom = 844.0
+offset_bottom = 868.0
 color = Color(0, 0, 0, 0)
 
 [node name="RoundNumberLabel" type="Label" parent="." unique_id=2063562650]
@@ -1384,6 +1432,21 @@ text = "CONFIRM"
 
 [node name="FadeOutTimer" type="Timer" parent="." unique_id=1717163912]
 wait_time = 1.9
+
+[node name="BossBlackBars" type="Node2D" parent="." unique_id=174288001]
+visible = false
+
+[node name="bar1" type="ColorRect" parent="BossBlackBars" unique_id=567283961]
+offset_top = -112.0
+offset_right = 1280.0
+offset_bottom = -8.0
+color = Color(0, 0, 0, 1)
+
+[node name="bar2" type="ColorRect" parent="BossBlackBars" unique_id=429957125]
+offset_top = 728.0
+offset_right = 1280.0
+offset_bottom = 832.0
+color = Color(0, 0, 0, 1)
 
 [connection signal="timeout" from="SFXTimer" to="." method="_on_sfx_timer_timeout"]
 [connection signal="pressed" from="ConfirmButton" to="." method="_on_confirm_button_pressed"]

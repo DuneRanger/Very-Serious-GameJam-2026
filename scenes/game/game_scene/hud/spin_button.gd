@@ -1,5 +1,7 @@
 extends Node2D
 
+var once_showed = false
+
 func _ready() -> void:
 	GameManagerGlobal.signal_state_change.connect(check_state_validity)
 	GameManagerGlobal.signal_add_money.connect(check_bet_validity)
@@ -14,18 +16,35 @@ func check_state_validity() -> void:
 
 func check_bet_validity(_arg = 0) -> void:
 	print("Checking validity")
+			#je to tu trošičku přeskládaný aby ten button neresetoval animaci pokazdy kdyz dáš bet
 	for bet_idx in GameManagerGlobal.bets:
-		if GameManagerGlobal.bets[bet_idx] > 0:
-			$SpinButton.disabled = false
-			$SpinButton.text = "SPIN!"
-			$AnimationPlayer.play("activate_anim")
+		if GameManagerGlobal.bets[bet_idx] == 1:
+			if once_showed == false:
+				$SpinButton.disabled = false
+				$SpinButton.text = "SPIN!"
+				$AnimationPlayer.play("activate_anim")
+			#handlovani toho jak se ukazuje u boss fightu
+				if GameManagerGlobal.is_boss_round:
+					once_showed = true
+					visible = true
+					$Timer2.start()
+					show_self()
+			return
+		elif GameManagerGlobal.bets[bet_idx] != 0:
+			#$SpinButton.modulate.a = 1
 			return
 	$SpinButton.disabled = true
-	$AnimationPlayer.play("shaking")
-	$SpinButton.text = "Place\n a bet!"
+	if GameManagerGlobal.is_boss_round:
+		hide_self()
+		once_showed = false
+	else:
+		once_showed = false
+		$AnimationPlayer.play("shaking")
+		$SpinButton.text = "Place\n a bet!"
 
 func _on_button_down() -> void:
 	if GameManagerGlobal.spins_left > 0:
+		$Timer2.stop()
 		$SpinButton.disabled = true
 		SfxManager.play_SFX("res://assets/SFX/spin_start.ogg")
 		GameManagerGlobal.modify_game_state(GameEnums.game_states.SPIN_PHASE)
@@ -40,6 +59,7 @@ func _on_timer_timeout() -> void:
 	$AnimationPlayer.play("RESET")
 	
 	
+#pičoviny na callování animací
 func hide_self():
 	visible = false
 
@@ -48,3 +68,7 @@ func show_self():
 	
 func shake_anim():
 	$AnimationPlayer.play("shaking")
+
+func _on_timer_2_timeout() -> void:
+	$Timer2.stop()
+	$AnimationPlayer.play("activate_anim")
