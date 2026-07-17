@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cyc3c7bbs4ui3" path="res://scenes/game/game_scene/boost_bar/BoostSystem.tscn" id="6_4jb31"]
 [ext_resource type="PackedScene" uid="uid://cqwd5xducgdsl" path="res://scenes/game/game_scene/hud/game_scene_hud.tscn" id="9_4jb31"]
 [ext_resource type="Shader" uid="uid://d1sj22wa4oiic" path="res://assets/shaders/pixelate.gdshader" id="10_1xuq5"]
+[ext_resource type="PackedScene" uid="uid://bgny8ujkgie7m" path="res://scenes/game/game_scene/boss_fights/boss_manager.tscn" id="10_hdcdy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hdcdy"]
 shader = ExtResource("10_1xuq5")
@@ -71,5 +72,12 @@ offset_top = 382.0
 offset_right = 584.0
 offset_bottom = 622.0
 
+[node name="BossManager" parent="." unique_id=718459684 instance=ExtResource("10_hdcdy")]
+
 [node name="HUD" parent="." unique_id=1970834067 instance=ExtResource("9_4jb31")]
 layer = 200
+
+[node name="BossDefeatAnimTimer" type="Timer" parent="." unique_id=293993914]
+wait_time = 2.5
+
+[connection signal="timeout" from="BossDefeatAnimTimer" to="." method="_on_boss_defeat_anim_timer_timeout"]

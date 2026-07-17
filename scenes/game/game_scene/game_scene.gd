@@ -5,6 +5,7 @@ class_name GameScene
 
 
 func _ready() -> void:
+
 	GameManagerGlobal.signal_endless_mode.connect(start_next_round)
 	GameManagerGlobal.signal_win_exit.connect(next_round_no_anim)
 	GameManagerGlobal.signal_send_error_message.connect(_on_send_error_message)
@@ -46,6 +47,7 @@ func reset_rounds():
 
 func does_bet_win(bet_id : int) -> bool:
 	var bet_type : GameEnums.bet_types = $Table/BettingSystem.get_bet_type(bet_id)
+	
 	if bet_type == GameEnums.bet_types.NUMBER:
 		for cell : RouletteCell in GameManagerGlobal.caughtCells:
 			if cell.number == bet_id:
@@ -65,7 +67,7 @@ func does_bet_win(bet_id : int) -> bool:
 		for cell : RouletteCell in GameManagerGlobal.caughtCells:
 			if cell.number >= lower_bound && cell.number <= upper_bound:
 				return true
-				
+			
 	elif bet_id == (GameEnums.max_roulette_num + 6) || bet_id == (GameEnums.max_roulette_num + 7):
 		var mod_res = bet_id - (GameEnums.max_roulette_num + 6)
 		for cell : RouletteCell in GameManagerGlobal.caughtCells:
@@ -156,25 +158,46 @@ func _on_new_state():
 			if GameManagerGlobal.spins_left != GameManagerGlobal.spin_count:
 				GameManagerGlobal.add_money(money_won)
 			if GameManagerGlobal.money == 0:
+				if GameManagerGlobal.is_boss_round:
+					GameManagerGlobal.signal_boss_fight_lost.emit()
 				GameManagerGlobal.signal_death_screen.emit()
 			elif GameManagerGlobal.spins_left == 0:
 				if GameManagerGlobal.money < GameManagerGlobal.quota:
+					if GameManagerGlobal.is_boss_round:
+						GameManagerGlobal.signal_boss_fight_lost.emit()
 					GameManagerGlobal.signal_death_screen.emit()
 				else:
-					#check win
-					if GameManagerGlobal.round_count == 10:
-						$HUD/WinScreen.win_screen()
+					#check boss
+					if GameManagerGlobal.is_boss_round == true:
+						$BossManager.boss_defeat()
+						$HUD/spinButton.visible = false
+						#počká až dohraje boss defeat animace a pak checkne vítězství/pujde do dalšího kola
+						$BossDefeatAnimTimer.start()
 					else:
-						start_next_round()
+						#check win
+						#TODO smazat tuhle část až se přeponou výhry na 12tý kolo
+						#pak bude stačit jenom to checkování nahoře
+						if GameManagerGlobal.round_count == 10:
+							$HUD/WinScreen.win_screen()
+						else:
+							start_next_round()
+					
 		_:
 			pass
 
 func calculate_ruby_gain() -> int:
+
 	var boosts_left_gain = 2 * GameManagerGlobal.boosts_left
 	var times_hit_quota = GameManagerGlobal.money / GameManagerGlobal.quota
 	var hit_quota_gain = min(10, times_hit_quota - 1)
 	print("Basic gain: 3, boosts gain: ", boosts_left_gain, ", quota gain: ", hit_quota_gain)
 	var out = 3 + boosts_left_gain + hit_quota_gain
+	
+	#pass the numbers to the start round screen
+	$HUD/RoundStartAnimations.boosts_left_gain = boosts_left_gain
+	$HUD/RoundStartAnimations.times_hit_quota = times_hit_quota
+	$HUD/RoundStartAnimations.hit_quota_gain = hit_quota_gain
+	
 	return out
 
 func next_round_no_anim():
@@ -200,9 +223,14 @@ func start_next_round():
 		GameManagerGlobal.add_rubies(current_ruby_gain)
 	pick_quota_message()
 	calc_next_quota()
-	GameManagerGlobal.money = 100
+	#TODO change this back to 100
+	GameManagerGlobal.money = 1000
 	modify_money()
 	print("starting next round")
+	if GameManagerGlobal.round_count % 2 == 1:
+		pick_next_boss()
+	if GameManagerGlobal.round_count % 2 == 0:
+		GameManagerGlobal.is_boss_round = true
 	GameManagerGlobal.signal_round_start.emit()
 	$HUD/SpinSymbolContainer.refill_spins()
 	$HUD/BoostSymbolContainer.refill_boosts()
@@ -211,6 +239,8 @@ func start_next_round():
 	if GameManagerGlobal.round_count % 3 == 0:
 		GameManagerGlobal.signal_add_roulette_ball.emit()
 
+		
+
 func pick_quota_message():
 	var previous_quota_msg = GameManagerGlobal.current_quota_message
 	var new_quota_msg = GameManagerGlobal.quota_messages.pick_random()
@@ -218,6 +248,12 @@ func pick_quota_message():
 		GameManagerGlobal.current_quota_message = new_quota_msg
 	else:
 		pick_quota_message()
+
+func pick_next_boss():
+	$BossManager.pick_boss()
+	GameManagerGlobal.next_boss_name = $BossManager/Boss.boss_name
+	$HUD/RoundStartAnimations/NextBossMessage/BossMessage.text = "Next boss: " + GameManagerGlobal.next_boss_name
+	$HUD/RoundStartAnimations/NextBossMessage/BossDescription.text = $BossManager/Boss.description 
 
 func calc_next_quota():
 	var new_quota = float(GameEnums.base_quota_amount) * (1.5 ** (GameManagerGlobal.round_count ** 1.2))
@@ -228,3 +264,13 @@ func calc_next_quota():
 
 func _on_shop_button_down() -> void:
 	GameManagerGlobal.signal_switch_scene.emit(GameEnums.switching_scenes.SHOP_SCENE)
+
+
+func _on_boss_defeat_anim_timer_timeout() -> void:
+	$BossDefeatAnimTimer.stop()
+	$HUD/spinButton.show_self()
+	
+	if GameManagerGlobal.round_count == 10:
+		$HUD/WinScreen.win_screen()
+	else:
+		start_next_round()

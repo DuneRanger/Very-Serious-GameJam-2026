@@ -1,0 +1,567 @@
+[gd_scene format=3 uid="uid://cqwd5xducgdsl"]
+
+[ext_resource type="PackedScene" uid="uid://dcu31p6twmdit" path="res://scenes/game/utils/ErrorMessage.tscn" id="1_8fe00"]
+[ext_resource type="PackedScene" uid="uid://du0jy1pqq4be7" path="res://scenes/game/UI_elements/animated_sprites/rubies_and_money/rubies_and_money.tscn" id="2_4lu4x"]
+[ext_resource type="PackedScene" uid="uid://cxo23rckbhjbo" path="res://scenes/game/UI_elements/AwesomeLabel.tscn" id="2_qkhxd"]
+[ext_resource type="PackedScene" uid="uid://b8s6w1lbfa62g" path="res://scenes/game/UI_elements/animated_sprites/rubies_and_money/money_animated_sprite.tscn" id="3_0qbnv"]
+[ext_resource type="Script" uid="uid://yvvimemjf8nl" path="res://scenes/game/game_scene/hud/boost_symbol_container.gd" id="5_0qbnv"]
+[ext_resource type="PackedScene" uid="uid://djtfrov4iqbnm" path="res://scenes/game/UI_elements/animated_sprites/rubies_and_money/ruby_animated_sprite.tscn" id="5_3l4lp"]
+[ext_resource type="Script" uid="uid://co80ugwq1sply" path="res://scenes/game/game_scene/hud/spin_symbol_container.gd" id="6_3l4lp"]
+[ext_resource type="Texture2D" uid="uid://8mirpd64vb34" path="res://assets/textures/UI/buttons/shop_button/ShopButton1.png" id="7_f4el6"]
+[ext_resource type="Script" uid="uid://dotgt4vplgp3m" path="res://scenes/game/game_scene/hud/shop_button.gd" id="7_sbgnr"]
+[ext_resource type="PackedScene" uid="uid://5vg4c83ob4lc" path="res://scenes/game/UI_elements/menu_button.tscn" id="8_hwqol"]
+[ext_resource type="Texture2D" uid="uid://cspmm8d23xl02" path="res://assets/textures/UI/buttons/shop_button/ShopButtonClick.png" id="8_la7ma"]
+[ext_resource type="Texture2D" uid="uid://d3wtdve7esxcb" path="res://assets/textures/UI/buttons/shop_button/ShopButtonHover.png" id="9_vy1w6"]
+[ext_resource type="Script" uid="uid://ecrf73k4pky8" path="res://scenes/game/game_scene/hud/quota_label.gd" id="13_vy1w6"]
+[ext_resource type="PackedScene" uid="uid://bl2aavwi1826s" path="res://scenes/game/game_scene/hud/round_start_screen.tscn" id="14_o58sx"]
+[ext_resource type="FontFile" uid="uid://btfhjobeerona" path="res://assets/fonts/PixeloidSans.otf" id="15_c6has"]
+[ext_resource type="Texture2D" uid="uid://4cqxc3nkge28" path="res://assets/textures/UI/light_circle.png" id="15_nlk0o"]
+[ext_resource type="Texture2D" uid="uid://d1ydk111unfdr" path="res://assets/textures/UI/buttons/spin_button/spinButtonNormal.png" id="17_niiyn"]
+[ext_resource type="Texture2D" uid="uid://deatfdjnlmpyr" path="res://assets/textures/UI/buttons/spin_button/spinButtonPressed.png" id="18_thqaq"]
+[ext_resource type="Texture2D" uid="uid://soqgmjnshia6" path="res://assets/textures/UI/buttons/spin_button/spinButtonHover.png" id="19_hlngw"]
+[ext_resource type="Texture2D" uid="uid://cw4woinwf7xbd" path="res://assets/textures/UI/buttons/spin_button/spinButtonOff.png" id="20_o58sx"]
+[ext_resource type="Script" uid="uid://cibpkppa3lx3b" path="res://scenes/game/game_scene/hud/spin_button.gd" id="21_hlngw"]
+[ext_resource type="PackedScene" uid="uid://b6tmlqqi73e1i" path="res://scenes/game/death_screen/death_screen.tscn" id="22_o58sx"]
+[ext_resource type="PackedScene" uid="uid://2sadqrf23pit" path="res://scenes/game/game_scene/hud/increment_system.tscn" id="23_nlk0o"]
+[ext_resource type="PackedScene" uid="uid://dakfa4jxso1ip" path="res://scenes/game/win_screen/win_screen.tscn" id="24_4lu4x"]
+[ext_resource type="Script" uid="uid://c55r2vf2w71pv" path="res://scenes/game/game_scene/hud/round_num_label.gd" id="25_kom1q"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4sguu"]
+texture = ExtResource("7_f4el6")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c6has"]
+texture = ExtResource("8_la7ma")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ag5u3"]
+texture = ExtResource("9_vy1w6")
+
+[sub_resource type="Animation" id="Animation_ux3qy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(640, 672)]
+}
+
+[sub_resource type="Animation" id="Animation_4sj20"]
+resource_name = "wobbling"
+length = 8.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 6, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(640, 672), Vector2(640, 670), Vector2(640, 678), Vector2(640, 672)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gykqv"]
+_data = {
+&"RESET": SubResource("Animation_ux3qy"),
+&"wobbling": SubResource("Animation_4sj20")
+}
+
+[sub_resource type="Animation" id="Animation_vy1w6"]
+resource_name = "AppearAnimation"
+length = 8.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.3667, 2.866634),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_colors/font_outline_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.3666667, 2.8666668),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.3666667, 2.8666668),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_4sguu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_colors/font_outline_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c6has"]
+_data = {
+&"AppearAnimation": SubResource("Animation_vy1w6"),
+&"RESET": SubResource("Animation_4sguu")
+}
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vx0g1"]
+texture = ExtResource("17_niiyn")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nlk0o"]
+texture = ExtResource("18_thqaq")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nqfym"]
+texture = ExtResource("19_hlngw")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4lu4x"]
+texture = ExtResource("20_o58sx")
+
+[sub_resource type="Animation" id="Animation_4lu4x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("spinButton:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("spinButton:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("spinButton:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("spinButton:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(924, 360)]
+}
+
+[sub_resource type="Animation" id="Animation_kom1q"]
+resource_name = "activate_anim"
+length = 0.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("spinButton:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("spinButton:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(924, 360)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("spinButton:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_yxnto"]
+resource_name = "shaking"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("spinButton:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.033333335, 1, 1.05, 1.1, 1.15, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(924, 360), Vector2(924, 360), Vector2(922, 360), Vector2(924, 360), Vector2(926, 360), Vector2(924, 360)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("spinButton:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1, 1.05, 1.1, 1.15, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.017453292, 0.0, -0.017453292, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_o58sx"]
+resource_name = "show_button"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("spinButton:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("spinButton:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.61),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("spinButton")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"shake_anim"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_hgm0h"]
+resource_name = "use_spin"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("spinButton:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1.5157168, 1),
+"update": 0,
+"values": [0.0, 25.31600080017775]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("spinButton:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("spinButton:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.23333333, 0.88),
+"transitions": PackedFloat32Array(0.4204483, 1.8025018, 1),
+"update": 0,
+"values": [Vector2(924, 360), Vector2(924, 330.945), Vector2(924, 448.85)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hgm0h"]
+_data = {
+&"RESET": SubResource("Animation_4lu4x"),
+&"activate_anim": SubResource("Animation_kom1q"),
+&"shaking": SubResource("Animation_yxnto"),
+&"show_button": SubResource("Animation_o58sx"),
+&"use_spin": SubResource("Animation_hgm0h")
+}
+
+[node name="HUD" type="CanvasLayer" unique_id=1970834067]
+
+[node name="ErrorMessage" parent="." unique_id=371495968 instance=ExtResource("1_8fe00")]
+position = Vector2(640, 40)
+
+[node name="RubiesAndMoney" parent="." unique_id=1246229204 instance=ExtResource("2_4lu4x")]
+position = Vector2(97, 275)
+
+[node name="MoneyAnimatedSprite" parent="." unique_id=1016875789 instance=ExtResource("3_0qbnv")]
+visible = false
+position = Vector2(97, 275)
+
+[node name="CoinLabel" parent="." unique_id=1310137312 instance=ExtResource("2_qkhxd")]
+position = Vector2(129, 243)
+
+[node name="RubyAnimatedSprite" parent="." unique_id=701930484 instance=ExtResource("5_3l4lp")]
+visible = false
+position = Vector2(97, 339)
+
+[node name="RubyLabel" parent="." unique_id=1876496103 instance=ExtResource("2_qkhxd")]
+position = Vector2(129, 307)
+
+[node name="SpinSymbolContainer" type="HBoxContainer" parent="." unique_id=1562597846]
+offset_left = 64.0
+offset_top = 91.0
+offset_right = 64.0
+offset_bottom = 91.0
+alignment = 1
+script = ExtResource("6_3l4lp")
+
+[node name="RefillTimer" type="Timer" parent="SpinSymbolContainer" unique_id=1020727606]
+wait_time = 0.1
+
+[node name="BoostSymbolContainer" type="HBoxContainer" parent="." unique_id=367884083]
+offset_left = 64.0
+offset_top = 179.0
+offset_right = 64.0
+offset_bottom = 179.0
+alignment = 1
+script = ExtResource("5_0qbnv")
+metadata/_edit_use_anchors_ = true
+
+[node name="RefillTimer" type="Timer" parent="BoostSymbolContainer" unique_id=551682166]
+wait_time = 0.1
+
+[node name="ShopButtonNode" type="Node2D" parent="." unique_id=2093048482]
+position = Vector2(640, 672)
+
+[node name="ShopButton" type="Button" parent="ShopButtonNode" unique_id=1416432798]
+offset_left = -64.0
+offset_top = -36.0
+offset_right = 64.0
+offset_bottom = 28.0
+theme_override_styles/normal = SubResource("StyleBoxTexture_4sguu")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_c6has")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ag5u3")
+script = ExtResource("7_sbgnr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ShopButtonNode" unique_id=1168706748]
+root_node = NodePath("../ShopButton")
+libraries/ = SubResource("AnimationLibrary_gykqv")
+autoplay = &"wobbling"
+
+[node name="MenuButton" parent="." unique_id=1837179404 instance=ExtResource("8_hwqol")]
+
+[node name="QuotaLabel" type="RichTextLabel" parent="." unique_id=1480319198]
+modulate = Color(1, 1, 1, 0)
+offset_left = 96.0
+offset_top = 8.0
+offset_right = 1152.0
+offset_bottom = 64.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 2
+theme_override_fonts/normal_font = ExtResource("15_c6has")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "blablablalblab"
+horizontal_alignment = 1
+script = ExtResource("13_vy1w6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="QuotaLabel" unique_id=1465018532]
+libraries/ = SubResource("AnimationLibrary_c6has")
+
+[node name="Timer" type="Timer" parent="QuotaLabel" unique_id=666831744]
+wait_time = 3.0
+
+[node name="spinButton" type="Node2D" parent="." unique_id=1493063226]
+position = Vector2(924, 360)
+script = ExtResource("21_hlngw")
+
+[node name="Timer" type="Timer" parent="spinButton" unique_id=739194610]
+wait_time = 1.1
+
+[node name="Shadow" type="Sprite2D" parent="spinButton" unique_id=547743669]
+modulate = Color(0, 0, 0, 0.74509805)
+scale = Vector2(0.24, 0.24)
+texture = ExtResource("15_nlk0o")
+offset = Vector2(-9.46, 38.965)
+
+[node name="SpinButton" type="Button" parent="spinButton" unique_id=701434672]
+anchors_preset = -1
+anchor_left = 0.67200005
+anchor_top = 0.411
+anchor_right = 0.67200005
+anchor_bottom = 0.411
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_vertical = 2
+pivot_offset = Vector2(64, 64)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("15_c6has")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxTexture_vx0g1")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_nlk0o")
+theme_override_styles/hover = SubResource("StyleBoxTexture_nqfym")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_4lu4x")
+text = "SPIN!"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="spinButton" unique_id=1244317362]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_hgm0h")
+
+[node name="Timer2" type="Timer" parent="spinButton" unique_id=202650952]
+wait_time = 1.4
+
+[node name="DeathScreen" parent="." unique_id=1190848615 instance=ExtResource("22_o58sx")]
+
+[node name="IncrementSystem" parent="." unique_id=914404395 instance=ExtResource("23_nlk0o")]
+position = Vector2(240, 307)
+
+[node name="WinScreen" parent="." unique_id=2085544614 instance=ExtResource("24_4lu4x")]
+
+[node name="RoundStartAnimations" parent="." unique_id=1789023740 instance=ExtResource("14_o58sx")]
+
+[node name="RoundNumLabel" type="Label" parent="." unique_id=1046208211]
+offset_left = 592.0
+offset_top = 48.0
+offset_right = 696.0
+offset_bottom = 78.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("15_c6has")
+theme_override_font_sizes/font_size = 24
+text = "Round 6"
+horizontal_alignment = 1
+script = ExtResource("25_kom1q")
+
+[connection signal="timeout" from="SpinSymbolContainer/RefillTimer" to="SpinSymbolContainer" method="_on_refill_timer_timeout"]
+[connection signal="timeout" from="BoostSymbolContainer/RefillTimer" to="BoostSymbolContainer" method="_on_refill_timer_timeout"]
+[connection signal="button_down" from="ShopButtonNode/ShopButton" to="ShopButtonNode/ShopButton" method="_on_button_down"]
+[connection signal="timeout" from="QuotaLabel/Timer" to="QuotaLabel" method="_on_timer_timeout"]
+[connection signal="timeout" from="spinButton/Timer" to="spinButton" method="_on_timer_timeout"]
+[connection signal="button_down" from="spinButton/SpinButton" to="spinButton" method="_on_button_down"]
+[connection signal="timeout" from="spinButton/Timer2" to="spinButton" method="_on_timer_2_timeout"]

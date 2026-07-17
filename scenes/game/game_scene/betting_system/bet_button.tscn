@@ -61,6 +61,16 @@ text = "1234567890"
 shortcut_keys_enabled = false
 horizontal_alignment = 1
 
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1833493550]
+z_index = -1
+layout_mode = 0
+offset_left = -43.0
+offset_top = -30.0
+offset_right = 46.0
+offset_bottom = 40.0
+mouse_filter = 2
+color = Color(1, 1, 0, 1)
+
 [connection signal="button_down" from="." to="." method="_on_button_down"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

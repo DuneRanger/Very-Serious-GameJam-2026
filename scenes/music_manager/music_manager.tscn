@@ -3,6 +3,36 @@
 [ext_resource type="Script" uid="uid://ch7kgxuni6b0m" path="res://scenes/music_manager/music_manager.gd" id="1_5h37c"]
 [ext_resource type="AudioStream" uid="uid://i2y0ibf5lo8x" path="res://assets/music/RouletteGameThemeBegin.ogg" id="2_c2cj3"]
 
+[sub_resource type="Animation" id="Animation_5jk4l"]
+resource_name = "FadeOut2Animation"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2333333),
+"transitions": PackedFloat32Array(1, 0.5176324),
+"update": 0,
+"values": [0.0, -40.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.2333333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"stop"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_c2cj3"]
 resource_name = "FadeOutAnimation"
 length = 2.02
@@ -74,6 +104,7 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5jk4l"]
 _data = {
+&"FadeOut2Animation": SubResource("Animation_5jk4l"),
 &"FadeOutAnimation": SubResource("Animation_c2cj3"),
 &"RESET": SubResource("Animation_u8qda")
 }
@@ -95,6 +126,10 @@ wait_time = 2.0
 [node name="WinTimer" type="Timer" parent="AudioStreamPlayer" unique_id=1371284133]
 wait_time = 2.0
 
+[node name="BossTimer" type="Timer" parent="AudioStreamPlayer" unique_id=392126894]
+wait_time = 2.0
+
 [connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
 [connection signal="timeout" from="AudioStreamPlayer/DeathTimer" to="." method="_on_death_timer_timeout"]
 [connection signal="timeout" from="AudioStreamPlayer/WinTimer" to="." method="_on_win_timer_timeout"]
+[connection signal="timeout" from="AudioStreamPlayer/BossTimer" to="." method="_on_boss_timer_timeout"]
