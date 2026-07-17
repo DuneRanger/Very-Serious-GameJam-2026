@@ -1,6 +1,6 @@
 extends Node2D
 
-var once_showed = false
+var is_active = false
 
 func _ready() -> void:
 	GameManagerGlobal.signal_state_change.connect(check_state_validity)
@@ -18,27 +18,24 @@ func check_bet_validity(_arg = 0) -> void:
 	print("Checking validity")
 			#je to tu trošičku přeskládaný aby ten button neresetoval animaci pokazdy kdyz dáš bet
 	for bet_idx in GameManagerGlobal.bets:
-		if GameManagerGlobal.bets[bet_idx] == 1:
-			if once_showed == false:
+		if GameManagerGlobal.bets[bet_idx] > 0:
+			if is_active == false:
+				is_active = true
 				$SpinButton.disabled = false
 				$SpinButton.text = "SPIN!"
 				$AnimationPlayer.play("activate_anim")
 			#handlovani toho jak se ukazuje u boss fightu
 				if GameManagerGlobal.is_boss_round:
-					once_showed = true
 					visible = true
 					$Timer2.start()
 					show_self()
 			return
-		elif GameManagerGlobal.bets[bet_idx] != 0:
-			#$SpinButton.modulate.a = 1
-			return
 	$SpinButton.disabled = true
+	is_active = false
 	if GameManagerGlobal.is_boss_round:
 		hide_self()
-		once_showed = false
 	else:
-		once_showed = false
+		is_active = false
 		$AnimationPlayer.play("shaking")
 		$SpinButton.text = "Place\n a bet!"
 

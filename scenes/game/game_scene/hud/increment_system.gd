@@ -2,10 +2,14 @@ extends Node2D
 
 var max_button_normal : StyleBox
 var max_button_pressed : StyleBox
+var remove_toggle_normal : StyleBoxTexture
+var remove_toggle_hover : StyleBoxTexture
 
 func _ready() -> void:
 	max_button_normal = $MaxButton.get_theme_stylebox("normal")
 	max_button_pressed = $MaxButton.get_theme_stylebox("pressed")
+	remove_toggle_normal = $RemoveToggle.get_theme_stylebox("normal")
+	remove_toggle_hover = $RemoveToggle.get_theme_stylebox("hover")
 	GameManagerGlobal.signal_bet_is_adding_change.connect(_on_signal_bet_is_adding_change)
 	GameManagerGlobal.signal_bet_max_change.connect(_on_signal_bet_max_change)
 	GameManagerGlobal.signal_increment_change.connect(_on_signal_increment_change)
@@ -18,10 +22,16 @@ func _on_remove_toggle_button_down() -> void:
 func _on_signal_bet_is_adding_change() -> void:
 	if GameManagerGlobal.bet_is_adding:
 		print("The bet is adding")
-		$RemoveToggle.text = "+"
+		#$RemoveToggle.text = "+"
+		remove_toggle_normal.texture = load("res://assets/textures/UI/buttons/betting buttons/plus.png")
+		remove_toggle_hover.texture = load("res://assets/textures/UI/buttons/betting buttons/plus_hover.png")
+		
 	else:
 		print("The bet is not adding")
-		$RemoveToggle.text = "-"
+		#$RemoveToggle.text = "-"
+		remove_toggle_normal.texture = load("res://assets/textures/UI/buttons/betting buttons/minus.png")
+		remove_toggle_hover.texture = load("res://assets/textures/UI/buttons/betting buttons/minus_hover.png")
+		
 
 func _on_signal_increment_change() -> void:
 	$BetAmountLabel.text = "Bet amount:\n%d" %GameManagerGlobal.bet_increment

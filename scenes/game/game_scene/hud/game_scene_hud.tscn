@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://cqwd5xducgdsl"]
 
 [ext_resource type="PackedScene" uid="uid://dcu31p6twmdit" path="res://scenes/game/utils/ErrorMessage.tscn" id="1_8fe00"]
+[ext_resource type="PackedScene" uid="uid://du0jy1pqq4be7" path="res://scenes/game/UI_elements/animated_sprites/rubies_and_money/rubies_and_money.tscn" id="2_4lu4x"]
 [ext_resource type="PackedScene" uid="uid://cxo23rckbhjbo" path="res://scenes/game/UI_elements/AwesomeLabel.tscn" id="2_qkhxd"]
-[ext_resource type="PackedScene" uid="uid://b8s6w1lbfa62g" path="res://scenes/game/UI_elements/animated_sprites/money_animated_sprite.tscn" id="3_0qbnv"]
+[ext_resource type="PackedScene" uid="uid://b8s6w1lbfa62g" path="res://scenes/game/UI_elements/animated_sprites/rubies_and_money/money_animated_sprite.tscn" id="3_0qbnv"]
 [ext_resource type="Script" uid="uid://yvvimemjf8nl" path="res://scenes/game/game_scene/hud/boost_symbol_container.gd" id="5_0qbnv"]
-[ext_resource type="PackedScene" uid="uid://djtfrov4iqbnm" path="res://scenes/game/UI_elements/animated_sprites/ruby_animated_sprite.tscn" id="5_3l4lp"]
+[ext_resource type="PackedScene" uid="uid://djtfrov4iqbnm" path="res://scenes/game/UI_elements/animated_sprites/rubies_and_money/ruby_animated_sprite.tscn" id="5_3l4lp"]
 [ext_resource type="Script" uid="uid://co80ugwq1sply" path="res://scenes/game/game_scene/hud/spin_symbol_container.gd" id="6_3l4lp"]
 [ext_resource type="Texture2D" uid="uid://8mirpd64vb34" path="res://assets/textures/UI/buttons/shop_button/ShopButton1.png" id="7_f4el6"]
 [ext_resource type="Script" uid="uid://dotgt4vplgp3m" path="res://scenes/game/game_scene/hud/shop_button.gd" id="7_sbgnr"]
@@ -359,13 +360,18 @@ _data = {
 [node name="ErrorMessage" parent="." unique_id=371495968 instance=ExtResource("1_8fe00")]
 position = Vector2(640, 40)
 
+[node name="RubiesAndMoney" parent="." unique_id=1246229204 instance=ExtResource("2_4lu4x")]
+position = Vector2(97, 275)
+
 [node name="MoneyAnimatedSprite" parent="." unique_id=1016875789 instance=ExtResource("3_0qbnv")]
+visible = false
 position = Vector2(97, 275)
 
 [node name="CoinLabel" parent="." unique_id=1310137312 instance=ExtResource("2_qkhxd")]
 position = Vector2(129, 243)
 
 [node name="RubyAnimatedSprite" parent="." unique_id=701930484 instance=ExtResource("5_3l4lp")]
+visible = false
 position = Vector2(97, 339)
 
 [node name="RubyLabel" parent="." unique_id=1876496103 instance=ExtResource("2_qkhxd")]

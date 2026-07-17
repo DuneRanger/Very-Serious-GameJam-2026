@@ -1,0 +1,220 @@
+[gd_scene format=3 uid="uid://du0jy1pqq4be7"]
+
+[ext_resource type="Script" uid="uid://dplsq7xiv4rxd" path="res://scenes/game/UI_elements/animated_sprites/rubies_and_money/ruby_and_money_anim.gd" id="1_ivdo3"]
+[ext_resource type="Texture2D" uid="uid://bn08ytmdst6va" path="res://assets/textures/symbols/money_sprite_sheet.png" id="2_ivdo3"]
+[ext_resource type="Texture2D" uid="uid://c2fpuufjt8cmc" path="res://assets/textures/symbols/ruby_sprite_sheet.png" id="3_kplb0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hais7"]
+atlas = ExtResource("2_ivdo3")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i55xx"]
+atlas = ExtResource("2_ivdo3")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0f5o8"]
+atlas = ExtResource("2_ivdo3")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ndaw0"]
+atlas = ExtResource("2_ivdo3")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c6cd6"]
+atlas = ExtResource("2_ivdo3")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t42mr"]
+atlas = ExtResource("2_ivdo3")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xsmfr"]
+atlas = ExtResource("2_ivdo3")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dl1jo"]
+atlas = ExtResource("2_ivdo3")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fbpt2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hais7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i55xx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0f5o8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ndaw0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c6cd6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t42mr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xsmfr")
+}, {
+"duration": 20.0,
+"texture": SubResource("AtlasTexture_dl1jo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xsmfr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t42mr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c6cd6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ndaw0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0f5o8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i55xx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hais7")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8d56"]
+atlas = ExtResource("3_kplb0")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fcr3i"]
+atlas = ExtResource("3_kplb0")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uq0jx"]
+atlas = ExtResource("3_kplb0")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26ida"]
+atlas = ExtResource("3_kplb0")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4xyog"]
+atlas = ExtResource("3_kplb0")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0y1xe"]
+atlas = ExtResource("3_kplb0")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_37e2c"]
+atlas = ExtResource("3_kplb0")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b8xlr"]
+atlas = ExtResource("3_kplb0")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2c4s"]
+atlas = ExtResource("3_kplb0")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q1uqv"]
+atlas = ExtResource("3_kplb0")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_corto"]
+atlas = ExtResource("3_kplb0")
+region = Rect2(160, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vpe8o"]
+atlas = ExtResource("3_kplb0")
+region = Rect2(176, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e12w3"]
+atlas = ExtResource("3_kplb0")
+region = Rect2(192, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_va6jm"]
+atlas = ExtResource("3_kplb0")
+region = Rect2(208, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lx5nv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8d56")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fcr3i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uq0jx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_26ida")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4xyog")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0y1xe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_37e2c")
+}, {
+"duration": 20.0,
+"texture": SubResource("AtlasTexture_b8xlr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f2c4s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q1uqv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_corto")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vpe8o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e12w3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_va6jm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8d56")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="RubiesAndMoney" type="Node2D" unique_id=1246229204]
+script = ExtResource("1_ivdo3")
+
+[node name="Money" type="AnimatedSprite2D" parent="." unique_id=835652779]
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_fbpt2")
+
+[node name="Rubies" type="AnimatedSprite2D" parent="." unique_id=1309559496]
+position = Vector2(0, 64)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_lx5nv")
+
+[node name="TimerM" type="Timer" parent="." unique_id=1238995554]
+
+[node name="TimerR" type="Timer" parent="." unique_id=1378755574]
+
+[connection signal="animation_finished" from="Money" to="." method="_on_money_animation_finished"]
+[connection signal="animation_finished" from="Rubies" to="." method="_on_rubies_animation_finished"]
+[connection signal="timeout" from="TimerM" to="." method="_on_timer_m_timeout"]
+[connection signal="timeout" from="TimerR" to="." method="_on_timer_r_timeout"]
