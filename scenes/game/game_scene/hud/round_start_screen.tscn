@@ -4,6 +4,9 @@
 [ext_resource type="FontFile" uid="uid://d0mkojug0pvql" path="res://assets/fonts/PixeloidSans-Bold.otf" id="2_g5qsn"]
 [ext_resource type="FontFile" uid="uid://btfhjobeerona" path="res://assets/fonts/PixeloidSans.otf" id="3_4bo2x"]
 [ext_resource type="Texture2D" uid="uid://bn08ytmdst6va" path="res://assets/textures/symbols/money_sprite_sheet.png" id="4_f3set"]
+[ext_resource type="Texture2D" uid="uid://cvc70jnauhlmx" path="res://assets/textures/UI/buttons/button_basic/Button.png" id="5_f3set"]
+[ext_resource type="Texture2D" uid="uid://bfew31gwarq5w" path="res://assets/textures/UI/buttons/button_basic/ButtonPressed.png" id="6_da7ra"]
+[ext_resource type="Texture2D" uid="uid://wt3wpr6fyrj5" path="res://assets/textures/UI/buttons/button_basic/ButtonHover.png" id="7_hefa8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_niiyn"]
 atlas = ExtResource("4_f3set")
@@ -1242,6 +1245,15 @@ _data = {
 &"get_rekt": SubResource("Animation_4bo2x")
 }
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1yn61"]
+texture = ExtResource("5_f3set")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l218v"]
+texture = ExtResource("6_da7ra")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5u481"]
+texture = ExtResource("7_hefa8")
+
 [node name="RoundStartAnimations" type="Node2D" unique_id=1789023740]
 script = ExtResource("1_jsxk5")
 
@@ -1424,10 +1436,23 @@ libraries/ = SubResource("AnimationLibrary_niiyn")
 [node name="ConfirmButton" type="Button" parent="." unique_id=1069039451]
 visible = false
 z_index = 11
-offset_left = 537.0
-offset_top = 586.0
-offset_right = 737.0
-offset_bottom = 658.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 574.0
+offset_top = 588.0
+offset_right = 702.0
+offset_bottom = 652.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 32)
+theme_override_fonts/font = ExtResource("2_g5qsn")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxTexture_1yn61")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_l218v")
+theme_override_styles/hover = SubResource("StyleBoxTexture_5u481")
 text = "CONFIRM"
 
 [node name="FadeOutTimer" type="Timer" parent="." unique_id=1717163912]

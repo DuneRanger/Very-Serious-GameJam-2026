@@ -116,10 +116,11 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_vnmbe")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_siinx")
 
 [node name="MaxButton" type="Button" parent="." unique_id=199012580]
-offset_left = 64.0
-offset_top = 8.0
-offset_right = 112.0
-offset_bottom = 56.0
+offset_left = 60.999996
+offset_top = 6.0
+offset_right = 109.0
+offset_bottom = 54.0
+scale = Vector2(1.14, 1.14)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)

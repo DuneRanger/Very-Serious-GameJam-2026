@@ -3,7 +3,7 @@ extends Node2D
 
 var all_bosses : Array[String] = [
 	#Placeholder bosses
-	#"res://scenes/game/game_scene/boss_fights/bosses/boss1.gd",
+	"res://scenes/game/game_scene/boss_fights/bosses/boss1.gd",
 	"res://scenes/game/game_scene/boss_fights/bosses/boss2.gd",
 	"res://scenes/game/game_scene/boss_fights/bosses/boss_trollcat.gd"
 	
@@ -17,13 +17,13 @@ func _ready() -> void:
 	GameManagerGlobal.signal_game_start.connect(new_game)
 	GameManagerGlobal.signal_boss_hide.connect(hide_boss)
 
-func boss_start():
+func boss_start(): ##Starts a boss round and spawns the boss
 	GameManagerGlobal.is_boss_round = true
 	$Boss.activate()
 	$AnimationPlayer.play("boss_spawn")
 	pass
 
-func boss_defeat():
+func boss_defeat(): ##Ends a boss round, plays boss defeat anim, returns game to normal
 	$BossDefeatTimer.start()
 	MusicManager.boss_defeat()
 	SfxManager.play_SFX_pitched("res://assets/SFX/boss_defeat.mp3")
@@ -32,16 +32,15 @@ func boss_defeat():
 	GameManagerGlobal.is_boss_round = false
 	GameManagerGlobal.signal_boss_fight_defeat.emit()
 
-func pick_boss():
+func pick_boss(): ##picks a random boss and adds the boss script to the Boss object
 	$Boss.set_script(load(all_bosses.pick_random()))
-	$Boss.assign_name_and_sprite()
-	
+	$Boss.assign_properties()
 	
 func emit_signal_show_spin_button():
 	GameManagerGlobal.signal_show_spin_button.emit()
 
 
-func boss_laugh():
+func boss_laugh(): ##plays boss laughing anim
 	$Boss/BossSprite.texture = $Boss.boss_sprite_laugh
 	$LaughTimer.start()
 	

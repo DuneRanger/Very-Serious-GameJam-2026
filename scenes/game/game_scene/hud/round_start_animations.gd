@@ -41,6 +41,8 @@ func _on_sfx_timer_timeout() -> void:
 
 
 func _on_confirm_button_pressed() -> void:
+	GameManagerGlobal.signal_round_start_confirm.emit()
+	SfxManager.play_SFX_pitched("res://assets/SFX/button_pressed.ogg")
 	if GameManagerGlobal.is_boss_round:
 		GameManagerGlobal.signal_hide_spin_button.emit()
 		MusicManager.play_boss()

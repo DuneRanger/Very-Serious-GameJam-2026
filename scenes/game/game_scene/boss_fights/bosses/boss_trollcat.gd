@@ -1,6 +1,6 @@
 class_name Boss_Trollcat extends Boss
 
-func assign_name_and_sprite() -> void:
+func assign_properties() -> void:
 	boss_name = "Trollcat"
 	boss_sprite_idle = load("res://assets/textures/bosses/Trollcat/boss_trollcat_idle.png")
 	boss_sprite_laugh = load("res://assets/textures/bosses/Trollcat/boss_trollcat_laugh.png")
