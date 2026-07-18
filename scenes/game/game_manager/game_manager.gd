@@ -93,12 +93,16 @@ signal signal_boss_hide
 signal signal_hide_spin_button
 signal signal_show_spin_button
 
+signal signal_change_music_type
+signal signal_boss_music_toggle
+
 var round_shop_reroll_count : int
 
 var shop_max_spin_change : bool
 var shop_left_spin_change : bool
 var shop_max_boost_change : bool
 var shop_left_boost_change : bool
+
 
 # index 0 - 24 = numbers 0 - 24
 # [25] = "1 to 8", [26] = "9 to 16", [27] = "17 to 24"

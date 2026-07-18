@@ -14,7 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://dh6e7tefqyxys" path="res://assets/textures/UI/buttons/refresh_button/refresh_button_normal.png" id="10_xtto7"]
 [ext_resource type="Texture2D" uid="uid://bbm2frgrwk7qx" path="res://assets/textures/UI/buttons/refresh_button/refresh_button_hover.png" id="11_8s6tu"]
 
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hw0d7"]
 texture = ExtResource("5_cfwce")
 
