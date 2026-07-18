@@ -93,12 +93,16 @@ signal signal_boss_hide
 signal signal_hide_spin_button
 signal signal_show_spin_button
 
+signal signal_change_music_type
+signal signal_boss_music_toggle
+
 var round_shop_reroll_count : int
 
 var shop_max_spin_change : bool
 var shop_left_spin_change : bool
 var shop_max_boost_change : bool
 var shop_left_boost_change : bool
+
 
 # index 0 - 24 = numbers 0 - 24
 # [25] = "1 to 8", [26] = "9 to 16", [27] = "17 to 24"
@@ -145,7 +149,7 @@ func game_start():
 	signal_game_start.emit()
 
 
-signal signal_round_start ##Emits the exact moment a the player moves on to a new round
+signal signal_round_start ##Emits the exact moment the player moves on to a new round
 signal signal_round_start_confirm ##Emits when the player presses the confirm button at the start of round
 
 const base_cell_weight : float = 1.0
@@ -158,7 +162,7 @@ var quota_messages : Array[String] = [
 	"rent",
 	"a Catflix subscription",
 	"cancelling your Pawdobe subscription", 
-	"paying your debt to the mafia", #this is the max amount of characters thet looks good
+	"paying your debt to the mafia",
 	"taxes",
 	"paying fines for bad parking",
 	"car repairs",

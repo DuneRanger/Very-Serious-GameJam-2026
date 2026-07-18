@@ -1,6 +1,7 @@
 extends Node2D
 
 var is_active = false
+var first_spin_of_round
 
 func _ready() -> void:
 	GameManagerGlobal.signal_state_change.connect(check_state_validity)
@@ -8,6 +9,7 @@ func _ready() -> void:
 	GameManagerGlobal.signal_modify_money.connect(check_bet_validity)
 	GameManagerGlobal.signal_hide_spin_button.connect(hide_self)
 	GameManagerGlobal.signal_show_spin_button.connect(show_self)
+	GameManagerGlobal.signal_round_start.connect(set_first_spin)
 	pass
 
 func check_state_validity() -> void:
@@ -41,6 +43,9 @@ func check_bet_validity(_arg = 0) -> void:
 
 func _on_button_down() -> void:
 	if GameManagerGlobal.spins_left > 0:
+		if first_spin_of_round == true:
+			GameManagerGlobal.signal_change_music_type.emit()
+			first_spin_of_round = false
 		$Timer2.stop()
 		$SpinButton.disabled = true
 		SfxManager.play_SFX("res://assets/SFX/spin_start.ogg")
@@ -55,6 +60,9 @@ func _on_timer_timeout() -> void:
 	$SpinButton.disabled = true
 	$AnimationPlayer.play("RESET")
 	
+	
+func set_first_spin():
+	first_spin_of_round = true
 	
 #pičoviny na callování animací
 func hide_self():

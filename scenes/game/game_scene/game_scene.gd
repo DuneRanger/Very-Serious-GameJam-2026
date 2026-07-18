@@ -10,13 +10,16 @@ func _ready() -> void:
 	GameManagerGlobal.signal_win_exit.connect(next_round_no_anim)
 	GameManagerGlobal.signal_send_error_message.connect(_on_send_error_message)
 	GameManagerGlobal.signal_state_change.connect(_on_new_state)
+	GameManagerGlobal.signal_round_start.connect(test_round_start_signal_emitted)
 	
 	GameManagerGlobal.signal_modify_money.connect(modify_money)
 	GameManagerGlobal.signal_modify_rubies.connect(modify_rubies)
 	GameManagerGlobal.signal_add_money.connect(add_money)
 	GameManagerGlobal.signal_add_rubies.connect(add_rubies)
 	
-	reset_rounds()
+	#TODO tohleto při new game dělalo že se start_next_round() callovala dvakrát
+	#je to odkomentovany protože na prvni pohledd mi to tu přijde zbytečny a vypadá to že se nic nerozbilo
+	#reset_rounds()
 
 func reset_rounds():
 	GameManagerGlobal.round_count = 0
@@ -217,6 +220,7 @@ func next_round_no_anim():
 		GameManagerGlobal.signal_add_roulette_ball.emit()
 
 func start_next_round():
+	print("starting next round")
 	GameManagerGlobal.round_count += 1
 	if GameManagerGlobal.round_count > 1:
 		var current_ruby_gain = calculate_ruby_gain()
@@ -226,7 +230,6 @@ func start_next_round():
 	#TODO change this back to 100
 	GameManagerGlobal.money = 1000
 	modify_money()
-	print("starting next round")
 	if GameManagerGlobal.round_count % 2 == 1:
 		pick_next_boss()
 	if GameManagerGlobal.round_count % 2 == 0:
@@ -274,3 +277,8 @@ func _on_boss_defeat_anim_timer_timeout() -> void:
 		$HUD/WinScreen.win_screen()
 	else:
 		start_next_round()
+		
+
+#TODO někde nějak se na začátku hry se emittuje dvakrát signal_round_start a pěkně mě to sere
+func test_round_start_signal_emitted():
+	print("round start signal emitted")

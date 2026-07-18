@@ -277,6 +277,7 @@ texture = ExtResource("2_gnxg2")
 [node name="BoostSprite" type="Sprite2D" parent="." unique_id=346437250]
 position = Vector2(20, 20)
 texture = ExtResource("2_vkio7")
+offset = Vector2(1, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=111266369]
 libraries/ = SubResource("AnimationLibrary_bk4lj")

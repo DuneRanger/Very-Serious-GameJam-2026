@@ -19,6 +19,7 @@ func _ready() -> void:
 
 func boss_start(): ##Starts a boss round and spawns the boss
 	GameManagerGlobal.is_boss_round = true
+	GameManagerGlobal.signal_boss_music_toggle.emit()
 	$Boss.activate()
 	$AnimationPlayer.play("boss_spawn")
 	pass
@@ -31,6 +32,7 @@ func boss_defeat(): ##Ends a boss round, plays boss defeat anim, returns game to
 	$AnimationPlayer.play("boss_defeat")
 	GameManagerGlobal.is_boss_round = false
 	GameManagerGlobal.signal_boss_fight_defeat.emit()
+	GameManagerGlobal.signal_boss_music_toggle.emit()
 
 func pick_boss(): ##picks a random boss and adds the boss script to the Boss object
 	$Boss.set_script(load(all_bosses.pick_random()))

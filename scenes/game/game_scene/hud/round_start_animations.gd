@@ -14,8 +14,16 @@ func _on_round_start():
 	$AnimationPlayer.play("RoundStart")
 	if GameManagerGlobal.round_count == 1 :
 		$RubiesGainedMessage.visible = false
+		$NextBossMessage.visible = false
+		$RoundNumberLabel.position.y = 288
+		$QuotaMessageLabel.position.y = 338
+		$Control.position.y = 250
 	else:
 		$RubiesGainedMessage.visible = true
+		$NextBossMessage.visible = true
+		$RoundNumberLabel.position.y = 182
+		$QuotaMessageLabel.position.y = 232
+		$Control.position.y = 144.0
 		$RubiesGainedMessage/RubiesGained.text = "[color=#d13030]Rubies gained: +" + str(3 + boosts_left_gain + hit_quota_gain) + "[/color]"
 		$RubiesGainedMessage/ForExisting.text = "[color=#d13030]-[/color] for existing: [color=#d13030]+3[/color]"
 		$RubiesGainedMessage/ForBoostsLeft.text = "[color=#d13030]-[/color] for " + str(boosts_left_gain/2) + " boosts left: [color=#d13030]+" + str(boosts_left_gain) + "[/color]"

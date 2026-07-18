@@ -607,9 +607,9 @@ position = Vector2(240, 307)
 [node name="RoundStartAnimations" parent="." unique_id=1789023740 instance=ExtResource("14_o58sx")]
 
 [node name="RoundNumLabel" type="Label" parent="." unique_id=1046208211]
-offset_top = 48.0
+offset_top = 52.0
 offset_right = 1280.0
-offset_bottom = 78.0
+offset_bottom = 82.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("25_hgm0h")

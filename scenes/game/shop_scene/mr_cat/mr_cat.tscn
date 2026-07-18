@@ -113,20 +113,20 @@ script = ExtResource("1_pepnq")
 position = Vector2(-160, 340)
 
 [node name="MrCatTailSprite" type="AnimatedSprite2D" parent="MrCatControlNode" unique_id=2056402007]
-position = Vector2(160, -360)
-scale = Vector2(4, 4.2)
+position = Vector2(215, -360)
+scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_a45xc")
 
 [node name="MrCatSprite" type="AnimatedSprite2D" parent="MrCatControlNode" unique_id=1704421451]
-position = Vector2(160, -360)
-scale = Vector2(4, 4.2)
+position = Vector2(215, -360)
+scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_6wf7b")
 animation = &"sunglasses"
 
 [node name="MrCatArm" type="Sprite2D" parent="MrCatControlNode" unique_id=2022596284]
 z_index = 1
-position = Vector2(160, -360)
-scale = Vector2(4, 4.2)
+position = Vector2(215, -360)
+scale = Vector2(4, 4)
 texture = ExtResource("11_esym3")
 
 [node name="BobbingAnimator" type="AnimationPlayer" parent="MrCatControlNode" unique_id=1464474444]
@@ -141,8 +141,6 @@ offset_left = -160.0
 offset_top = 180.0
 offset_right = 160.0
 offset_bottom = 360.0
-grow_horizontal = 2
-grow_vertical = 0
 scale = Vector2(4, 3.930022)
 pivot_offset = Vector2(160, 180)
 
