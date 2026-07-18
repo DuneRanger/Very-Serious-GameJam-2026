@@ -18,12 +18,16 @@ func _ready() -> void:
 	GameManagerGlobal.signal_change_music_type.connect(change_theme_type)
 	GameManagerGlobal.signal_boss_music_toggle.connect(boss_music_toggle)
 	GameManagerGlobal.signal_boss_fight_lost.connect(boss_music_toggle)
+	GameManagerGlobal.signal_round_start.connect(change_theme_calmer)
 	play_from_beginning()
 
 func play_from_beginning() -> void:
+	print("music_from_beginning")
 	play_original = true
-	audio_animation.play("RESET")
+	boss_music = false
 	stop_state = false
+	audio_animation.play("RESET")
+	
 	preload_audio_1 = load("res://assets/music/theme_normal_looped.ogg")
 	preload_audio_2 = load("res://assets/music/theme_calmer_looped.ogg")
 	stream.set_sync_stream(0, load("res://assets/music/theme_normal_begin.ogg"))
@@ -86,23 +90,37 @@ func _on_boss_timer_timeout() -> void:
 
 
 func change_theme_type():
+	print("music_changing_theme_type")
 	if boss_music == false:
+		match play_original:
+				true:
+					change_theme_calmer()
+				false:
+					change_theme_original()
+		print("music_temp = " + str(temp))
+		print("music_play_original = " + str(play_original))
+	
+
+func change_theme_calmer():
+	print("music_changing_to_calmer")
+	get_transition_start_pos()
+	play_original = false
+	audio_animation.play("change_music_1")
+	audio_animation.seek(4 - temp)
+	
+func change_theme_original():
+	
+	get_transition_start_pos()
+	audio_animation.play("change_music_2")
+	audio_animation.seek(4 - temp)
+	play_original = true
+	
+func get_transition_start_pos():
 		if audio_animation.is_playing():
 			temp = audio_animation.current_animation_position
 		else:
 			temp = 4
-		match play_original:
-				true:
-					play_original = false
-					audio_animation.play("change_music_1")
-					audio_animation.seek(4 - temp)
-				false:
-					audio_animation.play("change_music_2")
-					audio_animation.seek(4 - temp)
-					play_original = true
-		print("music_temp = " + str(temp))
-		print("music_play_original = " + str(play_original))
-	
+
 func boss_music_toggle():
 	match boss_music:
 		true:

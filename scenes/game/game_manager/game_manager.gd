@@ -149,7 +149,7 @@ func game_start():
 	signal_game_start.emit()
 
 
-signal signal_round_start ##Emits the exact moment a the player moves on to a new round
+signal signal_round_start ##Emits the exact moment the player moves on to a new round
 signal signal_round_start_confirm ##Emits when the player presses the confirm button at the start of round
 
 const base_cell_weight : float = 1.0
@@ -162,7 +162,7 @@ var quota_messages : Array[String] = [
 	"rent",
 	"a Catflix subscription",
 	"cancelling your Pawdobe subscription", 
-	"paying your debt to the mafia", #this is the max amount of characters thet looks good
+	"paying your debt to the mafia",
 	"taxes",
 	"paying fines for bad parking",
 	"car repairs",

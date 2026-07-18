@@ -10,13 +10,20 @@ func _ready() -> void:
 
 
 func _on_round_start():
-	GameManagerGlobal.signal_change_music_type.emit()
 	$SFXTimer.start()
 	$AnimationPlayer.play("RoundStart")
 	if GameManagerGlobal.round_count == 1 :
 		$RubiesGainedMessage.visible = false
+		$NextBossMessage.visible = false
+		$RoundNumberLabel.position.y = 288
+		$QuotaMessageLabel.position.y = 338
+		$Control.position.y = 250
 	else:
 		$RubiesGainedMessage.visible = true
+		$NextBossMessage.visible = true
+		$RoundNumberLabel.position.y = 182
+		$QuotaMessageLabel.position.y = 232
+		$Control.position.y = 144.0
 		$RubiesGainedMessage/RubiesGained.text = "[color=#d13030]Rubies gained: +" + str(3 + boosts_left_gain + hit_quota_gain) + "[/color]"
 		$RubiesGainedMessage/ForExisting.text = "[color=#d13030]-[/color] for existing: [color=#d13030]+3[/color]"
 		$RubiesGainedMessage/ForBoostsLeft.text = "[color=#d13030]-[/color] for " + str(boosts_left_gain/2) + " boosts left: [color=#d13030]+" + str(boosts_left_gain) + "[/color]"
@@ -43,7 +50,6 @@ func _on_sfx_timer_timeout() -> void:
 
 func _on_confirm_button_pressed() -> void:
 	GameManagerGlobal.signal_round_start_confirm.emit()
-	GameManagerGlobal.signal_change_music_type.emit()
 	SfxManager.play_SFX_pitched("res://assets/SFX/button_pressed.ogg")
 	if GameManagerGlobal.is_boss_round:
 		GameManagerGlobal.signal_hide_spin_button.emit()
